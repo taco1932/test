@@ -20,9 +20,9 @@
     "IsTestingExclusive": "False",
     "DownloadCount": 9001,
     "LastUpdate": 1618608322,
-    "DownloadLinkInstall": "https://github.com/taco1932/test/releases/download/v1.9.1.6-alpha/VFXEditor.zip",
-    "DownloadLinkUpdate": "https://github.com/taco1932/test/releases/download/v1.9.1.6-alpha/VFXEditor.zip",
-    "DownloadLinkTesting": "https://github.com/taco1932/test/releases/download/v1.9.1.6-alpha/VFXEditor.zip",
+    "DownloadLinkInstall": "https://github.com/taco1932/test/releases/download/v1.9.1.6/VFXEditor.zip",
+    "DownloadLinkUpdate": "https://github.com/taco1932/test/releases/download/v1.9.1.6/VFXEditor.zip",
+    "DownloadLinkTesting": "https://github.com/taco1932/test/releases/download/v1.9.1.6/VFXEditor.zip",
     "IconUrl": "https://raw.githubusercontent.com/taco1932/test/refs/heads/main/assets/icon.png"
   }
 ]
