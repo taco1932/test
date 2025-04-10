@@ -2,12 +2,12 @@
     <PropertyGroup>
         <TargetFramework>net9.0-windows</TargetFramework>
         <LangVersion>preview</LangVersion>
-        <AssemblyTitle>VFXEditor</AssemblyTitle>
+        <AssemblyTitle>VFXAlpha</AssemblyTitle>
         <Company></Company>
-        <Product>VFXEditor</Product>
+        <Product>VFXAlpha</Product>
         <Copyright>Copyright © 2025</Copyright>
-        <FileVersion>1.9.1.5</FileVersion>
-        <AssemblyVersion>1.9.1.5</AssemblyVersion>
+        <FileVersion>1.9.1.6</FileVersion>
+        <AssemblyVersion>1.9.1.6</AssemblyVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -20,7 +20,7 @@
 
     <PropertyGroup Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))'">
         <DalamudLibPath>$(HOME)\.xlcore\dalamud\Hooks\dev\</DalamudLibPath>
-        <RootNamespace>VfxEditor</RootNamespace>
+        <RootNamespace>VfxBeta</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

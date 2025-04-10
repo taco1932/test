@@ -18,11 +18,11 @@
     "DalamudApiLevel": 12,
     "IsHide": "False",
     "IsTestingExclusive": "False",
-    "DownloadCount": 1,
+    "DownloadCount": 9001,
     "LastUpdate": 1618608322,
-    "DownloadLinkInstall": "https://github.com/0ceal0t/Dalamud-VFXEditor/releases/download/1.9.1.4/VFXEditor-Beta.zip",
-    "DownloadLinkUpdate": "https://github.com/0ceal0t/Dalamud-VFXEditor/releases/download/1.9.1.4/VFXEditor-Beta.zip",
-    "DownloadLinkTesting": "https://github.com/0ceal0t/Dalamud-VFXEditor/releases/download/1.9.1.4/VFXEditor-Beta.zip",
-    "IconUrl": "https://raw.githubusercontent.com/taco1932/test/refs/tags/v1.9.1.6-alpha/assets/icon.png?token=GHSAT0AAAAAAC4KYQASYJ2ON6IBHSI6QKDGZ7YFOWA"
+    "DownloadLinkInstall": "https://github.com/taco1932/test/releases/download/v1.9.1.6-alpha/VFXEditor.zip",
+    "DownloadLinkUpdate": "https://github.com/taco1932/test/releases/download/v1.9.1.6-alpha/VFXEditor.zip",
+    "DownloadLinkTesting": "https://github.com/taco1932/test/releases/download/v1.9.1.6-alpha/VFXEditor.zip",
+    "IconUrl": "https://raw.githubusercontent.com/taco1932/test/refs/heads/main/assets/icon.png"
   }
 ]
