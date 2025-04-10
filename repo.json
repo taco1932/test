@@ -13,7 +13,7 @@
     "InternalName": "VFXAlpha",
     "AssemblyVersion": "1.9.1.6",
     "TestingAssemblyVersion": "1.9.1.6",
-    "RepoUrl": "https://github.com/0ceal0t/Dalamud-VFXEditor",
+    "RepoUrl": "https://github.com/taco1932/test",
     "ApplicableVersion": "any",
     "DalamudApiLevel": 12,
     "IsHide": "False",
@@ -23,6 +23,6 @@
     "DownloadLinkInstall": "https://github.com/0ceal0t/Dalamud-VFXEditor/releases/download/1.9.1.4/VFXEditor-Beta.zip",
     "DownloadLinkUpdate": "https://github.com/0ceal0t/Dalamud-VFXEditor/releases/download/1.9.1.4/VFXEditor-Beta.zip",
     "DownloadLinkTesting": "https://github.com/0ceal0t/Dalamud-VFXEditor/releases/download/1.9.1.4/VFXEditor-Beta.zip",
-    "IconUrl": ""
+    "IconUrl": "https://raw.githubusercontent.com/taco1932/test/refs/tags/v1.9.1.6-alpha/assets/icon.png?token=GHSAT0AAAAAAC4KYQASYJ2ON6IBHSI6QKDGZ7YFOWA"
   }
 ]
