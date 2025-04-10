@@ -2,9 +2,9 @@
     <PropertyGroup>
         <TargetFramework>net9.0-windows</TargetFramework>
         <LangVersion>preview</LangVersion>
-        <AssemblyTitle>VFXAlpha</AssemblyTitle>
+        <AssemblyTitle>VFXEditor</AssemblyTitle>
         <Company></Company>
-        <Product>VFXAlpha</Product>
+        <Product>VFXEditor</Product>
         <Copyright>Copyright © 2025</Copyright>
         <FileVersion>1.9.1.6</FileVersion>
         <AssemblyVersion>1.9.1.6</AssemblyVersion>

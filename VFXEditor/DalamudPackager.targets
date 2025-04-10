@@ -13,11 +13,11 @@
     </Target>
 
     <Target Name="PackageBeta" AfterTargets="Cleanup" Condition="'$(Configuration)' == 'Beta'">
-        <Copy SourceFiles="$(ProjectDir)\VFXEditor.json" DestinationFiles="$(TargetDir)\VFXEditor.json.json"/>
+        <Copy SourceFiles="$(ProjectDir)\VFXEditor.json" DestinationFiles="$(TargetDir)\VFXEditor.json"/>
         <JsonPoke JsonInputPath="$(TargetDir)\VFXEditor.json" JValue="[ALPHA] VFXEditor" JPath="Name"></JsonPoke>
         <JsonPoke JsonInputPath="$(TargetDir)\VFXEditor.json" JValue="VFXEditor Beta Build" JPath="Punchline"></JsonPoke>
         <JsonPoke JsonInputPath="$(TargetDir)\VFXEditor.json" JValue="VFXEditor" JPath="InternalName"></JsonPoke>
         
-        <Move SourceFiles="$(TargetDir)\VFXEditor.dll" DestinationFiles="$(TargetDir)\VFXEditor.json.dll"/>
+        <Move SourceFiles="$(TargetDir)\VFXEditor.dll" DestinationFiles="$(TargetDir)\VFXEditor.dll"/>
     </Target>
 </Project>
