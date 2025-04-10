@@ -4,11 +4,20 @@ namespace VfxEditor.Structs.Animation {
     public enum CharacterModes : byte {
         None = 0,
         Normal = 1,
+        Dead = 2,
         EmoteLoop = 3,
         Mounted = 4,
+        Crafting = 5,
+        Gathering = 6,
+        MateriaAttach = 7,
         AnimLock = 8,
         Carrying = 9,
+        RidingPillion = 10,
         InPositionLoop = 11,
+        RaceChocobo =12,
+        TripleTriad = 13,
+        Lovm = 14, //Lord of Verminion
+        //15 does not exist
         Performance = 16,
     }
 
@@ -29,9 +38,9 @@ namespace VfxEditor.Structs.Animation {
 
     [StructLayout( LayoutKind.Explicit )]
     public unsafe struct ActorMemoryStruct {
-        [FieldOffset( 0x09C0 )] public AnimationMemory Animation;
-        [FieldOffset( 0x22DC )] public byte CharacterMode;
-        [FieldOffset( 0x22DD )] public byte CharacterModeInput;
+        [FieldOffset( 0x09B0 )] public AnimationMemory Animation;
+        [FieldOffset( 0x22CC )] public byte CharacterMode;
+        [FieldOffset( 0x22CD )] public byte CharacterModeInput;
 
         public readonly bool CanAnimate => ( CharacterModes )CharacterMode == CharacterModes.Normal || ( CharacterModes )CharacterMode == CharacterModes.AnimLock;
         public readonly bool IsAnimationOverride => ( CharacterModes )CharacterMode == CharacterModes.AnimLock;
@@ -44,7 +53,7 @@ namespace VfxEditor.Structs.Animation {
         [FieldOffset( 0x0E0 )] public fixed ushort AnimationIds[13];
         [FieldOffset( 0x154 )] public fixed float Speeds[13];
         [FieldOffset( 0x1E2 )] public byte SpeedTrigger;
-        [FieldOffset( 0x2D4 )] public ushort BaseOverride;
-        [FieldOffset( 0x2D6 )] public ushort LipsOverride;
+        [FieldOffset( 0x2D6 )] public ushort BaseOverride;
+        [FieldOffset( 0x2D8 )] public ushort LipsOverride;
     }
 }

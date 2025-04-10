@@ -6,17 +6,16 @@ using VfxEditor.Utils;
 namespace VfxEditor.TmbFormat.Entries {
     public class C192 : TmbEntry {
         public const string MAGIC = "C192";
-        public const string DISPLAY_NAME = "Voiceline";
+        public const string DISPLAY_NAME = "NPC Call?";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
-        public override DangerLevel Danger => DangerLevel.Yellow;
 
         public override int Size => 0x38;
         public override int ExtraSize => 0;
 
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
+        private readonly ParsedBool Enabled = new( "Enabled" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt VoicelineNumber = new( "Voiceline Number" );
+        private readonly ParsedInt NPCID = new( "NPC ID?" );
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
         private readonly ParsedInt Unk6 = new( "Unknown 6" );
@@ -31,9 +30,9 @@ namespace VfxEditor.TmbFormat.Entries {
         public C192( TmbFile file, TmbReader reader ) : base( file, reader ) { }
 
         protected override List<ParsedBase> GetParsed() => [
-            Unk1,
+            Enabled,
             Unk2,
-            VoicelineNumber,
+            NPCID,
             Unk4,
             Unk5,
             Unk6,

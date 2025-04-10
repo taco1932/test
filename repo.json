@@ -1,21 +1,21 @@
 [
   {
-    "Author": "ocealot",
-    "Name": "[BETA] VFXEditor",
-    "Punchline": "VFXEditor Beta Builds",
-    "Description": "VFX, animation, and sound editing plugin. Icon by PAPACHIN",
+    "Author": "taco (via ocealot)",
+    "Name": "VFXEditor - Degen Version",
+    "Punchline": "Hi.",
+    "Description": "Everything-including-the-kitchen-sink plugin with extra scales.",
     "Tags": [
       "VFX",
       "AVFX",
       "Animation",
       "Sound"
     ],
-    "InternalName": "VFXEditor-Beta",
-    "AssemblyVersion": "1.9.1.4",
-    "TestingAssemblyVersion": "1.9.1.4",
+    "InternalName": "VFXAlpha",
+    "AssemblyVersion": "1.9.1.6",
+    "TestingAssemblyVersion": "1.9.1.6",
     "RepoUrl": "https://github.com/0ceal0t/Dalamud-VFXEditor",
     "ApplicableVersion": "any",
-    "DalamudApiLevel": 11,
+    "DalamudApiLevel": 12,
     "IsHide": "False",
     "IsTestingExclusive": "False",
     "DownloadCount": 1,
@@ -23,6 +23,6 @@
     "DownloadLinkInstall": "https://github.com/0ceal0t/Dalamud-VFXEditor/releases/download/1.9.1.4/VFXEditor-Beta.zip",
     "DownloadLinkUpdate": "https://github.com/0ceal0t/Dalamud-VFXEditor/releases/download/1.9.1.4/VFXEditor-Beta.zip",
     "DownloadLinkTesting": "https://github.com/0ceal0t/Dalamud-VFXEditor/releases/download/1.9.1.4/VFXEditor-Beta.zip",
-    "IconUrl": "https://raw.githubusercontent.com/0ceal0t/Dalamud-VFXEditor/main/assets/icon.png"
+    "IconUrl": ""
   }
 ]

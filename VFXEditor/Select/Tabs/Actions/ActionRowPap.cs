@@ -33,7 +33,7 @@ namespace VfxEditor.Select.Tabs.Actions {
         // chara/human/c0101/animation/a0001/bt_common/rol_common/rol021.pap
         // chara/human/c0101/animation/a0001/bt_common/resident/action.pap
         // chara/human/c0101/animation/a0001/bt_common/limitbreak/lbk_dancer_start.pap
-        // timline -> loadType = 1 (not in action.pap)
+        // timeline -> loadType = 1 (not in action.pap)
 
         private static string ToPap( ActionTimeline? timeline ) {
             if( timeline == null ) return "";

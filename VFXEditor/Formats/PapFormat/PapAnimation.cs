@@ -33,6 +33,7 @@ namespace VfxEditor.PapFormat {
             "cbew",
             "cbbw",
             "f",
+            "b",
             "cbnw",
             "cbnp",
             "cfxl",

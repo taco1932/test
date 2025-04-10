@@ -37,7 +37,7 @@ namespace VfxEditor.FileManager {
         public ManagerConfiguration GetConfig() => Configuration;
 
         public void ShowSource() => SourceSelect?.Show();
-
+        public void RefreshSource( SelectResult source ) => SourceSelect.Invoke( new SelectResult( source.Type, source.Name, source.DisplayString, source.Path ) );
         public void ShowReplace() => ReplaceSelect?.Show();
 
         public abstract void SetSource( SelectResult result );

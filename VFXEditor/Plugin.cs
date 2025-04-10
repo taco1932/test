@@ -15,6 +15,7 @@ using VfxEditor.Formats.AtchFormat;
 using VfxEditor.Formats.KdbFormat;
 using VfxEditor.Formats.MdlFormat;
 using VfxEditor.Formats.MtrlFormat;
+using VfxEditor.Formats.SgbFormat;
 using VfxEditor.Formats.PbdFormat;
 using VfxEditor.Formats.ShcdFormat;
 using VfxEditor.Formats.ShpkFormat;
@@ -59,6 +60,7 @@ namespace VfxEditor {
             UldManager,
             PhybManager,
             PapManager,
+            SgbManager,
             AtchManager,
             SkpManager,
             ShpkManager,
@@ -75,6 +77,7 @@ namespace VfxEditor {
         public static PapManager PapManager { get; private set; }
         public static ScdManager ScdManager { get; private set; }
         public static EidManager EidManager { get; private set; }
+        public static SgbManager SgbManager { get; private set; }
         public static UldManager UldManager { get; private set; }
         public static PhybManager PhybManager { get; private set; }
         public static SklbManager SklbManager { get; private set; }
@@ -119,6 +122,7 @@ namespace VfxEditor {
             TmbManager = new();
             AvfxManager = new();
             PapManager = new();
+            SgbManager = new();
             ScdManager = new();
             EidManager = new();
             UldManager = new();
@@ -128,7 +132,7 @@ namespace VfxEditor {
             SkpManager = new();
             ShpkManager = new();
             ShcdManager = new();
-            MtrlManager = new();
+            //MtrlManager = new();
             MdlManager = new();
             KdbManager = new();
             PbdManager = new();

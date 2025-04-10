@@ -33,7 +33,7 @@ namespace VfxEditor.PapFormat {
 
         protected override void DrawBody() {
             ImGui.SetCursorPosY( ImGui.GetCursorPosY() + 5 );
-            DrawAnimationWarning();
+            //DrawAnimationWarning(); -- commented out since PAP files lack TMFC data
             base.DrawBody();
         }
     }

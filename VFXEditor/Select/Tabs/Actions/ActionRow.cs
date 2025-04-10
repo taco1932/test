@@ -45,8 +45,8 @@ namespace VfxEditor.Select.Tabs.Actions {
 
         public uint GetIconId() => Icon;
 
-        public static string ToTmbPath( string key ) => ( string.IsNullOrEmpty( key ) || key.Contains( "[SKL_ID]" ) ) ? string.Empty : $"chara/action/{key}.tmb";
-
+        //public static string ToTmbPath( string key ) => ( string.IsNullOrEmpty( key ) || key.Contains( "[SKL_ID]" ) ) ? string.Empty : $"chara/action/{key}.tmb";
+        public static string ToTmbPath( string key ) => string.IsNullOrEmpty( key ) ? string.Empty : $"chara/action/{key}.tmb";
         public static string ToVfxPath( string key ) => string.IsNullOrEmpty( key ) ? string.Empty : $"vfx/common/eff/{key}.avfx";
     }
 }

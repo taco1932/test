@@ -10,7 +10,7 @@ namespace VfxEditor.TmbFormat.Tmfcs {
         public readonly TmbFile File;
 
         public readonly ParsedUInt Unk1 = new( "Unknown 1" );
-        public readonly ParsedUInt Unk2 = new( "Unknown 2", size: 1 );
+        public readonly ParsedUInt Unk2 = new( "Type?", size: 1 );
         public readonly ParsedUInt Unk3 = new( "Unknown 3", size: 1 );
         public readonly ParsedUInt Unk4 = new( "Unknown 4", size: 1 );
         public readonly ParsedUInt Unk5 = new( "Unknown 5", size: 1 );

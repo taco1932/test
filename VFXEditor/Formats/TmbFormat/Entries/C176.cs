@@ -6,7 +6,7 @@ using VfxEditor.Utils;
 namespace VfxEditor.TmbFormat.Entries {
     public class C176 : TmbEntry {
         public const string MAGIC = "C176";
-        public const string DISPLAY_NAME = "";
+        public const string DISPLAY_NAME = "Camera-Based Position Change";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
         public override DangerLevel Danger => DangerLevel.Detectable;
@@ -16,8 +16,10 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt Duration = new( "Duration" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt TmfcId = new( "F-Curve Id" );
-        private readonly ParsedInt Unk4 = new( "Unknown 4" );
+        private readonly ParsedInt TmfcId = new( "F-Curve ID" );
+        private readonly ParsedByte Unk4 = new( "Unknown 4" );
+        private readonly ParsedByte Unk425 = new( "Unknown 4.25" );
+        private readonly ParsedShort Unk45 = new( "Unknown 4.5");
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
         private readonly ParsedInt Unk6 = new( "Unknown 6" );
         private readonly ParsedInt Unk7 = new( "Unknown 7" );

@@ -199,6 +199,10 @@ namespace VfxEditor.Utils {
             } );
         }
 
+        public static void WriteBytesSilent( string filter, byte[] data, string filePath ) {
+            File.WriteAllBytes( filePath, data );
+        }
+
         public static void OpenUrl( string url ) => Process.Start( new ProcessStartInfo {
             FileName = url,
             UseShellExecute = true

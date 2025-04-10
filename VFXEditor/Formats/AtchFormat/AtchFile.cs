@@ -24,6 +24,7 @@ namespace VfxEditor.Formats.AtchFormat {
             { "2gn", "Gun" },
             { "2km", "Scythe" },
             { "2kt", "Katana" },
+            // { "2kz", "" }, // new
             { "2rp", "Rapier" },
             { "2sp", "Spear" },
             { "2st", "Greatstaff" },
@@ -39,13 +40,17 @@ namespace VfxEditor.Formats.AtchFormat {
             { "alt", "Leatherworker" },
             { "ase", "Weaver" },
             // { "atr", "" },
-            // { "avt", "" },
+            { "avt", "[Reaper avatar?]" }, // Reaper avatar?
             { "awo", "Carpenter" },
             { "bag", "Machinist Bag" },
+            { "bl2", "Viper Off-Hand" },
+            { "bld", "Viper Main Hand" },
+            { "bll", "Viper Two-Hand (Merged)" },
+            { "brs", "Pictomancer Brush" },
             { "chk", "Chakram" },
-            // { "clb", "" },
+            // { "clb", "" }, // DNE
             { "clg", "Glove" },
-            // { "cls", "" }, // Linked to axes
+            { "cls", "[axe-related]" }, // Linked to axes
             { "clw", "Claw" },
             // { "col", "" },
             // { "cor", "" },
@@ -60,13 +65,16 @@ namespace VfxEditor.Formats.AtchFormat {
             { "ebz", "Reaper Shroud" },
             // { "egp", "" },
             // { "elg", "" },
+            // { "fcb", "" }, // new
             // { "fch", "" },
             // { "fdr", "" },
             { "fha", "Fisher" },
             // { "fl2", "Harp" },
+            // { "flc", "" }, // new
             { "flt", "Flute" },
             { "frg", "Ninja Frog" },
             { "fry", "Leatherworker/Culinarian" },
+            // { "fsb", "" }, // new
             { "fsh", "Fisher" },
             { "fsw", "Fist Weapons" },
             // { "fud", "" },
@@ -77,7 +85,7 @@ namespace VfxEditor.Formats.AtchFormat {
             // { "gdt", "" },
             // { "gdw", "" },
             { "gsl", "Machinist Deployable" },
-            // { "gsr", "" }, // Diadem cannon?
+            { "gsr", "[Diadem cannon?]" }, // Diadem cannon?
             // { "gun", "" },
             // { "hel", "" },
             { "hmm", "Blacksmith/Armorer" },
@@ -87,43 +95,57 @@ namespace VfxEditor.Formats.AtchFormat {
             // { "let", "" },
             // { "lpr", "" }, // Linked to 1923
             { "mlt", "Goldsmith" },
+            // { "mmc", "" }, // new
             { "mrb", "Alchemist" },
             { "mrh", "Alchemist" },
             { "msg", "Machinist Shotgun" },
             { "mwp", "Machinist Cannon" },
             { "ndl", "Weaver" },
-            // { "nik", "" }, // Linked to Nier pod, maybe Nikana or something
+            { "nik", "[Nier pod?]" }, // Linked to Nier pod, maybe Nikana or something
+            // { "njd", "" }, // new
             { "nph", "Botanist" },
             { "orb", "Red Mage Focus" },
             // { "oum", "" },
-            // { "pen", "" }, // Linked to daggers
+            { "pen", "[dagger-related]" }, // Linked to daggers
             { "pic", "Miner" },
+            { "plt", "Pictomancer Palette" },
             // { "pra", "" },
+            // { "prc", "" }, // new
             { "prf", "Leatherworker" },
             { "qvr", "Quiver" },
             // { "rap", "" },
             { "rbt", "Ninja Rabbit" },
+            // { "rec", "" }, // new
             { "rod", "Blue Mage Rod" },
             // { "rop", "" },
+            // { "rp1", "" }, // new
             { "saw", "Carpenter" },
+            // { "sbt", "" }, // new
             // { "sht", "" },
             { "sic", "Fisher" },
             { "sld", "Shield" },
             { "stf", "Staff" },
             { "stv", "Culinarian" },
             { "swd", "Sword" },
+            // { "sxs", "" }, // new
+            // { "sxw", "" }, // new
             { "syl", "Machinist Sniper" },
             // { "syr", "" },
             // { "syu", "" },
+            // { "syw", "" }, // new
             // { "tan", "" },
             { "tbl", "Goldsmith" },
             // { "tcs", "" },
             { "tgn", "Goldsmith" },
             { "tmb", "Weaver" },
-            // { "trm", "" }, // Linked to flute
+            // { "tms", "" }, // new
+            { "trm", "[flute-related]" }, // Linked to flute
             // { "trr", "" },
-            // { "trw", "" }, // Linked to greatswords
+            { "trw", "[greatsword-related]" }, // Linked to greatswords (edit: throw?)
+            // { "tsl", "" }, // new
+            // { "uni", "" }, // new
             // { "vln", "" },
+            // { "wdm", "" }, // new
             { "whl", "Weaver" },
             // { "wng", "" },
             // { "ypd", "" },
@@ -187,7 +209,7 @@ namespace VfxEditor.Formats.AtchFormat {
         }
 
         public override void Draw() {
-            DrawCurrentWeapons();
+            //DrawCurrentWeapons();
 
             ImGui.Separator();
 

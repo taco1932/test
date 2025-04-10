@@ -14,10 +14,10 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt Duration = new( "Duration" );
         private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedShort WeaponId = new( "Weapon Id" );
-        private readonly ParsedShort BodyId = new( "Body Id" );
-        private readonly ParsedInt VariantId = new( "Variant Id" );
+        private readonly ParsedInt Unk2 = new( "Type" );
+        private readonly ParsedShort WeaponId = new( "Weapon ID" );
+        private readonly ParsedShort BodyId = new( "Body ID" );
+        private readonly ParsedInt VariantId = new( "Variant ID" );
 
         public C043( TmbFile file ) : base( file ) { }
 

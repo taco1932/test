@@ -22,6 +22,7 @@ namespace VfxEditor.Select.Tabs.BgmQuest {
         public override void LoadData() {
             //var sheet = Dalamud.DataManager.GetExcelSheet<BGMSwitch>().Where( x => x.Quest.RowId > 0 );
             //foreach( var item in sheet ) Items.Add( new BgmQuestRow( item ) );
+            return;
         }
 
         public override void LoadSelection( BgmQuestRow item, out SelectedBgmQuest loaded ) {
@@ -37,7 +38,7 @@ namespace VfxEditor.Select.Tabs.BgmQuest {
         }
 
         public static BgmSituationStruct GetBgmSituation( uint bgmId ) {
-            if( bgmId < 1000 ) {
+            if( bgmId < 1000 || bgmId > 20000 ) {
                 return new BgmSituationStruct {
                     Path = Dalamud.DataManager.GetExcelSheet<BGM>().GetRow( bgmId ).File.ToString(),
                     IsSituation = false

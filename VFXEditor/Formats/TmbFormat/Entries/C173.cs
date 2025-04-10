@@ -5,6 +5,21 @@ using VfxEditor.Spawn;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
+
+    public enum BindUser {
+        Disabled = -1,
+        Default = 0,
+        Caster = 1,
+        Target = 2,
+    }
+    public enum BindType {
+        Disabled = -1,
+        Character = 0,
+        Weapon = 1,
+        Offhand = 2,
+        Summon_or_Lemure = 3,
+    }
+
     public class C173 : TmbEntry {
         public const string MAGIC = "C173";
         public const string DISPLAY_NAME = "VFX";
@@ -14,8 +29,8 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int Size => 0x44;
         public override int ExtraSize => 0;
 
-        private readonly ParsedInt Unk1 = new( "Unknown 1", value: 1 );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt Enabled = new( "Enabled/Loop Status", value: 1 );
+        private readonly ParsedInt Unk1 = new( "Unknown 1" );
         private readonly TmbOffsetString Path = new( "Path", [
             new() {
                 Icon = () => VfxSpawn.IsActive ? FontAwesomeIcon.Times : FontAwesomeIcon.Eye,
@@ -26,9 +41,12 @@ namespace VfxEditor.TmbFormat.Entries {
                 }
             }
         ], false );
-        private readonly ParsedShort BindPoint1 = new( "Bind Point 1", value: 1 );
-        private readonly ParsedShort BindPoint2 = new( "Bind Point 2", value: 0xFF );
-        private readonly ParsedInt Unk3 = new( "Unknown 3" );
+        //private readonly ParsedShort BindPoint1 = new( "Bind Point 1" );
+        private readonly ParsedEnum<BindUser> BindPoint1 = new( "Bind Point 1", size: 1 );
+        private readonly ParsedEnum<BindType> BindPoint1Type = new( "Bind Point 1 Type", size: 1 );
+        //private readonly ParsedInt Unk2 = new( "Unknown 2", size: 2 );
+        private readonly ParsedShort BindPoint2 = new( "Bind Point 2" );
+        private readonly ParsedInt Visibility = new( "Visibility" ); 
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
         private readonly ParsedInt Unk6 = new( "Unknown 6" );
@@ -44,12 +62,14 @@ namespace VfxEditor.TmbFormat.Entries {
         public C173( TmbFile file, TmbReader reader ) : base( file, reader ) { }
 
         protected override List<ParsedBase> GetParsed() => [
+            Enabled,
             Unk1,
-            Unk2,
             Path,
             BindPoint1,
+            BindPoint1Type,
+            //Unk2,
             BindPoint2,
-            Unk3,
+            Visibility,
             Unk4,
             Unk5,
             Unk6,

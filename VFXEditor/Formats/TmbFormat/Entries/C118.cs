@@ -14,7 +14,10 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt TransitionTime = new( "Transition Time", value: 1 );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt Unk3 = new( "Unknown 3", value: 100 );
+        private readonly ParsedByte Unk3a = new( "Unknown 3a" );
+        private readonly ParsedByte Unk3b = new( "Unknown 3b" );
+        private readonly ParsedByte Unk3c = new( "Unknown 3c" );
+        private readonly ParsedByte Unk3d = new( "Unknown 3d" );
 
         public C118( TmbFile file ) : base( file ) { }
 
@@ -23,7 +26,10 @@ namespace VfxEditor.TmbFormat.Entries {
         protected override List<ParsedBase> GetParsed() => [
             TransitionTime,
             Unk2,
-            Unk3
+            Unk3a,
+            Unk3b,
+            Unk3c,
+            Unk3d
         ];
     }
 }

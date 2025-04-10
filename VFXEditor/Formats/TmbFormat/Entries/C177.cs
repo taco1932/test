@@ -6,7 +6,7 @@ using VfxEditor.Utils;
 namespace VfxEditor.TmbFormat.Entries {
     public class C177 : TmbEntry {
         public const string MAGIC = "C177";
-        public const string DISPLAY_NAME = "";
+        public const string DISPLAY_NAME = "Forced Backwards Movement";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
         public override DangerLevel Danger => DangerLevel.Detectable;
@@ -16,7 +16,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt Duration = new( "Duration" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt TmfcId = new( "F-Curve Id" );
+        private readonly ParsedInt TmfcId = new( "F-Curve ID" );
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
         private readonly ParsedInt Unk6 = new( "Unknown 6" );

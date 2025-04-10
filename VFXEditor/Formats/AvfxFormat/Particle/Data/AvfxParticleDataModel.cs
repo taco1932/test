@@ -1,3 +1,4 @@
+using VFXEditor.Formats.AvfxFormat.Curve;
 using static VfxEditor.AvfxFormat.Enums;
 
 namespace VfxEditor.AvfxFormat {
@@ -8,12 +9,12 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxEnum<FresnelType> FresnelType = new( "Fresnel Type", "FrsT" );
         public readonly AvfxEnum<DirectionalLightType> DirectionalLightType = new( "Directional Light Type", "DLT" );
         public readonly AvfxEnum<PointLightType> PointLightType = new( "Point Light Type", "PLT" );
-        public readonly AvfxBool IsLightning = new( "Is Lightning", "bLgt" );
+        public readonly AvfxBool IsLighting = new( "Is Lighting", "bLgt" );
         public readonly AvfxBool IsMorph = new( "Is Morph", "bShp" );
         public AvfxIntList ModelIdx = new( "Model Index", "MdNo", value: -1 );
-        public readonly AvfxCurve AnimationNumber = new( "Animation Number", "NoAn" );
-        public readonly AvfxCurve Morph = new( "Morph", "Moph" );
-        public readonly AvfxCurve FresnelCurve = new( "Fresnel Curve", "FrC" );
+        public readonly AvfxCurve1Axis AnimationNumber = new( "Animation Number", "NoAn" );
+        public readonly AvfxCurve1Axis Morph = new( "Morph", "Moph" );
+        public readonly AvfxCurve1Axis FresnelCurve = new( "Fresnel Curve", "FrC" );
         public readonly AvfxCurve3Axis FresnelRotation = new( "Fresnel Rotation", "FrRt", CurveType.Angle );
         public readonly AvfxCurveColor ColorBegin = new( name: "Color Begin", "ColB" );
         public readonly AvfxCurveColor ColorEnd = new( name: "Color End", "ColE" );
@@ -28,7 +29,7 @@ namespace VfxEditor.AvfxFormat {
                 FresnelType,
                 DirectionalLightType,
                 PointLightType,
-                IsLightning,
+                IsLighting,
                 IsMorph,
                 ModelIdx,
                 AnimationNumber,
@@ -46,7 +47,7 @@ namespace VfxEditor.AvfxFormat {
             ParameterTab.Add( FresnelType );
             ParameterTab.Add( DirectionalLightType );
             ParameterTab.Add( PointLightType );
-            ParameterTab.Add( IsLightning );
+            ParameterTab.Add( IsLighting );
             ParameterTab.Add( IsMorph );
 
             Tabs.Add( Morph );

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using VfxEditor.FileManager.Interfaces;
+using VfxEditor.Formats.SgbFormat;
 using VfxEditor.Ui.Components;
 using VfxEditor.Ui.Export;
 using VfxEditor.Utils;
@@ -102,6 +103,7 @@ namespace VfxEditor {
                 new IFileManager[]{
                     TmbManager,
                     PapManager,
+                    SgbManager,
                 },
                 new IFileManager[]{
                     ScdManager
@@ -120,7 +122,7 @@ namespace VfxEditor {
                 },
                 new IFileManager[]{
                     MdlManager,
-                    MtrlManager,
+                    //MtrlManager,
                     ShpkManager,
                     ShcdManager
                 }

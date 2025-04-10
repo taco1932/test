@@ -33,6 +33,7 @@ namespace VfxEditor.ScdFormat.Sound.Data {
 
         public void Draw() {
             Version.Draw();
+            Reserve1.Draw(); //test
             Volume.Draw();
             UpTime.Draw();
             DownTime.Draw();
@@ -73,6 +74,7 @@ namespace VfxEditor.ScdFormat.Sound.Data {
 
             Version.Draw();
             NumAcceleration.Draw();
+            Reserve1.Draw(); //test
 
             ImGui.SetCursorPosY( ImGui.GetCursorPosY() + 3 );
 

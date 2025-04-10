@@ -9,14 +9,14 @@ namespace VfxEditor.TmbFormat.Entries {
         public const string DISPLAY_NAME = "";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
-        public override DangerLevel Danger => DangerLevel.Red;
+        public override DangerLevel Danger => DangerLevel.Yellow;
 
         public override int Size => 0x18;
         public override int ExtraSize => 0;
 
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt Unk3 = new( "Unknown 3" );
+        private readonly ParsedInt Unk1 = new( "Enabled" );
+        private readonly ParsedInt Unk2 = new( "ID?" );
+        private readonly ParsedInt Unk3 = new( "Target Type?" );
 
         public C083( TmbFile file ) : base( file ) { }
 

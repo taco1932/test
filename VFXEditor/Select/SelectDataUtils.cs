@@ -10,6 +10,7 @@ namespace VfxEditor.Select {
         public static string NpcFilesPath => Path.Combine( Plugin.RootLocation, "Files", "npc_files.json" );
         public static string CommonVfxPath => Path.Combine( Plugin.RootLocation, "Files", "common_vfx" );
         public static string CommonTmbPath => Path.Combine( Plugin.RootLocation, "Files", "common_tmb" );
+        public static string ExtraTmbPath => Path.Combine( Plugin.RootLocation, "Files", "extraskills_tmb" );
         public static string CommonUldPath => Path.Combine( Plugin.RootLocation, "Files", "common_uld" );
         public static string CommonShpkPath => Path.Combine( Plugin.RootLocation, "Files", "common_shpk" );
         public static string CommonShcdPath => Path.Combine( Plugin.RootLocation, "Files", "common_shcd" );
@@ -22,6 +23,10 @@ namespace VfxEditor.Select {
         [GeneratedRegex( "\\u0000([a-zA-Z0-9\\/_]*?)\\.scd", RegexOptions.Compiled )]
         private static partial Regex ScdRegexPattern();
         public static readonly Regex ScdRegex = ScdRegexPattern();
+
+        [GeneratedRegex( "\\u0000([a-zA-Z0-9\\/_]*?)\\.sgb", RegexOptions.Compiled )]
+        private static partial Regex SgbRegexPattern();
+        public static readonly Regex SgbRegex = SgbRegexPattern();
 
         // https://github.com/imchillin/CMTool/blob/master/ConceptMatrix/Views/SpecialControl.xaml.cs#L365
 

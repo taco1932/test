@@ -17,7 +17,8 @@ namespace VfxEditor.Select.Formats {
                 new ActionTabTmbNonPlayer( this, "Non-Player Action" ),
                 new EmoteTabTmb( this, "Emote" ),
                 new NpcTabTmb( this, "Npc" ),
-                new CommonTabTmb( this, "Common" )
+                new CommonTabTmb( this, "Common" ),
+                new ExtraSkillsTmb( this, "Loops + Misc. Unused" )
             ] );
         }
 

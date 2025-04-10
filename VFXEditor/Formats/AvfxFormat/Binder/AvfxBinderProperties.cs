@@ -1,4 +1,3 @@
-using Dalamud.Interface.Utility.Raii;
 using System.Collections.Generic;
 using System.IO;
 using VfxEditor.Formats.AvfxFormat.Binder;
@@ -30,10 +29,11 @@ namespace VfxEditor.AvfxFormat {
         private readonly List<INamedUiItem> DisplayTabs;
 
         private static readonly Dictionary<int, string> BinderIds = new() {
-            { 0, "Not working" },
+            { 0, "n_root" },
             { 1, "Head" },
-            { 3, "Left hand weapon" },
-            { 4, "Right hand weapon" },
+            { 3, "Left hand weapon / SGE: first noulith front" },
+            { 4, "Right hand weapon / SGE: first noulith middle" },
+            { 5, "Weapon binder (main) / SGE: first noulith back" },
             { 6, "Right shoulder" },
             { 7, "Left shoulder" },
             { 8, "Right forearm" },
@@ -41,21 +41,30 @@ namespace VfxEditor.AvfxFormat {
             { 10, "Right calves" },
             { 11, "Left calves" },
             { 16, "Front of character" },
-            { 25, "Head" },
-            { 26, "Head" },
-            { 27, "Head" },
+            { 25, "Head, front left" },
+            { 26, "Head, front middle" },
+            { 27, "Head, front right" },
             { 28, "Cervical" },
-            { 29, "Center of the character" },
-            { 30, "Center of the character" },
-            { 31, "Center of the character" },
+            { 29, "Center of the character, static n_root" },
+            { 30, "Center of the character, n_hara" },
+            { 31, "Waist, j_kosi" },
             { 32, "Right hand" },
             { 33, "Left hand" },
             { 34, "Right foot" },
             { 35, "Left foot" },
-            { 42, "Above character?" },
+            { 36, "Back-right foot, quadrupedal" },
+            { 37, "Front-right foot, quadrupedal" },
+            { 42, "Above character, static n_root" },
             { 43, "Head (near right eye)" },
             { 44, "Head (near left eye )" },
-            { 77, "Monsters weapon" },
+            { 77, "Right-hand weapon, n_buki_r" },
+            { 78, "Left-hand weapon. n_buki_l" },
+            { 108, "SGE: third noulith front / RPR avatar: neck" },
+            { 109, "SGE: third noulith back / RPR avatar: spine" },
+            { 110, "SGE: second noulith front / RPR avatar: left hand" },
+            { 111, "SGE: second noulith back / RPR avatar: face" },
+            { 112, "SGE: fourth noulith front / RPR avatar: n_root" },
+            { 113, "SGE: fourth noulith back" },
         };
 
         public AvfxBinderProperties( string name, string avfxName ) : base( avfxName ) {
@@ -107,20 +116,8 @@ namespace VfxEditor.AvfxFormat {
         protected override IEnumerable<AvfxBase> GetChildren() {
             foreach( var item in Parsed ) yield return item;
         }
-
-        public override void DrawUnassigned() {
-            using var _ = ImRaii.PushId( Name );
-
-            AssignedCopyPaste( Name );
-            DrawAssignButton( Name, true );
-        }
-
-        public override void DrawAssigned() {
-            using var _ = ImRaii.PushId( Name );
-
-            AssignedCopyPaste( Name );
-            DrawUnassignButton( Name );
-
+        
+        public override void DrawBody() {
             DrawNamedItems( DisplayTabs );
         }
 

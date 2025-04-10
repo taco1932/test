@@ -3,29 +3,15 @@ using VfxEditor.Parsing;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
-    public enum ObjectControlPosition {
-        Stowed = 0,
-        RightHand = 1,
-        Unknown = 2,
-        SwitchHand = 3,
-        RootBone = 4,
-        SwitchReverse = 5
-    }
 
     public enum ObjectControlFinal {
-        Stowed = 0,
-        Drawn = 1,
-        Weapon = 2,
-        OffHand = 3,
-        RootBone = 4,
-        UncontrolledRoot = 5,
+        State_1 = 0,
+        State_0 = 1,
+        State_2 = 2,
+        State_3 = 3,
+        State_4 = 4,
+        State_5 = 5,
         Original = 6,
-    }
-
-    public enum ObjectControl {
-        Weapon_or_Pet = 0,
-        OffHand = 1,
-        Lemure_or_Summon = 2
     }
 
     public class C174 : TmbEntry {
@@ -39,9 +25,9 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt Duration = new( "Duration" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedEnum<ObjectControlPosition> ObjectPosition = new( "Object Position" );
+        private readonly ParsedEnum<ObjectControlPosition> ObjectPosition = new( "Object ATCH Position" );
         private readonly ParsedEnum<ObjectControl> ObjectControl = new( "Object Control" );
-        private readonly ParsedEnum<ObjectControlFinal> FinalPosition = new( "Final Position" );
+        private readonly ParsedEnum<ObjectControlFinal> FinalPosition = new( "Final ATCH Position" );
         private readonly ParsedInt PositionDelay = new( "Position Delay" );
         private readonly ParsedInt Unk6 = new( "Unknown 6" );
 

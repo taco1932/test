@@ -99,6 +99,8 @@ namespace VfxEditor.AvfxFormat {
             Opacity = 8,
             Unknown_Multiply_9 = 9,
             Unknown_Add_10 = 10,
+            Unknown_11 = 11,
+            Unknown_12 = 12,
         }
         public enum CullingType {
             None = 0,
@@ -262,11 +264,11 @@ namespace VfxEditor.AvfxFormat {
         public enum EffectorType {
             PointLight = 0,
             DirectionalLight = 1,
-            Reserve1 = 2,
-            Reserve2 = 3,
-            Reserve3 = 4,
-            Reserve4 = 5,
-            CameraQuake2_Unknown = 6, // NOTE: seen in Akh Rai
+            Reserve2 = 2,
+            Reserve3 = 3,
+            RadialBlur_Unknown = 4,
+            Reserve5 = 5,
+            CameraQuake_Unknown = 6, // NOTE: seen in Akh Rai
             RadialBlur = 7,
             BlackHole = 8,
             CameraQuake = 9

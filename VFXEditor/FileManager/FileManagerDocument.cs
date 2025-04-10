@@ -15,6 +15,7 @@ namespace VfxEditor.FileManager {
         public R File { get; protected set; }
         protected VerifiedStatus Verified => File == null ? VerifiedStatus.UNKNOWN : File.Verified;
         public bool Unsaved => File != null && File.Unsaved;
+        public bool LocalSource => Source != null && Source.Type == SelectResultType.Local;
 
         public string DisplayName => string.IsNullOrEmpty( Name ) ? ReplaceDisplay : Name;
         protected string Name = "";
@@ -140,7 +141,9 @@ namespace VfxEditor.FileManager {
             System.IO.File.WriteAllBytes( path, File.ToBytes() );
         }
 
-        protected void ExportRaw() => UiUtils.WriteBytesDialog( $".{Extension}", File.ToBytes(), Extension, "ExportedFile" );
+        protected void ExportRawDialog() => UiUtils.WriteBytesDialog( $".{Extension}", File.ToBytes(), Extension, "ExportedFile" );
+
+        protected void ExportRawSilent() => UiUtils.WriteBytesSilent( $".{Extension}", File.ToBytes(), Source.Path );
 
         public void Update() {
             if( ( DateTime.Now - LastUpdate ).TotalSeconds <= 0.2 ) return;
@@ -333,6 +336,11 @@ namespace VfxEditor.FileManager {
             using var _ = ImRaii.PushId( "Source" );
             using var style = ImRaii.PushStyle( ImGuiStyleVar.ItemSpacing, new Vector2( 3, 4 ) );
 
+            var reloadWidth = UiUtils.GetIconSize( FontAwesomeIcon.Sync ).X;
+            var replaceWidth = UiUtils.GetIconSize( FontAwesomeIcon.Upload ).Y;
+
+            inputSize -= reloadWidth + replaceWidth + ( ImGui.GetStyle().FramePadding.X * 4 ) + 6;
+
             // Remove
             using( var font = ImRaii.PushFont( UiBuilder.IconFont ) ) {
                 if( UiUtils.TransparentButton( FontAwesomeIcon.Times.ToIconString(), UiUtils.RED_COLOR ) ) RemoveSource();
@@ -351,10 +359,37 @@ namespace VfxEditor.FileManager {
             }
             DrawCopy( Source );
 
+            // Local files
+            using( var disabled = ImRaii.Disabled( !LocalSource ) )
+            using( var font = ImRaii.PushFont( UiBuilder.IconFont ) ) {
+                ImGui.SameLine();
+                if( ImGui.Button( FontAwesomeIcon.Sync.ToIconString() ) ) {
+                    Manager.SetSource( Source );
+                    Dalamud.OkNotification( "Reloaded " + Source.Path );
+                }
+                ImGui.SameLine();
+                if( ImGui.Button( FontAwesomeIcon.Upload.ToIconString() ) ) {
+                    System.IO.File.WriteAllBytes( Source.Path, File.ToBytes() );
+                    Dalamud.OkNotification( "Exported to " + Source.Path );
+                }
+            }
+
             // Search
             ImGui.SameLine();
             using( var font = ImRaii.PushFont( UiBuilder.IconFont ) ) {
                 if( ImGui.Button( FontAwesomeIcon.Search.ToIconString() ) ) Manager.ShowSource();
+            }
+
+            if(Source != null && Source.Type == SelectResultType.Local )
+            {
+                ImGui.SameLine();
+                using( var font = ImRaii.PushFont( UiBuilder.IconFont ) )
+                {
+                    if( ImGui.Button( FontAwesomeIcon.Sync.ToIconString() ) ) {
+                        Manager.RefreshSource( Source );
+                        Dalamud.OkNotification( "Reloaded " + Source.Path );
+                    }
+                }
             }
         }
 
@@ -409,9 +444,20 @@ namespace VfxEditor.FileManager {
             }
             using( var style = ImRaii.PushStyle( ImGuiStyleVar.FramePadding, ImGui.GetStyle().FramePadding + new Vector2( 0, 1 ) ) )
             using( var font = ImRaii.PushFont( UiBuilder.IconFont ) ) {
-                if( ImGui.Button( FontAwesomeIcon.Download.ToIconString() ) ) ExportRaw();
+                if( ImGui.Button( FontAwesomeIcon.Download.ToIconString() ) ) ExportRawDialog();
             }
             UiUtils.Tooltip( "Export as a raw file" );
+
+            if( Source.Type == SelectResultType.Local ) {
+                using( var font = ImRaii.PushFont( UiBuilder.IconFont ) )
+                using( var style = ImRaii.PushStyle( ImGuiStyleVar.FramePadding, ImGui.GetStyle().FramePadding + new Vector2( 0, 1 ) ) )
+                ImGui.SameLine();
+                if( ImGui.Button( FontAwesomeIcon.Upload.ToIconString() ) ) {
+                    ExportRawSilent();
+                    Dalamud.OkNotification( "Exported to " + Source.Path );
+                }
+                UiUtils.Tooltip( "Overwrite selected file path" );
+            }
 
             ImGui.SameLine();
             UiUtils.ShowVerifiedStatus( Verified );
@@ -501,9 +547,7 @@ namespace VfxEditor.FileManager {
             }
             ImGui.PopStyleColor();
         }
-
-        private static readonly string WarningText = "DO NOT modify movement abilities (dashes, backflips). Please read a guide before attempting to modify a .tmb or .pap file";
-
+        private static readonly string WarningText = "Be very careful about editing movement abilities (dashes, gap closers), as they can be server-detectable if modified incorrectly. Please consult a guide or ask for assistance before doing so.";
         protected static void DrawAnimationWarning() {
             using var color = ImRaii.PushColor( ImGuiCol.Border, new Vector4( 1, 0, 0, 0.3f ) );
             color.Push( ImGuiCol.ChildBg, new Vector4( 1, 0, 0, 0.1f ) );
@@ -521,6 +565,36 @@ namespace VfxEditor.FileManager {
 
             using( var textColor = ImRaii.PushColor( ImGuiCol.Text, 0xFF4A67FF ) ) {
                 ImGui.TextWrapped( WarningText );
+            }
+
+            ImGui.NextColumn();
+            ImGui.SetColumnWidth( 1, iconSize.X + ( 2 * style.ItemSpacing.X ) );
+
+            using var font = ImRaii.PushFont( UiBuilder.IconFont );
+            if( ImGui.Button( FontAwesomeIcon.Globe.ToIconString() ) ) UiUtils.OpenUrl( "https://github.com/0ceal0t/Dalamud-VFXEditor/wiki" );
+
+            ImGui.Columns( 1 );
+        }
+
+
+        private static readonly string WarningTextSGB = "Direct modification of SGB files is not yet implemented.";
+        protected static void DrawAnimationWarningSGB() {
+            using var color = ImRaii.PushColor( ImGuiCol.Border, new Vector4( 1, 0.5f, 0, 0.3f ) );
+            color.Push( ImGuiCol.ChildBg, new Vector4( 1, 0.5f, 0, 0.1f ) );
+
+            var style = ImGui.GetStyle();
+            var iconSize = UiUtils.GetIconSize( FontAwesomeIcon.Globe ) + 2 * style.FramePadding;
+            var textWidth = ImGui.GetContentRegionAvail().X - ( 2 * style.WindowPadding.X ) - ( 2 * style.ItemSpacing.X ) - iconSize.X;
+            var textSize = ImGui.CalcTextSize( WarningTextSGB, textWidth );
+
+            using var child = ImRaii.Child( "Warning", new Vector2( -1, Math.Max( textSize.Y, iconSize.Y ) + ( 2 * style.WindowPadding.Y ) ), true, ImGuiWindowFlags.NoScrollbar );
+            using( var _ = ImRaii.PushStyle( ImGuiStyleVar.ItemSpacing, new Vector2( 0 ) ) ) {
+                ImGui.Columns( 2, "##WarningColumns", false );
+                ImGui.SetColumnWidth( 0, textWidth );
+            }
+
+            using( var textColor = ImRaii.PushColor( ImGuiCol.Text, 0xFFAC69FF ) ) {
+                ImGui.TextWrapped( WarningTextSGB );
             }
 
             ImGui.NextColumn();

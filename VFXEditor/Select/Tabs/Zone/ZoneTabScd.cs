@@ -1,5 +1,7 @@
+using Dalamud.Game;
 using Dalamud.Interface.Utility.Raii;
 using ImGuiNET;
+using Lumina.Excel.Sheets;
 using System.Collections.Generic;
 using VfxEditor.Select.Tabs.BgmQuest;
 

@@ -6,7 +6,7 @@ using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
     public enum VfxVisibility {
-        Unknown_0 = 0,
+        Unknown_0_Default = 0,
         Unknown_1 = 1,
         Everyone = 2,
         Unknown_3 = 3,
@@ -33,9 +33,13 @@ namespace VfxEditor.TmbFormat.Entries {
                 }
             }
         ], false );
-        private readonly ParsedShort BindPoint1 = new( "Bind Point 1", value: 1 );
+        private readonly ParsedEnum<BindUser> BindPoint1 = new( "Bind Point 1", size: 1 );
+        private readonly ParsedEnum<BindType> BindPoint1Type = new( "Bind Point 1 Type", size: 1 );
+        //private readonly ParsedShort Unk2 = new( "Unknown 2" );
         private readonly ParsedShort BindPoint2 = new( "Bind Point 2", value: 0xFF );
-        private readonly ParsedShort BindPoint3 = new( "Bind Point 3", value: 2 );
+        private readonly ParsedEnum<BindUser> BindPoint3 = new( "Bind Point 3", size: 1 );
+        private readonly ParsedEnum<BindType> BindPoint3Type = new( "Bind Point 3 Type", size: 1 );
+        //private readonly ParsedShort Unk4 = new( "Unknown 4" );
         private readonly ParsedShort BindPoint4 = new( "Bind Point 4", value: 0xFF );
         private readonly TmbOffsetFloat3 Scale = new( "Scale", defaultValue: new( 1 ) );
         private readonly TmbOffsetAngle3 Rotation = new( "Rotation" );
@@ -53,8 +57,12 @@ namespace VfxEditor.TmbFormat.Entries {
             Unk1,
             Path,
             BindPoint1,
+            BindPoint1Type,
+           // Unk2,
             BindPoint2,
             BindPoint3,
+            BindPoint3Type,
+           // Unk4,
             BindPoint4,
             Scale,
             Rotation,
