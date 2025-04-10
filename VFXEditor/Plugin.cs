@@ -91,7 +91,7 @@ namespace VfxEditor {
         public static PbdManager PbdManager { get; private set; }
 
         public static string RootLocation { get; private set; }
-#if ALPHA
+#if BETA
         private const string CommandName = "/vfxalpha";
 #else
         private const string CommandName = "/vfxedit";

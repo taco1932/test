@@ -20,7 +20,7 @@ namespace VfxEditor.FileManager {
 
             WindowSystem.Draw();
             WindowName =
-#if ALPHA
+#if BETA
                 $"[ALPHA] {Title}"
 #else
                 Title
