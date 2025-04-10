@@ -13,6 +13,7 @@ https://github.com/lumxiv/Dalamud-VFXEditor/tree/api12
 - [ ] Fix SGB selection for housing items
 - [ ] Add stuff from EObj to SGB selection
 - [ ] More SGB parsing
+- [ ] Figure out why the icon in the plugin menu isn't cooperating, even though it's a valid link
 
 ```
 https://github.com/aers/FFXIVClientStructs/blob/main/ida/classinformer.csv
