@@ -134,6 +134,10 @@ namespace VfxEditor.Ui.Tools {
             ImGui.TableSetupColumn( "Monitor", ImGuiTableColumnFlags.WidthStretch );
             ImGui.TableHeadersRow();
 
+            if ((PoolEnd - PoolStart ) > 50000 ) 
+                { 
+                    PoolEnd = PoolStart + 50000;
+                };
             for( var i = PoolStart; i < PoolEnd; i++ ) {
                 ImGui.TableNextRow();
 
