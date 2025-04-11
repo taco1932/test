@@ -15,6 +15,9 @@ namespace VfxEditor.Ui.Tools {
     public unsafe class LuaTab {
         private ulong ObjectId = 0;
         private static bool LogChanges = false;
+        private int PoolStart = 0;
+        private int PoolEnd = 10264;
+
         private class LuaValues
         {
             required public bool Enabled = true;
@@ -58,8 +61,19 @@ namespace VfxEditor.Ui.Tools {
             ImGui.TextDisabled( $"Dynamic: 0x{Plugin.ResourceLoader.LuaActorVariables:X8}" );
 
             ImGui.SameLine();
-            if( ImGui.Checkbox( "Log Changes", ref LogChanges ));
-            
+            ImGui.PushItemWidth( 300 );
+            ImGui.Checkbox( "Log Changes", ref LogChanges );
+            ImGui.PopItemWidth();
+
+            ImGui.SameLine();
+            ImGui.PushItemWidth( 200 );
+            ImGui.InputInt( "Start Offset", ref PoolStart );
+            ImGui.PopItemWidth();
+            ImGui.SameLine();
+            ImGui.PushItemWidth( 200 );
+            ImGui.InputInt( "End Offset", ref PoolEnd );
+            ImGui.PopItemWidth();
+
             if( ImGui.IsItemClicked() ) ImGui.SetClipboardText( $"{Plugin.ResourceLoader.LuaActorVariables:X8}" );
 
             DrawCombo( objectName );
@@ -69,7 +83,7 @@ namespace VfxEditor.Ui.Tools {
 
             foreach( var pool in LuaPool.Pools ) {
                 using var tab = ImRaii.TabItem( $"Pool {pool.Id}" );
-                if( tab ) DrawPool( pool, manager, objectAddress, ref IndLog);
+                if( tab ) DrawPool( pool, manager, objectAddress, ref IndLog, PoolStart, PoolEnd);
             }
         }
 
@@ -101,7 +115,7 @@ namespace VfxEditor.Ui.Tools {
             return $"[0x{item.GameObjectId:X4}]";
         }
 
-        private static void DrawPool( LuaPool pool, IntPtr manager, IntPtr objectAddress, ref Dictionary<int, Dictionary<int, LuaValues>> IndLog ) {
+        private static void DrawPool( LuaPool pool, IntPtr manager, IntPtr objectAddress, ref Dictionary<int, Dictionary<int, LuaValues>> IndLog, int PoolStart, int PoolEnd ) {
             using var _ = ImRaii.PushId( pool.Id );
             if (IndLog.ContainsKey(pool.Id) == false)
             { 
@@ -120,7 +134,7 @@ namespace VfxEditor.Ui.Tools {
             ImGui.TableSetupColumn( "Monitor", ImGuiTableColumnFlags.WidthStretch );
             ImGui.TableHeadersRow();
 
-            for( var i = 0; i < pool.Size; i++ ) {
+            for( var i = PoolStart; i < PoolEnd; i++ ) {
                 ImGui.TableNextRow();
 
                 ImGui.TableNextColumn();
@@ -224,7 +238,6 @@ namespace VfxEditor.Ui.Tools {
                 0x1000003B or
                 0x1000003C or
                 0x1000003D or
-                /*
                 0x1000003E or
                 0x1000003F or
                 0x10000040 or
@@ -397,7 +410,6 @@ namespace VfxEditor.Ui.Tools {
                 0x100000E7 or
                 0x100000E8 or
                 0x100000E9 or
-                */
                 0x100000EA or
                 0x100000EB or
                 0x100000EC or
