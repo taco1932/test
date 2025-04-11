@@ -83,7 +83,7 @@ namespace VfxEditor.Ui.Tools {
 
             foreach( var pool in LuaPool.Pools ) {
                 using var tab = ImRaii.TabItem( $"Pool {pool.Id}" );
-                if( tab ) DrawPool( pool, manager, objectAddress, ref IndLog, PoolStart, PoolEnd);
+                if( tab ) DrawPool( pool, manager, objectAddress, ref IndLog, PoolStart, ref PoolEnd);
             }
         }
 
@@ -115,7 +115,7 @@ namespace VfxEditor.Ui.Tools {
             return $"[0x{item.GameObjectId:X4}]";
         }
 
-        private static void DrawPool( LuaPool pool, IntPtr manager, IntPtr objectAddress, ref Dictionary<int, Dictionary<int, LuaValues>> IndLog, int PoolStart, int PoolEnd ) {
+        private static void DrawPool( LuaPool pool, IntPtr manager, IntPtr objectAddress, ref Dictionary<int, Dictionary<int, LuaValues>> IndLog, int PoolStart, ref int PoolEnd ) {
             using var _ = ImRaii.PushId( pool.Id );
             if (IndLog.ContainsKey(pool.Id) == false)
             { 
