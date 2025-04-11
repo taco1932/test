@@ -2,8 +2,8 @@
     <PropertyGroup>
         <AssemblyTitle>ByteString</AssemblyTitle>
         <Copyright>Copyright © 2025</Copyright>
-        <FileVersion>v1.9.1.6</FileVersion>
-        <AssemblyVersion>v1.9.1.6</AssemblyVersion>
+        <FileVersion>1.9.1.6</FileVersion>
+        <AssemblyVersion>1.9.1.6</AssemblyVersion>
         <PackageVersion>1.0.6</PackageVersion>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <OutputPath>bin\$(Configuration)\</OutputPath>

@@ -3,14 +3,24 @@ using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Interface.Utility.Raii;
 using ImGuiNET;
 using System;
+using System.Collections.Generic;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using VfxEditor.TmbFormat.Root;
+using VfxEditor.Ui.NodeGraphViewer.Utils;
 using static VfxEditor.Interop.ResourceLoader;
 
 namespace VfxEditor.Ui.Tools {
     public unsafe class LuaTab {
         private ulong ObjectId = 0;
+        private static bool LogChanges = false;
+        private class LuaValues
+        {
+            required public bool Enabled = true;
+            required public uint LastValue = 0;
+        };
+        private static Dictionary<int, Dictionary<int, LuaValues>> IndLog = new Dictionary<int, Dictionary<int, LuaValues>>();
 
         public void Draw() {
             using var _ = ImRaii.PushId( "Lua" );
@@ -46,6 +56,10 @@ namespace VfxEditor.Ui.Tools {
 
             ImGui.SameLine();
             ImGui.TextDisabled( $"Dynamic: 0x{Plugin.ResourceLoader.LuaActorVariables:X8}" );
+
+            ImGui.SameLine();
+            if( ImGui.Checkbox( "Log Changes", ref LogChanges ));
+            
             if( ImGui.IsItemClicked() ) ImGui.SetClipboardText( $"{Plugin.ResourceLoader.LuaActorVariables:X8}" );
 
             DrawCombo( objectName );
@@ -55,7 +69,7 @@ namespace VfxEditor.Ui.Tools {
 
             foreach( var pool in LuaPool.Pools ) {
                 using var tab = ImRaii.TabItem( $"Pool {pool.Id}" );
-                if( tab ) DrawPool( pool, manager, objectAddress );
+                if( tab ) DrawPool( pool, manager, objectAddress, ref IndLog);
             }
         }
 
@@ -87,18 +101,23 @@ namespace VfxEditor.Ui.Tools {
             return $"[0x{item.GameObjectId:X4}]";
         }
 
-        private static void DrawPool( LuaPool pool, IntPtr manager, IntPtr objectAddress ) {
+        private static void DrawPool( LuaPool pool, IntPtr manager, IntPtr objectAddress, ref Dictionary<int, Dictionary<int, LuaValues>> IndLog ) {
             using var _ = ImRaii.PushId( pool.Id );
+            if (IndLog.ContainsKey(pool.Id) == false)
+            { 
+                IndLog.Add( pool.Id, new Dictionary<int, LuaValues>());
+            };
 
             using var child = ImRaii.Child( "Child", new Vector2( -1 ), false );
 
-            using var table = ImRaii.Table( "Table", 4, ImGuiTableFlags.RowBg );
+            using var table = ImRaii.Table( "Table", 5, ImGuiTableFlags.RowBg );
             if( !table ) return;
 
             ImGui.TableSetupColumn( "Index", ImGuiTableColumnFlags.WidthStretch );
             ImGui.TableSetupColumn( "Name", ImGuiTableColumnFlags.WidthStretch );
             ImGui.TableSetupColumn( "Current Value", ImGuiTableColumnFlags.WidthStretch );
             ImGui.TableSetupColumn( "Hex", ImGuiTableColumnFlags.WidthStretch );
+            ImGui.TableSetupColumn( "Monitor", ImGuiTableColumnFlags.WidthStretch );
             ImGui.TableHeadersRow();
 
             for( var i = 0; i < pool.Size; i++ ) {
@@ -110,6 +129,12 @@ namespace VfxEditor.Ui.Tools {
                 var value = ( ( uint )pool.Id << 28 ) | ( ( uint )i );
                 var varValue = GetVariableValue( value, manager, objectAddress );
 
+                if( IndLog[pool.Id].ContainsKey(i) == false )
+                {
+                    IndLog[pool.Id].Add( i, new LuaValues() { Enabled = true , LastValue = varValue});
+                    //Dalamud.Log("created value" + pool.Id.ToString() + "|" + i.ToString() + "|" + varValue.ToString() );
+                };
+
                 ImGui.TableNextColumn();
                 ImGui.Text( pool.Names.TryGetValue( i, out var name ) ? name : "" );
 
@@ -118,6 +143,15 @@ namespace VfxEditor.Ui.Tools {
 
                 ImGui.TableNextColumn();
                 ImGui.Text( $"0x{varValue:X4}" );
+
+                ImGui.TableNextColumn();
+                ImGui.Checkbox( "Log " + pool.Id.ToString() + "|" + i.ToString(), ref IndLog[pool.Id][i].Enabled);
+
+                if (LogChanges && IndLog[pool.Id][i].Enabled && IndLog[pool.Id][i].LastValue != varValue )  {
+                    Dalamud.Log( "[LuaLogging]Value " + pool.Id.ToString() + " || " + i.ToString() + " has changed from " + IndLog[pool.Id][i].LastValue.ToString() + " to " + varValue.ToString() );
+                    IndLog[pool.Id][i].LastValue = varValue;
+                }
+                ;
             }
         }
 
@@ -460,7 +494,7 @@ namespace VfxEditor.Ui.Tools {
                 }
                 pos += 8;
             }
-
+            //Dalamud.Log("[LUACHANGE] ");
             return Plugin.ResourceLoader.GetLuaVariable( manager, value );
         }
     }
