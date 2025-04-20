@@ -12,9 +12,9 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int Size => 0x1C;
         public override int ExtraSize => 0;
 
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
+        private readonly ParsedInt Duration = new( "Duration" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt WeaponSize = new( "Size" );
+        private readonly ParsedEnum<AtchState> WeaponSize = new( "ATCH Scale" );
         private readonly ParsedEnum<ObjectControl> ObjectControl = new( "Object Control" );
 
         public C015( TmbFile file ) : base( file ) { }
@@ -22,7 +22,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public C015( TmbFile file, TmbReader reader ) : base( file, reader ) { }
 
         protected override List<ParsedBase> GetParsed() => [
-            Unk1,
+            Duration,
             Unk2,
             WeaponSize,
             ObjectControl

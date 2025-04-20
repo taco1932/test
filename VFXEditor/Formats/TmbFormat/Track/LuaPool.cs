@@ -12,8 +12,8 @@ namespace VfxEditor.TmbFormat.Root {
             Names = names;
         }
 
-        //larger than 12560 yields values, but don't seem pertinent yet. it also slows my 4070Ti to, like, 15fps. might be good to add in code to skip indices
-        public static readonly LuaPool Pool1 = new( 1, 12560, new() {
+        // >128 is non-player-specific. here for documentation, but otherwise may not be useful
+        public static readonly LuaPool Pool1 = new( 1, 2400, new() {
             { 0x00, "[CUTSCENE] Game Language" },
             { 0x01, "[CUTSCENE] Caption Language" },
             { 0x02, "[CUTSCENE] Voice Language" },
@@ -37,35 +37,57 @@ namespace VfxEditor.TmbFormat.Root {
             { 0x39, "GPose" },
             { 0x3C, "Skeleton ID" },
             { 0x3D, "Mount Flying" },
+            { 0x80, "(Combat-Related)" },
+            { 0x81, "(Combat-Related)" },
+            { 0x82, "(Combat-Related)" },
+            { 0x83, "(Combat-Related)" },
+            { 0x84, "(Combat-Related)" },
+            { 0x85, "(Combat-Related)" },
+            { 0x86, "(Combat-Related)" },
+            { 0x87, "(Combat-Related)" },
+            { 0x88, "(Combat-Related)" },
+            { 0x89, "(Combat-Related)" },
             { 0xEA, "Mouse Drag" },
             { 0xEB, "Window Focus" },
             { 0xEC, "Mouse Hover / Cursor Type" },
             { 0x19C, "Cursor Type" },
             { 0x19D, "Cursor Pos. X" },
             { 0x19E, "Cursor Pos. Y" },
+            { 0x19F, "[Cursor Outside Window]" },
             { 0x1A0, "Cursor Type" },
             { 0x1A1, "Cursor Pos. X" },
             { 0x1A2, "Cursor Pos. Y" },
+            { 0x1A3, "[Cursor Outside Window]" },
             { 0x1A4, "Cursor Type" },
             { 0x1A5, "Cursor Pos. X" },
             { 0x1A6, "Cursor Pos. Y" },
+            { 0x1A7, "[Cursor Outside Window]" },
             { 0x1A8, "Cursor Type" },
             { 0x1A9, "Cursor Pos. X" },
             { 0x1AA, "Cursor Pos. Y" },
+            { 0x1AB, "Cursor Outside Window" },
             { 0x1AC, "Cursor Type" },
             { 0x1AD, "Cursor Pos. X" },
             { 0x1AE, "Cursor Pos. Y" },
+            { 0x1AF, "[Cursor Outside Window]" },
             { 0x1B0, "Cursor Type" },
             { 0x1B1, "Cursor Pos. X" },
             { 0x1B2, "Cursor Pos. Y" },
+            { 0x1B3, "[Cursor Outside Window]" },
             { 0x1B4, "Cursor Type" },
             { 0x1B5, "Cursor Pos. X" },
             { 0x1B6, "Cursor Pos. Y" },
+            { 0x1B7, "[Cursor Outside Window]" },
             { 0x1B8, "Cursor Type" },
             { 0x1B9, "Cursor Pos. X" },
             { 0x1BA, "Cursor Pos. Y" },
+            { 0x1BB, "[Cursor Outside Window]" },
             { 0x1BD, "(Counts down from 7 to 0)" },
+            { 0x1BF, "Cursor Type (again)" },
             { 0x1C0, "(Continually shifts values)" },
+            { 0x95EF, "[something]" }, //38383
+            { 0x962F, "[something]" }, //38447
+            { 0x963F, "[something]" }, //38463
         } );
 
         public static readonly LuaPool Pool2 = new( 2, 64, [] ); //larger than this will repeat pool 1 data at 0x80

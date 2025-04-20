@@ -18,10 +18,9 @@ namespace VfxEditor.Select.Tabs.Emotes {
 
         public readonly List<(string, byte)> Keys;
         public readonly string Command;
-
         public List<string> TmbFiles => Keys.Select( x => ActionRow.ToTmbPath( x.Item1 ) ).Distinct().ToList();
-
         public List<string> VfxPapFiles => Keys.Where( x => x.Item1.Contains( "emote_sp" ) ).Select( x => $"chara/human/c0101/animation/a0001/bt_common/{x.Item1}.pap" ).ToList();
+        //this needs to search outside of c0101 as well
 
         public List<(string, EmoteRowType)> Items => Keys.Select( ToPap ).Where( x => !string.IsNullOrEmpty( x.Item1 ) ).GroupBy( x => x.Item1 ).Select( x => x.First() ).ToList();
 

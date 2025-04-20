@@ -12,7 +12,7 @@ namespace VfxEditor.ScdFormat {
         Equal = 0x04,
         Bank = 0x08,
         External_Id_First = 0x10,
-        Disabled = 0x40
+        Unknown = 0x40
     }
 
     public enum ConditionType2nd {

@@ -13,7 +13,7 @@ namespace VfxEditor.Spawn {
             var id = GetIdFromTmbPath( path );
             if( id > 0 ) Apply( id );
         }
-
+    
         public static void Apply( uint animationId ) {
             if( animationId == 0 ) return;
             ApplyAnimationOverride( GetActor(), ( ushort )animationId, true );

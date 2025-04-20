@@ -3,7 +3,7 @@ using VfxEditor.Parsing;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
-    public enum ObjectControlPosition {
+    public enum AtchState {
         State_1 = 0,
         State_0 = 1,
         State_2 = 2,
@@ -29,7 +29,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedBool Enabled = new( "Enabled", size: 2);
         private readonly ParsedShort Unk1 = new( "Unknown 1");
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedEnum<ObjectControlPosition> ObjectPosition = new( "Object ATCH Position" );
+        private readonly ParsedEnum<AtchState> ObjectPosition = new( "Object ATCH Position" );
         private readonly ParsedEnum<ObjectControl> ObjectControl = new( "Object Control" );
 
         public C014( TmbFile file ) : base( file ) { }

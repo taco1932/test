@@ -8,12 +8,12 @@ namespace VfxEditor.TmbFormat.Entries {
     public enum SoundFlags {
         Stop_on_Movement = 0x01,
         Overlap_Sounds = 0x02,
-        Unknown_1 = 0x04,
-        Unknown_2 = 0x08,
-        Unknown_3 = 0x10,
-        Unknown_4 = 0x20,
-        Unknown_5 = 0x40,
-        Unknown_6 = 0x80,
+        Flag_1 = 0x04,
+        Flag_2 = 0x08,
+        Flag_3 = 0x10,
+        Flag_4 = 0x20,
+        Flag_5 = 0x40,
+        Flag_6 = 0x80,
     }
 
     public class C053 : TmbEntry {

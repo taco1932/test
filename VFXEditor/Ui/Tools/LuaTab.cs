@@ -16,7 +16,7 @@ namespace VfxEditor.Ui.Tools {
         private ulong ObjectId = 0;
         private static bool LogChanges = false;
         private int PoolStart = 0;
-        private int PoolEnd = 10264;
+        private int PoolEnd = 2400;
 
         private class LuaValues
         {
@@ -83,7 +83,7 @@ namespace VfxEditor.Ui.Tools {
 
             foreach( var pool in LuaPool.Pools ) {
                 using var tab = ImRaii.TabItem( $"Pool {pool.Id}" );
-                if( tab ) DrawPool( pool, manager, objectAddress, ref IndLog, PoolStart, PoolEnd);
+                if( tab ) DrawPool( pool, manager, objectAddress, ref IndLog, PoolStart, ref PoolEnd);
             }
         }
 
@@ -115,7 +115,7 @@ namespace VfxEditor.Ui.Tools {
             return $"[0x{item.GameObjectId:X4}]";
         }
 
-        private static void DrawPool( LuaPool pool, IntPtr manager, IntPtr objectAddress, ref Dictionary<int, Dictionary<int, LuaValues>> IndLog, int PoolStart, int PoolEnd ) {
+        private static void DrawPool( LuaPool pool, IntPtr manager, IntPtr objectAddress, ref Dictionary<int, Dictionary<int, LuaValues>> IndLog, int PoolStart, ref int PoolEnd ) {
             using var _ = ImRaii.PushId( pool.Id );
             if (IndLog.ContainsKey(pool.Id) == false)
             { 
@@ -134,6 +134,10 @@ namespace VfxEditor.Ui.Tools {
             ImGui.TableSetupColumn( "Monitor", ImGuiTableColumnFlags.WidthStretch );
             ImGui.TableHeadersRow();
 
+            if ((PoolEnd - PoolStart ) > 50000 ) 
+                { 
+                    PoolEnd = PoolStart + 50000;
+                };
             for( var i = PoolStart; i < PoolEnd; i++ ) {
                 ImGui.TableNextRow();
 
@@ -175,7 +179,7 @@ namespace VfxEditor.Ui.Tools {
             if( objectAddress == IntPtr.Zero ) return Plugin.ResourceLoader.GetLuaVariable( manager, value );
 
             return value switch {
-                //throwing a bunch of junk values at the wall
+                //throwing a bunch of junk values at the wall. idk which one/which combo enables the 128+ entries, so just have all of them.
                 0x10000000 or
                 0x10000001 or
                 0x10000002 or
@@ -352,7 +356,6 @@ namespace VfxEditor.Ui.Tools {
                 0x100000AD or
                 0x100000AE or
                 0x100000AF or
-                0x100000B0 or
                 0x100000B1 or
                 0x100000B2 or
                 0x100000B3 or
@@ -480,6 +483,10 @@ namespace VfxEditor.Ui.Tools {
                 0x1000012D or
                 0x1000012E or
                 0x1000012F or
+                0x1000019C or
+                0x1000019D or
+                0x1000019E or
+                0x100001AB /*or
                 0x10001B99 or
                 0x10001C99 or
                 0x10001D99 or
@@ -489,6 +496,7 @@ namespace VfxEditor.Ui.Tools {
                 0x10005A6E or
                 0x1000A3EE or
                 0x1000A3FE
+                */
                 => GetActorVariableValue( value, manager, objectAddress ),
                 _ => Plugin.ResourceLoader.GetLuaVariable( manager, value )
             };

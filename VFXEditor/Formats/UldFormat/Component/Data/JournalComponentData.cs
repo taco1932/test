@@ -3,13 +3,13 @@ using VfxEditor.Parsing;
 namespace VfxEditor.UldFormat.Component.Data {
     public class JournalComponentData : UldGenericData {
         public JournalComponentData() {
-            AddUnknown( 32, "Unknown Node Id" );
+            AddUnknown( 38, "Unknown Node Id" ); //added six, TBD if this varies
 
             Parsed.AddRange( [
                 new ParsedUInt( "Item Margin", size: 2 ),
                 new ParsedUInt( "Basic Margin", size: 2 ),
                 new ParsedUInt( "Unknown Margin", size: 2 ),
-                new ParsedReserve( 2 ) // Padding
+                new ParsedReserve( size: 2 ) //Padding
             ] );
         }
     }

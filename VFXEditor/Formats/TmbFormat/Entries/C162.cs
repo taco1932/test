@@ -5,7 +5,7 @@ using VfxEditor.TmbFormat.Utils;
 namespace VfxEditor.TmbFormat.Entries {
     public class C162 : TmbEntry {
         public const string MAGIC = "C162";
-        public const string DISPLAY_NAME = "β (.cutb)";
+        public const string DISPLAY_NAME = "----[TESTING] (CUTB)";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
@@ -41,7 +41,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedFloat Unk27 = new( "Unknown 27" );
         private readonly ParsedInt Unk28 = new( "Unknown 28" );
         private readonly ParsedInt Unk29 = new( "Unknown 29" );
-        private readonly ParsedInt Unk30 = new( "Unknown 30" ); //placeholder for offset footer floats
+        private readonly TmbOffsetFloat4 Unk30 = new( "Unknown 30" ); //placeholder for footer floats
         private readonly ParsedInt Unk31 = new( "Unknown 31" );
         private readonly ParsedFloat Unk32 = new( "Unknown 32" );
         private readonly ParsedFloat Unk33 = new( "Unknown 33" );

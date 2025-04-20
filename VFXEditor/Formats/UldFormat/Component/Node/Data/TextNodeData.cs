@@ -13,10 +13,10 @@ namespace VfxEditor.UldFormat.Component.Node.Data {
         JupiterLarge = 0x5,
     }
 
-    public enum SheetType : int {
+    /*public enum SheetType : int {
         Addon = 0x0,
         Lobby = 0x1,
-    }
+    }*/
 
     [Flags]
     public enum TextFlags {
@@ -42,10 +42,11 @@ namespace VfxEditor.UldFormat.Component.Node.Data {
                 new ParsedInt( "Font Size", size: 1 ),
                 new ParsedSheetColor( "Edge Color" ),
                 new ParsedFlag<TextFlags>( "Flags", size: 1 ),
-                new ParsedEnum<SheetType>( "Sheet Type", size: 1 ),
+                new ParsedUInt ( "Sheet Type", size: 1 ),
+                //new ParsedEnum<SheetType>( "Sheet Type", size: 1 ),
                 new ParsedInt( "Character Spacing", size: 1 ),
                 new ParsedInt( "Line Spacing", size: 1 ),
-                new ParsedUInt( "Unknown 3", size: 2 ),
+                new ParsedUInt( "Fill/Outline", size: 2 ),
                 new ParsedUInt( "Unknown 4", size: 2 ),
             ] );
         }

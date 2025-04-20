@@ -64,7 +64,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxBool UvReverse = new( "UV Reverse", "bRUV", size: 1 );
         public readonly AvfxBool ScaleRandomLink = new( "Scale Random Link", "bSRL", size: 1 );
         public readonly AvfxBool BindParent = new( "Bind Parent", "bBnP", size: 1 );
-        public readonly AvfxInt ScaleByParent = new( "Scale by Parent", "bSnP", size: 1 );
+        public readonly AvfxBool ScaleByParent = new( "Scale by Parent", "bSnP", size: 1 );
         public readonly AvfxInt PolyLineTag = new( "Polyline Tag", "PolT" );
 
         public readonly AvfxSimpleColors Colors = new();
