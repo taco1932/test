@@ -32,8 +32,10 @@ using VfxEditor.Spawn;
 using VfxEditor.TmbFormat;
 using VfxEditor.Tracker;
 using VfxEditor.Ui.Export;
+using VfxEditor.Ui.Import;
 using VfxEditor.Ui.Tools;
 using VfxEditor.UldFormat;
+using System.Threading;
 
 namespace VfxEditor {
     public unsafe partial class Plugin : IDalamudPlugin {
@@ -47,6 +49,7 @@ namespace VfxEditor {
 
         public static PenumbraIpc PenumbraIpc { get; private set; }
         public static PenumbraDialog PenumbraDialog { get; private set; }
+        public static ImportDialog ImportDialog { get; private set; }
 
         public static WindowSystem WindowSystem { get; private set; }
 
@@ -132,7 +135,7 @@ namespace VfxEditor {
             SkpManager = new();
             ShpkManager = new();
             ShcdManager = new();
-            //MtrlManager = new();
+            MtrlManager = new();
             MdlManager = new();
             KdbManager = new();
             PbdManager = new();
@@ -145,6 +148,7 @@ namespace VfxEditor {
             DirectXManager = new();
             TrackerManager = new();
             LibraryManager = new();
+            ImportDialog = new();
 
             Dalamud.Framework.Update += FrameworkOnUpdate;
             Dalamud.PluginInterface.UiBuilder.Draw += Draw;

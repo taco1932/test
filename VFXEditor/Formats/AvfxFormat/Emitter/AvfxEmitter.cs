@@ -49,7 +49,10 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxCurve1Axis InjectionAngleRandomZ = new( "Injection Angle Z Random", "IAZR", CurveType.Angle );
 
         public readonly AvfxCurve1Axis VelocityRandomX = new( "Velocity Random X", "VRX" );
+        public readonly AvfxCurve1Axis RotVelXRandom = new( "Rotation Velocity X Random", "VRXR" );
+
         public readonly AvfxCurve1Axis VelocityRandomY = new( "Velocity Random Y", "VRY" );
+        public readonly AvfxCurve1Axis RotVelYRandom = new( "Rotation Velocity Y Random", "VRYR" );
         public readonly AvfxCurve1Axis VelocityRandomZ = new( "Velocity Random Z", "VRZ" );
 
         private readonly List<AvfxBase> Parsed;
@@ -105,7 +108,9 @@ namespace VfxEditor.AvfxFormat {
                 InjectionAngleZ,
                 InjectionAngleRandomZ,
                 VelocityRandomX,
+                RotVelXRandom,
                 VelocityRandomY,
+                RotVelYRandom,
                 VelocityRandomZ
             ];
             Sound.SetAssigned( false );
@@ -131,7 +136,9 @@ namespace VfxEditor.AvfxFormat {
                 InjectionAngleZ,
                 InjectionAngleRandomZ,
                 VelocityRandomX,
+                RotVelXRandom,
                 VelocityRandomY,
+                RotVelYRandom,
                 VelocityRandomZ
             ] );
 

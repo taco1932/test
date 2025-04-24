@@ -71,9 +71,6 @@ namespace VfxEditor.PapFormat.Motion {
 
         public void Draw( int havokIndex ) {
             if( File.IsMaterial ) {
-                Selector.Init();
-            }
-            else {
                 Selector.Draw();
             }
             Motions[havokIndex].DrawPreview( havokIndex );
@@ -96,12 +93,10 @@ namespace VfxEditor.PapFormat.Motion {
         }
 
         public void DrawHavok( int havokIndex ) {
-            Selector.Init();
             Motions[havokIndex].DrawHavok();
         }
 
         public void Write( HashSet<nint> handles ) {
-            Selector.Init();
             Motions.ForEach( x => x.UpdateHavok( handles ) );
             WriteHavok();
         }

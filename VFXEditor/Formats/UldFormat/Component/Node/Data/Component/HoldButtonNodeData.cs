@@ -1,5 +1,5 @@
-using System.Reflection.Metadata.Ecma335;
 using VfxEditor.Parsing;
+//vs code keeps automatically adding dumb declarations that aren't relevant
 
 namespace VfxEditor.UldFormat.Component.Node.Data {
     public class HoldButtonNodeData : UldGenericData {

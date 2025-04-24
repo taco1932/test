@@ -38,6 +38,8 @@ namespace VfxEditor.FileManager {
         protected readonly FileManagerBase Manager;
 
         protected DateTime LastUpdate = DateTime.Now;
+        protected bool HasBeenUpdated = false;
+        protected readonly int SecDelay = 1;
 
         public FileManagerDocument( FileManagerBase manager, string writeLocation ) {
             Manager = manager;
@@ -146,7 +148,7 @@ namespace VfxEditor.FileManager {
         protected void ExportRawSilent() => UiUtils.WriteBytesSilent( $".{Extension}", File.ToBytes(), Source.Path );
 
         public void Update() {
-            if( ( DateTime.Now - LastUpdate ).TotalSeconds <= 0.2 ) return;
+            HasBeenUpdated = true;
             LastUpdate = DateTime.Now;
 
             File?.Update();
@@ -437,7 +439,10 @@ namespace VfxEditor.FileManager {
         // ==========================
 
         protected virtual void DisplayFileControls() {
-            if( UiUtils.OkButton( "UPDATE" ) ) Update();
+            using( var disabled = ImRaii.Disabled( HasBeenUpdated && ( DateTime.Now - LastUpdate ).TotalSeconds <= SecDelay ) )
+            {
+                if( UiUtils.OkButton( "UPDATE" ) ) Update();
+            }
 
             using( var spacing = ImRaii.PushStyle( ImGuiStyleVar.ItemSpacing, ImGui.GetStyle().ItemInnerSpacing ) ) {
                 ImGui.SameLine();

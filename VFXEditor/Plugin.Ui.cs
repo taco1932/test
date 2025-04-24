@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using VfxEditor.FileManager.Interfaces;
-using VfxEditor.Formats.SgbFormat;
 using VfxEditor.Ui.Components;
 using VfxEditor.Ui.Export;
 using VfxEditor.Utils;
@@ -72,6 +71,14 @@ namespace VfxEditor {
                 if( ImGui.MenuItem( "Save As" ) ) SaveAsWorkspace();
 
                 ImGui.Separator();
+                if( ImGui.BeginMenu( "Penumbra" ) )
+                {
+                    if( ImGui.MenuItem( "Open Mod" ) ) OpenWorkspacePenumbra( true );
+                    if( ImGui.MenuItem( "Append Mod" ) ) OpenWorkspacePenumbra( false );
+                    ImGui.EndMenu();
+                }
+
+                ImGui.Separator();
                 if( ImGui.MenuItem( "Settings" ) ) Configuration.Show();
                 if( ImGui.MenuItem( "Tools" ) ) ToolsDialog.Show();
                 if( ImGui.BeginMenu( "Help" ) ) {
@@ -103,7 +110,6 @@ namespace VfxEditor {
                 new IFileManager[]{
                     TmbManager,
                     PapManager,
-                    SgbManager,
                 },
                 new IFileManager[]{
                     ScdManager
@@ -122,7 +128,7 @@ namespace VfxEditor {
                 },
                 new IFileManager[]{
                     MdlManager,
-                    //MtrlManager,
+                    MtrlManager,
                     ShpkManager,
                     ShcdManager
                 }
