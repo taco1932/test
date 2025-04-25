@@ -2,10 +2,9 @@ something something private fork of a popular plugin for a popular game that's i
 
 https://github.com/0ceal0t/Dalamud-VFXEditor/commits/main/
 
-https://github.com/lumxiv/Dalamud-VFXEditor/tree/api12
+https://github.com/lumxiv/Dalamud-VFXEditor/
 
 ## To do:
-- [ ] Mess with LUA pools
 - [ ] Figure out Unknown 2 in TMB/SGB
 - [ ] CUTB nonsense
 - [ ] Put together .py code to manually update npc_files.json
@@ -14,6 +13,7 @@ https://github.com/lumxiv/Dalamud-VFXEditor/tree/api12
 - [ ] Add stuff from EObj to SGB selection
 - [ ] More SGB parsing
 - [ ] Figure out why the icon in the plugin menu isn't cooperating, even though it's a valid link
+- [ ] additional file types for parsing? (tried this with AMB, but I don't know what I'm doing in C#)
 
 ```
 https://github.com/aers/FFXIVClientStructs/blob/main/ida/classinformer.csv
