@@ -63,7 +63,7 @@ namespace VfxEditor.Formats.MdlFormat {
         private readonly ParsedByte BgChangeMaterialIndex = new( "Background Change Material Index" );
         private readonly ParsedByte BgCrestChangeMaterialIndex = new( "Background Crest Change Material Index" );
         private readonly ParsedByte Unknown6 = new( "Unknown 6" );
-        private readonly ParsedShort Unknown7 = new( "Unknown 7" );
+        private readonly ParsedShort Unknown7 = new( "Unknown 7" ); //6 DPS/tank wep, 12 healer wep, monsters unique, body unique
         private readonly ParsedShort Unknown8 = new( "Unknown 8" );
         private readonly ParsedShort Unknown9 = new( "Unknown 9" );
 

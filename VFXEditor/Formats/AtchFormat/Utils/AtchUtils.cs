@@ -127,7 +127,7 @@ namespace VfxEditor.AtchFormat.Utils {
             { "tcs", "Teacup (/tea)" },
             { "tgn", "GSM nail" },
             { "tmb", "WVR frame" },
-            { "tms", "Bouquet (/bouquet) / tomestone (non-emote)" }, //1949, 1944
+            { "tms", "Bouquet (/bouquet) / tomestone (/visage)" }, //1949, 1944
             { "trm", "BRD trumpet [performance]" },
             { "trr", "SCH LB summon" }, //9101
             { "trw", "" }, //n_throw?
