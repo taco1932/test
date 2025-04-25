@@ -6,33 +6,39 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxEnum<RotationOrder> RotationOrderType = new( "Rotation Order", "ROT" );
         public readonly AvfxCurve1Axis AX = new( "Angle X", "AnX", CurveType.Angle );
         public readonly AvfxCurve1Axis AY = new( "Angle Y", "AnY", CurveType.Angle );
+        public readonly AvfxCurve1Axis AZ = new( "[TEST] Angle Z", "AnZ", CurveType.Angle );
         public readonly AvfxCurve1Axis InnerSize = new( "Inner Size", "InS" );
         public readonly AvfxCurve1Axis OuterSize = new( "Outer Size", "OuS" );
         public readonly AvfxCurve1Axis InjectionSpeed = new( "Injection Speed", "IjS" );
         public readonly AvfxCurve1Axis InjectionSpeedRandom = new( "Injection Speed Random", "IjSR" );
         public readonly AvfxCurve1Axis InjectionAngle = new( "Injection Angle", "IjA", CurveType.Angle );
+        public readonly AvfxCurve1Axis InjectionAngleRandom = new( "[TEST] Injection Angle Random", "IjAR", CurveType.Angle );
 
         public AvfxEmitterDataCone() : base() {
             Parsed = [
                 RotationOrderType,
                 AX,
                 AY,
+                AZ,//
                 InnerSize,
                 OuterSize,
                 InjectionSpeed,
                 InjectionSpeedRandom,
-                InjectionAngle
+                InjectionAngle,
+                InjectionAngleRandom,//
             ];
 
             ParameterTab.Add( RotationOrderType );
 
             Tabs.Add( AX );
             Tabs.Add( AY );
+            Tabs.Add( AZ );
             Tabs.Add( InnerSize );
             Tabs.Add( OuterSize );
             Tabs.Add( InjectionSpeed );
             Tabs.Add( InjectionSpeedRandom );
             Tabs.Add( InjectionAngle );
+            Tabs.Add( InjectionAngleRandom );//
         }
     }
 }

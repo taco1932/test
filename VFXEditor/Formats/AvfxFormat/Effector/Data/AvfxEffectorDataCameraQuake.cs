@@ -3,6 +3,7 @@ using VFXEditor.Formats.AvfxFormat.Curve;
 namespace VfxEditor.AvfxFormat {
     public class AvfxEffectorDataCameraQuake : AvfxData {
         public readonly AvfxCurve1Axis Attenuation = new( "Attenuation", "Att" );
+        public readonly AvfxCurve1Axis AttenuationRandom = new( "[TEST] Attenuation Random", "AttR" );
         public readonly AvfxCurve1Axis RadiusOut = new( "Radius Out", "RdO" );
         public readonly AvfxCurve1Axis RadiusIn = new( "Radius In", "RdI" );
         public readonly AvfxCurve3Axis Rotation = new( "Rotation", "Rot", CurveType.Angle );
@@ -11,6 +12,7 @@ namespace VfxEditor.AvfxFormat {
         public AvfxEffectorDataCameraQuake() : base() {
             Parsed = [
                 Attenuation,
+                AttenuationRandom,//
                 RadiusOut,
                 RadiusIn,
                 Rotation,
@@ -18,6 +20,7 @@ namespace VfxEditor.AvfxFormat {
             ];
 
             Tabs.Add( Attenuation );
+            Tabs.Add( AttenuationRandom );//
             Tabs.Add( RadiusOut );
             Tabs.Add( RadiusIn );
             Tabs.Add( Rotation );

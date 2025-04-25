@@ -7,12 +7,15 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxEnum<GenerateMethod> GenerateMethodType = new( "Generate Method", "GeMT" );
         public readonly AvfxInt DivideX = new( "Divide X", "DivX" );
         public readonly AvfxInt DivideY = new( "Divide Y", "DivY" );
+        public readonly AvfxInt DivideZ = new( "[TEST] Divide Z", "DivZ" );
         public readonly AvfxCurve1Axis AX = new( "Angle X", "AnX", CurveType.Angle );
         public readonly AvfxCurve1Axis AY = new( "Angle Y", "AnY", CurveType.Angle );
         public readonly AvfxCurve1Axis AZ = new( "Angle Z", "AnZ", CurveType.Angle );
         public readonly AvfxCurve1Axis AXR = new( "Angle X Random", "AnXR", CurveType.Angle );
         public readonly AvfxCurve1Axis AYR = new( "Angle Y Random", "AnYR", CurveType.Angle );
+        public readonly AvfxCurve1Axis AZR = new( "[TEST] Angle Z Random", "AnZR", CurveType.Angle );
         public readonly AvfxCurve1Axis Radius = new( "Radius", "Rad" );
+        public readonly AvfxCurve1Axis RadiusRandom = new( "[TEST] Radius Random", "RadR" );
         public readonly AvfxCurve1Axis InjectionSpeed = new( "Injection Speed", "IjS" );
         public readonly AvfxCurve1Axis InjectionSpeedRandom = new( "Injection Speed Random", "IjSR" );
         public readonly AvfxCurve1Axis InjectionAngle = new( "Injection Angle", "IjA", CurveType.Angle );
@@ -24,12 +27,15 @@ namespace VfxEditor.AvfxFormat {
                 GenerateMethodType,
                 DivideX,
                 DivideY,
+                DivideZ,//
                 AX,
                 AY,
                 AZ,
                 AXR,
                 AYR,
+                AZR,//
                 Radius,
+                RadiusRandom,//
                 InjectionSpeed,
                 InjectionSpeedRandom,
                 InjectionAngle,
@@ -40,13 +46,16 @@ namespace VfxEditor.AvfxFormat {
             ParameterTab.Add( GenerateMethodType );
             ParameterTab.Add( DivideX );
             ParameterTab.Add( DivideY );
+            ParameterTab.Add( DivideZ );//
 
             Tabs.Add( AX );
             Tabs.Add( AY );
             Tabs.Add( AZ );
             Tabs.Add( AXR );
             Tabs.Add( AYR );
+            Tabs.Add( AZR );//
             Tabs.Add( Radius );
+            Tabs.Add( RadiusRandom );//
             Tabs.Add( InjectionSpeed );
             Tabs.Add( InjectionSpeedRandom );
             Tabs.Add( InjectionAngle );
