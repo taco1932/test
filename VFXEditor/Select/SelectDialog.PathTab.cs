@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using VfxEditor.FileBrowser;
 using VfxEditor.Utils;
+using System.Collections.Generic;
 
 namespace VfxEditor.Select {
     public partial class SelectDialog {
@@ -67,6 +68,21 @@ namespace VfxEditor.Select {
 
             if( ImGui.Checkbox( "Log all files", ref Plugin.Configuration.LogAllFiles ) ) Plugin.Configuration.Save();
 
+            ImGui.SameLine();
+            ImGui.PushItemWidth( 300 );
+            if( ImGui.Button( "Load Scanned Paths" ) )
+            {
+                LoggedFiles.Clear();
+                Plugin.Configuration.LogAllFiles = false;
+                Plugin.Configuration.Save();
+                foreach(string item in VfxEditor.Select.SelectTab.ScannedPaths )
+                {
+                    LoggedFiles.Add( item );
+                }
+                SelectGamePaths( VfxEditor.Select.SelectTab.ScannedPaths );
+                VfxEditor.FileManager.FileManager.flaggedpaths.Clear();
+            }
+
             using var disabled = ImRaii.Disabled( LoggedFiles.Count == 0 && !Plugin.Configuration.LogAllFiles );
 
             ImGui.SameLine();
@@ -116,6 +132,14 @@ namespace VfxEditor.Select {
             if( !ShowLocal || Dalamud.DataManager.FileExists( cleanedPath ) ) {
                 Invoke( new SelectResult( SelectResultType.GamePath, cleanedPath, "[GAME] " + cleanedPath, cleanedPath ) );
                 GamePathInput = "";
+            }
+        }
+        private void SelectGamePaths( List<string> Paths)
+        {
+            foreach( var path in Paths )
+            {
+                SelectGamePath( path );
+
             }
         }
     }

@@ -12,13 +12,17 @@ namespace VfxEditor.Select {
         protected readonly SelectDialog Dialog;
         protected readonly string Name;
 
+        public static bool ScanPaths = false;
+        public static List<String> ScannedPaths = new List<string>();
+        
         public SelectTab( SelectDialog dialog, string name ) {
             Dialog = dialog;
             Name = name;
         }
 
         public abstract void Draw();
-    }
+    };
+
 
     // ===== LOAD SINGLE ========
 
@@ -77,10 +81,22 @@ namespace VfxEditor.Select {
 
             var resetScroll = false;
             DrawExtra();
+
             if( ImGui.InputTextWithHint( "##Search", "Search", ref SearchInput, 255 ) ) {
                 Searched = Items.Where( x => CheckMatch( x, SearchInput ) ).ToList();
                 resetScroll = true;
             }
+            ImGui.SameLine();
+            ImGui.PushItemWidth( 300 );
+            ImGui.Checkbox( "Scan Paths", ref ScanPaths );
+            ImGui.SameLine();
+            ImGui.PushItemWidth( 300 );
+            if( ImGui.Button( "Purge Paths" ) )
+            {
+                ScannedPaths.Clear();
+            }
+
+            ImGui.PopItemWidth();
 
             ImGui.Separator();
 
