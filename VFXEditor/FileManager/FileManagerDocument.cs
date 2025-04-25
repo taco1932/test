@@ -1,9 +1,11 @@
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
+using HelixToolkit.SharpDX.Core.Utilities;
 using ImGuiNET;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 using VfxEditor.FileManager.Interfaces;
 using VfxEditor.Select;
@@ -11,6 +13,10 @@ using VfxEditor.Ui.Export;
 using VfxEditor.Utils;
 
 namespace VfxEditor.FileManager {
+    public class FileManager
+    {
+        public static List<string> flaggedpaths = new List<string>();
+    }
     public abstract class FileManagerDocument<R, S> : IFileDocument where R : FileManagerFile {
         public R File { get; protected set; }
         protected VerifiedStatus Verified => File == null ? VerifiedStatus.UNKNOWN : File.Verified;
@@ -76,6 +82,12 @@ namespace VfxEditor.FileManager {
                 Dalamud.Error( e, "Error Reading File" );
                 Dalamud.ErrorNotification( "Error reading file" );
             }
+
+            if( File.Verified == VerifiedStatus.ERROR && !FileManager.flaggedpaths.Any( f => f.Equals( Source.Path ) ) )
+            {
+                FileManager.flaggedpaths.Add( Source.Path );
+                Dalamud.Log( $"[ParseChecker] File {Source.Path} Has Parsing Issues" );
+            }
         }
 
         protected void LoadGame( string path, bool verify ) {
@@ -99,6 +111,12 @@ namespace VfxEditor.FileManager {
             catch( Exception e ) {
                 Dalamud.Error( e, "Error Reading File" );
                 Dalamud.ErrorNotification( "Error reading file" );
+            }
+
+            if( File.Verified == VerifiedStatus.ERROR && !FileManager.flaggedpaths.Any( f => f.Equals( Source.Path ) ) )
+            {
+                FileManager.flaggedpaths.Add( Source.Path );
+                Dalamud.Log( $"[ParseChecker] File {Source.Path} Has Parsing Issues" );
             }
         }
 
