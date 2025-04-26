@@ -8,6 +8,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxCurve1Axis AY = new( "Angle Y", "AnY", CurveType.Angle );
         public readonly AvfxCurve1Axis AZ = new( "[TEST] Angle Z", "AnZ", CurveType.Angle );
         public readonly AvfxCurve1Axis InnerSize = new( "Inner Size", "InS" );
+        public readonly AvfxCurve1Axis InnerSizeRandom = new( "Inner Size Random", "InSR" );
         public readonly AvfxCurve1Axis OuterSize = new( "Outer Size", "OuS" );
         public readonly AvfxCurve1Axis InjectionSpeed = new( "Injection Speed", "IjS" );
         public readonly AvfxCurve1Axis InjectionSpeedRandom = new( "Injection Speed Random", "IjSR" );
@@ -21,6 +22,7 @@ namespace VfxEditor.AvfxFormat {
                 AY,
                 AZ,//
                 InnerSize,
+                InnerSizeRandom,
                 OuterSize,
                 InjectionSpeed,
                 InjectionSpeedRandom,
@@ -34,6 +36,7 @@ namespace VfxEditor.AvfxFormat {
             Tabs.Add( AY );
             Tabs.Add( AZ );
             Tabs.Add( InnerSize );
+            Tabs.Add( InnerSizeRandom );
             Tabs.Add( OuterSize );
             Tabs.Add( InjectionSpeed );
             Tabs.Add( InjectionSpeedRandom );
