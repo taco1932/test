@@ -57,8 +57,12 @@ namespace VfxEditor.AvfxFormat {
             if( EmitVertexes.EmitVertexes.Count != EmitVertexNumbers.VertexNumbers.Count ) {
                 Dalamud.Error( $"Mismatched emit vertex counts {EmitVertexes.EmitVertexes.Count} {EmitVertexNumbers.VertexNumbers.Count}" );
             }
-            for( var i = 0; i < Math.Min( EmitVertexes.EmitVertexes.Count, EmitVertexNumbers.VertexNumbers.Count ); i++ ) {
-                CombinedEmitVertexes.Add( new UiEmitVertex( this, EmitVertexes.EmitVertexes[i], EmitVertexNumbers.VertexNumbers[i] ) );
+            //original code in case a revert is needed
+            /* for( var i = 0; i < Math.Min( EmitVertexes.EmitVertexes.Count, EmitVertexNumbers.VertexNumbers.Count ); i++ ) {
+                CombinedEmitVertexes.Add( new UiEmitVertex( this, EmitVertexes.EmitVertexes[i], EmitVertexNumbers.VertexNumbers[i] ) );*/
+            for( var i = 0; i < EmitVertexes.EmitVertexes.Count; i++ ) { 
+                Dalamud.Log( (Math.Floor( ( decimal )( i / EmitVertexNumbers.VertexNumbers.Count ) ).ToString() ) );
+                CombinedEmitVertexes.Add( new UiEmitVertex( this, EmitVertexes.EmitVertexes[i], EmitVertexNumbers.VertexNumbers[((int)Math.Floor((decimal)(i/ ( EmitVertexes.EmitVertexes.Count/EmitVertexNumbers.VertexNumbers.Count)) ))] ) );
             }
         }
 
