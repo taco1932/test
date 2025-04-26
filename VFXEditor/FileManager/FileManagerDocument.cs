@@ -109,8 +109,8 @@ namespace VfxEditor.FileManager {
                 File = FileFromReader( reader, verify );
             }
             catch( Exception e ) {
-                Dalamud.Error( e, "Error Reading File" );
-                Dalamud.ErrorNotification( "Error reading file" );
+                Dalamud.Error( e, "Error Reading File: " + path );
+                Dalamud.ErrorNotification( "Error reading file: " + path );
             }
 
             if( File.Verified == VerifiedStatus.ERROR && !FileManager.flaggedpaths.Any( f => f.Equals( Source.Path ) ) )
