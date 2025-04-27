@@ -19,6 +19,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxBool IsLocal = new( "Is Local", "bLcl" );
 
         public readonly AvfxCurve1Axis CF = new( "CF (Unknown)", "CF" );
+        public readonly AvfxCurve1Axis CFR = new( "[NEW] CFR (Unknown)", "CFR" );
         public readonly AvfxCurve1Axis Width = new( "Width", "Wd" );
         public readonly AvfxCurve1Axis WidthRandom = new( "Width Random", "WdR" );
         public readonly AvfxCurve1Axis WidthBegin = new( "Width Begin", "WdB" );
@@ -53,6 +54,7 @@ namespace VfxEditor.AvfxFormat {
                 IsSpline,
                 IsLocal,
                 CF,
+                CFR,
                 Width,
                 WidthRandom,
                 WidthBegin,
@@ -101,6 +103,7 @@ namespace VfxEditor.AvfxFormat {
             Tabs.Add( ColorEdgeEnd );
 
             Tabs.Add( CF );
+            Tabs.Add( CFR );
             Tabs.Add( Softness );
             Tabs.Add( SoftRandom );
             Tabs.Add( PnDs );

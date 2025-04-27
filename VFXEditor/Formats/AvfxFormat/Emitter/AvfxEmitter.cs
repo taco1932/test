@@ -54,6 +54,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxCurve1Axis VelocityRandomY = new( "Velocity Random Y", "VRY" );
         public readonly AvfxCurve1Axis RotVelYRandom = new( "Rotation Velocity Y Random", "VRYR" );
         public readonly AvfxCurve1Axis VelocityRandomZ = new( "Velocity Random Z", "VRZ" );
+        public readonly AvfxCurve1Axis RotVelZRandom = new( "Rotation Velocity Z Random", "VRZR" );
 
         private readonly List<AvfxBase> Parsed;
 
@@ -111,7 +112,8 @@ namespace VfxEditor.AvfxFormat {
                 RotVelXRandom,
                 VelocityRandomY,
                 RotVelYRandom,
-                VelocityRandomZ
+                VelocityRandomZ,
+                RotVelZRandom
             ];
             Sound.SetAssigned( false );
 
@@ -139,7 +141,8 @@ namespace VfxEditor.AvfxFormat {
                 RotVelXRandom,
                 VelocityRandomY,
                 RotVelYRandom,
-                VelocityRandomZ
+                VelocityRandomZ,
+                RotVelZRandom
             ] );
 
             EffectorSelect = new( this, "Effector Select", groupSet.Effectors, EffectorIdx );
