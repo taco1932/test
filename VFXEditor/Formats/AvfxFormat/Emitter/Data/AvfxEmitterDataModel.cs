@@ -6,6 +6,9 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxInt ModelIdx = new( "Model Index", "MdNo", value: -1 );
         public readonly AvfxEnum<RotationOrder> RotationOrderType = new( "Rotation Order", "ROT" );
         public readonly AvfxEnum<GenerateMethod> GenerateMethodType = new( "Generate Method", "GeMT" );
+        public readonly AvfxInt DivideX = new( "Divide X", "DivX", value: 1 );
+        public readonly AvfxInt DivideY = new( "Divide Y", "DivY", value: 1 );
+        public readonly AvfxInt DivideZ = new( "[TEST] Divide Z", "DivZ", value: 1 );
         public readonly AvfxCurve1Axis AX = new( "Angle X", "AnX", CurveType.Angle );
         public readonly AvfxCurve1Axis AY = new( "Angle Y", "AnY", CurveType.Angle );
         public readonly AvfxCurve1Axis AZ = new( "Angle Z", "AnZ", CurveType.Angle );
@@ -24,6 +27,9 @@ namespace VfxEditor.AvfxFormat {
                 ModelIdx,
                 RotationOrderType,
                 GenerateMethodType,
+                DivideX,
+                DivideY,
+                DivideZ,
                 AX,
                 AY,
                 AZ,
@@ -39,6 +45,9 @@ namespace VfxEditor.AvfxFormat {
             ParameterTab.Add( ModelSelect = new AvfxNodeSelect<AvfxModel>( emitter, "Model", emitter.NodeGroups.Models, ModelIdx ) );
             ParameterTab.Add( RotationOrderType );
             ParameterTab.Add( GenerateMethodType );
+            ParameterTab.Add( DivideX );
+            ParameterTab.Add( DivideY );
+            ParameterTab.Add( DivideZ );
 
             Tabs.Add( AX );
             Tabs.Add( AY );

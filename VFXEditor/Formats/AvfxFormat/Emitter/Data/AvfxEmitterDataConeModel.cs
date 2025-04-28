@@ -14,6 +14,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxCurve1Axis AXR = new( "Angle X Random", "AnXR", CurveType.Angle );
         public readonly AvfxCurve1Axis AYR = new( "Angle Y Random", "AnYR", CurveType.Angle );
         public readonly AvfxCurve1Axis AZR = new( "[TEST] Angle Z Random", "AnZR", CurveType.Angle );
+        public readonly AvfxCurve1Axis Length = new( "[TEST] Length", "Len" );
         public readonly AvfxCurve1Axis Radius = new( "Radius", "Rad" );
         public readonly AvfxCurve1Axis RadiusRandom = new( "[TEST] Radius Random", "RadR" );
         public readonly AvfxCurve1Axis InjectionSpeed = new( "Injection Speed", "IjS" );

@@ -146,7 +146,7 @@ namespace VfxEditor.AvfxFormat {
                 if( tab ) UvView.Draw();
             }
 
-            using( var tab = ImRaii.TabItem( "Vertex Numbers" ) )
+            using( var tab = ImRaii.TabItem( "Vertex Order" ) )
             {
                 if( tab ) DrawVertexnumbers();
             }
