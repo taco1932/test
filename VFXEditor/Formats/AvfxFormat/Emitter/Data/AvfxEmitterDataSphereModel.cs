@@ -7,6 +7,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxEnum<GenerateMethod> GenerateMethodType = new( "Generate Method", "GeMT" );
         public readonly AvfxInt DivideX = new( "Divide X", "DivX", value: 1 );
         public readonly AvfxInt DivideY = new( "Divide Y", "DivY", value: 1 );
+        public readonly AvfxInt DivideZ = new( "Divide Z", "DivZ", value: 1 );
         public readonly AvfxCurve1Axis Radius = new( "Radius", "Rads" );
         public readonly AvfxCurve1Axis AX = new( "[TEST] Angle X", "AnX", CurveType.Angle );
         public readonly AvfxCurve1Axis AY = new( "Angle Y", "AnY", CurveType.Angle );
@@ -23,6 +24,7 @@ namespace VfxEditor.AvfxFormat {
                 GenerateMethodType,
                 DivideX,
                 DivideY,
+                DivideZ,//
                 Radius,
                 AX,//
                 AY,
@@ -38,6 +40,7 @@ namespace VfxEditor.AvfxFormat {
             ParameterTab.Add( GenerateMethodType );
             ParameterTab.Add( DivideX );
             ParameterTab.Add( DivideY );
+            ParameterTab.Add( DivideZ );
 
             Tabs.Add( Radius );
             Tabs.Add( AX );//

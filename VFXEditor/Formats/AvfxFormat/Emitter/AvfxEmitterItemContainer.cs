@@ -30,6 +30,10 @@ namespace VfxEditor.AvfxFormat {
             {
                 for( var i = 0; i < size / 276; i++ ) Items.Add( new AvfxEmitterItem( IsParticle, Emitter, false, 276, reader ) );
             }
+            else if( ( float )size / 288 == size / 288 )
+            {
+                for( var i = 0; i < size / 288; i++ ) Items.Add( new AvfxEmitterItem( IsParticle, Emitter, false, 288, reader ) );
+            }
             else
             {
                 Dalamud.Log( "size " + size.ToString() + " cannot be parsed");

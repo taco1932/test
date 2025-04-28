@@ -9,8 +9,13 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxCurve1Axis AX = new( "Angle X", "AnX", CurveType.Angle );
         public readonly AvfxCurve1Axis AY = new( "Angle Y", "AnY", CurveType.Angle );
         public readonly AvfxCurve1Axis AZ = new( "Angle Z", "AnZ", CurveType.Angle );
+        public readonly AvfxCurve1Axis AXR = new( "[TEST] Angle X Random", "AnXR", CurveType.Angle );
+        public readonly AvfxCurve1Axis AYR = new( "[TEST] Angle Y Random", "AnYR", CurveType.Angle );
+        public readonly AvfxCurve1Axis AZR = new( "[TEST] Angle Z Random", "AnZR", CurveType.Angle );
         public readonly AvfxCurve1Axis InjectionSpeed = new( "Injection Speed", "IjS" );
         public readonly AvfxCurve1Axis InjectionSpeedRandom = new( "Injection Speed Random", "IjSR" );
+        public readonly AvfxCurve1Axis InjectionAngle = new( "[TEST] Injection Angle", "IjA" );
+        public readonly AvfxCurve1Axis InjectionAngleRandom = new( "[TEST] Injection Angle Random", "IjAR" );
 
         public readonly AvfxNodeSelect<AvfxModel> ModelSelect;
 
@@ -22,8 +27,13 @@ namespace VfxEditor.AvfxFormat {
                 AX,
                 AY,
                 AZ,
+                AXR,
+                AYR,
+                AZR,
                 InjectionSpeed,
-                InjectionSpeedRandom
+                InjectionSpeedRandom,
+                InjectionAngle,
+                InjectionAngleRandom
             ];
 
             ParameterTab.Add( ModelSelect = new AvfxNodeSelect<AvfxModel>( emitter, "Model", emitter.NodeGroups.Models, ModelIdx ) );
@@ -33,8 +43,13 @@ namespace VfxEditor.AvfxFormat {
             Tabs.Add( AX );
             Tabs.Add( AY );
             Tabs.Add( AZ );
+            Tabs.Add( AXR );
+            Tabs.Add( AYR );
+            Tabs.Add( AZR );
             Tabs.Add( InjectionSpeed );
             Tabs.Add( InjectionSpeedRandom );
+            Tabs.Add( InjectionAngle );
+            Tabs.Add( InjectionAngleRandom );
         }
 
         public override void Enable() {
