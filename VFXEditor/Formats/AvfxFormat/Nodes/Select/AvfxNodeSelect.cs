@@ -49,10 +49,12 @@ namespace VfxEditor.AvfxFormat {
 
         public void LinkParentChild( AvfxNode node ) {
             if( node == null ) return;
-
-            Node.ChildNodes.Add( node );
-            node.Parents.Add( this );
-            OutdatedGraph( node );
+            //NOTE: NEED TO ADD INDICATOR THAT THE NODE CALLS ITSELF.
+            if (!( Node == node )){
+                Node.ChildNodes.Add( node );
+                node.Parents.Add( this );
+                OutdatedGraph( node );
+            }
         }
 
         private void OutdatedGraph( AvfxNode node ) {
@@ -207,9 +209,11 @@ namespace VfxEditor.AvfxFormat {
             if( ImGui.Selectable( "[NONE]", Selected == null ) ) CommandManager.Add( new AvfxNodeSelectCommand<T>( this, null ) ); // "None" selector
             foreach( var item in Group.Items ) {
                 var cycle = Node.IsChildOf( item );
-                using var disabled = ImRaii.Disabled( cycle );
-
-                if( ImGui.Selectable( item.GetText(), Selected == item ) && !cycle ) CommandManager.Add( new AvfxNodeSelectCommand<T>( this, item ) );
+                //disabling since this already has handling for this.
+                //using var disabled = ImRaii.Disabled( cycle );
+                
+                //if( ImGui.Selectable( item.GetText(), Selected == item ) && !cycle ) CommandManager.Add( new AvfxNodeSelectCommand<T>( this, item ) );
+                if( ImGui.Selectable( item.GetText(), Selected == item )) CommandManager.Add( new AvfxNodeSelectCommand<T>( this, item ) );
                 if( ImGui.IsItemHovered() ) item.ShowTooltip();
             }
         }

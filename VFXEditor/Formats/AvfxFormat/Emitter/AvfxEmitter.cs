@@ -53,6 +53,7 @@ namespace VfxEditor.AvfxFormat {
 
         public readonly AvfxCurve1Axis VelocityRandomY = new( "Velocity Random Y", "VRY" );
         public readonly AvfxCurve1Axis RotVelYRandom = new( "Rotation Velocity Y Random", "VRYR" );
+
         public readonly AvfxCurve1Axis VelocityRandomZ = new( "Velocity Random Z", "VRZ" );
         public readonly AvfxCurve1Axis RotVelZRandom = new( "Rotation Velocity Z Random", "VRZR" );
 
