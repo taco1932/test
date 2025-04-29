@@ -16,9 +16,9 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxCurve1Axis AYR = new( "[TEST] Angle Y Random", "AnYR", CurveType.Angle );
         public readonly AvfxCurve1Axis AZR = new( "[TEST] Angle Z Random", "AnZR", CurveType.Angle );
         public readonly AvfxCurve1Axis InjectionSpeed = new( "Injection Speed", "IjS" );
-        //public readonly AvfxCurve1Axis InjectionSpeedRandom = new( "Injection Speed Random", "IjSR" );
-        //public readonly AvfxCurve1Axis InjectionAngle = new( "[TEST] Injection Angle", "IjA" );
-        //public readonly AvfxCurve1Axis InjectionAngleRandom = new( "[TEST] Injection Angle Random", "IjAR" );
+        public readonly AvfxCurve1Axis InjectionSpeedRandom = new( "Injection Speed Random", "IjSR" );
+        public readonly AvfxCurve1Axis InjectionAngle = new( "[TEST] Injection Angle", "IjA" );
+        public readonly AvfxCurve1Axis InjectionAngleRandom = new( "[TEST] Injection Angle Random", "IjAR" );
 
         public readonly AvfxNodeSelect<AvfxModel> ModelSelect;
 
@@ -37,9 +37,9 @@ namespace VfxEditor.AvfxFormat {
                 AYR,
                 AZR,
                 InjectionSpeed,
-               //InjectionSpeedRandom,
-               //InjectionAngle,
-                //InjectionAngleRandom
+                InjectionSpeedRandom,
+                InjectionAngle,
+                InjectionAngleRandom
             ];
 
             ParameterTab.Add( ModelSelect = new AvfxNodeSelect<AvfxModel>( emitter, "Model", emitter.NodeGroups.Models, ModelIdx ) );
@@ -56,9 +56,9 @@ namespace VfxEditor.AvfxFormat {
             Tabs.Add( AYR );
             Tabs.Add( AZR );
             Tabs.Add( InjectionSpeed );
-            //Tabs.Add( InjectionSpeedRandom );
-            //Tabs.Add( InjectionAngle );
-            //Tabs.Add( InjectionAngleRandom );
+            Tabs.Add( InjectionSpeedRandom );
+            Tabs.Add( InjectionAngle );
+            Tabs.Add( InjectionAngleRandom );
         }
 
         public override void Enable() {

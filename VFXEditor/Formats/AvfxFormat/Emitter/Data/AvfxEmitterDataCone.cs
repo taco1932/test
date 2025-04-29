@@ -4,6 +4,10 @@ using static VfxEditor.AvfxFormat.Enums;
 namespace VfxEditor.AvfxFormat {
     public class AvfxEmitterDataCone : AvfxDataWithParameters {
         public readonly AvfxEnum<RotationOrder> RotationOrderType = new( "Rotation Order", "ROT" );
+        //public readonly AvfxCurve1Axis Length = new( "[TEST] Length", "Len" );
+        //public readonly AvfxCurve1Axis LengthRandom = new( "[TEST] Length Random", "LenR" );
+        //public readonly AvfxCurve1Axis Radius = new( "[TEST] Radius", "Rad" );
+        //public readonly AvfxCurve1Axis RadiusRandom = new( "[TEST] Radius Random", "RadR" );
         public readonly AvfxCurve1Axis AX = new( "Angle X", "AnX", CurveType.Angle );
         public readonly AvfxCurve1Axis AY = new( "Angle Y", "AnY", CurveType.Angle );
         public readonly AvfxCurve1Axis AZ = new( "[TEST] Angle Z", "AnZ", CurveType.Angle );
@@ -22,6 +26,10 @@ namespace VfxEditor.AvfxFormat {
         public AvfxEmitterDataCone() : base() {
             Parsed = [
                 RotationOrderType,
+                //Length,
+                //LengthRandom,
+                //Radius,
+                //RadiusRandom,
                 AX,
                 AY,
                 AZ,//
@@ -40,6 +48,10 @@ namespace VfxEditor.AvfxFormat {
 
             ParameterTab.Add( RotationOrderType );
 
+            //Tabs.Add( Radius );
+            //Tabs.Add( RadiusRandom );
+            //Tabs.Add( Length );
+            //Tabs.Add( LengthRandom );
             Tabs.Add( AX );
             Tabs.Add( AY );
             Tabs.Add( AZ );
