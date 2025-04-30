@@ -7,7 +7,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxEnum<NotBillboardBaseAxisType> NotBillBoardBaseAxisType = new( "Not Billboard Base Axis", "NBBA" );
         public readonly AvfxInt BindWeaponType = new( "Bind Weapon Type", "BWpT" );
         public readonly AvfxInt PointCount = new( "Point Count", "PnC" );
-        public readonly AvfxInt PointCountCenter = new( "Pount Count Center", "PnCC" );
+        public readonly AvfxInt PointCountCenter = new( "Point Count Center", "PnCC" );
         public readonly AvfxInt PointCountEndDistortion = new( "Point Count End Distortion", "PnED" );
         public readonly AvfxBool UseEdge = new( "Use Edge", "bEdg" );
         public readonly AvfxBool NotBillboard = new( "No Billboard", "bNtB" );
