@@ -217,6 +217,12 @@ namespace VfxEditor.AvfxFormat {
             Default = 0,
             Mirror = 1
         }
+
+        public enum CreateTimeOptions {
+            Emitteranimation = 0,
+            CreateSettings = 1,
+            Unknown1= 2
+        }
         public enum ParentInfluenceCoordOptions {
             InitialPosition = 0,
             // Uses the initial position regardless. Options control always
@@ -230,6 +236,7 @@ namespace VfxEditor.AvfxFormat {
             Unknown = 8,
             Unknown_NoPosition = 9
         }
+
         public enum ParentInfluenceColorOptions {
             None = 0,
             Initial = 1,
@@ -296,7 +303,8 @@ namespace VfxEditor.AvfxFormat {
             X_Y = 1,
             Y_X = 2
         }
-        public enum AxisConnect3 {
+        public enum AxisConnect3
+        {
             None = 0,
             X_YZ = 1,
             X_Y = 2,
@@ -307,6 +315,12 @@ namespace VfxEditor.AvfxFormat {
             Z_XY = 7,
             Z_X = 8,
             Z_Y = 9
+        }
+
+        public enum DissolveShape {
+            RectangularPrism = 1,
+            Sphere = 2,
+            Cylinder = 3
         }
 
         [Flags]
