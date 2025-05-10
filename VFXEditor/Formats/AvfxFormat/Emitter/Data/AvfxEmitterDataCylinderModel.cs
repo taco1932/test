@@ -7,21 +7,18 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxEnum<GenerateMethod> GenerateMethodType = new( "Generate Method", "GeMT" );
         public readonly AvfxInt DivideX = new( "Divide X", "DivX", value: 1 );
         public readonly AvfxInt DivideY = new( "Divide Y", "DivY", value: 1 );
-        //public readonly AvfxInt DivideZ = new( "[TEST] Divide Z", "DivZ", value: 1 );
         public readonly AvfxCurve1Axis Length = new( "Length", "Len" );
-        //public readonly AvfxCurve1Axis LengthRandom = new( "[TEST] Length Random", "LenR" );
         public readonly AvfxCurve1Axis Radius = new( "Radius", "Rad" );
-        //public readonly AvfxCurve1Axis RadiusRandom = new( "[TEST] Radius Random", "RadR" );
         public readonly AvfxCurve1Axis AX = new( "Angle X", "AnX", CurveType.Angle );
         public readonly AvfxCurve1Axis AY = new( "Angle Y", "AnY", CurveType.Angle );
         public readonly AvfxCurve1Axis AZ = new( "Angle Z", "AnZ", CurveType.Angle );
-        public readonly AvfxCurve1Axis AXR = new( "[TEST] Angle X Random", "AnXR", CurveType.Angle );
-        public readonly AvfxCurve1Axis AYR = new( "[TEST] Angle Y Random", "AnYR", CurveType.Angle );
-        public readonly AvfxCurve1Axis AZR = new( "[TEST] Angle Z Random", "AnZR", CurveType.Angle );
+        public readonly AvfxCurve1Axis AXR = new( "Angle X Random", "AnXR", CurveType.Angle ); //
+        public readonly AvfxCurve1Axis AYR = new( "Angle Y Random", "AnYR", CurveType.Angle ); //
+        public readonly AvfxCurve1Axis AZR = new( "Angle Z Random", "AnZR", CurveType.Angle ); //
         public readonly AvfxCurve1Axis InjectionSpeed = new( "Injection Speed", "IjS" );
         public readonly AvfxCurve1Axis InjectionSpeedRandom = new( "Injection Speed Random", "IjSR" );
-        //public readonly AvfxCurve1Axis InjectionAngle = new( "[TEST] Injection Angle", "IjA", CurveType.Angle );
-        //public readonly AvfxCurve1Axis InjectionAngleRandom = new( "[TEST] Injection Angle Random", "IjAR", CurveType.Angle );
+
+        //items not in 7.2 source code: IjA, IjAR, DivZ, LenR, RadR
 
         public AvfxEmitterDataCylinderModel() : base() {
             Parsed = [
@@ -29,11 +26,8 @@ namespace VfxEditor.AvfxFormat {
                 GenerateMethodType,
                 DivideX,
                 DivideY,
-                //DivideZ,
                 Length,
-                //LengthRandom,
                 Radius,
-                //RadiusRandom,
                 AX,
                 AY,
                 AZ,
@@ -42,20 +36,15 @@ namespace VfxEditor.AvfxFormat {
                 AZR,
                 InjectionSpeed,
                 InjectionSpeedRandom,
-                //InjectionAngle,
-                //InjectionAngleRandom
             ];
 
             ParameterTab.Add( RotationOrderType );
             ParameterTab.Add( GenerateMethodType );
             ParameterTab.Add( DivideX );
             ParameterTab.Add( DivideY );
-            //ParameterTab.Add( DivideZ );
 
             Tabs.Add( Radius );
-            //Tabs.Add( RadiusRandom );
             Tabs.Add( Length );
-            //Tabs.Add( LengthRandom );
             Tabs.Add( AX );
             Tabs.Add( AY );
             Tabs.Add( AZ );
@@ -64,8 +53,6 @@ namespace VfxEditor.AvfxFormat {
             Tabs.Add( AZR );
             Tabs.Add( InjectionSpeed );
             Tabs.Add( InjectionSpeedRandom );
-            //Tabs.Add( InjectionAngle );
-            //Tabs.Add( InjectionAngleRandom );
         }
     }
 }

@@ -46,8 +46,8 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedEnum<BindType> BindPoint1Type = new( "Bind Point 1 Type", size: 1 );
         //private readonly ParsedInt Unk2 = new( "Unknown 2", size: 2 );
         private readonly ParsedShort BindPoint2 = new( "Bind Point 2" );
-        private readonly ParsedInt Visibility = new( "Visibility" ); 
-        private readonly ParsedInt Unk4 = new( "Unknown 4" );
+        private readonly ParsedInt Visibility = new( "Visibility + Triggers/Clips" ); 
+        private readonly ParsedInt Unk4 = new( "Simultaneous VFX Count" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
         private readonly ParsedInt Unk6 = new( "Unknown 6" );
         private readonly ParsedInt Unk7 = new( "Unknown 7" );

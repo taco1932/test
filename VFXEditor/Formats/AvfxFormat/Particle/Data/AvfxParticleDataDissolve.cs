@@ -12,7 +12,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxCurve1Axis EndColorWidth = new( "End Color Width", "EdW" );
         public readonly AvfxCurveDissolve Color = new( "Color", "EdC" );
         public readonly AvfxCurve1Axis MidColorWidth = new( "Mid Color Width", "EdCW" );
-        public readonly AvfxCurve1Axis StartColorWidth = new( "Start Color Width", "ECMP" );
+        public readonly AvfxCurve1Axis StartColorWidth = new( "Start Color Width", "ECMP" ); //is it?
         public readonly AvfxCurve1Axis Intensity = new( "Intensity", "Int" );
 
         public AvfxParticleDataDissolve() : base() {

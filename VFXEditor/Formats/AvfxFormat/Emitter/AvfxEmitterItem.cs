@@ -13,7 +13,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxBool Enabled = new( "Enabled", "bEnb", value: false );
         public readonly AvfxInt TargetIdx = new( "Target Index", "TgtB", value: -1 );
         public readonly AvfxInt LocalDirection = new( "Local Direction", "LoDr", value: 0 );
-        public readonly AvfxEnum<CreateTimeOptions> CreateTime = new( "Create Time", "CrTm", value: CreateTimeOptions.CreateSettings );
+        public readonly AvfxEnum<CreateTimeOptions> CreateTime = new( "Create Time", "CrTm", value: CreateTimeOptions.Create_Settings );
         public readonly AvfxInt CreateCount = new( "Create Count", "CrCn", value: 1 );
         public readonly AvfxInt CreateProbability = new( "Create Probability", "CrPr", value: 100 );
         public readonly AvfxEnum<ParentInfluenceCoordOptions> ParentInfluenceCoord = new( "Influence on Child", "PICd", value: ParentInfluenceCoordOptions.InitialPosition_WithOptions );

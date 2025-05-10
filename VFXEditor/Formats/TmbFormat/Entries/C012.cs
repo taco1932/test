@@ -6,10 +6,10 @@ using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
     public enum VfxVisibility {
-        Unknown_0_Default = 0,
-        Unknown_1 = 1,
-        Everyone = 2,
-        Unknown_3 = 3,
+        Default_no_Triggers = 0,
+        Default_with_Triggers = 1,
+        Always_no_Triggers = 2,
+        Always_with_Triggers = 3,
     }
 
     public class C012 : TmbEntry {
@@ -45,7 +45,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly TmbOffsetAngle3 Rotation = new( "Rotation" );
         private readonly TmbOffsetFloat3 Position = new( "Position" );
         private readonly TmbOffsetFloat4 RGBA = new( "RGBA", defaultValue: new( 1 ) );
-        private readonly ParsedEnum<VfxVisibility> Visibility = new( "Visibility" );
+        private readonly ParsedEnum<VfxVisibility> Visibility = new( "Visibility + Triggers/Clips" );
         private readonly ParsedInt Unk3 = new( "Unknown 3" );
 
         public C012( TmbFile file ) : base( file ) { }

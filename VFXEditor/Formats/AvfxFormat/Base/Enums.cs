@@ -219,9 +219,9 @@ namespace VfxEditor.AvfxFormat {
         }
 
         public enum CreateTimeOptions {
-            Emitteranimation = 0,
-            CreateSettings = 1,
-            Unknown1= 2
+            Emitter_Animation = 0,
+            Create_Settings = 1,
+            Unknown = 2
         }
         public enum ParentInfluenceCoordOptions {
             InitialPosition = 0,
@@ -271,13 +271,13 @@ namespace VfxEditor.AvfxFormat {
         public enum EffectorType {
             PointLight = 0,
             DirectionalLight = 1,
-            Reserve2 = 2,
-            Reserve3 = 3,
+            Reserve1 = 2,
+            New_Unknown2 = 3,
             RadialBlur_Unknown = 4,
-            Reserve5 = 5,
-            CameraQuake_Unknown = 6, // NOTE: seen in Akh Rai
+            New_Unknown1 = 5,
+            CameraQuake_Unknown = 6, //case 6 in source code is blank
             RadialBlur = 7,
-            BlackHole = 8,
+            BlackHole = 8, //case 8 exists, but unsure what it's doing
             CameraQuake = 9
         }
         public enum PointLightAttenuation {

@@ -4,38 +4,32 @@ using static VfxEditor.AvfxFormat.Enums;
 namespace VfxEditor.AvfxFormat {
     public class AvfxEmitterDataCone : AvfxDataWithParameters {
         public readonly AvfxEnum<RotationOrder> RotationOrderType = new( "Rotation Order", "ROT" );
-        //public readonly AvfxCurve1Axis Length = new( "[TEST] Length", "Len" );
-        //public readonly AvfxCurve1Axis LengthRandom = new( "[TEST] Length Random", "LenR" );
-        //public readonly AvfxCurve1Axis Radius = new( "[TEST] Radius", "Rad" );
-        //public readonly AvfxCurve1Axis RadiusRandom = new( "[TEST] Radius Random", "RadR" );
         public readonly AvfxCurve1Axis AX = new( "Angle X", "AnX", CurveType.Angle );
         public readonly AvfxCurve1Axis AY = new( "Angle Y", "AnY", CurveType.Angle );
-        public readonly AvfxCurve1Axis AZ = new( "[TEST] Angle Z", "AnZ", CurveType.Angle );
-        public readonly AvfxCurve1Axis AXR = new( "[TEST] Angle X Random", "AnXR", CurveType.Angle );
-        public readonly AvfxCurve1Axis AYR = new( "[TEST] Angle Y Random", "AnYR", CurveType.Angle );
-        public readonly AvfxCurve1Axis AZR = new( "[TEST] Angle Z Random", "AnZR", CurveType.Angle );
+        public readonly AvfxCurve1Axis AZ = new( "Angle Z", "AnZ", CurveType.Angle ); //
+        public readonly AvfxCurve1Axis AXR = new( "Angle X Random", "AnXR", CurveType.Angle ); //
+        public readonly AvfxCurve1Axis AYR = new( "Angle Y Random", "AnYR", CurveType.Angle ); //
+        public readonly AvfxCurve1Axis AZR = new( "Angle Z Random", "AnZR", CurveType.Angle ); //
         public readonly AvfxCurve1Axis InnerSize = new( "Inner Size", "InS" );
         public readonly AvfxCurve1Axis InnerSizeRandom = new( "Inner Size Random", "InSR" );
         public readonly AvfxCurve1Axis OuterSize = new( "Outer Size", "OuS" );
-        public readonly AvfxCurve1Axis OuterSizeRandom = new( "[TEST] Outer Size Random", "OuSR" );
+        public readonly AvfxCurve1Axis OuterSizeRandom = new( "Outer Size Random", "OuSR" ); //
         public readonly AvfxCurve1Axis InjectionSpeed = new( "Injection Speed", "IjS" );
         public readonly AvfxCurve1Axis InjectionSpeedRandom = new( "Injection Speed Random", "IjSR" );
         public readonly AvfxCurve1Axis InjectionAngle = new( "Injection Angle", "IjA", CurveType.Angle );
-        public readonly AvfxCurve1Axis InjectionAngleRandom = new( "[TEST] Injection Angle Random", "IjAR", CurveType.Angle );
+        public readonly AvfxCurve1Axis InjectionAngleRandom = new( "Injection Angle Random", "IjAR", CurveType.Angle ); //
+
+        //items not in 7.2 source code: Len, LenR, Rad, RadR
 
         public AvfxEmitterDataCone() : base() {
             Parsed = [
                 RotationOrderType,
-                //Length,
-                //LengthRandom,
-                //Radius,
-                //RadiusRandom,
                 AX,
                 AY,
-                AZ,//
-                AXR,//
-                AYR,//
-                AZR,//
+                AZ,
+                AXR,
+                AYR,
+                AZR,
                 InnerSize,
                 InnerSizeRandom,
                 OuterSize,
@@ -43,15 +37,11 @@ namespace VfxEditor.AvfxFormat {
                 InjectionSpeed,
                 InjectionSpeedRandom,
                 InjectionAngle,
-                InjectionAngleRandom,//
+                InjectionAngleRandom,
             ];
 
             ParameterTab.Add( RotationOrderType );
 
-            //Tabs.Add( Radius );
-            //Tabs.Add( RadiusRandom );
-            //Tabs.Add( Length );
-            //Tabs.Add( LengthRandom );
             Tabs.Add( AX );
             Tabs.Add( AY );
             Tabs.Add( AZ );
@@ -65,7 +55,7 @@ namespace VfxEditor.AvfxFormat {
             Tabs.Add( InjectionSpeed );
             Tabs.Add( InjectionSpeedRandom );
             Tabs.Add( InjectionAngle );
-            Tabs.Add( InjectionAngleRandom );//
+            Tabs.Add( InjectionAngleRandom );
         }
     }
 }
