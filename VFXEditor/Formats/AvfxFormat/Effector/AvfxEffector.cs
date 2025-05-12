@@ -71,8 +71,8 @@ namespace VfxEditor.AvfxFormat {
                 EffectorType.BlackHole => null,
                 EffectorType.CameraQuake_Unknown or EffectorType.CameraQuake => new AvfxEffectorDataCameraQuake(),
                 EffectorType.RadialBlur_Unknown => new AvfxEffectorRadialBlurUnknown(),
-                EffectorType.New_Unknown1 => new AvfxEffectorUnknown1(),
-                EffectorType.New_Unknown2 => new AvfxEffectorUnknown2(),
+                EffectorType.MirrorBlur => new AvfxEffectorMirrorBlur(),
+                //EffectorType.New_Unknown2 => new AvfxEffectorUnknown2(), //commented out until I know what's happening
                 _ => null
             };
             Data?.SetAssigned( true );

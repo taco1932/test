@@ -272,9 +272,9 @@ namespace VfxEditor.AvfxFormat {
             PointLight = 0,
             DirectionalLight = 1,
             Reserve1 = 2,
-            New_Unknown2 = 3,
+            New_Unknown2 = 3, //you will crash
             RadialBlur_Unknown = 4,
-            New_Unknown1 = 5,
+            MirrorBlur = 5,
             CameraQuake_Unknown = 6, //case 6 in source code is blank
             RadialBlur = 7,
             BlackHole = 8, //case 8 exists, but unsure what it's doing
