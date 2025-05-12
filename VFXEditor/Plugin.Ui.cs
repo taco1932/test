@@ -122,9 +122,11 @@ namespace VfxEditor {
                     SkpManager,
                     PhybManager,
                     EidManager,
+                    WtdManager,
                     AtchManager,
                     KdbManager,
                     PbdManager,
+                    SgbManager,
                 },
                 new IFileManager[]{
                     MdlManager,
