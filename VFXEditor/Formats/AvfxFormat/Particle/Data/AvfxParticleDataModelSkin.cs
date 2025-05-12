@@ -16,7 +16,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxCurve1Axis SEMRandom = new( "SEM Random", "SEMR" ); //
         public readonly AvfxCurve1Axis EEM = new( "EEM", "EEM" );
         public readonly AvfxCurve1Axis EEMRandom = new( "EEM Random", "EEMR" ); //
-        public readonly AvfxCurve3Axis UVPD = new( "UVPD", "UVPD" );
+        public readonly AvfxCurve3Axis UVPD = new( "UV Point Density", "UVPD" );
 
         public AvfxParticleDataModelSkin() : base() {
             Parsed = [
