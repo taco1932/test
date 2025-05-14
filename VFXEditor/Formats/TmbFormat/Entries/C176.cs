@@ -33,6 +33,8 @@ namespace VfxEditor.TmbFormat.Entries {
             Unk2,
             TmfcId,
             Unk4,
+            Unk425,
+            Unk45,
             Unk5,
             Unk6,
             Unk7,

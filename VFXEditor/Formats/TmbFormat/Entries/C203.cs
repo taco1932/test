@@ -6,7 +6,7 @@ namespace VfxEditor.TmbFormat.Entries {
     public enum SummonWeaponObjectControl {
         Weapon = 0,
         OffHand = 1,
-        Summoned_Lemure = 2,
+        Summon_or_Lemure = 2,
     }
 
     public class C203 : TmbEntry {
@@ -23,7 +23,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedInt BindPointID = new( "Bind Point ID" );
         private readonly ParsedInt Rotation = new( "Rotation" );
         private readonly ParsedEnum<SummonWeaponObjectControl> ObjectControl = new( "Object Control" );
-        private readonly ParsedBool NoulithAlignment = new( "Bind Point Life" );
+        private readonly ParsedBool NoFollow = new( "Disable Follow" );
         private readonly ParsedBool ScaleEnabled = new( "Scale Enabled", size: 2 );
         private readonly ParsedShort Unk3 = new( "Unknown 3" );
         private readonly ParsedFloat Scale = new( "Scale" );
@@ -38,7 +38,7 @@ namespace VfxEditor.TmbFormat.Entries {
             BindPointID,
             Rotation,
             ObjectControl,
-            NoulithAlignment,
+            NoFollow,
             ScaleEnabled,
             Unk3,
             Scale

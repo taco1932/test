@@ -18,7 +18,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedInt Unk3 = new( "Unknown 3" );
         private readonly ParsedInt BgmID = new( "BGM ID" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
-        private readonly ParsedIntByte4 Unk6 = new( "Unknown 6" );
+        private readonly ParsedInt Unk6 = new( "Unknown 6", value: 0xFF ); //0xFFFFFFFF
         private readonly ParsedInt Unk7 = new( "Unknown 7" );
 
         public C230( TmbFile file ) : base( file ) { }

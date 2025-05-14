@@ -3,8 +3,8 @@ using VfxEditor.Parsing;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
-    public class C221 : TmbEntry {
-        public const string MAGIC = "C221";
+    public class C219 : TmbEntry {
+        public const string MAGIC = "C219";
         public const string DISPLAY_NAME = "----[TESTING] (CUTB)";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
@@ -13,20 +13,20 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedIntColor Unk3 = new( "Unknown 3" );
+        private readonly ParsedInt Unk2 = new( "Unknown 2" ); //
+        private readonly ParsedInt Unk3 = new( "Unknown 3" );
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
-        private readonly ParsedInt Unk5 = new( "Unknown 5" );
-        private readonly ParsedInt Unk6 = new( "Unknown 6" );
-        private readonly ParsedInt Unk7 = new( "Unknown 7" );
-        private readonly ParsedInt Unk8 = new( "Unknown 8" );
+        private readonly ParsedFloat Unk5 = new( "Unknown 5" );
+        private readonly ParsedInt Unk6 = new( "Unknown 6", value: 10 );
+        private readonly ParsedInt Unk7 = new( "Unknown 7", value: 10 );
+        private readonly ParsedInt Unk8 = new( "Unknown 8", value: 10 );
         private readonly ParsedInt Unk9 = new( "Unknown 9" );
         private readonly ParsedInt Unk10 = new( "Unknown 10" );
         private readonly ParsedInt Unk11 = new( "Unknown 11" );
 
-        public C221( TmbFile file ) : base( file ) { }
+        public C219( TmbFile file ) : base( file ) { }
 
-        public C221( TmbFile file, TmbReader reader ) : base( file, reader ) { }
+        public C219( TmbFile file, TmbReader reader ) : base( file, reader ) { }
 
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
