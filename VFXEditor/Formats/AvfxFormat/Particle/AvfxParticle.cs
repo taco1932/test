@@ -28,11 +28,11 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxBool S11Enabled = new( "S11 Enabled", "bS11" );
 
         // New to dawntrail
-        public readonly AvfxInt ShUT = new( "ShUT", "ShUT" );
-        public readonly AvfxInt ShR = new( "ShR", "ShR" );
-        public readonly AvfxInt ShT = new( "ShT", "ShT" );
-        public readonly AvfxInt UniV = new( "UniV", "UniV" );
-        public readonly AvfxInt HybV = new( "HybV", "HybV" );
+        public readonly AvfxInt ShUT = new( "ShUT", "ShUT" ); //shading
+        public readonly AvfxInt ShR = new( "ShR", "ShR" ); //shading
+        public readonly AvfxInt ShT = new( "ShT", "ShT" ); //shading
+        public readonly AvfxInt UniV = new( "UniV", "UniV" ); //s_Shading_Uniform
+        public readonly AvfxInt HybV = new( "HybV", "HybV" ); //s_Shading_Hybrid
         public readonly AvfxBool E24Enabled = new( "E24 Enabled", "bE24" );
 
         public readonly AvfxBool IsApplyToneMap = new( "Apply Tone Map", "bATM" );
