@@ -1,5 +1,5 @@
-bgcommon/hou/common/vfx_hou_out1/eff/ogene_0332_y1.avfx
-bgcommon/hou/common/vfx_hou_ind1/eff/igene_1493_y1.avfx
+bgcommon/nature/vfx/eff/ce_comt01f_j1.avfx
+bgcommon/world/common/vfx_for_btl/b0222/eff/b0222_twis_y.avfx
 bgcommon/world/common/vfx_for_btl/b0527/eff/b1049had01_y.avfx
 bgcommon/world/common/vfx_for_btl/b0527/eff/b0527had01_o.avfx
 bgcommon/world/common/vfx_for_btl/b0527/eff/b2162had01_o.avfx
@@ -7,7 +7,8 @@ bgcommon/world/common/vfx_for_btl/b0527/eff/b1049had02_y.avfx
 bgcommon/world/common/vfx_for_btl/b0527/eff/b0527had02_o.avfx
 bgcommon/world/common/vfx_for_btl/b0201/eff/b0201_org1_y.avfx
 bgcommon/world/common/vfx_for_btl/b0605/eff/b0605time1_o.avfx
-bgcommon/world/common/vfx_for_btl/b0222/eff/b0222_twis_y.avfx
+bgcommon/world/common/vfx_for_61/eff/b2418eyen1_h1.avfx
+bgcommon/hou/common/vfx_hou_blank1/eff/bl_stop01s_o.avfx
 bgcommon/world/common/vfx_for_btl/b0922/eff/b0922yuka1_o.avfx
 bgcommon/world/common/vfx_for_btl/b0999/eff/bo999yuka1_o.avfx
 bgcommon/world/common/vfx_for_btl/b0669/eff/b0669_yuka_o.avfx
@@ -352,6 +353,7 @@ bgcommon/hou/common/vfx_hou_out1/eff/ogene_0221f1.avfx
 bgcommon/hou/common/vfx_hou_out1/eff/ogene_0030_y.avfx
 bgcommon/hou/common/vfx_hou_out1/eff/ogene_0144_y.avfx
 bgcommon/hou/common/vfx_hou_out1/eff/ogene_0292_a2.avfx
+bgcommon/hou/common/vfx_hou_out1/eff/ogene_0332_y1.avfx
 bgcommon/hou/common/vfx_hou_out1/eff/ogene_0286_b1.avfx
 bgcommon/hou/common/vfx_hou_out1/eff/ogene_0029_y.avfx
 bgcommon/hou/common/vfx_hou_out1/eff/ogene_0178_u.avfx
@@ -371,6 +373,12 @@ bgcommon/world/common/vfx_for_btl/b0750/eff/b0750_yuka_o.avfx
 bgcommon/world/common/vfx_for_btl/b0854/eff/b0854frog1_o.avfx
 bgcommon/world/common/vfx_for_btl/b0200/eff/b0200_yuka_y.avfx
 bgcommon/world/common/vfx_for_btl/b0526/eff/b0526_yuka_o.avfx
+bgcommon/world/common/vfx_for_bg/eff/b0811jam02_y.avfx
+bgcommon/world/common/vfx_for_bg/eff/b0811jam01_y.avfx
+bgcommon/world/common/vfx_for_bg/eff/b0811jam03_y.avfx
+bgcommon/world/common/vfx_for_emp/eff/b0126_bama_y_test.avfx
+bgcommon/world/common/vfx_for_emp/eff/b0127_bamb1y.avfx
+bgcommon/world/common/vfx_for_emp/eff/b0128_bamc_y.avfx
 bgcommon/world/common/vfx_for_btl/b0533/eff/b0533_yuka_o.avfx
 bgcommon/world/common/vfx_for_emp/eff/b0126_bama_y.avfx
 bgcommon/world/common/vfx_for_emp/eff/b1213_yuge_u.avfx
@@ -665,7 +673,6 @@ bgcommon/nature/vfx/eff/ce_fog002naa2.avfx
 bgcommon/nature/vfx/eff/ce_dust02n_o.avfx
 bgcommon/nature/vfx/eff/ce_aeth01f_o.avfx
 bgcommon/nature/vfx/eff/ce_bolt11f_o.avfx
-bgcommon/nature/vfx/eff/ce_aetr04f_o.avfx
 bgcommon/nature/vfx/eff/we_holo01f_y.avfx
 bgcommon/nature/vfx/eff/ce_bolt02fbo.avfx
 bgcommon/nature/vfx/eff/we_fog006fao.avfx
@@ -737,7 +744,6 @@ bgcommon/hou/common/vfx_hou_ind1/eff/igene_0450_y.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_0049_y.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_1262_b1.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_0458_o.avfx
-bgcommon/hou/common/vfx_hou_ind1/eff/i_fire004c_y.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_1178f1.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_1030_d.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_0249_y.avfx
@@ -808,6 +814,7 @@ bgcommon/hou/common/vfx_hou_ind1/eff/igene_0262_y.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_0768_u.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/iwatla0002_o.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_0776_u.avfx
+bgcommon/hou/common/vfx_hou_ind1/eff/igene_1493_y1.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_0761_u.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_1083f1.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/iwatsm0001_o.avfx
@@ -857,7 +864,6 @@ bgcommon/hou/common/vfx_hou_ind1/eff/igene_1107f1.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_0698au.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_1216_b1.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_0858_u.avfx
-bgcommon/hou/common/vfx_hou_ind1/eff/igene_0604_u.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_0941_w1.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_0979_y1.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_1056_d.avfx
@@ -917,7 +923,6 @@ bgcommon/hou/common/vfx_hou_ind1/eff/iwatsm0002_o.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_0537_u.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene1177_b1.avfx
 bgcommon/hou/common/vfx_hou_ind1/eff/igene_0583_u.avfx
-bgcommon/hou/common/vfx_hou_ind1/eff/igene_1417_h1.avfx
 bgcommon/world/common/vfx_for_sys/eff/b2191rang1_o.avfx
 bgcommon/world/common/vfx_for_btl/b0704/eff/b0704_bari_y.avfx
 bgcommon/world/common/vfx_for_btl/b0800/eff/b0800_yuka_o.avfx
@@ -1413,7 +1418,22 @@ bgcommon/world/common/vfx_for_btl/b0219/eff/gung001_s.avfx
 bgcommon/world/common/vfx_for_btl/b0515/eff/b0515_yuka_o.avfx
 bgcommon/world/common/vfx_for_btl/b1923/eff/b1923had02_h1.avfx
 bgcommon/world/common/vfx_for_btl/b1923/eff/b1923had01_h1.avfx
-vfx/live/craft/eff/cft_ele_e1.avfx
+bgcommon/hou/common/vfx_hou_ind1/eff/ogene_0030ay.avfx
+bgcommon/hou/common/vfx_hou_blank1/eff/bl_stop01m_o.avfx
+bgcommon/hou/common/vfx_hou_blank1/eff/bl_stop01l_o.avfx
+bgcommon/vfx/eff/f1gsplsmk1_y.avfx
+bgcommon/world/common/vfx_for_61/eff/b2419dmgf1_h1.avfx
+bgcommon/world/common/vfx_for_61/eff/b2422dmgf1_h1.avfx
+bgcommon/world/common/vfx_for_61/eff/b2416dmgf1_h1.avfx
+bgcommon/world/common/vfx_for_61/eff/b2425cmet1h1.avfx
+bgcommon/world/common/vfx_for_61/eff/b2418eyen_h1.avfx
+bgcommon/world/common/vfx_for_61/eff/b2416dmgf2_h1.avfx
+bgcommon/world/common/vfx_for_61/eff/b2425cmet_h1.avfx
+bgcommon/world/common/vfx_for_61/eff/b2531wat01_o.avfx
+bgcommon/world/common/vfx_for_61/eff/b2426sky_h1.avfx
+bgcommon/world/common/vfx_for_61/eff/b2417dime1_h1.avfx
+bgcommon/world/common/vfx_for_61/eff/b2425sky2_h1.avfx
+bgcommon/world/common/vfx_for_bg/eff/b0020_trpt_y.avfx
 vfx/live/cft_saish00/eff/cft_saish00c.avfx
 vfx/live/cft_exsuc00/eff/cft_exsucc00f.avfx
 vfx/live/cft_base00/eff/cft_base000f.avfx
@@ -1451,6 +1471,7 @@ vfx/live/fishing/eff/fis_stock0c.avfx
 vfx/live/fishing/eff/fis_trhook0c.avfx
 vfx/live/fishing/eff/fis_ignswim0c.avfx
 vfx/live/fishing/eff/fis_bigsize_0t.avfx
+vfx/live/fishing/eff/fis_hooking_bt0t1.avfx
 vfx/live/cft_endhq03/eff/cft_endhq03f.avfx
 vfx/live/housing/eff/eth_convert0f.avfx
 vfx/live/housing/eff/eth_convert1f.avfx
@@ -1503,6 +1524,7 @@ vfx/live/craft/eff/cft_base004.avfx
 vfx/live/craft/eff/cft_ele_t0.avfx
 vfx/live/craft/eff/cft_repair0.avfx
 vfx/live/craft/eff/cft_endng0.avfx
+vfx/live/craft/eff/cft_ele_e1.avfx
 vfx/live/craft/eff/cft_endnq0.avfx
 vfx/live/craft/eff/cft_invsuc0.avfx
 vfx/live/craft/eff/cft_ele_a0.avfx
@@ -1519,3 +1541,8 @@ vfx/live/craft/eff/cft_base008.avfx
 vfx/live/craft/eff/cft_keika0.avfx
 vfx/live/craft/eff/cft_hit_f0.avfx
 vfx/live/cft_sou_cp0/eff/cft_sou_cp0f.avfx
+bgcommon/nature/vfx/eff/ce_aetr04f_o.avfx
+bgcommon/hou/common/vfx_hou_ind1/eff/i_fire004c_y.avfx
+bgcommon/hou/common/vfx_hou_ind1/eff/igene_0604_u.avfx
+bgcommon/hou/common/vfx_hou_ind1/eff/igene_1417_h1.avfx
+bgcommon/nature/vfx/eff/ce_spac01f_j1.avfx

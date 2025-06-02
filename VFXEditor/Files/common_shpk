@@ -1,3 +1,7 @@
+shader/shpk/bgnolighting.shpk
+shader/shpk/figure.shpk
+shader/shpk/createmipmap.shpk
+shader/shpk/pointlightingdouble.shpk
 shader/shpk/planelighting.shpk
 shader/shpk/grass.shpk
 shader/shpk/cloud.shpk
@@ -35,3 +39,4 @@ shader/shpk/bg.shpk
 shader/shpk/createviewposition.shpk
 shader/shpk/directionalshadow.shpk
 shader/shpk/apricot_decal.shpk
+shader/shpk/channeling.shpk
