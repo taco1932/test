@@ -13,6 +13,7 @@ using VfxEditor.FileBrowser;
 using VfxEditor.FileManager.Interfaces;
 using VfxEditor.Formats.AtchFormat;
 using VfxEditor.Formats.WtdFormat;
+using VfxEditor.Formats.AwtFormat;
 using VfxEditor.Formats.KdbFormat;
 using VfxEditor.Formats.MdlFormat;
 using VfxEditor.Formats.MtrlFormat;
@@ -37,6 +38,7 @@ using VfxEditor.Ui.Import;
 using VfxEditor.Ui.Tools;
 using VfxEditor.UldFormat;
 using System.Threading;
+using VfxEditor.Formats.AwtFormat;
 
 namespace VfxEditor {
     public unsafe partial class Plugin : IDalamudPlugin {
@@ -67,6 +69,7 @@ namespace VfxEditor {
             SgbManager,
             AtchManager,
             WtdManager,
+            AwtManager,
             SkpManager,
             ShpkManager,
             ShcdManager,
@@ -88,6 +91,7 @@ namespace VfxEditor {
         public static SklbManager SklbManager { get; private set; }
         public static AtchManager AtchManager { get; private set; }
         public static WtdManager WtdManager { get; private set; }
+        public static AwtManager AwtManager { get; private set; }
         public static SkpManager SkpManager { get; private set; }
         public static ShpkManager ShpkManager { get; private set; }
         public static ShcdManager ShcdManager { get; private set; }
@@ -136,6 +140,7 @@ namespace VfxEditor {
             SklbManager = new();
             AtchManager = new();
             WtdManager = new();
+            AwtManager = new();
             SkpManager = new();
             ShpkManager = new();
             ShcdManager = new();

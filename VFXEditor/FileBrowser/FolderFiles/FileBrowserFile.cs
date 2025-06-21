@@ -152,6 +152,8 @@ namespace VfxEditor.FileBrowser.FolderFiles {
                     "shcd",
                     "shpk",
                     "sgb",
+                    "wtd",
+                    "awt"
                 ], FontAwesomeIcon.File, FilePickerFileColor.Ffxiv );
 
                 AddToIconMap( ["csv"], FontAwesomeIcon.FileCsv, FilePickerFileColor.Misc );
