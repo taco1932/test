@@ -137,7 +137,7 @@ namespace VfxEditor.AtchFormat.Utils {
             { "wdm", "Tankard (/toast)" },
             { "whl", "" },
             // { "wng", "" },
-            // { "ypd", "" },
+            { "ypd", "NiER pod" }, //specifically for the raid instances
             { "ytk", "ARM pliers" },
         };
     }

@@ -125,7 +125,12 @@ namespace VfxEditor.AvfxFormat {
             Low = 2,
             Max = 3
         }
-        public enum ClipBasePoint {
+        public enum DepthOffsetType {
+            Legacy = 0,
+            FixedIntervalNDC = 1
+        }
+        public enum ClipBasePoint
+        {
             Camera = 0,
             Caster = 1
         }
@@ -185,7 +190,7 @@ namespace VfxEditor.AvfxFormat {
             Subtract = 2,
             Max = 3,
             Min = 4,
-            Unknown = 5
+            Unknown = 5 //none
         }
         public enum TextureCalculateAlpha {
             Multiply = 0,

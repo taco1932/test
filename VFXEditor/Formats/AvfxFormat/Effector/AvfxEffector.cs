@@ -68,7 +68,7 @@ namespace VfxEditor.AvfxFormat {
                 EffectorType.PointLight => new AvfxEffectorDataPointLight(),
                 EffectorType.DirectionalLight => new AvfxEffectorDataDirectionalLight(),
                 EffectorType.RadialBlur => new AvfxEffectorDataRadialBlur(),
-                EffectorType.BlackHole => null,
+                EffectorType.BlackHole => new AvfxEffectorBlackHole(),
                 EffectorType.CameraQuake_Unknown or EffectorType.CameraQuake => new AvfxEffectorDataCameraQuake(),
                 EffectorType.RadialBlur_Unknown => new AvfxEffectorRadialBlurUnknown(),
                 EffectorType.MirrorBlur => new AvfxEffectorMirrorBlur(),
