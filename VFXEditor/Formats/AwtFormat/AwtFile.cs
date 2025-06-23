@@ -33,7 +33,7 @@ namespace VfxEditor.Formats.AwtFormat {
             var numEntries = reader.ReadUInt32();
             Unk1 = reader.ReadUInt32();
 
-            for( var i = 0; i < numEntries; i++ )
+            for( var i = 0; i < numEntries+1; i++ )
             {
                 Entries.Add( new( reader ) );
             }
@@ -43,14 +43,9 @@ namespace VfxEditor.Formats.AwtFormat {
 
         public override void Write( BinaryWriter writer ) {
             FileUtils.WriteMagic( writer, "awt" );
-            writer.Write( ( ushort )3d );
-            writer.Write( ( ushort )1d );
-            writer.Write( ( ulong )Entries.Count );
-            writer.Write( ( ulong )0d );
-
-            //string WRITE
-            //Entries.ForEach( x => x.Write( writer ) );
-
+            writer.Write( ( ushort )Version1 );
+            writer.Write( ( ushort )Version2 );
+            writer.Write( ( ulong )Entries.Count-1 );
             foreach( var AWTEntry in Entries ) AWTEntry.Write( writer );
         }
 
