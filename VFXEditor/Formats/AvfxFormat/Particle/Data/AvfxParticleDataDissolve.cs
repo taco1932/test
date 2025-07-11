@@ -8,7 +8,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxEnum<DissolveShape> BST = new( "BST", "BST" );
         public readonly AvfxInt NPT = new( "NPT", "NPT" );
         public readonly AvfxFlag<AuraFilter> DissolveTarget = new( "Dissolve Target", "DTT" );
-        public readonly AvfxCurve1Axis EroR = new( "EroR", "EroR" );
+        public readonly AvfxCurve1Axis EroR = new( "EroR", "EroR" ); //random something
         public readonly AvfxCurve1Axis EndColorWidth = new( "End Color Width", "EdW" );
         public readonly AvfxCurveDissolve Color = new( "Color", "EdC" );
         public readonly AvfxCurve1Axis MidColorWidth = new( "Mid Color Width", "EdCW" );

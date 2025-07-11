@@ -329,7 +329,8 @@ namespace VfxEditor.AvfxFormat {
         }
 
         [Flags]
-        public enum AuraFilter {
+        public enum AuraFilter
+        {
             Character = 0x01,
             Weapon = 0x02,
             Off_Hand = 0x04,

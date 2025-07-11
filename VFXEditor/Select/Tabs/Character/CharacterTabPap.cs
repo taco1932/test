@@ -19,6 +19,7 @@ namespace VfxEditor.Select.Tabs.Character {
         public string Sit;
         public Dictionary<string, Dictionary<string, string>> GroundSitPoses;
         public Dictionary<string, Dictionary<string, string>> ChairSitPoses;
+        public Dictionary<string, Dictionary<string, string>> OrnamentPoses;
     }
 
     public class CharacterTabPap : SelectTab<CharacterRow, SelectedPap> {
@@ -73,10 +74,22 @@ namespace VfxEditor.Select.Tabs.Character {
                 }
             }
 
+            var ornamentPoses = new Dictionary<string, Dictionary<string, string>>();
+            for( var i = 1; i <= SelectDataUtils.MaxChangePoses; i++ ) {
+                var start = item.GetOrnamentStartPap( i, "onm_" );
+                var loop = item.GetOrnamentLoopPap( i, "onm_" );
+                if( Dalamud.DataManager.FileExists( start ) && Dalamud.DataManager.FileExists( loop ) ) {
+                    ornamentPoses.Add( $"Ornament Pose {i}", new Dictionary<string, string>() {
+                        { "Start", start },
+                        { "Loop", loop }
+                    } );
+                }
+            }
+
             var jmn = item.GetPap( "emote/jmn" );
             var groundStart = item.GetPap( "event_base/event_base_ground_start" );
-            var sit = item.GetPap ( "emote/sit" );
-            var chairStart = item.GetPap ( "event_base/event_base_chair_start" );
+            var sit = item.GetPap( "emote/sit" );
+            var chairStart = item.GetPap( "event_base/event_base_chair_start" );
 
             var facePaths = item.Data.FaceOptions
                 .Select( id => (id, $"chara/human/{item.SkeletonId}/animation/f{id:D4}/resident/face.pap") )
@@ -89,11 +102,12 @@ namespace VfxEditor.Select.Tabs.Character {
                 Poses = poses,
                 GroundSitPoses = groundsitPoses,
                 ChairSitPoses = chairsitPoses,
-                FacePaths = facePaths,
                 Jmn = Dalamud.DataManager.FileExists( jmn ) ? jmn : null,
                 GroundStart = Dalamud.DataManager.FileExists( groundStart ) ? groundStart : null,
                 Sit = Dalamud.DataManager.FileExists( sit ) ? sit : null,
                 ChairStart = Dalamud.DataManager.FileExists( chairStart ) ? chairStart : null,
+                OrnamentPoses = ornamentPoses,
+                FacePaths = facePaths,
             };
         }
 
@@ -130,6 +144,11 @@ namespace VfxEditor.Select.Tabs.Character {
 
                 ImGui.Separator();
                 Dialog.DrawPaths( Loaded.ChairSitPoses, Selected.Name, SelectResultType.GameCharacter );
+
+                ImGui.EndTabItem();
+            }
+            if( ImGui.BeginTabItem( "Fashion Accessory" ) ) {
+                Dialog.DrawPaths( Loaded.OrnamentPoses, Selected.Name, SelectResultType.GameCharacter );
 
                 ImGui.EndTabItem();
             }
