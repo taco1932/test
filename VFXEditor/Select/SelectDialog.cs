@@ -90,6 +90,8 @@ namespace VfxEditor.Select {
         public virtual bool CanPlay => false;
 
         public virtual void PlayButton( string path ) { }
+        public virtual void SpawnGroundButton( string path ) { }
+        public virtual void SpawnTargetButton( string path ) { }
 
         public virtual void PlayPopupItems( string path ) { }
 

@@ -174,13 +174,14 @@ namespace VfxEditor.Select {
             ImGui.SameLine();
             SelectUiUtils.Copy( path );
 
-            if( VfxEditor.Select.SelectTab.ScanPaths && !VfxEditor.Select.SelectTab.ScannedPaths.Any( f => f.Equals( path ) ))
-            {
-                VfxEditor.Select.SelectTab.ScannedPaths.Add( path );
+            if( SelectTab.ScanPaths && !SelectTab.ScannedPaths.Any( f => f.Equals( path ) ) ) {
+                SelectTab.ScannedPaths.Add( path );
             }
 
             ImGui.TableNextColumn(); // Play
             if( CanPlay && resultType != SelectResultType.Local ) PlayButton( path );
+            if( CanPlay && resultType != SelectResultType.Local ) SpawnTargetButton( path );
+            if( CanPlay && resultType != SelectResultType.Local ) SpawnGroundButton( path );
         }
     }
 }

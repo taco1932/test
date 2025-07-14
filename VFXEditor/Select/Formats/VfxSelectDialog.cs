@@ -15,6 +15,7 @@ using VfxEditor.Select.Tabs.Npc;
 using VfxEditor.Select.Tabs.Statuses;
 using VfxEditor.Select.Tabs.Zone;
 using VfxEditor.Spawn;
+using VfxEditor.Utils;
 
 namespace VfxEditor.Select.Formats {
     public class VfxSelectDialog : SelectDialog {
@@ -38,15 +39,66 @@ namespace VfxEditor.Select.Formats {
         }
 
         public override bool CanPlay => true;
+        private bool GroundSpawn = false;
+        private bool SelfSpawn = false;
+        private bool TargetSpawn = false;
 
-        public override void PlayButton( string path ) {
+        //seems to be only making the adjacent buttons enabled at the moment
+        //tooltips would also be nice, but the font just shows up as cars or something, even if PushFont is changed in the if/else
+        public override void PlayButton( string path )
+        {
+
             using var font = ImRaii.PushFont( UiBuilder.IconFont );
 
-            if( VfxSpawn.IsActive ) {
+            if( TargetSpawn || GroundSpawn )
+            {
+                UiUtils.DisabledButton( FontAwesomeIcon.Walking.ToIconString(), false );
+            }
+            else if( VfxSpawn.IsActive )
+            {
+                SelfSpawn = true;
+                if( ImGui.Button( FontAwesomeIcon.Pause.ToIconString() ) ) VfxSpawn.Clear();
+            }
+            else
+            {
+                SelfSpawn = false;
+                if( ImGui.Button( FontAwesomeIcon.Walking.ToIconString() ) ) VfxSpawn.OnSelf( path, false );
+            }
+            ImGui.SameLine();
+        }
+
+        public override void SpawnTargetButton( string path ) {
+
+            using var font = ImRaii.PushFont( UiBuilder.IconFont );
+
+            if( SelfSpawn || GroundSpawn ) {
+                UiUtils.DisabledButton( FontAwesomeIcon.Crosshairs.ToIconString(), false);
+            }
+            else if( VfxSpawn.IsActive ) {
+                TargetSpawn = true;
                 if( ImGui.Button( FontAwesomeIcon.Pause.ToIconString() ) ) VfxSpawn.Clear();
             }
             else {
-                if( ImGui.Button( FontAwesomeIcon.Play.ToIconString() ) ) VfxSpawn.OnSelf( path, false );
+                TargetSpawn = false;
+                if( ImGui.Button( FontAwesomeIcon.Crosshairs.ToIconString() ) ) VfxSpawn.OnTarget( path, false );
+            }
+            ImGui.SameLine();
+        }
+
+        public override void SpawnGroundButton( string path ) {
+
+            using var font = ImRaii.PushFont( UiBuilder.IconFont );
+
+            if( SelfSpawn || TargetSpawn ) {
+                UiUtils.DisabledButton( FontAwesomeIcon.ArrowDownLong.ToIconString(), false);
+            }
+            else if( VfxSpawn.IsActive ) {
+                GroundSpawn = true;
+                if( ImGui.Button( FontAwesomeIcon.Pause.ToIconString() ) ) VfxSpawn.Clear();
+            }
+            else {
+                GroundSpawn = false;
+                if( ImGui.Button( FontAwesomeIcon.ArrowDownLong.ToIconString() ) ) VfxSpawn.OnGround( path, false );
             }
         }
 
