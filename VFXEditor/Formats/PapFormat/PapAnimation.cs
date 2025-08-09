@@ -1,6 +1,6 @@
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
@@ -24,6 +24,7 @@ namespace VfxEditor.PapFormat {
             "csxm",
             "cblw",
             "csbw",
+            "cslw",
             "cblm",
             "cbem",
             "cbna",

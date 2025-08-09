@@ -2,9 +2,9 @@ using Dalamud.Game.Command;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
-using ImGuiNET;
-using ImGuizmoNET;
-using ImPlotNET;
+using Dalamud.Bindings.ImGui;
+using Dalamud.Bindings.ImGuizmo;
+using Dalamud.Bindings.ImPlot;
 using System.Collections.Generic;
 using VfxEditor.AvfxFormat;
 using VfxEditor.DirectX;
@@ -37,8 +37,6 @@ using VfxEditor.Ui.Export;
 using VfxEditor.Ui.Import;
 using VfxEditor.Ui.Tools;
 using VfxEditor.UldFormat;
-using System.Threading;
-using VfxEditor.Formats.AwtFormat;
 
 namespace VfxEditor {
     public unsafe partial class Plugin : IDalamudPlugin {

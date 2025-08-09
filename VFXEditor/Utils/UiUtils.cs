@@ -1,7 +1,7 @@
 using Dalamud.Interface;
 using Dalamud.Interface.Style;
 using Dalamud.Interface.Utility.Raii;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -342,7 +342,7 @@ namespace VfxEditor.Utils {
             var listModified = false;
 
             if( ImGui.BeginDragDropSource( ImGuiDragDropFlags.None ) ) {
-                ImGui.SetDragDropPayload( id, IntPtr.Zero, 0 );
+                ImGui.SetDragDropPayload( id, null, 0 );
                 draggingItem = item;
                 ImGui.Text( text );
                 ImGui.EndDragDropSource();
@@ -359,7 +359,7 @@ namespace VfxEditor.Utils {
             if( draggingItem == null ) return false;
 
             var payload = ImGui.AcceptDragDropPayload( id );
-            if( payload.NativePtr == null ) return false;
+            if( payload.Handle == null ) return false;
 
             if( draggingItem != destination && items.Contains( draggingItem ) && items.Contains( destination ) ) {
                 var command = new ListMoveCommand<T>( items, draggingItem, destination );
@@ -398,7 +398,7 @@ namespace VfxEditor.Utils {
             var type = typeof( T );
             var forceOpen = ForceOpenTabs.Contains( type );
             if( forceOpen ) ForceOpenTabs.Remove( type );
-            return ImGuiNative.igBeginTabItem( labelRef, null, forceOpen ? ImGuiTabItemFlags.SetSelected : ImGuiTabItemFlags.None ) == 1;
+            return ImGuiNative.BeginTabItem( labelRef, null, forceOpen ? ImGuiTabItemFlags.SetSelected : ImGuiTabItemFlags.None ) == 1;
         }
     }
 }

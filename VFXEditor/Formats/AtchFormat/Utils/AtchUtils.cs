@@ -132,6 +132,7 @@ namespace VfxEditor.AtchFormat.Utils {
             { "trr", "SCH LB summon" }, //9101
             { "trw", "" }, //n_throw?
             // { "tsl", "" }, // new
+            // { "ulw", "" }, // new, 7.3
             // { "uni", "" }, // new
             { "vln", "BRD violin" }, //radiant finale
             { "wdm", "Tankard (/toast)" },

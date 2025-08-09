@@ -2,7 +2,7 @@ using VFXEditor.Formats.AvfxFormat.Curve;
 using static VfxEditor.AvfxFormat.Enums;
 
 namespace VfxEditor.AvfxFormat {
-    public class AvfxEffectorRadialBlurUnknown : AvfxDataWithParameters {
+    public class AvfxEffectorGaussianBlur : AvfxDataWithParameters {
         public readonly AvfxCurve1Axis Length = new( "Length", "Len" );
         public readonly AvfxCurve1Axis Strength = new( "Strength", "Str" );
         public readonly AvfxCurve1Axis Gradation = new( "Gradation", "Gra" );
@@ -13,7 +13,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxEnum<ClipBasePoint> FadeBasePointType = new( "Fade Base Point", "FaBP" );
 
 
-        public AvfxEffectorRadialBlurUnknown() : base() {
+        public AvfxEffectorGaussianBlur() : base() {
             Parsed = [
                 Length,
                 Strength,

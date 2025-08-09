@@ -15,7 +15,7 @@
     "TestingAssemblyVersion": "1.9.1.6",
     "RepoUrl": "https://github.com/taco1932/test",
     "ApplicableVersion": "any",
-    "DalamudApiLevel": 12,
+    "DalamudApiLevel": 13,
     "IsHide": "False",
     "IsTestingExclusive": "False",
     "DownloadCount": 9001,

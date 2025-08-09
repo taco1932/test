@@ -1,8 +1,8 @@
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
 using FFXIVClientStructs.Havok.Common.Base.Math.QsTransform;
-using ImGuiNET;
-using ImPlotNET;
+using Dalamud.Bindings.ImGui;
+using Dalamud.Bindings.ImPlot;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -109,8 +109,8 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
                 var element = Data[BoneSelected];
 
                 if( IsColor ) {
-                    var topLeft = new ImPlotPoint { x = 0, y = 1 };
-                    var bottomRight = new ImPlotPoint { x = Motion.TotalFrames, y = -1 };
+                    var topLeft = new ImPlotPoint { X = 0, Y = 1 };
+                    var bottomRight = new ImPlotPoint { X = Motion.TotalFrames, Y = -1 };
                     ImPlot.PlotImage( "##Gradient", Preview.Output, topLeft, bottomRight );
 
                     for( var i = 0; i < Data.Count - 1; i++ ) {

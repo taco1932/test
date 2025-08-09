@@ -1,4 +1,4 @@
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using System.IO;
 using Int4 = SharpDX.Int4;
 
