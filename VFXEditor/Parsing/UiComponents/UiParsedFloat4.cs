@@ -36,7 +36,7 @@ namespace VfxEditor.Parsing {
             }
 
             var value = Value;
-            if( ImGui.InputFloat4( Name, ref value, HighPrecision ? UiUtils.HIGH_PRECISION_FORMAT : "%.3f" ) ) {
+            if( ImGui.InputFloat4( Name, ref value, 0, 0, HighPrecision ? UiUtils.HIGH_PRECISION_FORMAT : "%.3f" ) ) {
                 CommandManager.Add( new CompoundCommand( new[] {
                      new ParsedSimpleCommand<float>( P1, value.X ),
                      new ParsedSimpleCommand<float>( P2, value.Y ),
