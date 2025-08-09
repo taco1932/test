@@ -1,5 +1,5 @@
 using FFXIVClientStructs.FFXIV.Client.Game.Character;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +10,8 @@ using VfxEditor.FileManager;
 using VfxEditor.Formats.ObsbFormat.Entry;
 using VfxEditor.Utils;
 using static VfxEditor.AvfxFormat.Enums;
+using VfxEditor.Formats.ObsbFormat.Entry;
+using VfxEditor.Formats.AwtFormat.Entry;
 
 namespace VfxEditor.Formats.ObsbFormat { 
 

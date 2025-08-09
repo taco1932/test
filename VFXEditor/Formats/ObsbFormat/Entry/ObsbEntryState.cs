@@ -5,7 +5,7 @@ using System.Numerics;
 using VfxEditor.Parsing;
 using VfxEditor.Ui.Interfaces;
 
-namespace VfxEditor.Formats.AwtFormat.Entry {
+namespace VfxEditor.Formats.ObsbFormat.Entry {
     public class ObsbEntryState : IUiItem {
         public readonly ParsedString Bone = new( "Bone" );
         public readonly ParsedFloat Scale = new( "Scale" );

@@ -1,4 +1,4 @@
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using SharpGLTF.Schema2;
 using System;
 using static Dalamud.Interface.Utility.Raii.ImRaii;
+using VfxEditor.ObsbFormat.Utils;
 
 namespace VfxEditor.Formats.ObsbFormat.Entry {
     public class ObsbEntry : IUiItem {

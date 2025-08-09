@@ -5,8 +5,8 @@ using VfxEditor.Utils;
 namespace VfxEditor.Formats.ObsbFormat {
     public unsafe class ObsbManager : FileManager<ObsbDocument, ObsbFile, WorkspaceMetaBasic> {
         public ObsbManager() : base( "Obsb Editor", "Obsb" ) {
-            SourceSelect = new AwtSelectDialog( "Obsb Select [LOADED]", this, true );
-            ReplaceSelect = new AwtSelectDialog( "Obsb Select [REPLACED]", this, false );
+            SourceSelect = new ObsbSelectDialog( "Obsb Select [LOADED]", this, true );
+            ReplaceSelect = new ObsbSelectDialog( "Obsb Select [REPLACED]", this, false );
         }
 
         protected override ObsbDocument GetNewDocument() => new( this, NewWriteLocation );

@@ -1,4 +1,4 @@
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using System.Collections.Generic;
 using VfxEditor.Ui.Components.SplitViews;
@@ -6,8 +6,9 @@ using Dalamud.Interface;
 using VfxEditor.FileBrowser;
 using System;
 using VfxEditor.AwtFormat.Utils;
+using VfxEditor.Formats.ObsbFormat.Entry;
 
-namespace VfxEditor.Formats.AwtFormat.Entry {
+namespace VfxEditor.Formats.ObsbFormat.Entry {
     public class ObsbEntrySplitView : CommandSplitView<ObsbEntry> {
         public ObsbEntrySplitView( List<ObsbEntry> items ) : base( "Entry", items, false, null, () => new() ) { }
 
