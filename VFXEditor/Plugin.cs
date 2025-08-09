@@ -37,6 +37,9 @@ using VfxEditor.Ui.Export;
 using VfxEditor.Ui.Import;
 using VfxEditor.Ui.Tools;
 using VfxEditor.UldFormat;
+using System.Threading;
+using VfxEditor.Formats.AwtFormat;
+using VfxEditor.Formats.ObsbFormat;
 
 namespace VfxEditor {
     public unsafe partial class Plugin : IDalamudPlugin {
@@ -90,6 +93,7 @@ namespace VfxEditor {
         public static AtchManager AtchManager { get; private set; }
         public static WtdManager WtdManager { get; private set; }
         public static AwtManager AwtManager { get; private set; }
+        public static ObsbManager ObsbManager { get; private set; }
         public static SkpManager SkpManager { get; private set; }
         public static ShpkManager ShpkManager { get; private set; }
         public static ShcdManager ShcdManager { get; private set; }
