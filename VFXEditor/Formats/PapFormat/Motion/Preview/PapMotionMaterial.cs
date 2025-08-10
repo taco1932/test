@@ -111,7 +111,8 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
                 if( IsColor ) {
                     var topLeft = new ImPlotPoint { X = 0, Y = 1 };
                     var bottomRight = new ImPlotPoint { X = Motion.TotalFrames, Y = -1 };
-                    ImPlot.PlotImage( "##Gradient", Preview.Output, topLeft, bottomRight );
+                    var texture = new ImTextureID( Preview.Output );
+                    ImPlot.PlotImage( "##Gradient", texture, topLeft, bottomRight );
 
                     for( var i = 0; i < Data.Count - 1; i++ ) {
                         var yPos = -1f + 2f * ( i + 1f ) / ( Data.Count );

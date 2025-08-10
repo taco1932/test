@@ -465,7 +465,8 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
 
             var topLeft = new ImPlotPoint { X = ColorCurve.Keys[0].DisplayX, Y = 1 };
             var bottomRight = new ImPlotPoint { X = ColorCurve.Keys[^1].DisplayX, Y = -1 };
-            ImPlot.PlotImage( "##Gradient", Plugin.DirectXManager.GradientView.Output, topLeft, bottomRight );
+            var texture = new ImTextureID( Plugin.DirectXManager.GradientView.Output );
+            ImPlot.PlotImage( "##Gradient", texture, topLeft, bottomRight );
         }
 
         private void UpdateGradient() {

@@ -1,4 +1,5 @@
 using Dalamud.Bindings.ImGui;
+using System;
 using System.IO;
 using Int4 = SharpDX.Int4;
 
@@ -21,9 +22,10 @@ namespace VfxEditor.Parsing.Int {
         }
 
         protected override void DrawBody() {
-            var value = Value.ToArray();
-            if( ImGui.InputInt2( Name, ref value[0] ) ) {
-                Update( value );
+            Span<int> value = Value.ToArray();
+            if( ImGui.InputInt( Name, ref value[0] ) ) {
+                var newvalue = value.ToArray();
+                Update( newvalue );
             }
         }
     }

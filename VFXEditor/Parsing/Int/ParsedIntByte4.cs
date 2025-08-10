@@ -18,11 +18,10 @@ namespace VfxEditor.Parsing.Int {
         public override void Write( BinaryWriter writer ) => writer.Write( Value );
 
         protected override void DrawBody() {
-            var bytes = BitConverter.GetBytes( Value );
-            var value = bytes.Select( x => ( int )x ).ToArray();
+            Span<byte> bytes = BitConverter.GetBytes( Value );
 
-            if( ImGui.InputInt4( Name, ref value[0] ) ) {
-                var newValue = BitConverter.ToInt32( value.Select( x => ( byte )x ).ToArray() );
+            if( ImGui.InputByte( Name, ref bytes[0] ) ) {
+                var newValue = BitConverter.ToInt32( bytes );
                 Update( newValue );
             }
         }
