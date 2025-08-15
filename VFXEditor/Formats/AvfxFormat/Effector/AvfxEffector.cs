@@ -68,11 +68,11 @@ namespace VfxEditor.AvfxFormat {
                 EffectorType.PointLight => new AvfxEffectorDataPointLight(),
                 EffectorType.DirectionalLight => new AvfxEffectorDataDirectionalLight(),
                 EffectorType.RadialBlur => new AvfxEffectorDataRadialBlur(),
-                EffectorType.BlackHole => new AvfxEffectorBlackHole(),
+                EffectorType.BlackHole => new AvfxEffectorDataBlackHole(),
                 EffectorType.CameraQuake_Unknown or EffectorType.CameraQuake => new AvfxEffectorDataCameraQuake(),
-                EffectorType.GaussianBlur => new AvfxEffectorGaussianBlur(),
-                EffectorType.DirectionalBlur => new AvfxEffectorDirectionalBlur(),
-                EffectorType.New_Unknown2 => new AvfxEffectorUnknown2(),
+                EffectorType.GaussianBlur => new AvfxEffectorDataGaussianBlur(),
+                EffectorType.DirectionalBlur => new AvfxEffectorDataDirectionalBlur(),
+                EffectorType.ChromaticAberration => new AvfxEffectorDataChromaticAberration(),
                 _ => null
             };
             Data?.SetAssigned( true );

@@ -2,9 +2,12 @@ using VFXEditor.Formats.AvfxFormat.Curve;
 using static VfxEditor.AvfxFormat.Enums;
 
 namespace VfxEditor.AvfxFormat {
-    public class AvfxEffectorGaussianBlur : AvfxDataWithParameters {
-        public readonly AvfxCurve1Axis Length = new( "Length", "Len" );
-        public readonly AvfxCurve1Axis Strength = new( "Strength", "Str" );
+    public class AvfxEffectorDataChromaticAberration : AvfxDataWithParameters {
+
+        public readonly AvfxCurve1Axis CSR = new( "Refraction Strength", "CSR" );
+        public readonly AvfxCurve1Axis CSS = new( "Separation Strength", "CSS" );
+        public readonly AvfxCurve1Axis CGE = new( "Effect Strength", "CGE" );
+        public readonly AvfxCurve1Axis Strength = new( "Strength/Alpha", "Str" );
         public readonly AvfxCurve1Axis Gradation = new( "Gradation", "Gra" );
         public readonly AvfxCurve1Axis InnerRadius = new( "Inner Radius", "IRad" );
         public readonly AvfxCurve1Axis OuterRadius = new( "Outer Radius", "ORad" );
@@ -13,9 +16,11 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxEnum<ClipBasePoint> FadeBasePointType = new( "Fade Base Point", "FaBP" );
 
 
-        public AvfxEffectorGaussianBlur() : base() {
+        public AvfxEffectorDataChromaticAberration() : base() {
             Parsed = [
-                Length,
+                CSR,
+                CSS,
+                CGE,
                 Strength,
                 Gradation,
                 InnerRadius,
@@ -29,11 +34,14 @@ namespace VfxEditor.AvfxFormat {
             ParameterTab.Add( FadeEndDistance );
             ParameterTab.Add( FadeBasePointType );
 
-            Tabs.Add( Length );
+            Tabs.Add( CSR );
+            Tabs.Add( CSS );
+            Tabs.Add( CGE );
             Tabs.Add( Strength );
             Tabs.Add( Gradation );
             Tabs.Add( InnerRadius );
             Tabs.Add( OuterRadius );
+
         }
     }
 }
