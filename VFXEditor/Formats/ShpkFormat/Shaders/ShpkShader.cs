@@ -6,6 +6,7 @@ using System.IO;
 using System.Numerics;
 using VfxEditor.FileBrowser;
 using VfxEditor.Interop;
+using VfxEditor.Parsing;
 using VfxEditor.Ui.Components.SplitViews;
 using VfxEditor.Ui.Interfaces;
 using static VfxEditor.Utils.ShaderUtils;
@@ -30,6 +31,8 @@ namespace VfxEditor.Formats.ShpkFormat.Shaders {
         private readonly List<ShpkParameterInfo> Samplers = [];
         private readonly List<ShpkParameterInfo> Resources = [];
         private readonly List<ShpkParameterInfo> Textures = [];
+
+        private readonly ParsedUInt unknown1 = new( "Unknown1" );
 
         private readonly CommandSplitView<ShpkParameterInfo> ConstantView;
         private readonly CommandSplitView<ShpkParameterInfo> SamplerView;
@@ -81,6 +84,9 @@ namespace VfxEditor.Formats.ShpkFormat.Shaders {
                 numTextures = reader.ReadInt16();
             }
 
+            unknown1.Read( reader );
+            if( unknown1.Value != 0 ) Dalamud.Error( $"Unknown parameters: 0x{unknown1.Value:X4}" );
+
             for( var i = 0; i < numConstants; i++ ) Constants.Add( new( reader, Type ) );
             for( var i = 0; i < numSamplers; i++ ) Samplers.Add( new( reader, Type ) );
             if( HasResources ) {
@@ -111,6 +117,7 @@ namespace VfxEditor.Formats.ShpkFormat.Shaders {
                 writer.Write( ( short )Resources.Count );
                 writer.Write( ( short )Textures.Count );
             }
+            unknown1.Write( writer );
 
             Constants.ForEach( x => x.Write( writer, stringPositions ) );
             Samplers.ForEach( x => x.Write( writer, stringPositions ) );

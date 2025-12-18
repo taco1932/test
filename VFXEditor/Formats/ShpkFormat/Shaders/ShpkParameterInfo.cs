@@ -15,7 +15,7 @@ namespace VfxEditor.Formats.ShpkFormat.Shaders {
         private readonly ParsedString Value = new( "Value" );
         private readonly int TempStringOffset;
 
-        public readonly ParsedBool IsTexture = new( "Is Texture", size: 2 );
+        public readonly ParsedShort IsTexture = new( "Is Texture" );
         public readonly ParsedShort Slot = new( "Slot" );
         public readonly ParsedShort Size = new( "Registers" );
 

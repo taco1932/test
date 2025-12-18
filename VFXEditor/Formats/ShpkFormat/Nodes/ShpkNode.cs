@@ -12,6 +12,8 @@ namespace VfxEditor.Formats.ShpkFormat.Nodes {
     public class ShpkNode : IUiItem {
         public readonly ParsedUIntHex Selector = new( "Selector" );
 
+        public readonly ParsedInt Unknown1 = new( "Unknown1" );
+        public readonly ParsedInt Unknown2 = new( "Unknown2" );
         private readonly List<ParsedSByte> PassIndexes = [];
         private readonly List<ShpkPass> Passes = [];
 
@@ -55,6 +57,9 @@ namespace VfxEditor.Formats.ShpkFormat.Nodes {
             for( var i = 0; i < subViewKeyCount; i++ ) SubViewKeys.Add( new( reader ) );
 
             for( var i = 0; i < passCount; i++ ) Passes.Add( new( reader ) );
+
+            Unknown1.Read( reader );
+            Unknown2.Read( reader );
         }
 
         public void Write( BinaryWriter writer ) {
@@ -66,6 +71,8 @@ namespace VfxEditor.Formats.ShpkFormat.Nodes {
             MaterialKeys.ForEach( x => x.Write( writer ) );
             SubViewKeys.ForEach( x => x.Write( writer ) );
             Passes.ForEach( x => x.Write( writer ) );
+            Unknown1.Write( writer );
+            Unknown2.Write( writer );
         }
 
         public void Draw() {
@@ -84,6 +91,11 @@ namespace VfxEditor.Formats.ShpkFormat.Nodes {
 
             using( var tab = ImRaii.TabItem( "Keys" ) ) {
                 if( tab ) DrawKeys();
+            }
+
+            using( var tab = ImRaii.TabItem( "Unknown" ) )
+            {
+                if( tab ) DrawUnknown();
             }
         }
 
@@ -122,6 +134,15 @@ namespace VfxEditor.Formats.ShpkFormat.Nodes {
             using( var tab = ImRaii.TabItem( "Sub-View" ) ) {
                 if( tab ) SubViewKeyView.Draw();
             }
+        }
+
+        private void DrawUnknown()
+        {
+            using var _ = ImRaii.PushId( "Parameters" );
+            using var child = ImRaii.Child( "Child" );
+
+            Unknown1.Draw();
+            Unknown2.Draw();
         }
     }
 }
