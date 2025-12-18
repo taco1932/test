@@ -22,7 +22,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
     public class C173 : TmbEntry {
         public const string MAGIC = "C173";
-        public const string DISPLAY_NAME = "VFX";
+        public const string DISPLAY_NAME = "Async VFX";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
