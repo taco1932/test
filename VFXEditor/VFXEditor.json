@@ -8,6 +8,6 @@
     "RepoUrl": "https://github.com/taco1932/test",
     "ApplicableVersion": "any",
     "Tags": [ "VFX", "AVFX" ],
-    "DalamudApiLevel": 13,
+    "DalamudApiLevel": 14,
     "LoadPriority": 69
 }
