@@ -32,6 +32,7 @@ namespace VfxEditor.AtchFormat.Utils {
             { "avt", "RPR shroud" }, //list is all n_throw
             { "awo", "" },
             { "bag", "MCH aetherotransformer" },
+            // { "bec", "" } //new 7.4
             { "bl2", "VPR off-hand" },
             { "bld", "VPR main hand" },
             { "bll", "" }, //VPR?
@@ -41,6 +42,7 @@ namespace VfxEditor.AtchFormat.Utils {
             { "clg", "" },
             { "cls", "" },
             { "clw", "MNK fists" },
+            // { "cmp", "" } //new 7.4
             // { "col", "" },
             // { "cor", "" },
             // { "cos", "" },
@@ -72,6 +74,7 @@ namespace VfxEditor.AtchFormat.Utils {
             { "gdl", "Emote summon (left hand)" }, //sweep, balloons
             { "gdr", "Emote summon (right hand)" }, //tomescroll, shakedrink
             // { "gdt", "" },
+            // { "gdu", "" } //new 7.4
             // { "gdw", "" },
             { "gsl", "MCH wrench" },
             { "gsr", "" }, // Diadem cannon?
@@ -83,6 +86,7 @@ namespace VfxEditor.AtchFormat.Utils {
             { "ksh", "SAM katana sheath" },
             // { "let", "" },
             { "lpr", "Loporitt ears (/earwiggle)" },
+            // { "map", "" } //new 7.4
             { "mlt", "GSM mallet" },
             { "mmc", "MCH quad cannons" }, //full metal field
             { "mrb", "ALC mortar" }, //硏槽
@@ -90,8 +94,10 @@ namespace VfxEditor.AtchFormat.Utils {
             { "msg", "MCH shotgun" },
             { "mwp", "MCH cannon" },
             { "ndl", "WVR needle" },
+            // { "nf2", "" } //new 7.4
             { "nik", "[Nier pod?]" }, // Linked to Nier pod, maybe Nikana or something
             // { "njd", "" }, // new
+            // { "nmf", "" } //new 7.4
             { "nph", "MIN sledgehammer" }, //btn?
             { "orb", "RDM focus" },
             // { "oum", "" },

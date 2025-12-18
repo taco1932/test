@@ -150,6 +150,8 @@ namespace VfxEditor.TmbFormat.Utils {
             { C231.MAGIC, new ItemTypeStruct( C231.DISPLAY_NAME, typeof(C231) ) }, //
             { C232.MAGIC, new ItemTypeStruct( C232.DISPLAY_NAME, typeof(C232) ) }, //
             { C233.MAGIC, new ItemTypeStruct( C233.DISPLAY_NAME, typeof(C233) ) }, //
+            { C234.MAGIC, new ItemTypeStruct( C234.DISPLAY_NAME, typeof(C234) ) }, //
+            { C235.MAGIC, new ItemTypeStruct( C235.DISPLAY_NAME, typeof(C235) ) }, //
         };
     }
 }

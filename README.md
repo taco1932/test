@@ -5,7 +5,8 @@ https://github.com/0ceal0t/Dalamud-VFXEditor/commits/main/
 https://github.com/lumxiv/Dalamud-VFXEditor/
 
 ## To do:
-- [ ] Figure out Unknown 2 in TMB/SGB
+- [ ] Fix KDB parsing for faces (changed in 7.3)
+- [ ] Figure out Unknown 2 in TMB/SGB (probably CRC)
 - [ ] CUTB nonsense
 - [ ] Put together .py code to manually update npc_files.json
 - [ ] Add more to common_tmb list
