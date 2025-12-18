@@ -45,6 +45,13 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Penumbra.String\Penumbra.String.csproj" />
+        <None Include="lib\DirectXTexC.dll">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>DirectXTexC.dll</TargetPath>
+        </None>
+        <Reference Include="OtterTex.dll">
+            <HintPath>lib\OtterTex.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
     <ItemGroup>

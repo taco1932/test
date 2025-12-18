@@ -60,7 +60,7 @@ namespace VfxEditor.Parsing {
             }
 
             var prevValue = Value;
-            if( ImGui.InputText( HasIcons ? $"##{Name}" : label, ref Value, maxSize, flags ) ) {
+            if( ImGui.InputText( HasIcons ? $"##{Name}" : label, ref Value, ( int ) maxSize, flags ) ) {
                 if( !Editing ) {
                     Editing = true;
                     StateBeforeEdit = prevValue;
