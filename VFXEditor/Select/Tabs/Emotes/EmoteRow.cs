@@ -26,7 +26,8 @@ namespace VfxEditor.Select.Tabs.Emotes {
 
         public EmoteRow( Emote emote ) {
             RowId = ( int )emote.RowId;
-            Icon = ( ushort )( emote.Icon == 64350 ? 405 : emote.Icon );
+            Icon = 0; //temp
+            //Icon = ( ushort )( emote.Icon == 64350 ? 405 : emote.Icon ); //needs fix 7.4
             Name = emote.Name.ToString();
 
             Keys = emote.ActionTimeline.Where( x => !string.IsNullOrEmpty( x.ValueNullable?.Key.ToString() ) ).Select( x => (x.Value.Key.ToString(), x.Value.LoadType) ).ToList();
