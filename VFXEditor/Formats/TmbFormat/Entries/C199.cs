@@ -9,7 +9,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
-        public override int Size => 0x20; //seems to not complain
+        public override int Size => 0x24; //seems to not complain
         public override int ExtraSize => 0;
 
         private readonly ParsedBool Enabled = new( "Enabled" );
@@ -17,6 +17,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedInt BindPointID = new( "Bind Point ID" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
         private readonly ParsedEnum<SummonWeaponObjectControl> ObjectControl = new( "Object Control" );
+        private readonly ParsedInt Unk3 = new( "Unknown 3" );
 
 
         public C199( TmbFile file ) : base( file ) { }
@@ -28,7 +29,8 @@ namespace VfxEditor.TmbFormat.Entries {
             Unk1,
             BindPointID,
             Unk2,
-            ObjectControl
+            ObjectControl,
+            Unk3,
         ];
     }
 }
