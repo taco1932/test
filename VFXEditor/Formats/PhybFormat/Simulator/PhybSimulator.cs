@@ -1,7 +1,7 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using HelixToolkit.SharpDX.Core;
 using HelixToolkit.SharpDX.Core.Animations;
-using Dalamud.Bindings.ImGui;
 using SharpDX;
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,7 @@ using VfxEditor.PhybFormat.Simulator.Pin;
 using VfxEditor.PhybFormat.Simulator.PostAlignment;
 using VfxEditor.PhybFormat.Simulator.Spring;
 using VfxEditor.PhybFormat.Utils;
+using VfxEditor.TmbFormat.Utils;
 using VfxEditor.Ui.Components;
 using VfxEditor.Ui.Components.SplitViews;
 using VfxEditor.Ui.Interfaces;
@@ -142,6 +143,18 @@ namespace VfxEditor.PhybFormat.Simulator {
             for( var i = 0; i < 8; i++ ) writer.Write( 0 );
 
             return placeholderPos;
+        }
+
+        public byte[] ToBytes() {
+            using var ms = new MemoryStream();
+            using var writer = new BinaryWriter( ms );
+
+            var simWriter = new SimulationWriter();
+            simWriter.Write( new List<PhybSimulator>( [this] ) );
+            simWriter.WriteTo( writer );
+            simWriter.Dispose();
+
+            return ms.ToArray();
         }
 
         public void Draw() {

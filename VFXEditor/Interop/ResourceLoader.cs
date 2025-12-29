@@ -29,7 +29,7 @@ namespace VfxEditor.Interop {
 
             GetMatrixSingleton = Marshal.GetDelegateForFunctionPointer<GetMatrixSingletonDelegate>( Dalamud.SigScanner.ScanText( Constants.GetMatrixSig ) );
             GetFileManager = Marshal.GetDelegateForFunctionPointer<GetFileManagerDelegate>( Dalamud.SigScanner.ScanText( Constants.GetFileManagerSig ) );
-            //GetFileManager2 = Marshal.GetDelegateForFunctionPointer<GetFileManagerDelegate>( Dalamud.SigScanner.ScanText( Constants.GetFileManager2Sig ) ); //needs fix 7.4
+            GetFileManager2 = Marshal.GetDelegateForFunctionPointer<GetFileManagerDelegate>( Dalamud.SigScanner.ScanText( Constants.GetFileManager2Sig ) );
             DecRef = Marshal.GetDelegateForFunctionPointer<DecRefDelegate>( Dalamud.SigScanner.ScanText( Constants.DecRefSig ) );
             RequestFile = Marshal.GetDelegateForFunctionPointer<RequestFileDelegate>( Dalamud.SigScanner.ScanText( Constants.RequestFileSig ) );
 

@@ -21,6 +21,12 @@ namespace VfxEditor.UldFormat.Widget {
         BottomLeft = 0x6,
         Bottom = 0x7,
         BottomRight = 0x8,
+        Unknown2 = 256,
+        Unknown3 = 258,
+        Unknown4 = 260,
+        Unknown5 = 262, //can't find this, but it should exist
+        Unknown6 = 264,
+        
     }
 
     public class UldWidget : UldWorkspaceItem {

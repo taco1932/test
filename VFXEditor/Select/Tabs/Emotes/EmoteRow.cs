@@ -13,7 +13,7 @@ namespace VfxEditor.Select.Tabs.Emotes {
 
     public class EmoteRow : ISelectItemWithIcon {
         public readonly int RowId;
-        public readonly ushort Icon;
+        public readonly uint Icon;
         public readonly string Name;
 
         public readonly List<(string, byte)> Keys;
@@ -26,8 +26,7 @@ namespace VfxEditor.Select.Tabs.Emotes {
 
         public EmoteRow( Emote emote ) {
             RowId = ( int )emote.RowId;
-            Icon = 0; //temp
-            //Icon = ( ushort )( emote.Icon == 64350 ? 405 : emote.Icon ); //needs fix 7.4
+            Icon = emote.Icon == 246325 ? 405 : emote.Icon;
             Name = emote.Name.ToString();
 
             Keys = emote.ActionTimeline.Where( x => !string.IsNullOrEmpty( x.ValueNullable?.Key.ToString() ) ).Select( x => (x.Value.Key.ToString(), x.Value.LoadType) ).ToList();

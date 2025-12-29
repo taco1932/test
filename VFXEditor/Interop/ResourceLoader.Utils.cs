@@ -58,15 +58,13 @@ namespace VfxEditor.Interop {
 
             switch( CurrentRedrawState ) {
                 case RedrawState.Start:
-                    gameObject->RenderFlags = VisibilityFlags.Model; //temp
-                    //gameObject->RenderFlags |= INVIS_FLAG; //needs fix 7.4
+                    gameObject->RenderFlags |= ( VisibilityFlags )INVIS_FLAG;
                     CurrentRedrawState = RedrawState.Invisible;
                     WaitFrames = 15;
                     break;
                 case RedrawState.Invisible:
                     if( WaitFrames == 0 ) {
-                        gameObject->RenderFlags = VisibilityFlags.None; //temp
-                        //gameObject->RenderFlags &= ~INVIS_FLAG; //needs fix 7.4
+                        gameObject->RenderFlags &= ~( VisibilityFlags )INVIS_FLAG; 
                         CurrentRedrawState = RedrawState.Visible;
                     }
                     else WaitFrames--;
@@ -120,7 +118,7 @@ namespace VfxEditor.Interop {
 
             if( gameResource != IntPtr.Zero ) {
                 InteropUtils.PrepPap( gameResource, papIds, papTypes );
-                //RequestFile( GetFileManager2(), gameResource + Constants.GameResourceOffset, gameResource, 1 ); //needs fix 7.4
+                RequestFile( GetFileManager2(), gameResource + Constants.GameResourceOffset, gameResource, 1 );
                 InteropUtils.WritePapIds( gameResource, papIds, papTypes );
             }
 
@@ -133,7 +131,7 @@ namespace VfxEditor.Interop {
                 if( gamePath.EndsWith( ".pbd" ) ) ReplacePbd( ( ResourceHandle* )localGameResource );
 
                 InteropUtils.PrepPap( localGameResource, papIds, papTypes );
-                //RequestFile( GetFileManager2(), localGameResource + Constants.GameResourceOffset, localGameResource, 1 ); //needs fix 7.4
+                RequestFile( GetFileManager2(), localGameResource + Constants.GameResourceOffset, localGameResource, 1 );
                 InteropUtils.WritePapIds( localGameResource, papIds, papTypes );
             }
         }

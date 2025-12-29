@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using VfxEditor.Data.Excel;
-using static FFXIVClientStructs.FFXIV.Component.Completion.CompletionModule;
 
 namespace VfxEditor.Select.Data {
     public class RacialData {
@@ -22,19 +21,24 @@ namespace VfxEditor.Select.Data {
         public RacialData( string name, string id, uint row ) {
             Name = name;
             Id = id;
-            Dalamud.Log( name );
 
-            var data = Dalamud.DataManager.GetExcelSheet<Lumina.Excel.Sheets.CharaMakeType>().GetRow( row );
+            var data = CharaMakeType.BuildMenus( row );
+            var charaRow = Dalamud.DataManager.GetExcelSheet<CharaMakeType>( name: "CharaMakeType" ).GetRow( row );
 
-            /*foreach( var hair in data.FeatureMake.Value.HairStyles ) HairToIcon[hair.Value.FeatureId] = hair.Value.Icon;
-
-            if( data.Menus.FindFirst( x => x.Index == CustomizeIndex.FaceType, out var faceMenu ) ) {
-                foreach( var (param, idx) in faceMenu.Params.WithIndex() ) FaceToIcon[idx + 1] = param;
+            var faceTypes = data.GetMenuForCustomize( CustomizeIndex.FaceType );
+            if(faceTypes != null ) {
+                foreach( var (param, idx) in faceTypes.SubParams.WithIndex() ) FaceToIcon[idx + 1] = ( uint )param ;
             }
 
-            if( data.Menus.FindFirst( x => x.Index == CustomizeIndex.RaceFeatureType, out var featureMenu ) ) {
-                foreach( var (param, idx) in featureMenu.Params.WithIndex() ) FeatureToIcon[idx + 1] = param;
-            }*/ //needs fix 7.4
+            var featureTypes = data.GetMenuForCustomize( CustomizeIndex.RaceFeatureType );
+            if( featureTypes != null ) {
+                foreach( var (param, idx) in featureTypes.SubParams.WithIndex() ) FeatureToIcon[idx + 1] = ( uint )param;
+            }
+
+            var hairStyles = HairMakeType.GetHairStyles( ( uint )charaRow.Gender , charaRow.Race.RowId, charaRow.Tribe.RowId );
+            if( hairStyles != null ) {
+                foreach( var hair in  hairStyles ) HairToIcon[hair.FeatureID] = hair.Icon;
+            }
 
             foreach( var line in File.ReadAllLines( SelectDataUtils.CommonRacialPath ) ) {
                 var split = line.Split( "/" );

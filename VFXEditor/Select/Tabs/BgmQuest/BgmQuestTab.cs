@@ -8,6 +8,7 @@ namespace VfxEditor.Select.Tabs.BgmQuest {
         public string NightPath;
         public string BattlePath;
         public string DaybreakPath;
+        public string TwilightPath;
     }
 
     public class SelectedBgmQuest {
@@ -51,6 +52,7 @@ namespace VfxEditor.Select.Tabs.BgmQuest {
                     NightPath = situation.NightID.ValueNullable?.File.ToString(),
                     BattlePath = situation.BattleID.ValueNullable?.File.ToString(),
                     DaybreakPath = situation.DaybreakID.ValueNullable?.File.ToString(),
+                    TwilightPath = situation.TwilightID.ValueNullable?.File.ToString(),
                     IsSituation = true
                 };
             }

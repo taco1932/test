@@ -31,21 +31,24 @@
       },
       "HelixToolkit": {
         "type": "Direct",
-        "requested": "[2.27.0, )",
-        "resolved": "2.27.0",
-        "contentHash": "sXq9gXWIA/QYlx1Po9ac36hGwPT8BkpzSpGO7RgpGIuCOdJGXRASA9mJa6GJeTLfs5BYPzVwjKmyghw5ivM0bQ==",
+        "requested": "[3.1.2, )",
+        "resolved": "3.1.2",
+        "contentHash": "SicJqlyFmG7ub5o7cxUbYK3wb0EJCe7v+MIuQS4f9nKyc3EZ0VK92ptCHzVI1AJOPGWIod7pfZoA3F99Nu1M/g==",
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "6.0.0"
+          "CommunityToolkit.Common": "8.3.2",
+          "CommunityToolkit.Diagnostics": "8.3.2",
+          "CommunityToolkit.Mvvm": "8.3.2",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.2"
         }
       },
       "HelixToolkit.SharpDX.Core": {
         "type": "Direct",
-        "requested": "[2.27.0, )",
-        "resolved": "2.27.0",
-        "contentHash": "IkivjYXuM2YusPrJDCQQf9qsZgPnD0FLO33wZsch9m1BmoRTDOoGTgs6W6gdRu1PpP39Uo7BUwsmLgOIusSXBA==",
+        "requested": "[2.27.3, )",
+        "resolved": "2.27.3",
+        "contentHash": "4ZcLkR1+YIDd0EHVOJ/sJa/mGRkj3/Bqk4FIioeiLVRY29q3HRScKlQiQjFIcw/XtSWYODnOS0ofT0ZV/+hXbg==",
         "dependencies": {
           "Cyotek.Drawing.BitmapFont": "2.0.0",
-          "HelixToolkit": "[2.27.0]",
+          "HelixToolkit": "[2.27.3]",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.0",
           "SharpDX": "4.2.0",
           "SharpDX.D3DCompiler": "4.2.0",
@@ -103,9 +106,9 @@
       },
       "Penumbra.Api": {
         "type": "Direct",
-        "requested": "[5.13.0, )",
-        "resolved": "5.13.0",
-        "contentHash": "qbXou0SXart9gvit3FzHo3+j9lXtvVqI/K68FJ9YtsZYXdjcEKqeDYzQz6s1Kdn2veN2A2miRhzRSVim6iXMFQ=="
+        "requested": "[5.13.1, )",
+        "resolved": "5.13.1",
+        "contentHash": "kmpqhcbnnF+Ib0F9g7+1W17IbZ8Q8G2zn3MJURd/rmQiB3D7cm8YS2JRmvhDzrN5w9OMlfq7MFxVtwG419YkIA=="
       },
       "SharpDX.D3DCompiler": {
         "type": "Direct",
@@ -162,20 +165,43 @@
           "NETStandard.Library": "1.6.1"
         }
       },
+      "CommunityToolkit.Common": {
+        "type": "Transitive",
+        "resolved": "8.3.2",
+        "contentHash": "DFk1MUDzCUZHWFGl33HQkD1XtHHKmgfnjJ6sD2JICDc6et4DaCxf6GBPCzAZ7jcgyy/BdUDk0DUztu1K+61Q6w=="
+      },
+      "CommunityToolkit.Diagnostics": {
+        "type": "Transitive",
+        "resolved": "8.3.2",
+        "contentHash": "YyMsBE9lT0pJg2bEDzlfEWdlk6xHExW6jr1dxC7+YUqqVmOGL5nZROpxbXQRTe5TrfIs7BvkVsGULv/hq6tGIA=="
+      },
       "CommunityToolkit.HighPerformance": {
         "type": "Transitive",
         "resolved": "8.4.0",
         "contentHash": "flxspiBs0G/0GMp7IK2J2ijV9bTG6hEwFc/z6ekHqB6nwRJ4Ry2yLdx+TkbCUYFCl4XhABkAwomeKbT6zM2Zlg=="
+      },
+      "CommunityToolkit.Mvvm": {
+        "type": "Transitive",
+        "resolved": "8.3.2",
+        "contentHash": "m8EolE1A0Updj68WTsZSGI6VWb6mUqHPh7QFo0kt7+JPhYMNXRS1ch8TS/oITAdcxTLrwMOp3ku1KjeG1/Zdpg=="
       },
       "Cyotek.Drawing.BitmapFont": {
         "type": "Transitive",
         "resolved": "2.0.0",
         "contentHash": "t6vYF0sXgNb6dP9QNbJxJWw3RdCEWC6Llv47oPYpobYAhmKcgmAZJv6HXK03DEUmo7ff6yPvsyEWTkia+UAONw=="
       },
+      "Microsoft.Extensions.DependencyInjection.Abstractions": {
+        "type": "Transitive",
+        "resolved": "8.0.2",
+        "contentHash": "3iE7UF7MQkCv1cxzCahz+Y/guQbTqieyxyaWKhrRO91itI9cOKO76OHeQDahqG4MmW5umr3CcCvGmK92lWNlbg=="
+      },
       "Microsoft.Extensions.Logging.Abstractions": {
         "type": "Transitive",
-        "resolved": "6.0.0",
-        "contentHash": "/HggWBbTwy8TgebGSX5DBZ24ndhzi93sHUBDvP1IxbZD7FDokYzdAr6+vbWGjw2XAfR2EJ1sfKUotpjHnFWPxA=="
+        "resolved": "8.0.2",
+        "contentHash": "nroMDjS7hNBPtkZqVBbSiQaQjWRDxITI8Y7XnDs97rqG3EbzVTNLZQf7bIeUJcaHOV8bca47s1Uxq94+2oGdxA==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2"
+        }
       },
       "Microsoft.NETCore.Platforms": {
         "type": "Transitive",

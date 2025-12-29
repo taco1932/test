@@ -11,8 +11,8 @@
       "Sound"
     ],
     "InternalName": "VFXEditor",
-    "AssemblyVersion": "1.9.1.6",
-    "TestingAssemblyVersion": "1.9.1.6",
+    "AssemblyVersion": "1.9.2",
+    "TestingAssemblyVersion": "1.9.2",
     "RepoUrl": "https://github.com/taco1932/test",
     "ApplicableVersion": "any",
     "DalamudApiLevel": 14,
@@ -23,6 +23,6 @@
     "DownloadLinkInstall": "https://github.com/taco1932/test/releases/download/v1.9.1.6/VFXEditor.zip",
     "DownloadLinkUpdate": "https://github.com/taco1932/test/releases/download/v1.9.1.6/VFXEditor.zip",
     "DownloadLinkTesting": "https://github.com/taco1932/test/releases/download/v1.9.1.6/VFXEditor.zip",
-    "IconUrl": "https://raw.githubusercontent.com/taco1932/test/refs/heads/main/assets/icon.png"
+    "IconUrl": "https://cdn.vectorstock.com/i/500p/18/50/american-alligator-icon-vector-39841850.jpg"
   }
 ]
