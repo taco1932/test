@@ -22,38 +22,15 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
         All
     }
 
-    public enum OperationType
-    {
-        Add = 0,
-        Multiply = 1
-    }
-
-    public class EditorOperation
-    {
-        public OperationType operationType;
-        public float X;
-        public float Y;
-        public EditorOperation() { 
-            operationType = OperationType.Add;
-            X = 0;
-            Y = 0;
-        }
-
-        public void NextOperation()
-        {
-            OperationType[] Arr = ( OperationType[] )Enum.GetValues( operationType.GetType() );
-            int j = Array.IndexOf( Arr, operationType ) + 1;
-            operationType = ( Arr.Length == j ) ? Arr[0] : Arr[j];
-        }
-    }
-
     public class LineEditorGroup {
+        public readonly AvfxFile File; // only used for color
+
         public readonly string Name;
         public readonly List<AvfxCurveData> Curves;
         public IEnumerable<AvfxCurveData> AssignedCurves => Curves.Where( x => x.IsAssigned() );
         public readonly AvfxDrawable? ConnectType;
 
-        public readonly int RenderId = Renderer.NewId;
+        public readonly int RenderId = RenderInstance.NewId;
 
         private static readonly CurveBehavior[] CurveBehaviorOptions = Enum.GetValues<CurveBehavior>();
         private static readonly RandomType[] RandomTypeOptions = Enum.GetValues<RandomType>();
@@ -91,18 +68,17 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
 
         private static readonly Dictionary<string, List<(KeyType, Vector4)>> CopiedKeys = [];
 
-        public EditorOperation editorOperation = new();
-
-        public LineEditorGroup( AvfxCurveData curve ) {
+        public LineEditorGroup( AvfxCurveData curve, AvfxFile file = null ) {
+            File = file;
             Name = curve.Name;
             Curves = [curve];
         }
 
-        public LineEditorGroup( string name, List<AvfxCurveData> curves, AvfxDrawable? connectType ) {
+        public LineEditorGroup( string name, List<AvfxCurveData> curves, AvfxDrawable? connectType, AvfxFile file = null ) {
+            File = file;
             Name = name;
             Curves = curves;
             ConnectType = connectType;
-
         }
 
         public void Draw() {
@@ -190,9 +166,6 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
                 if( UiUtils.DisabledButton( $"{FontAwesomeIcon.ArrowRightToBracket.ToIconString()}", CopiedKeys.Count > 0 ) ) Replace();
 
                 ImGui.SameLine();
-                if( UiUtils.DisabledButton( $"{FontAwesomeIcon.Edit.ToIconString()}", Selected.Count > 0 ) ) ImGui.OpenPopup( "OperationPopup" );
-
-                ImGui.SameLine();
                 if( UiUtils.RemoveButton( $"{FontAwesomeIcon.Times.ToIconString()}" ) ) Clear();
             }
 
@@ -242,49 +215,12 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
                         if( UiUtils.RemoveButton( "Sort" ) ) {
                             var commands = new List<ICommand>();
                             foreach( var x in AssignedCurves ) x.Sort( commands );
-                            CommandManager.Add( new CompoundCommand( commands, UpdateGradient ) );
+                            CommandManager.Add( new CompoundCommand( commands, UpdateRender ) );
                         }
                         return;
                     }
                 }
             }
-
-            OperationPopup();
-        }
-
-        private void ToggleOperation()
-        {
-            switch( editorOperation.operationType )
-            {
-                case OperationType.Add:
-                    { editorOperation.operationType = OperationType.Multiply;
-                        editorOperation.X = 1;
-                        editorOperation.Y = 1;
-                        break; }
-
-                case OperationType.Multiply:
-                    { editorOperation.operationType = OperationType.Add;
-                        editorOperation.X = 0;
-                        editorOperation.Y = 0;
-                        break; }
-            }
-        }
-
-        private void OperationPopup()
-        {
-            using var popup = ImRaii.Popup( "OperationPopup" );
-            if( !popup ) return;
-
-            if( ImGui.Button( editorOperation.operationType + "" )) ToggleOperation();
-
-            ImGui.InputFloat( "Frame", ref editorOperation.X );
-
-            if( !IsColor )
-            {
-                ImGui.InputFloat( "Value", ref editorOperation.Y );
-            }
-
-            if( ImGui.Button( "Apply" ) ) Operation();
         }
 
         public unsafe void DrawEditor() {
@@ -301,7 +237,7 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
 
             var height = ImGui.GetContentRegionAvail().Y - ( 4 * ImGui.GetFrameHeightWithSpacing() + 5 );
             ImPlot.PushStyleVar( ImPlotStyleVar.FitPadding, new Vector2( 0.5f, 0.5f ) );
-            if( ImPlot.BeginPlot( "##CurveEditor", new Vector2( -1, height ), ImPlotFlags.NoMenus | ImPlotFlags.NoTitle ) ) {
+            if( ImPlot.BeginPlot( $"##CurveEditor{RenderId}", new Vector2( -1, height ), ImPlotFlags.NoMenus | ImPlotFlags.NoTitle ) ) {
                 if( fit ) ImPlot.SetNextAxesToFit();
                 if( IsColor ) {
                     ImPlot.SetupAxisLimits( ImAxis.Y1, -1, 1, ImPlotCond.Always );
@@ -457,21 +393,22 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
 
         public void OnUpdate() {
             foreach( var curve in Curves.Where( x => x.IsAssigned() ) ) curve.Cleanup();
-            UpdateGradient();
+            UpdateRender();
         }
 
         public void DrawGradient() {
             if( !IsColor || ColorCurve!.Keys.Count < 2 ) return;
-            if( Plugin.DirectXManager.GradientView.CurrentRenderId != RenderId ) UpdateGradient();
+
+            Plugin.DirectXManager.GradientRenderer.UpdateTexture( RenderId, File.GradientInstance, UpdateRender );
 
             var topLeft = new ImPlotPoint { X = ColorCurve.Keys[0].DisplayX, Y = 1 };
             var bottomRight = new ImPlotPoint { X = ColorCurve.Keys[^1].DisplayX, Y = -1 };
-            ImPlot.PlotImage( "##Gradient", new ImTextureID( Plugin.DirectXManager.GradientView.Output ), topLeft, bottomRight );
+            ImPlot.PlotImage( "##Gradient", new ImTextureID( File.GradientInstance.Output ), topLeft, bottomRight );
         }
 
-        private void UpdateGradient() {
+        private void UpdateRender() {
             if( !IsColor || ColorCurve!.Keys.Count < 2 ) return;
-            Plugin.DirectXManager.GradientView.SetGradient( RenderId, [
+            Plugin.DirectXManager.GradientRenderer.SetGradient( RenderId, File.GradientInstance, [
                 [.. ColorCurve.Keys.Select( x => (x.Time.Value, x.Color))]
             ] );
         }
@@ -501,34 +438,6 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
         private void Replace() => PerformOnCopiedKeys( ( commands, keys, curve ) => {
             commands.Add( new ListSetCommand<AvfxCurveKey>( curve.Keys, [.. keys.Select( x => new AvfxCurveKey( curve, x ) )] ) );
         } );
-
-        private void Operation() {
-            var commands = new List<ICommand>();
-            var valueY = editorOperation.Y;
-            if(IsColor)
-            {
-                switch( editorOperation.operationType )
-                {
-                    case OperationType.Add:
-                        valueY = 0; break;
-
-                    case OperationType.Multiply:
-                        valueY = 1; break;
-                }
-            }
-            Func<float, float, float> op = ( x, y ) => { return 0; };
-            switch( editorOperation.operationType )
-            {
-                case OperationType.Add:
-                    { op = ( x, y ) => { return x + y; }; break; }
-
-                case OperationType.Multiply:
-                    { op = ( x, y ) => { return x * y; }; break; }
-            }
-            Selected.ForEach( x => x.Item2.Operation( commands, editorOperation.X, valueY, op ) );
-
-            CommandManager.Add( new CompoundCommand( commands, OnUpdate ) );
-        }
 
         private void PerformOnCopiedKeys( Action<List<ICommand>, List<(KeyType, Vector4)>, AvfxCurveData> action ) {
             var commands = new List<ICommand>();

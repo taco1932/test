@@ -423,7 +423,7 @@ namespace VfxEditor {
 
             if( ImGui.CollapsingHeader( "Material" ) ) {
                 using var _ = ImRaii.PushIndent( 10f );
-                DrawDirectXMaterials();
+                DrawDirectXMaterial();
             }
 
             if( ImGui.CollapsingHeader( "Vfx" ) ) {
@@ -444,7 +444,7 @@ namespace VfxEditor {
             if( ImGui.ColorEdit4( "Connecting Line Color", ref SkeletonBoneLineColor ) ) Save();
         }
 
-        public void DrawDirectXMaterials() {
+        public void DrawDirectXMaterial() {
             var updated = false;
             updated |= ImGui.ColorEdit3( "Ambient Color", ref MaterialAmbientColor );
 
@@ -461,7 +461,7 @@ namespace VfxEditor {
             }
 
             if( updated ) {
-                Plugin.DirectXManager.RedrawMaterials();
+                Plugin.DirectXManager.Redraw();
                 Save();
             }
         }
@@ -469,8 +469,8 @@ namespace VfxEditor {
         public void DrawDirectXVfx() {
             if( ImGui.InputFloat2( "Preview Pyramid Size", ref ModelEmittersSize ) ) {
                 Save();
-                Plugin.DirectXManager.ModelPreview.UpdatePyramidMesh();
-                Plugin.DirectXManager.ModelPreview.Draw();
+                Plugin.DirectXManager.ModelRenderer.UpdatePyramidMesh();
+                Plugin.DirectXManager.Redraw();
             }
         }
 

@@ -38,7 +38,7 @@ namespace VfxEditor.ScdFormat {
     public class AttributeResultCommand {
         public readonly ParsedEnum<SelfCommand> SelfCommandSelect = new( "Result Select Command", size: 1 );
         public readonly ParsedEnum<TargetCommand> TargetCommandSelect = new( "Result Target Command", size: 1 );
-        public readonly ParsedReserve Reserved1 = new( 2 );
+        public readonly ParsedShort Reserved1 = new( "Reserve 1" );
         public readonly ParsedInt SelfArgument = new( "Result Self Argument" );
         public readonly ParsedInt TargetArgument = new( "Result Target Argument" );
 

@@ -16,6 +16,7 @@ using VfxEditor.Parsing;
 using VfxEditor.Parsing.Int;
 using VfxEditor.Ui.Components.SplitViews;
 using VfxEditor.Utils;
+using VfxEditor.DirectX.Model;
 
 namespace VfxEditor.Formats.MtrlFormat {
     // https://github.com/Ottermandias/Penumbra.GameData/blob/04ddadb44600a382e26661e1db08fd16c3b671d8/Files/MtrlFile.cs#L7
@@ -41,6 +42,8 @@ namespace VfxEditor.Formats.MtrlFormat {
     }
 
     public class MtrlFile : FileManagerFile {
+        public readonly ModelDeferredInstance Instance = new();
+
         public readonly uint Version;
         private readonly byte[] ExtraData;
 
@@ -102,13 +105,13 @@ namespace VfxEditor.Formats.MtrlFormat {
             ColorSets.ForEach( x => x.ReadString( reader, stringsStart ) );
 
             reader.BaseStream.Position = stringsStart + shaderOffset;
-            Shader = new( "Shader", new List<ParsedStringIcon>() {
+            Shader = new( "Shader", [
                 new() {
                     Icon = () => FontAwesomeIcon.Sync,
                     Remove = false,
-                    Action = ( string _ ) => UpdateShaderFile()
+                    Action = _ => UpdateShaderFile()
                 }
-            } ) {
+            ] ) {
                 Value = FileUtils.ReadString( reader )
             };
 
@@ -153,12 +156,12 @@ namespace VfxEditor.Formats.MtrlFormat {
 
             // ======== VIEWS =========
 
-            TextureView = new( "Texture", Textures, false, ( MtrlTexture item, int idx ) => item.Text, () => new() );
-            UvSetView = new( "UV Set", UvSets, false, ( MtrlAttributeSet item, int idx ) => item.Name.Value, () => new() );
-            ColorSetView = new( "Color Set", ColorSets, false, ( MtrlAttributeSet item, int idx ) => item.Name.Value, () => new() );
-            KeyView = new( "Key", Keys, false, ( MtrlKey item, int idx ) => item.GetText( idx ), () => new() );
+            TextureView = new( "Texture", Textures, false, ( item, idx ) => item.Text, () => new() );
+            UvSetView = new( "UV Set", UvSets, false, ( item, idx ) => item.Name.Value, () => new() );
+            ColorSetView = new( "Color Set", ColorSets, false, ( item, idx ) => item.Name.Value, () => new() );
+            KeyView = new( "Key", Keys, false, ( item, idx ) => item.GetText( idx ), () => new() );
             MaterialParameterView = new( "Constant", MaterialParameters, false, null, () => new( this ) );
-            SamplerView = new( "Sampler", Samplers, false, ( MtrlSampler item, int idx ) => item.GetText( idx ), () => new( this ) );
+            SamplerView = new( "Sampler", Samplers, false, ( item, idx ) => item.GetText( idx ), () => new( this ) );
 
             if( verify ) Verified = FileUtils.Verify( reader, ToBytes() );
         }
@@ -353,5 +356,10 @@ namespace VfxEditor.Formats.MtrlFormat {
         }
 
         private static uint Masked( uint flags ) => flags & ( ~0x11u );
+
+        public override void Dispose() {
+            base.Dispose();
+            Instance.Dispose();
+        }
     }
 }

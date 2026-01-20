@@ -8,7 +8,7 @@ namespace VfxEditor.ScdFormat.Sound.Data {
     public class SoundAccelerationInfo {
         public readonly ParsedByte Version = new( "Version" );
         private byte Size = 0x10;
-        private readonly ParsedReserve Reserve1 = new( 2 );
+        private readonly ParsedShort Reserve1 = new( "Reserve 1" );
         public readonly ParsedFloat Volume = new( "Volume" );
         public readonly ParsedInt UpTime = new( "Up Time" );
         public readonly ParsedInt DownTime = new( "Down Time" );
@@ -44,7 +44,10 @@ namespace VfxEditor.ScdFormat.Sound.Data {
         public readonly ParsedByte Version = new( "Version" );
         private byte Size = 0x10; // TODO: does this change with the size of acceleration?
         private readonly ParsedByte NumAcceleration = new( "Acceleration Count" );
-        private readonly ParsedReserve Reserve1 = new( 1 + 4 * 3 );
+        private readonly ParsedByte Reserve1 = new( "Reserve 1" );
+        private readonly ParsedInt Reserve2 = new( "Reserve 2" );
+        private readonly ParsedInt Reserve3 = new( "Reserve 3" );
+        private readonly ParsedInt Reserve4 = new( "Reserve 4" );
         public List<SoundAccelerationInfo> Acceleration = [];
 
         public void Read( BinaryReader reader ) {
@@ -52,6 +55,9 @@ namespace VfxEditor.ScdFormat.Sound.Data {
             Size = reader.ReadByte();
             NumAcceleration.Read( reader );
             Reserve1.Read( reader );
+            Reserve2.Read( reader );
+            Reserve3.Read( reader );
+            Reserve4.Read( reader );
 
             for( var i = 0; i < 4; i++ ) {
                 var newAcceleration = new SoundAccelerationInfo();
@@ -65,6 +71,9 @@ namespace VfxEditor.ScdFormat.Sound.Data {
             writer.Write( Size );
             NumAcceleration.Write( writer );
             Reserve1.Write( writer );
+            Reserve2.Write( writer );
+            Reserve3.Write( writer );
+            Reserve4.Write( writer );
 
             Acceleration.ForEach( x => x.Write( writer ) );
         }
@@ -75,6 +84,9 @@ namespace VfxEditor.ScdFormat.Sound.Data {
             Version.Draw();
             NumAcceleration.Draw();
             Reserve1.Draw(); //test
+            Reserve2.Draw(); //test
+            Reserve3.Draw(); //test
+            Reserve4.Draw(); //test
 
             ImGui.SetCursorPosY( ImGui.GetCursorPosY() + 3 );
 

@@ -4,10 +4,13 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxInt LineCount = new( "Line Count", "LnCT" );
         public readonly AvfxCurve1Axis Length = new( "Length", "Len" );
         public readonly AvfxCurve1Axis LengthRandom = new( "Length Random", "LenR" );
-        public readonly AvfxCurveColor ColorBegin = new( name: "Color Begin", "ColB" );
-        public readonly AvfxCurveColor ColorEnd = new( name: "Color End", "ColE" );
+        public readonly AvfxCurveColor ColorBegin;
+        public readonly AvfxCurveColor ColorEnd;
 
-        public AvfxParticleDataLine() : base() {
+        public AvfxParticleDataLine( AvfxFile file ) : base() {
+            ColorBegin = new( file, "Color Begin", "ColB" );
+            ColorEnd = new( file, "Color End", "ColE" );
+
             Parsed = [
                 LineCount,
                 Length,

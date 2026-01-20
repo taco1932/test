@@ -1,6 +1,6 @@
 using Dalamud.Bindings.ImGui;
 using System.IO;
-using Int4 = SharpDX.Int4;
+using HelixToolkit.Maths;
 
 namespace VfxEditor.Parsing.Int {
     public class ParsedShort2 : ParsedInt4 {

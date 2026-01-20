@@ -1,35 +1,35 @@
+using Dalamud.Bindings.ImGui;
+using Dalamud.Bindings.ImPlot;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
 using FFXIVClientStructs.Havok.Common.Base.Math.QsTransform;
-using Dalamud.Bindings.ImGui;
-using Dalamud.Bindings.ImPlot;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
-using VfxEditor.DirectX;
-using VfxEditor.DirectX.Renderers;
+using VfxEditor.PapFormat;
 using VfxEditor.PapFormat.Motion;
 using VfxEditor.Utils;
+using VfxEditor.DirectX;
 
 namespace VfxEditor.Formats.PapFormat.Motion.Preview {
     public class PapMotionMaterialData {
         public readonly List<(int, Vector3)> Color = [];
         public double[] R {
             get {
-                _InternalR ??= Color.Select( x => ( double )x.Item2.X ).ToArray();
+                _InternalR ??= [.. Color.Select( x => ( double )x.Item2.X )];
                 return _InternalR;
             }
         }
         public double[] G {
             get {
-                _InternalG ??= Color.Select( x => ( double )x.Item2.Y ).ToArray();
+                _InternalG ??= [.. Color.Select( x => ( double )x.Item2.Y )];
                 return _InternalG;
             }
         }
         public double[] B {
             get {
-                _InternalB ??= Color.Select( x => ( double )x.Item2.Z ).ToArray();
+                _InternalB ??= [.. Color.Select( x => ( double )x.Item2.Z )];
                 return _InternalB;
             }
         }
@@ -40,8 +40,9 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
     }
 
     public unsafe class PapMotionMaterial : PapMotionPreview {
-        private static GradientRenderer Preview => Plugin.DirectXManager.PapMaterialPreview;
-        public readonly int RenderId = Renderer.NewId;
+        public readonly PapFile File;
+
+        public readonly int RenderId = RenderInstance.NewId;
 
         private static int MATERIAL_ID = 0;
         private readonly int Id = MATERIAL_ID++;
@@ -52,11 +53,12 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
         private double[] AllFrames;
         private Dictionary<string, PapMotionMaterialData> Data;
 
-        public PapMotionMaterial( PapMotion motion ) : base( motion ) { }
+        public PapMotionMaterial( PapFile file, PapMotion motion ) : base( motion ) {
+            File = file;
+        }
 
         public override void Draw( int idx ) {
             if( Data == null ) Update();
-            if( Preview.CurrentRenderId != RenderId ) UpdatePreview();
 
             // ======== CONTROLS ==========
 
@@ -78,7 +80,7 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
             if( IsColor ) {
                 if( ImGui.ColorEdit3( "Base Preview Color", ref Plugin.Configuration.PapMaterialBaseColor, ImGuiColorEditFlags.NoInputs ) ) {
                     Plugin.Configuration.Save();
-                    UpdatePreview();
+                    UpdateRender();
                 }
             }
             else {
@@ -111,7 +113,9 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
                 if( IsColor ) {
                     var topLeft = new ImPlotPoint { X = 0, Y = 1 };
                     var bottomRight = new ImPlotPoint { X = Motion.TotalFrames, Y = -1 };
-                    ImPlot.PlotImage( "##Gradient", new ImTextureID( Preview.Output ), topLeft, bottomRight );
+
+                    Plugin.DirectXManager.GradientRenderer.UpdateTexture( RenderId, File.GradientInstance, UpdateRender );
+                    ImPlot.PlotImage( "##Gradient", new ImTextureID( File.GradientInstance.Output ), topLeft, bottomRight );
 
                     for( var i = 0; i < Data.Count - 1; i++ ) {
                         var yPos = -1f + 2f * ( i + 1f ) / ( Data.Count );
@@ -171,13 +175,12 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
             }
 
             AllFrames = [.. allFrames];
-            UpdatePreview();
+            UpdateRender();
         }
 
-        private void UpdatePreview() {
-            Preview.SetGradient(
-                RenderId,
-                Data.Select( x => x.Value.Color.Select( y => (y.Item1, y.Item2 + Plugin.Configuration.PapMaterialBaseColor) ).ToList() ).ToList()
+        private void UpdateRender() {
+            Plugin.DirectXManager.GradientRenderer.SetGradient( RenderId, File.GradientInstance,
+                [.. Data.Select( x => x.Value.Color.Select( y => (y.Item1, y.Item2 + Plugin.Configuration.PapMaterialBaseColor) ).ToList() )]
             );
         }
     }

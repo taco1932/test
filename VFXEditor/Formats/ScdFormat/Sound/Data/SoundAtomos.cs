@@ -9,7 +9,8 @@ namespace VfxEditor.ScdFormat.Sound.Data {
         private ushort Size = 0x10;
         public readonly ParsedShort MinPeople = new( "Minimum Number of People" );
         public readonly ParsedShort MaxPeople = new( "Maximum Number of People" );
-        private readonly ParsedReserve Reserve2 = new( 2 * 4 );
+        private readonly ParsedInt Reserve2 = new ( "Reserve 2" );
+        private readonly ParsedInt Reserve3 = new ( "Reserve 3" );
 
         public void Read( BinaryReader reader ) {
             Version.Read( reader );
@@ -18,6 +19,7 @@ namespace VfxEditor.ScdFormat.Sound.Data {
             MinPeople.Read( reader );
             MaxPeople.Read( reader );
             Reserve2.Read( reader );
+            Reserve3.Read( reader );
         }
 
         public void Write( BinaryWriter writer ) {
@@ -27,6 +29,7 @@ namespace VfxEditor.ScdFormat.Sound.Data {
             MinPeople.Write( writer );
             MaxPeople.Write( writer );
             Reserve2.Write( writer );
+            Reserve3.Write( writer );
         }
 
         public void Draw() {
@@ -37,6 +40,7 @@ namespace VfxEditor.ScdFormat.Sound.Data {
             MinPeople.Draw();
             MaxPeople.Draw();
             Reserve2.Draw(); //test
+            Reserve3.Draw(); //test
         }
     }
 }

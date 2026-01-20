@@ -1,9 +1,9 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
 using FFXIVClientStructs.Havok.Animation.Rig;
 using FFXIVClientStructs.Havok.Common.Base.Math.QsTransform;
 using FFXIVClientStructs.Havok.Common.Base.Object;
-using Dalamud.Bindings.ImGui;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +31,11 @@ namespace VfxEditor.SklbFormat.Bones {
     public unsafe class SklbBones : HavokBones {
         private static readonly BoneDisplay[] BoneDisplayOptions = Enum.GetValues<BoneDisplay>();
 
-        public readonly int RenderId = Renderer.NewId;
+        public readonly int RenderId = RenderInstance.NewId;
+        private bool NeedsReRender = false;
+
         private readonly SklbFile File;
-        private static BoneNamePreview SklbPreview => Plugin.DirectXManager.SklbPreview;
+        private static BoneNamePreview SklbPreview => Plugin.DirectXManager.BoneNameRenderer;
 
         private bool DrawOnce = false;
         private SklbBone Selected;
@@ -133,8 +135,6 @@ namespace VfxEditor.SklbFormat.Bones {
         // ========== DRAWING ============
 
         public void Draw() {
-            if( SklbPreview.CurrentRenderId != RenderId ) UpdatePreview();
-
             var expandAll = false;
             var searchSet = GetSearchSet();
 
@@ -163,7 +163,7 @@ namespace VfxEditor.SklbFormat.Bones {
             if( UiUtils.EnumComboBox( "##BoneDisplay", BoneDisplayOptions, Plugin.Configuration.SklbBoneDisplay, out var newBoneDisplay ) ) {
                 Plugin.Configuration.SklbBoneDisplay = newBoneDisplay;
                 Plugin.Configuration.Save();
-                UpdatePreview();
+                Plugin.DirectXManager.Redraw();
             }
 
             ImGui.Separator();
@@ -228,7 +228,7 @@ namespace VfxEditor.SklbFormat.Bones {
                     using var font = ImRaii.PushFont( UiBuilder.IconFont );
                     if( UiUtils.TransparentButton( FontAwesomeIcon.Times.ToIconString(), new( 0.7f, 0.7f, 0.7f, 1 ) ) ) {
                         ClearSelected();
-                        UpdatePreview();
+                        UpdateRender();
                     }
                 }
 
@@ -240,7 +240,8 @@ namespace VfxEditor.SklbFormat.Bones {
                     if( UiUtils.IconButton( FontAwesomeIcon.Trash, "Delete" ) ) DeleteBone( Selected );
                 }
 
-                SklbPreview.DrawInline();
+                if( NeedsReRender ) UpdateRender();
+                SklbPreview.DrawTexture( RenderId, File.BoneNameInstance, UpdateRender, Plugin.Configuration.DrawDirectXSkeleton );
             }
 
             ImGui.Columns( 1 );
@@ -290,7 +291,7 @@ namespace VfxEditor.SklbFormat.Bones {
 
             DragDrop( bone );
 
-            if( ImGui.BeginPopupContextItem( "Sub-bone" ) ) {
+            if( ImGui.BeginPopupContextItem( "BonePopup" ) ) {
                 if( UiUtils.IconSelectable( FontAwesomeIcon.Plus, "Create sub-bone" ) ) {
                     var newId = NEW_BONE_ID;
                     var newBone = new SklbBone( newId );
@@ -313,7 +314,7 @@ namespace VfxEditor.SklbFormat.Bones {
 
             if( ImGui.IsItemClicked( ImGuiMouseButton.Left ) && !ImGui.IsItemToggledOpen() ) {
                 Selected = bone;
-                UpdatePreview();
+                UpdateRender();
             }
 
             if( !isLeaf && nodeOpen ) {
@@ -382,19 +383,19 @@ namespace VfxEditor.SklbFormat.Bones {
         // ======= IMPORT EXPORT ==========
 
         private void ExportHavok() {
-            FileBrowserManager.SaveFileDialog( "Select a Save Location", ".hkx", "", "hkx", ( bool ok, string res ) => {
+            FileBrowserManager.SaveFileDialog( "Select a Save Location", ".hkx", "", "hkx", ( ok, res ) => {
                 if( ok ) System.IO.File.Copy( Path, res, true );
             } );
         }
 
         private void ExportGltf() {
-            FileBrowserManager.SaveFileDialog( "Select a Save Location", ".gltf", "skeleton", "gltf", ( bool ok, string res ) => {
+            FileBrowserManager.SaveFileDialog( "Select a Save Location", ".gltf", "skeleton", "gltf", ( ok, res ) => {
                 if( ok ) GltfSkeleton.ExportSkeleton( Bones, res );
             } );
         }
 
         private void ImportDialog() {
-            FileBrowserManager.OpenFileDialog( "Select a File", "Skeleton{.hkx,.gltf,.glb},.*", ( bool ok, string res ) => {
+            FileBrowserManager.OpenFileDialog( "Select a File", "Skeleton{.hkx,.gltf,.glb},.*", ( ok, res ) => {
                 if( !ok ) return;
                 if( res.Contains( ".hkx" ) ) {
                     var importHavok = new HavokBones( res, true );
@@ -416,9 +417,9 @@ namespace VfxEditor.SklbFormat.Bones {
 
         // ======= UPDATING ==========
 
-        private void UpdatePreview() {
+        private void UpdateRender() {
             if( BoneList?.Count == 0 ) {
-                SklbPreview.LoadEmpty( RenderId, File );
+                SklbPreview.SetEmpty( RenderId, File.BoneNameInstance, File );
             }
             else {
                 var selectedIdx = Selected == null ? -1 : Bones.IndexOf( Selected );
@@ -429,13 +430,15 @@ namespace VfxEditor.SklbFormat.Bones {
                     _ => null
                 };
 
-                SklbPreview.LoadSkeleton( RenderId, File, BoneList, builder.Build() );
+                SklbPreview.SetSkeleton( RenderId, File.BoneNameInstance, File, BoneList, builder.Build() );
+                SklbPreview.SetEmptyWireFrame();
             }
+            NeedsReRender = false;
         }
 
         public void Updated() {
             UpdateBones();
-            if( SklbPreview.CurrentRenderId == RenderId ) UpdatePreview();
+            NeedsReRender = true;
         }
 
         private void DeleteBone( SklbBone bone ) {

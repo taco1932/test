@@ -1,9 +1,9 @@
-using SharpDX;
+using SharpDX.Mathematics.Interop;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using Device = SharpDX.Direct3D11.Device;
 
-namespace VfxEditor.DirectX.Renderers {
+namespace VfxEditor.DirectX.Model {
     public class DeferredTexture {
         public readonly Format Format;
 
@@ -39,7 +39,7 @@ namespace VfxEditor.DirectX.Renderers {
         }
 
         public void Clear( DeviceContext ctx, System.Numerics.Vector4 background ) {
-            ctx.ClearRenderTargetView( RenderTarget, new Color4(
+            ctx.ClearRenderTargetView( RenderTarget, new RawColor4(
                 background.X,
                 background.Y,
                 background.Z,

@@ -17,6 +17,9 @@ https://github.com/lumxiv/Dalamud-VFXEditor/
 - [ ] additional file types for parsing? (tried this with AMB, but I don't know what I'm doing in C#)
 
 ```
+https://github.com/sleepybnuuy/eslb-scripting
+https://docs.google.com/document/d/1UnqSD0fBkQ8jT-172ZVMAcG1WT153mr_/edit?ref=xivmods.guide#heading=h.jsn3uri8qaly
+
 https://github.com/aers/FFXIVClientStructs/blob/main/ida/classinformer.csv
 
 ```

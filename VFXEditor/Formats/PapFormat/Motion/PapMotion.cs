@@ -44,7 +44,7 @@ namespace VfxEditor.PapFormat.Motion {
             File = file;
             AnimatedSkeleton = ( hkaAnimatedSkeleton* )Marshal.AllocHGlobal( Marshal.SizeOf<hkaAnimatedSkeleton>() );
             AnimationControl = ( hkaAnimationControl* )Marshal.AllocHGlobal( Marshal.SizeOf<hkaAnimationControl>() );
-            
+
             AnimationControl->Ctor1( binding );
             AnimatedSkeleton->Ctor1( bones.AnimationContainer->Skeletons[0].ptr );
             AnimatedSkeleton->addAnimationControl( AnimationControl );
@@ -52,7 +52,7 @@ namespace VfxEditor.PapFormat.Motion {
             OriginalSkeletonName.Value = Binding->OriginalSkeletonName.String;
             BlendHint.Value = ( BlendHintTypes )Binding->BlendHint.Value;
 
-            Preview = file.IsMaterial ? new PapMotionMaterial( this ) : new PapMotionSkeleton( this );
+            Preview = file.IsMaterial ? new PapMotionMaterial( file, this ) : new PapMotionSkeleton( file, this );
         }
 
         public void DrawPreview( int idx ) => Preview.Draw( idx );

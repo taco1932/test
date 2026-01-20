@@ -1,6 +1,6 @@
 using Dalamud.Interface.Utility.Raii;
-using HelixToolkit.SharpDX.Core;
-using HelixToolkit.SharpDX.Core.Animations;
+using HelixToolkit.Geometry;
+using HelixToolkit.SharpDX.Animations;
 using Dalamud.Bindings.ImGui;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +9,7 @@ using VfxEditor.FileManager;
 using VfxEditor.Formats.EidFormat.Skeleton;
 using VfxEditor.Ui.Components;
 using VfxEditor.Utils;
+using VfxEditor.DirectX.Bone;
 
 namespace VfxEditor.EidFormat {
     public class EidFile : FileManagerFile {
@@ -20,14 +21,15 @@ namespace VfxEditor.EidFormat {
         private readonly uint Unk1;
 
         private bool NewData => Version1 == 0x3132;
-
+        private EidBindPoint OldSelected;
+        public readonly BoneNameInstance BoneNameInstance = new();
         public readonly EidSkeletonView Skeleton;
         public bool BindPointsUpdated = true;
 
         public EidFile( BinaryReader reader, string sourcePath, bool verify ) : base() {
             reader.ReadInt32(); // magic 00656964
             Version1 = reader.ReadInt16();
-            Version2 = reader.ReadInt16();
+            Version2 = reader.ReadInt16(); 
             var count = reader.ReadInt32();
             Unk1 = reader.ReadUInt32();
 
@@ -37,16 +39,17 @@ namespace VfxEditor.EidFormat {
 
             if( verify ) Verified = FileUtils.Verify( reader, ToBytes() );
 
-            if( NewData )
-            {
+            if( NewData ) {
                 Dropdown = new( "Bind Point", BindPoints,
-                    ( EidBindPoint item, int idx ) => $"Bind Point {item.GetName()}", () => new EidBindPointNew( this ) );
+                    ( EidBindPoint item, int idx ) => $"Bind Point {item.GetName()}",
+                    () => new EidBindPointNew( this )
+                );
             }
-            else
-            {
+            else {
                 Dropdown = new( "Bind Point", BindPoints,
-                    ( EidBindPoint item, int idx ) => $"Bind Point {item.GetName()}", () => new EidBindPointOld( this ) );
-
+                    ( EidBindPoint item, int idx ) => $"Bind Point {item.GetName()}",
+                    () => new EidBindPointOld( this )
+                );
             }
 
             Skeleton = new( this, Path.IsPathRooted( sourcePath ) ? null : sourcePath );
@@ -66,6 +69,11 @@ namespace VfxEditor.EidFormat {
             using var tabBar = ImRaii.TabBar( "Tabs", ImGuiTabBarFlags.NoCloseWithMiddleMouseButton );
             if( !tabBar ) return;
 
+            if( Dropdown.GetSelected() != OldSelected ) {
+                OldSelected = Dropdown.GetSelected();
+                BindPointsUpdated = true;
+            }
+
             using( var tab = ImRaii.TabItem( "Bind Points" ) ) {
                 if( tab ) Dropdown.Draw();
             }
@@ -75,12 +83,20 @@ namespace VfxEditor.EidFormat {
             }
         }
 
-        public void AddBindPoints( MeshBuilder mesh, Dictionary<string, Bone> boneMatrixes ) {
-            BindPoints.ForEach( x => x.AddBindPoint( mesh, boneMatrixes ) );
+        public void AddBindPoints( MeshBuilder mesh, MeshBuilder selected, Dictionary<string, Bone> boneMatrixes ) {
+            foreach( var bindPoint in BindPoints ) {
+                bindPoint.AddBindPoint( bindPoint == Dropdown.GetSelected() ? selected : mesh, boneMatrixes );
+            }
         }
 
         public override void OnChange() {
             BindPointsUpdated = true;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            BoneNameInstance.Dispose();
         }
     }
 }

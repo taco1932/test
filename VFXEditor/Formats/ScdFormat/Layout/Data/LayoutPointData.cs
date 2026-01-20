@@ -32,12 +32,12 @@ namespace VfxEditor.ScdFormat {
         public readonly ParsedFloat FarDelayFac = new( "Far Delay FAC" );
         public readonly ParsedFlag<PointEnvironmentFlags> Environment = new( "Environment", size: 1 );
         public readonly ParsedFlag<PointFlags> Flag = new( "Flag", size: 1 );
-        public readonly ParsedReserve Reserved1 = new( 2 );
+        public readonly ParsedShort Reserved1 = new( "Reserve 1" );
         public readonly ParsedFloat LowerLimit = new( "Lower Limit" );
         public readonly ParsedShort FadeInTime = new( "Fade In Time" );
         public readonly ParsedShort FadeOutTime = new( "Fade Out Time" );
         public readonly ParsedFloat ConvergenceFac = new( "Convergence FAC" );
-        public readonly ParsedReserve Reserved2 = new( 4 );
+        public readonly ParsedInt Reserved2 = new( "Reserve 2" );
 
         public LayoutPointData() {
             Parsed = [

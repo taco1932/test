@@ -8,7 +8,7 @@ using VfxEditor.Ui.Interfaces;
 namespace VfxEditor.ScdFormat {
     public class ScdAttributeEntry : ScdEntry, IUiItem {
         public readonly ParsedByte Version = new( "Version" );
-        public readonly ParsedReserve Reserved = new( 1 );
+        public readonly ParsedByte Reserved = new( "Reserved 1" ); //test
         public readonly ParsedShort AttributeId = new( "Attribute Id" );
         public readonly ParsedShort SearchAttributeId = new( "Search Attribute Id" );
         public readonly ParsedByte ConditionFirst = new( "First Condition" );

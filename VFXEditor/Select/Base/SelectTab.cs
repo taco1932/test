@@ -13,7 +13,7 @@ namespace VfxEditor.Select {
         protected readonly string Name;
 
         public static bool ScanPaths = false;
-        public static List<String> ScannedPaths = new List<string>();
+        public static List<string> ScannedPaths = new List<string>();
         
         public SelectTab( SelectDialog dialog, string name ) {
             Dialog = dialog;
@@ -77,7 +77,7 @@ namespace VfxEditor.Select {
 
             if( !ItemsLoaded ) return;
 
-            Searched ??= new List<T>( Items );
+            Searched ??= [.. Items];
 
             var resetScroll = false;
             DrawExtra();

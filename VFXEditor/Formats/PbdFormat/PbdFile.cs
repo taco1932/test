@@ -1,6 +1,7 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
-using Dalamud.Bindings.ImGui;
+using FlatSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +9,9 @@ using System.Linq;
 using System.Numerics;
 using VfxEditor.Data.Command.ListCommands;
 using VfxEditor.FileManager;
+using VfxEditor.Flatbuffer;
 using VfxEditor.Utils;
+using VfxEditor.Utils.PackStruct;
 
 namespace VfxEditor.Formats.PbdFormat {
     public class PbdFile : FileManagerFile {
@@ -20,6 +23,9 @@ namespace VfxEditor.Formats.PbdFormat {
 
         private PbdConnection Selected;
         private PbdConnection Dragging;
+
+        public const uint ExtendedType = 'E' | ( ( uint )'P' << 8 ) | ( ( uint )'B' << 16 ) | ( ( uint )'D' << 24 );
+        public ExtendedPbd? EpbdData;
 
         public PbdFile( BinaryReader reader, bool verify ) : base() {
             var count = reader.ReadInt32();
@@ -33,7 +39,21 @@ namespace VfxEditor.Formats.PbdFormat {
             }
             foreach( var connection in Connections ) connection.Populate( Connections );
 
-            if( verify ) Verified = FileUtils.Verify( reader, ToBytes() );
+            List<(int, int)> ignoreRange = null;
+            var diff = 0;
+
+            var packReader = new PackReader( reader );
+            if( packReader.TryGetPrior( ExtendedType, out var extendedData ) ) {
+                EpbdData = ExtendedPbd.Serializer.Parse( extendedData.Data.ToArray(), FlatBufferDeserializationOption.GreedyMutable );
+                ignoreRange = [(( int )packReader.StartPos, ( int )reader.BaseStream.Length)];
+                diff = extendedData.Data.Length - GetEpbdData().Length;
+                Dalamud.Log( $"Flatbuffer diff is: {diff}" );
+            }
+
+            if( verify ) {
+                Verified = FileUtils.Verify( reader, ToBytes(), ignoreRange, diff );
+                if( Verified == VerifiedStatus.VERIFIED && EpbdData != null ) Verified = VerifiedStatus.PARTIAL;
+            }
         }
 
         public override void Write( BinaryWriter writer ) {
@@ -53,6 +73,22 @@ namespace VfxEditor.Formats.PbdFormat {
                 writer.BaseStream.Position = placeholder;
                 writer.Write( ( int )dataPositions[deformer] );
             }
+
+            if( EpbdData != null ) {
+                writer.BaseStream.Position = writer.BaseStream.Length;
+                FileUtils.PadTo( writer, 16 );
+                Pack.Write( writer, ExtendedType, 1, GetEpbdData() );
+            }
+        }
+
+        private Span<byte> GetEpbdData() {
+            if( EpbdData == null ) return null;
+
+            var size = ExtendedPbd.Serializer.GetMaxSize( EpbdData );
+            var data = new byte[size];
+            ExtendedPbd.Serializer.WithSettings( s => s.DisableSharedStrings() );
+            var bytes = ExtendedPbd.Serializer.Write( data, EpbdData );
+            return data.AsSpan( 0, bytes );
         }
 
         public override void Draw() {

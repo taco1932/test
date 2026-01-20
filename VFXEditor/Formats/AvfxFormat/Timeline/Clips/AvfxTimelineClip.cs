@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 using VfxEditor.Parsing;
-using Int4 = SharpDX.Int4;
+using HelixToolkit.Maths;
 
 namespace VfxEditor.AvfxFormat {
     public enum ClipType {

@@ -1,32 +1,22 @@
-using SharpDX;
+using Dalamud.Bindings.ImGui;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
+using SharpDX.Mathematics.Interop;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using VfxEditor.DirectX.Drawable;
 using Device = SharpDX.Direct3D11.Device;
 
-namespace VfxEditor.DirectX.Renderers {
+namespace VfxEditor.DirectX.Gradient {
     public class GradientRenderer : Renderer {
-        public nint Output => ShaderView.NativePointer;
-
-        private readonly int Width = 900;
-        private readonly int Height = 100;
-
         private RasterizerState State;
-        private Texture2D DepthTexture;
-        private DepthStencilView DepthView;
-        private Texture2D RenderTexture;
-        private ShaderResourceView ShaderView;
-        private RenderTargetView RenderView;
-
         private readonly D3dDrawable Gradient;
 
         public GradientRenderer( Device device, DeviceContext ctx, string shaderPath ) : base( device, ctx ) {
             RefreshRasterizeState();
-            ResizeResources();
-
             Gradient = new( 2, false,
                 [
                     new("POSITION", 0, Format.R32G32B32A32_Float, 0, 0),
@@ -35,12 +25,11 @@ namespace VfxEditor.DirectX.Renderers {
             Gradient.AddPass( device, PassType.Final, Path.Combine( shaderPath, "gradient.fx" ), ShaderPassFlags.Pixel );
         }
 
-        public void SetGradient( int renderId, List<List<(int, System.Numerics.Vector3)>> rows ) {
-            CurrentRenderId = renderId;
+        public void SetGradient( int renderId, GradientInstance instance, List<List<(int, Vector3)>> rows ) {
+            OnUpdate( renderId, instance );
 
             if( rows.Count == 0 || rows.Min( x => x.Count ) < 2 ) {
                 Gradient.ClearVertexes();
-                Draw();
                 return;
             }
 
@@ -95,7 +84,18 @@ namespace VfxEditor.DirectX.Renderers {
             }
 
             Gradient.SetVertexes( Device, [.. data], count * 6 );
-            Draw();
+        }
+
+        public void UpdateTexture( int renderId, GradientInstance instance, Action update ) {
+            var needsRender = instance.NeedsRender || NeedsUpdate || renderId != instance.CurrentRenderId;
+            var needsUpdate = needsRender && ( NeedsUpdate || renderId != instance.CurrentRenderId || instance != LoadedInstance );
+
+            if( needsUpdate ) {
+                update();
+            }
+            if( needsRender ) {
+                Render( instance );
+            }
         }
 
         private void RefreshRasterizeState() {
@@ -114,49 +114,15 @@ namespace VfxEditor.DirectX.Renderers {
             } );
         }
 
-        private void ResizeResources() {
-            RenderTexture?.Dispose();
-            RenderTexture = new Texture2D( Device, new Texture2DDescription() {
-                Format = Format.B8G8R8A8_UNorm,
-                ArraySize = 1,
-                MipLevels = 1,
-                Width = Width,
-                Height = Height,
-                SampleDescription = new SampleDescription( 1, 0 ),
-                Usage = ResourceUsage.Default,
-                BindFlags = BindFlags.ShaderResource | BindFlags.RenderTarget,
-                CpuAccessFlags = CpuAccessFlags.None,
-                OptionFlags = ResourceOptionFlags.None
-            } );
-            ShaderView?.Dispose();
-            ShaderView = new ShaderResourceView( Device, RenderTexture );
-            RenderView?.Dispose();
-            RenderView = new RenderTargetView( Device, RenderTexture );
+        public void Render( GradientInstance instance ) {
+            instance.NeedsRender = false;
 
-            DepthTexture?.Dispose();
-            DepthTexture = new Texture2D( Device, new Texture2DDescription() {
-                Format = Format.D32_Float_S8X24_UInt,
-                ArraySize = 1,
-                MipLevels = 1,
-                Width = Width,
-                Height = Height,
-                SampleDescription = new SampleDescription( 1, 0 ),
-                Usage = ResourceUsage.Default,
-                BindFlags = BindFlags.DepthStencil,
-                CpuAccessFlags = CpuAccessFlags.None,
-                OptionFlags = ResourceOptionFlags.None,
-            } );
-            DepthView?.Dispose();
-            DepthView = new DepthStencilView( Device, DepthTexture );
-        }
+            BeforeRender( out var oldState, out var oldRenderViews, out var oldDepthStencilView, out var oldDepthStencilState );
 
-        public override void Draw() {
-            BeforeDraw( out var oldState, out var oldRenderViews, out var oldDepthStencilView, out var oldDepthStencilState );
-
-            Ctx.OutputMerger.SetTargets( DepthView, RenderView );
-            Ctx.ClearDepthStencilView( DepthView, DepthStencilClearFlags.Depth, 1.0f, 0 );
-            Ctx.ClearRenderTargetView( RenderView, new Color4( 0.3f, 0.3f, 0.3f, 1.0f ) );
-            Ctx.Rasterizer.SetViewport( new Viewport( 0, 0, Width, Height, 0.0f, 1.0f ) );
+            Ctx.OutputMerger.SetTargets( instance.DepthView, instance.RenderView );
+            Ctx.ClearDepthStencilView( instance.DepthView, DepthStencilClearFlags.Depth, 1.0f, 0 );
+            Ctx.ClearRenderTargetView( instance.RenderView, new RawColor4( 0.3f, 0.3f, 0.3f, 1.0f ) );
+            Ctx.Rasterizer.SetViewport( 0, 0, instance.Width, instance.Height, 0.0f, 1.0f );
             Ctx.Rasterizer.State = State;
 
             Gradient.SetupPass( Ctx, PassType.Final );
@@ -164,16 +130,13 @@ namespace VfxEditor.DirectX.Renderers {
 
             Ctx.Flush();
 
-            AfterDraw( oldState, oldRenderViews, oldDepthStencilView, oldDepthStencilState );
+            AfterRender( oldState, oldRenderViews, oldDepthStencilView, oldDepthStencilState );
         }
 
         public override void Dispose() {
+            base.Dispose();
+
             State?.Dispose();
-            RenderTexture?.Dispose();
-            ShaderView?.Dispose();
-            RenderView?.Dispose();
-            DepthTexture?.Dispose();
-            DepthView?.Dispose();
             Gradient?.Dispose();
         }
     }
