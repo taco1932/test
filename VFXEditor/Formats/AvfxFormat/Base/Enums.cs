@@ -277,10 +277,10 @@ namespace VfxEditor.AvfxFormat {
             PointLight = 0,
             DirectionalLight = 1,
             Reserve1 = 2,
-            New_Unknown2 = 3, //you will crash
+            ChromaticAberration = 3,
             GaussianBlur = 4,
             DirectionalBlur = 5,
-            CameraQuake_Unknown = 6, //case 6 in source code is blank
+            CameraQuake_Variable = 6, //case 6 in source code is blank
             RadialBlur = 7,
             BlackHole = 8, //case 8 exists, but unsure what it's doing
             CameraQuake = 9

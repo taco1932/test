@@ -64,22 +64,19 @@ namespace VfxEditor.Utils.Gltf {
             return ret;
         }
 
-        private static AvfxVertexNumber GetAvfxNumber( int i )
-        {
+        private static AvfxVertexNumber GetAvfxNumber( int i ) {
             var ret = new AvfxVertexNumber();
-            ret.Order = new( "##Order", i );
+            ret.Order.Value = i;
             return ret;
         }
 
-        private static AvfxEmitVertex GetAvfxEmitVertex( Vector3 pos, Vector3 normal, Vector4 color )
-        {
-            var ret = new AvfxEmitVertex();
-            ret.Position = new( "##Position", pos );
-
+        private static AvfxEmitVertex GetAvfxEmitVertex( Vector3 pos, Vector3 normal, Vector4 color ) {
             var normalAdjusted = Vector3.Normalize( new Vector3( normal.X, normal.Y, normal.Z ) );
+            var ret = new AvfxEmitVertex();
+            ret.Position.Value = pos;
+            ret.Normal.Value = normalAdjusted;
+            ret.Color.Value = color;
 
-            ret.Normal = new( "##Normal", normalAdjusted );
-            ret.Color = new( "##Color", color );
             return ret;
         }
 
@@ -108,7 +105,6 @@ namespace VfxEditor.Utils.Gltf {
                     count += positions.Count;
                 }
             }
-
             return count > 0;
         }
 

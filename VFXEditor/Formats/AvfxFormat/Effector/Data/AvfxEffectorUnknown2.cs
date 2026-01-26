@@ -2,14 +2,12 @@ using VFXEditor.Formats.AvfxFormat.Curve;
 using static VfxEditor.AvfxFormat.Enums;
 
 namespace VfxEditor.AvfxFormat {
-    public class AvfxEffectorUnknown2 : AvfxDataWithParameters {
-        //order seems right, but the pointer's complaining
+    public class AvfxEffectorDataChromaticAberration : AvfxDataWithParameters {
 
-        public readonly AvfxCurve1Axis CSR = new( "CSR", "CSR" );
-        public readonly AvfxCurve1Axis CSS = new( "CSS", "CSS" );
-        //these don't seem to exist, but ghidra insists?
-        public readonly AvfxCurve1Axis CGE = new( "CGE", "CGE" );
-        public readonly AvfxCurve1Axis Strength = new( "Strength", "Str" );
+        public readonly AvfxCurve1Axis RefractionStrength = new( "Refraction Strength", "CSR" );
+        public readonly AvfxCurve1Axis SeparationStrength = new( "Separation Strength", "CSS" );
+        public readonly AvfxCurve1Axis EffectStrength = new( "Effect Strength", "CGE" );
+        public readonly AvfxCurve1Axis Strength = new( "Strength", "Str" ); //alpha
         public readonly AvfxCurve1Axis Gradation = new( "Gradation", "Gra" );
         public readonly AvfxCurve1Axis InnerRadius = new( "Inner Radius", "IRad" );
         public readonly AvfxCurve1Axis OuterRadius = new( "Outer Radius", "ORad" );
@@ -18,11 +16,11 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxEnum<ClipBasePoint> FadeBasePointType = new( "Fade Base Point", "FaBP" );
 
 
-        public AvfxEffectorUnknown2() : base() {
+        public AvfxEffectorDataChromaticAberration() : base() {
             Parsed = [
-                CSR,
-                CSS,
-                CGE,
+                RefractionStrength,
+                SeparationStrength,
+                EffectStrength,
                 Strength,
                 Gradation,
                 InnerRadius,
@@ -36,9 +34,9 @@ namespace VfxEditor.AvfxFormat {
             ParameterTab.Add( FadeEndDistance );
             ParameterTab.Add( FadeBasePointType );
 
-            Tabs.Add( CSR );
-            Tabs.Add( CSS );
-            Tabs.Add( CGE );
+            Tabs.Add( RefractionStrength );
+            Tabs.Add( SeparationStrength );
+            Tabs.Add( EffectStrength );
             Tabs.Add( Strength );
             Tabs.Add( Gradation );
             Tabs.Add( InnerRadius );

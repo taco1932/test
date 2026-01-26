@@ -72,10 +72,10 @@ namespace VfxEditor.AvfxFormat {
                 EffectorType.DirectionalLight => new AvfxEffectorDataDirectionalLight( File ),
                 EffectorType.RadialBlur => new AvfxEffectorDataRadialBlur(),
                 EffectorType.BlackHole => new AvfxEffectorBlackHole(),
-                EffectorType.CameraQuake_Unknown or EffectorType.CameraQuake => new AvfxEffectorDataCameraQuake(),
+                EffectorType.CameraQuake_Variable or EffectorType.CameraQuake => new AvfxEffectorDataCameraQuake(),
                 EffectorType.GaussianBlur => new AvfxEffectorGaussianBlur(),
                 EffectorType.DirectionalBlur => new AvfxEffectorDirectionalBlur(),
-                EffectorType.New_Unknown2 => new AvfxEffectorUnknown2(),
+                EffectorType.ChromaticAberration => new AvfxEffectorDataChromaticAberration(),
                 _ => null
             };
             Data?.SetAssigned( true );
