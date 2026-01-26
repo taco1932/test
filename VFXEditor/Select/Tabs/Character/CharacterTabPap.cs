@@ -17,6 +17,9 @@ namespace VfxEditor.Select.Tabs.Character {
         public string Jmn;
         public string ChairStart;
         public string Sit;
+        public string Umbrella;
+        public string Pack;
+        public string Torch;
         public Dictionary<string, Dictionary<string, string>> GroundSitPoses;
         public Dictionary<string, Dictionary<string, string>> ChairSitPoses;
         public Dictionary<string, Dictionary<string, string>> OrnamentPoses;
@@ -90,6 +93,10 @@ namespace VfxEditor.Select.Tabs.Character {
             var groundStart = item.GetPap( "event_base/event_base_ground_start" );
             var sit = item.GetPap( "emote/sit" );
             var chairStart = item.GetPap( "event_base/event_base_chair_start" );
+            //ornaments
+            var umbrella = item.GetOrnamentResidentPap( "ot_m6001/resident/ornament" );
+            var pack = item.GetOrnamentResidentPap( "ot_m6008/resident/ornament" );
+            var torch = item.GetOrnamentResidentPap( "ot_m6011/resident/ornament" );
 
             var facePaths = item.Data.FaceOptions
                 .Select( id => (id, $"chara/human/{item.SkeletonId}/animation/f{id:D4}/resident/face.pap") )
@@ -102,12 +109,16 @@ namespace VfxEditor.Select.Tabs.Character {
                 Poses = poses,
                 GroundSitPoses = groundsitPoses,
                 ChairSitPoses = chairsitPoses,
+                OrnamentPoses = ornamentPoses,
+                FacePaths = facePaths,
                 Jmn = Dalamud.DataManager.FileExists( jmn ) ? jmn : null,
                 GroundStart = Dalamud.DataManager.FileExists( groundStart ) ? groundStart : null,
                 Sit = Dalamud.DataManager.FileExists( sit ) ? sit : null,
                 ChairStart = Dalamud.DataManager.FileExists( chairStart ) ? chairStart : null,
-                OrnamentPoses = ornamentPoses,
-                FacePaths = facePaths,
+                //ornaments
+                Umbrella = Dalamud.DataManager.FileExists( umbrella ) ? umbrella : null,
+                Pack = Dalamud.DataManager.FileExists( pack ) ? pack : null,
+                Torch = Dalamud.DataManager.FileExists( torch ) ? torch : null,
             };
         }
 
@@ -148,6 +159,13 @@ namespace VfxEditor.Select.Tabs.Character {
                 ImGui.EndTabItem();
             }
             if( ImGui.BeginTabItem( "Fashion Accessory" ) ) {
+                Dialog.DrawPaths( new Dictionary<string, string>() {
+                    { "Move (Umbrella)", Loaded.Umbrella },
+                    { "Move (Backpack)", Loaded.Pack },
+                    { "Move (Torch)", Loaded.Torch },
+                }, Selected.Name, SelectResultType.GameCharacter );
+
+                ImGui.Separator();
                 Dialog.DrawPaths( Loaded.OrnamentPoses, Selected.Name, SelectResultType.GameCharacter );
 
                 ImGui.EndTabItem();
