@@ -1,10 +1,10 @@
 {
-    "Author": "taco (via ocealot)",
+    "Author": "taco + echo (via ocealot)",
     "Name": "VFXEditor - Degen Mode",
     "Punchline": "Hi.",
     "Description": "Everything-including-the-kitchen-sink plugin with extra scales.",
     "InternalName": "VFXEditor",
-    "AssemblyVersion": "1.9.2.0",
+    "AssemblyVersion": "1.9.3.6",
     "RepoUrl": "https://github.com/taco1932/test",
     "ApplicableVersion": "any",
     "Tags": [ "VFX", "AVFX" ],

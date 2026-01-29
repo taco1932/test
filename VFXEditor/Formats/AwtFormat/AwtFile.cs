@@ -9,7 +9,6 @@ using System.Runtime.InteropServices;
 using VfxEditor.FileManager;
 using VfxEditor.Formats.AwtFormat.Entry;
 using VfxEditor.Utils;
-using static VfxEditor.AvfxFormat.Enums;
 
 namespace VfxEditor.Formats.AwtFormat {
     // https://github.com/Ottermandias/Penumbra.GameData/blob/main/Files/AwtFile.cs
@@ -46,7 +45,7 @@ namespace VfxEditor.Formats.AwtFormat {
             writer.Write( ( ushort )Version1 );
             writer.Write( ( ushort )Version2 );
             writer.Write( ( ulong )Entries.Count-1 );
-            foreach( var AWTEntry in Entries ) AWTEntry.Write( writer );
+            foreach( var AwtEntry in Entries ) AwtEntry.Write( writer );
         }
 
         public override void Draw() {

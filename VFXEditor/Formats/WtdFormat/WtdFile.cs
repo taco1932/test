@@ -45,7 +45,7 @@ namespace VfxEditor.Formats.WtdFormat {
 
             foreach( var (entry, i) in Entries.WithIndex() )
             {
-                writer.Write( ( UInt32 )Entries[i].weaponId.Value ); 
+                writer.Write( Entries[i].weaponId.Value ); 
                 Entries[i].Write(writer);
             }
         }

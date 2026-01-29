@@ -86,7 +86,7 @@ namespace VfxEditor.Utils.Gltf {
             // Add the remaining ones that couldn't be placed
             finalBones.AddRange( unusedBones );
 
-            return finalBones.Where( x => x != null ).ToList();
+            return [.. finalBones.Where( x => x != null )];
         }
 
         public static void ExportSkeleton( List<SklbBone> skeletonBones, string path ) {
@@ -102,7 +102,7 @@ namespace VfxEditor.Utils.Gltf {
                 var node = new NodeBuilder( bone.Name.Value );
                 var pos = new Vector3( bone.Pos.X, bone.Pos.Y, bone.Pos.Z );
                 var quat = bone.Rot;
-                var rot = new Quaternion( ( float )quat.X, ( float )quat.Y, ( float )quat.Z, ( float )quat.W );
+                var rot = new Quaternion( quat.X, quat.Y, quat.Z, quat.W );
                 var scl = new Vector3( bone.Scl.X, bone.Scl.Y, bone.Scl.Z );
                 node.SetLocalTransform( new AffineTransform( scl, rot, pos ), false );
                 bones.Add( node );

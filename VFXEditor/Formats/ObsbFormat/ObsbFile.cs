@@ -9,9 +9,6 @@ using System.Runtime.InteropServices;
 using VfxEditor.FileManager;
 using VfxEditor.Formats.ObsbFormat.Entry;
 using VfxEditor.Utils;
-using static VfxEditor.AvfxFormat.Enums;
-using VfxEditor.Formats.ObsbFormat.Entry;
-using VfxEditor.Formats.AwtFormat.Entry;
 
 namespace VfxEditor.Formats.ObsbFormat { 
 

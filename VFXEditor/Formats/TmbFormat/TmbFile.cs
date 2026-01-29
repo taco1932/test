@@ -63,7 +63,7 @@ namespace VfxEditor.TmbFormat {
 
             binaryReader.BaseStream.Position = startPos + size;
 
-            UnusedTracks = AllTracks.Where( x => !Actors.Where( a => a.Tracks.Contains( x ) ).Any() ).ToList();
+            UnusedTracks = [.. AllTracks.Where( x => !Actors.Any( a => a.Tracks.Contains( x ) ) )];
             UnusedTrackView = new( "Track", UnusedTracks, false );
         }
 
@@ -74,7 +74,7 @@ namespace VfxEditor.TmbFormat {
 
             RefreshIds();
 
-            var timelineCount = Actors.Count + Actors.Select( x => x.Tracks.Count ).Sum() + AllTracks.Select( x => x.Entries.Count ).Sum();
+            var timelineCount = Actors.Count + Actors.Sum( x => x.Tracks.Count ) + AllTracks.Sum( x => x.Entries.Count );
 
             var items = new List<TmbItem> { HeaderTmdh };
             if( HeaderTmpp.IsAssigned ) items.Add( HeaderTmpp );
@@ -105,7 +105,7 @@ namespace VfxEditor.TmbFormat {
         }
 
         public override void Draw() {
-            var maxDanger = AllEntries.Count == 0 ? DangerLevel.None : AllEntries.Select( x => x.Danger ).Max();
+            var maxDanger = AllEntries.Count == 0 ? DangerLevel.None : AllEntries.Max( x => x.Danger );
             if( maxDanger == DangerLevel.DontAddRemove ) DontAddRemoveWarning();
             else if( maxDanger == DangerLevel.Detectable || Tmfcs.Count > 0 ) DetectableWarning();
 

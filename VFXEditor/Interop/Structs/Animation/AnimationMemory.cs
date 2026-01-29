@@ -50,10 +50,10 @@ namespace VfxEditor.Interop.Structs.Animation {
 
     [StructLayout( LayoutKind.Explicit )]
     public unsafe struct AnimationMemory {
-        [FieldOffset( 0x0E0 )] public fixed ushort AnimationIds[13];
-        [FieldOffset( 0x154 )] public fixed float Speeds[13];
-        [FieldOffset( 0x1E2 )] public byte SpeedTrigger;
-        [FieldOffset( 0x2D6 )] public ushort BaseOverride;
-        [FieldOffset( 0x2D8 )] public ushort LipsOverride;
+        [FieldOffset( 0x0F0 )] public fixed ushort AnimationIds[13];
+        [FieldOffset( 0x164 )] public fixed float Speeds[13];
+        [FieldOffset( 0x1F2 )] public byte SpeedTrigger;
+        [FieldOffset( 0x2E6 )] public ushort BaseOverride;
+        [FieldOffset( 0x2E8 )] public ushort LipsOverride;
     }
 }

@@ -1,9 +1,6 @@
-using System;
 using System.IO;
-using System.Numerics;
 using VfxEditor.Formats.AwtFormat.Entry;
 using VfxEditor.Parsing.Utils;
-using VfxEditor.Utils;
 
 namespace VfxEditor.AwtFormat.Utils {
     public class AwtWriter : ParsingWriter {

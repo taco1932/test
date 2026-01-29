@@ -3,8 +3,6 @@ using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
-using Dalamud.Bindings.ImGuizmo;
-using Dalamud.Bindings.ImPlot;
 using System.Collections.Generic;
 using VfxEditor.AvfxFormat;
 using VfxEditor.DirectX;
@@ -17,10 +15,11 @@ using VfxEditor.Formats.AwtFormat;
 using VfxEditor.Formats.KdbFormat;
 using VfxEditor.Formats.MdlFormat;
 using VfxEditor.Formats.MtrlFormat;
-using VfxEditor.Formats.SgbFormat;
+using VfxEditor.Formats.ObsbFormat;
 using VfxEditor.Formats.PbdFormat;
 using VfxEditor.Formats.ShcdFormat;
 using VfxEditor.Formats.ShpkFormat;
+using VfxEditor.Formats.SgbFormat;
 using VfxEditor.Formats.SkpFormat;
 using VfxEditor.Formats.TextureFormat;
 using VfxEditor.Interop;
@@ -37,9 +36,6 @@ using VfxEditor.Ui.Export;
 using VfxEditor.Ui.Import;
 using VfxEditor.Ui.Tools;
 using VfxEditor.UldFormat;
-using System.Threading;
-using VfxEditor.Formats.AwtFormat;
-using VfxEditor.Formats.ObsbFormat;
 
 namespace VfxEditor {
     public unsafe partial class Plugin : IDalamudPlugin {
@@ -118,10 +114,7 @@ namespace VfxEditor {
             Dalamud.CommandManager.AddHandler( CommandName, new CommandInfo( OnCommand ) { HelpMessage = "toggle ui" } );
 
             RootLocation = Dalamud.PluginInterface.AssemblyLocation.DirectoryName;
-
-            ImPlot.SetImGuiContext( ImGui.GetCurrentContext() );
-            ImPlot.SetCurrentContext( ImPlot.CreateContext() );
-            ImGuizmo.SetImGuiContext( ImGui.GetCurrentContext() );
+            OtterTex.NativeDll.Initialize( pluginInterface.AssemblyLocation.DirectoryName );
 
             WindowSystem = new();
 
@@ -195,8 +188,6 @@ namespace VfxEditor {
             Dalamud.PluginInterface.UiBuilder.Draw -= Draw;
             Dalamud.PluginInterface.UiBuilder.OpenConfigUi -= OpenConfigUi;
             Dalamud.PluginInterface.UiBuilder.OpenMainUi -= OpenConfigUi;
-
-            ImPlot.DestroyContext();
 
             Dalamud.CommandManager.RemoveHandler( CommandName );
             PenumbraIpc?.Dispose();

@@ -2,10 +2,6 @@ using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using System.Collections.Generic;
 using VfxEditor.Ui.Components.SplitViews;
-using Dalamud.Interface;
-using VfxEditor.FileBrowser;
-using System;
-using VfxEditor.AwtFormat.Utils;
 
 namespace VfxEditor.Formats.AwtFormat.Entry {
     public class AwtEntrySplitView : CommandSplitView<AwtEntry> {

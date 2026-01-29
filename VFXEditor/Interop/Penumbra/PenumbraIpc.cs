@@ -32,7 +32,7 @@ namespace VfxEditor.Interop.Penumbra {
             DisposedSubscriber = Disposed.Subscriber( Dalamud.PluginInterface, DisablePenumbra );
 
 
-            if( !Dalamud.PluginInterface.InstalledPlugins.Where( x => x.InternalName.Equals( "Penumbra" ) ).Any() ) return;
+            if( !Dalamud.PluginInterface.InstalledPlugins.Any( x => x.InternalName.Equals( "Penumbra" ) ) ) return;
             try {
                 ApiVersionsSubscriber.Invoke();
             }
@@ -52,7 +52,7 @@ namespace VfxEditor.Interop.Penumbra {
         public List<string> GetMods() {
             if( !PenumbraEnabled ) return [];
             try {
-                return GetModsSubscriber.Invoke().Select( x => x.Key ).ToList();
+                return [.. GetModsSubscriber.Invoke().Select( x => x.Key )];
             }
             catch( Exception ) { return []; }
         }

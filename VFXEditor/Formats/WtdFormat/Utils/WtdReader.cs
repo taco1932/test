@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Numerics;
-using VfxEditor.Formats.WtdFormat.Entry;
 using VfxEditor.Parsing.Utils;
 using VfxEditor.Utils;
 

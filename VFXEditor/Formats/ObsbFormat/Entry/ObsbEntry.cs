@@ -1,20 +1,11 @@
-using Dalamud.Bindings.ImGui;
-using Dalamud.Interface.Utility.Raii;
-using System.Collections.Generic;
 using System.IO;
 using VfxEditor.Parsing;
 using VfxEditor.Ui.Interfaces;
-using VfxEditor.Utils;
-using VfxEditor.AwtFormat.Utils;
-using System.Xml.Linq;
-using SharpGLTF.Schema2;
-using System;
-using static Dalamud.Interface.Utility.Raii.ImRaii;
 using VfxEditor.ObsbFormat.Utils;
 
 namespace VfxEditor.Formats.ObsbFormat.Entry {
     public class ObsbEntry : IUiItem {
-        public int Size => 0x08;
+        public static int Size => 0x08;
 
         public readonly ParsedShort ItemID = new( "Index" );
         public readonly ParsedShort Type = new( "Type" );

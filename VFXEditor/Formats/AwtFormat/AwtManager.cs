@@ -3,7 +3,7 @@ using VfxEditor.Select.Formats;
 using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.AwtFormat {
-    public unsafe class AwtManager : FileManager<AwtDocument, AwtFile, WorkspaceMetaBasic> {
+    public class AwtManager : FileManager<AwtDocument, AwtFile, WorkspaceMetaBasic> {
         public AwtManager() : base( "Awt Editor", "Awt" ) {
             SourceSelect = new AwtSelectDialog( "Awt Select [LOADED]", this, true );
             ReplaceSelect = new AwtSelectDialog( "Awt Select [REPLACED]", this, false );

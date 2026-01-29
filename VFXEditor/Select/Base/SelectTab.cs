@@ -13,7 +13,7 @@ namespace VfxEditor.Select {
         protected readonly string Name;
 
         public static bool ScanPaths = false;
-        public static List<string> ScannedPaths = new List<string>();
+        public static List<string> ScannedPaths = [];
         
         public SelectTab( SelectDialog dialog, string name ) {
             Dialog = dialog;
@@ -83,7 +83,7 @@ namespace VfxEditor.Select {
             DrawExtra();
 
             if( ImGui.InputTextWithHint( "##Search", "Search", ref SearchInput, 255 ) ) {
-                Searched = Items.Where( x => CheckMatch( x, SearchInput ) ).ToList();
+                Searched = [.. Items.Where( x => CheckMatch( x, SearchInput ) )];
                 resetScroll = true;
             }
             ImGui.SameLine();

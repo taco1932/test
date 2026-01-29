@@ -1,22 +1,18 @@
 using Dalamud.Bindings.ImGui;
-using Dalamud.Interface.Utility.Raii;
-using System.Collections.Generic;
 using System.IO;
 using VfxEditor.Parsing;
 using VfxEditor.Ui.Interfaces;
 using VfxEditor.Utils;
 using VfxEditor.WtdFormat.Utils;
-using System.Xml.Linq;
-using SharpGLTF.Schema2;
-using System;
+using VfxEditor.AtchFormat.Utils;
 
 namespace VfxEditor.Formats.WtdFormat.Entry {
     public class WtdEntry : IUiItem {
-        public int Size => 0x18;
+        public static int Size => 0x18;
         public readonly ParsedUInt weaponId = new( "weaponId" );
         public readonly ParsedString Type = new( "Type" );
 
-        public string WeaponType => WtdUtils.WeaponNames.TryGetValue( Type.Value, out var weaponName ) ? weaponName : "";
+        public string WeaponType => AtchUtils.WeaponNames.TryGetValue( Type.Value, out var weaponName ) ? weaponName : ""; //shared
 
         public WtdEntry() { }
 

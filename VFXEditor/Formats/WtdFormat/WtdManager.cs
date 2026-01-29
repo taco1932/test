@@ -3,7 +3,7 @@ using VfxEditor.Select.Formats;
 using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.WtdFormat {
-    public unsafe class WtdManager : FileManager<WtdDocument, WtdFile, WorkspaceMetaBasic> {
+    public class WtdManager : FileManager<WtdDocument, WtdFile, WorkspaceMetaBasic> {
         public WtdManager() : base( "Wtd Editor", "Wtd" ) {
             SourceSelect = new WtdSelectDialog( "Wtd Select [LOADED]", this, true );
             ReplaceSelect = new WtdSelectDialog( "Wtd Select [REPLACED]", this, false );

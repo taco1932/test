@@ -3,9 +3,9 @@
     <AssemblyTitle>VFXEditor</AssemblyTitle>
     <Company></Company>
     <Product>VFXEditor</Product>
-    <Copyright>Copyright © 2025</Copyright>
-    <FileVersion>1.9.2.1</FileVersion>
-    <AssemblyVersion>1.9.2.1</AssemblyVersion>
+    <Copyright>©2026</Copyright>
+    <FileVersion>1.9.3.6</FileVersion>
+    <AssemblyVersion>1.9.3.6</AssemblyVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -13,14 +13,14 @@
     <Deterministic>true</Deterministic>
     <OutputType>Library</OutputType>
     <OutputPath>bin\$(Configuration)\</OutputPath>
-    <Configurations>Debug;Release;Beta</Configurations>
+    <Configurations>Debug;Release;Alpha</Configurations>
     <RootNamespace>VfxEditor</RootNamespace>
+    <NoWarn>CS8625; CS8603; CS8601; CS8604; CS8629; CS8618; CS8602; CS8600; CS8619</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))'">
     <DalamudLibPath>$(HOME)\.xlcore\dalamud\Hooks\dev\</DalamudLibPath>
-    <RootNamespace>VfxBeta</RootNamespace>
-    <NoWarn>CS8625; CS8603; CS8601; CS8604; CS8629; CS8618; CS8602; CS8600; CS8619</NoWarn>
+    <RootNamespace>VfxAlpha</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -182,8 +182,8 @@
   </ItemGroup>
 
   <ItemGroup>
-        <FlatSharpSchema Include="Flatbuffer\Schemas\epbd_schema.fbs" />
-        <FlatSharpSchema Include="Flatbuffer\Schemas\ephb_schema.fbs" />
+    <FlatSharpSchema Include="Flatbuffer\Schemas\epbd_schema.fbs" />
+    <FlatSharpSchema Include="Flatbuffer\Schemas\ephb_schema.fbs" />
   </ItemGroup>
 
   <ItemGroup>
