@@ -4,148 +4,171 @@ namespace VfxEditor.AtchFormat.Utils {
 
     public class AtchUtils {
         public static readonly Dictionary<string, string> WeaponNames = new() {
-            { "2ax", "WAR greataxe" },
-            { "2bk", "SCH codex / SMN grimoire" },
-            { "2bw", "BRD bow" },
-            { "2ff", "SGE nouliths" }, //can show up twice if it's called as a summon
-            { "2gb", "GNB gunblade" },
-            { "2gl", "AST planisphere" },
-            { "2gn", "MCH gun" },
-            { "2km", "RPR scythe" },
-            { "2kt", "SAM katana" },
-            // { "2kz", "" }, // new
-            { "2rp", "RDM rapier" },
-            { "2sp", "DRG spear" },
-            { "2st", "WHM/BLM staff" },
-            { "2sw", "DRK greatsword" },
-            { "aai", "" },
-            { "aal", "" },
-            { "aar", "" },
-            { "abl", "" },
-            { "aco", "" },
-            { "agl", "" },
-            { "ali", "ALC alembic" },
-            { "alm", "" },
-            { "alt", "" },
-            { "ase", "" },
-            { "atr", "n_throw summons (some)" }, //MCH LB, /magictrick dove
-            { "avt", "RPR shroud" }, //list is all n_throw
-            { "awo", "" },
-            { "bag", "MCH aetherotransformer" },
-            // { "bec", "" } //new 7.4
-            { "bl2", "VPR off-hand" },
-            { "bld", "VPR main hand" },
-            { "bll", "" }, //VPR?
-            { "brs", "PCT brush" },
-            { "chk", "DNC chakrams" },
-            // { "clb", "" }, // DNE
-            { "clg", "" },
-            { "cls", "" },
-            { "clw", "MNK fists" },
-            // { "cmp", "" } //new 7.4
-            // { "col", "" },
-            // { "cor", "" },
-            // { "cos", "" },
-            { "crd", "" },
-            { "crr", "AST card" },
-            // { "crt", "" },
-            { "csl", "CRP chisel" },
-            { "csr", "Crafting off-hand (held)" }, //CRP/LTW hammer / CUL knife / ARM pliers / BSM file / GSM/WVR [hidden]
-            { "dgr", "NIN daggers" },
-            { "drm", "BRD drum [performance]" },
-            { "ebz", "Diadem cannon" },
-            // { "egp", "" },
-            { "elg", "BRD electric guitar [performance]" },
-            { "fcb", "/fryegg" },
-            // { "fch", "" },
-            { "fdr", "Consumable & /sundering sword" }, //food and drink, but why the sword
-            { "fha", "FSH gig" },
-            { "fl2", "BRD flute [performance]" },
-            // { "flc", "" }, // new
-            { "flt", "BRD flute [combat]" },
-            { "frg", "NIN frog summon" },
-            { "fry", "LTW knife / CUL pan" },
-            // { "fsb", "" }, // new
-            { "fsh", "FSH rod" },
-            { "fsw", "" },
-            { "fud", "Mop/brush" }, // paint[colour] + sigmascape v2
-            // { "gdb", "" },
-            { "gdh", "Emote summon (hand)" }, //water, allsaintscharm, littleladiesdance, uchiwasshoi
-            { "gdl", "Emote summon (left hand)" }, //sweep, balloons
-            { "gdr", "Emote summon (right hand)" }, //tomescroll, shakedrink
-            // { "gdt", "" },
-            // { "gdu", "" } //new 7.4
-            // { "gdw", "" },
-            { "gsl", "MCH wrench" },
-            { "gsr", "" }, // Diadem cannon?
-            // { "gun", "" },
+            { "2ax", "Axe (MRD/WAR)" },
+            { "2bk", "Book (ACN/SMN/SCH)" },
+            { "2bw", "Bow (ARC/BRD)" },
+            // { "2bs", "" }, //1703
+            { "2ff", "Nouliths (SGE)" },
+            { "2gb", "Gunblade (GNB)" },
+            { "2gl", "Globe (AST)" },
+            { "2gn", "Gun (MCH)" },
+            { "2km", "Scythe (RPR)" },
+            { "2kt", "Katana (SAM)" },
+            { "2kz", "Scythe" }, //2813
+            { "2rp", "Rapier (RDM)" },
+            { "2sp", "Spear (LNC/DRG)" },
+            { "2st", "Staff (CNJ/WHM / THM/BLM)" },
+            { "2sw", "Greatsword (DRK)" },
+            { "aai", "Alembic, Alt. Inversed (ALC)" },
+            { "aal", "Alembic, Alternate (ALC)" },
+            { "aar", "Hammer, Alternate (ARM)" },
+            { "abl", "Hammer, Alternate (BSM)" },
+            { "aco", "Fry Pan, Alternate (CUL)" },
+            { "agl", "Mallet, Alternate (GSM)" },
+            { "ali", "Alembic, Inversed (ALC)" },
+            { "alm", "Alembic (ALC)" },
+            { "alt", "Knife, Alternate (LTW)" },
+            { "ase", "Needle, Alternate (WVR)" },
+            { "atr", "n_throw Summons" },
+            { "avt", "Avatar (RPR)" },
+            { "awo", "Saw, Alternate (CRP)" },
+            { "bag", "Aetherotransformer (MCH)" },
+            // { "bec", "" },
+            // { "bgo", "" },
+            { "bl2", "Double Blade, Off-Hand (VPR)" },
+            { "bld", "Blade, Main Hand (VPR)"},
+            { "bll", "Single Blade, Off-Hand (VPR)" },
+            { "brs", "Brush (PCT)" },
+            // { "bsl", "" },
+            { "chk", "Chakram (DNC)" },
+            { "ckt", "Stylus" }, //9208, Calyx
+            // { "clb", "" },
+            { "clg", "Fist Weapon, Unique (PGL/MNK)" },
+            { "cls", "Fist Weapon, Alternate (PGL/MNK)" },
+            { "clw", "Fist Weapon (PGL/MNK)" },
+            // { "cmp", "" }, //1970
+            { "col", "Control Switch (Left)" },
+            { "cor", "Control Switch (Right)" },
+            { "cos", "Control Seat" },
+            { "crd", "Deck (AST)" },
+            { "crr", "Carry Item / Card (AST)" },
+            { "crt", "Cart" }, //9086
+            { "csl", "Chisel (CRP)" },
+            { "csr", "Crafter Off-Hand, Held" },
+            // { "cut", "" }, //9991
+            { "dgr", "Dagger (ROG/NIN)" },
+            { "dge", "Dagger" }, //1811, 1861
+            { "drm", "Drum (Performance)" },
+            // { "dur", "" }, //1517
+            { "ebz", "Diadem Cannon" },
+            // { "egp", "" }, //9802
+            { "elg", "Electric Guitar (Performance)" },
+            { "fcb", "Fry Egg / Eat Chicken (Emote)" },
+            { "fch", "Fishing Chair" },
+            { "fdr", "Consumable" }, //food and drink, but also includes sundering sword
+            { "fha", "Gig (FSH)" },
+            { "fl2", "Flute (Performance)" },
+            // { "flc", "" }, //1956
+            { "flt", "Flute (BRD Combat)" },
+            { "frg", "Frog Summon (NIN)" },
+            { "fry", "Knife (LTW) / Fry Pan (CUL)" },
+            { "fsb", "Bell" },
+            { "fsh", "Rod (FSH)" },
+            { "fsw", "Greatsword (Esteem)" },
+            { "fud", "Brush (Emote)" }, //JP: fude
+            { "gdb", "Knapsack" },
+            { "gdh", "Emote Summon (Hand)" },
+            { "gdl", "Emote Summon (Left Hand)" },
+            { "gdp", "Pelupack" },
+            { "gdr", "Emote Summon (Right Hand)" },
+            { "gdt", "NPC Transforms" },
+            // { "gdu", "" }, //9216
+            { "gdw", "Turtle Shell" },
+            { "gsl", "Wrench" },
+            { "gsr", "Opera Glasses" }, //also 1909, no model
+            { "gun", "Gun" },
+            // { "hab", "" }, //1973
+            // { "hbg", "" }, //9209
             // { "hel", "" },
-            { "hmm", "BSM/ARM hammer" },
-            { "hrp", "BRD harp" },
-            { "htc", "BTN hatchet" },
-            { "ksh", "SAM katana sheath" },
-            // { "let", "" },
-            { "lpr", "Loporitt ears (/earwiggle)" },
-            // { "map", "" } //new 7.4
-            { "mlt", "GSM mallet" },
-            { "mmc", "MCH quad cannons" }, //full metal field
-            { "mrb", "ALC mortar" }, //硏槽
-            { "mrh", "ALC disk" }, //藥碾子
-            { "msg", "MCH shotgun" },
-            { "mwp", "MCH cannon" },
-            { "ndl", "WVR needle" },
-            // { "nf2", "" } //new 7.4
-            { "nik", "[Nier pod?]" }, // Linked to Nier pod, maybe Nikana or something
-            // { "njd", "" }, // new
-            // { "nmf", "" } //new 7.4
-            { "nph", "MIN sledgehammer" }, //btn?
-            { "orb", "RDM focus" },
-            // { "oum", "" },
-            { "pen", "SCH/SMN quill" },
-            { "pic", "MIN pick" },
-            { "plt", "PCT palette" },
-            // { "pra", "" },
-            { "prc", "Camera (/photograph)" }, //1952
-            { "prf", "LTW awl" },
-            { "qvr", "BRD quiver" },
+            { "hmm", "Hammer (BSM/ARM)" },
+            { "hrp", "Harp (BRD)" },
+            { "htc", "Hatchet (BTN)" },
+            // { "ipu", "" }, //9091
+            { "ksh", "Katana Sheath (SAM)" },
+            { "let", "Letter" },
+            { "lfd", "Loporitt Paintbrush" },
+            { "lpr", "Ear Wiggle (Emote)" },
+            // { "map", "" }, //1969
+            { "mlt", "Mallet (GSM)" },
+            { "mmc", "Quad-Cannons (MCH)" },
+            // { "mot", "" }, //9992
+            { "mrb", "Mortar (ALC)" },
+            { "mrh", "Pestle (ALC)" },
+            { "msg", "Shotgun (MCH)" },
+            { "mwp", "Summoned Tool (MCH) / Cosmic Tool" },
+            { "ndl", "Needle, Off-Hand (WVR)" },
+            { "nf2", "Wasshoi Fan" },
+            { "nik", "Metal Cup" }, //9055
+            // { "njd", "" }, //1935
+            { "nmf", "Namazu Fan" },
+            { "nph", "Sledgehammer (MIN)" },
+            { "orb", "Focus (RDM)" },
+            // { "oum", "" }, //9801
+            { "pen", "Quill (ACN/SCH/SMN)" },
+            { "pic", "Pick (MIN)" },
+            { "plt", "Palette (PCT)" },
+            { "pra", "Parachute" },
+            { "prc", "Camera (Emote)" },
+            { "prf", "Awl (LTW)" },
+            { "pri", "Prishe" }, //9207
+            { "qvr", "Quiver (BRD)" },
             // { "rap", "" },
-            { "rbt", "NIN rabbit" },
-            // { "rec", "" }, // new
-            { "rod", "BLU rod" },
-            // { "rop", "" },
-            { "rp1", "PCT hammer" },
-            { "saw", "CRP saw" },
-            { "sbt", "/blowbubbles," }, //, 1955 (quill+notebook)
+            { "rbt", "Rabbit (NIN)" },
+            { "rec", "Cart" }, //9202
+            { "rgk", "Katana (Gosetsu)" },
+            { "rgs", "Katana Sheath (Gosetsu)" },
+            { "rod", "Rod (BLU)" },
+            { "rop", "Rope" },
+            { "rp1", "Hammer (PCT)" },
+            { "saw", "Saw (CRP)" },
+            { "sbt", "Blow Bubbles / Pen (Emote)" },
+            { "sca", "Aetheric Analyzer" },
+            { "sci", "Scissors" },
+            { "sen", "Folding Fan" },
             // { "sht", "" },
-            { "sic", "BTN sickle" },
-            { "sld", "PLD/CNJ shield" },
-            { "stf", "CNJ one-hand" },
-            { "stv", "ALC stove" },
-            { "swd", "PLD sword" },
-            // { "sxs", "" }, // new
-            // { "sxw", "" }, // new
-            { "syl", "School book (/reference)" },
-            // { "syr", "" },
-            { "syu", "NIN shuriken" },
-            { "syw", "PCT LB spriggan / SCH faerie summon" }, //1943, 1947
-            // { "tan", "" },
-            { "tbl", "Crafting tables/surfaces" }, //incl CUL stove
-            { "tcs", "Teacup (/tea)" },
-            { "tgn", "GSM nail" },
-            { "tmb", "WVR frame" },
-            { "tms", "Bouquet (/bouquet) / tomestone (/visage)" }, //1949, 1944
-            { "trm", "BRD trumpet [performance]" },
-            { "trr", "SCH LB summon" }, //9101
-            { "trw", "" }, //n_throw?
-            // { "tsl", "" }, // new
-            // { "ulw", "" }, // new, 7.3
-            // { "uni", "" }, // new
-            { "vln", "BRD violin" }, //radiant finale
-            { "wdm", "Tankard (/toast)" },
-            { "whl", "" },
-            // { "wng", "" },
-            { "ypd", "NiER pod" }, //specifically for the raid instances
-            { "ytk", "ARM pliers" },
+            { "sic", "Sickle (BTN)" },
+            { "sld", "Shield (GLD/PLD / CNJ / THM)" },
+            { "stf", "Wand (CNJ / THM)" },
+            { "stv", "Furnace (ALC)" },
+            { "swd", "Sword (GLD/PLD)" },
+            { "sxs", "Greatsword (FFXVI)" },
+            { "sxw", "Phoenix Wings (FFXVI)" },
+            { "syl", "Reference Book (Emote)" }, //and 1976, no model
+            { "syr", "Shovel / Scythe" },
+            { "syu", "Shuriken (NIN)" },
+            { "syw", "Job Summons (Dawntrail)" },
+            { "tan", "Tongue" },
+            { "tbl", "Crafter Tables/Surfaces" },
+            { "tcs", "Teacup (Emote)" },
+            { "tgn", "Nail (GSM)" },
+            { "tmb", "Needle, Main Hand (WVR)" },
+            { "tms", "Tomestone / Bouquet (Emote)" },
+            { "trm", "Trumpet (Performance)" },
+            { "trr", "Limit Break Summon (SCH)" },
+            { "trw", "Rock" }, //1401
+            { "tsl", "Mug/Cup (Emote)" },
+            { "ulw", "Wings (White)" },
+            { "uni", "Unicorn" },
+            { "vln", "Violin (BRD)" },
+            { "wcr", "Wheelchair" },
+            { "wdm", "Tankard (Emote)" },
+            { "whl", "Wheel (WVR)" },
+            { "wng", "Wings (Gold)" },
+            { "yfl", "NiER Flight Unit" },
+            { "ypd", "NiER Pod (Raid)" },
+            { "yt2", "NiER Swords, 9S" },
+            { "ytc", "NiER Swords, 2B" },
+            { "ytk", "Tongs (BSM)" },
         };
     }
 }

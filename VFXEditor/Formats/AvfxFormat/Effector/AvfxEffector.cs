@@ -73,8 +73,8 @@ namespace VfxEditor.AvfxFormat {
                 EffectorType.RadialBlur => new AvfxEffectorDataRadialBlur(),
                 EffectorType.BlackHole => new AvfxEffectorBlackHole(),
                 EffectorType.CameraQuake_Variable or EffectorType.CameraQuake => new AvfxEffectorDataCameraQuake(),
-                EffectorType.GaussianBlur => new AvfxEffectorGaussianBlur(),
-                EffectorType.DirectionalBlur => new AvfxEffectorDirectionalBlur(),
+                EffectorType.GaussianBlur => new AvfxEffectorDataGaussianBlur(),
+                EffectorType.DirectionalBlur => new AvfxEffectorDataDirectionalBlur(),
                 EffectorType.ChromaticAberration => new AvfxEffectorDataChromaticAberration(),
                 _ => null
             };

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
 using VfxEditor.TmbFormat.Utils;
 using VfxEditor.Utils;
 
@@ -17,10 +18,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedInt Duration = new( "Duration" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
         private readonly ParsedInt TmfcId = new( "F-Curve ID" );
-        private readonly ParsedByte Unk4a = new( "Unknown 4a" ); // <-----
-        private readonly ParsedByte Unk4b = new( "Unknown 4b" );
-        private readonly ParsedByte Unk4c = new( "Unknown 4c" );
-        private readonly ParsedByte Unk4d = new( "Unknown 4d" );
+        private readonly ParsedIntByte4 Unk4 = new( "Unknown 4" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
         private readonly ParsedInt Unk6 = new( "Unknown 6" );
         private readonly ParsedInt Unk7 = new( "Unknown 7" );
@@ -37,10 +35,7 @@ namespace VfxEditor.TmbFormat.Entries {
             Duration,
             Unk2,
             TmfcId,
-            Unk4a,
-            Unk4b,
-            Unk4c,
-            Unk4d,
+            Unk4,
             Unk5,
             Unk6,
             Unk7,

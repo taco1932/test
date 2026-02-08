@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using VfxEditor.Parsing;
-using VfxEditor.Parsing.Int;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {

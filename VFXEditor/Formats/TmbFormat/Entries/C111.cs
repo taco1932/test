@@ -4,20 +4,18 @@ using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
     public class C111 : TmbEntry {
-        public const string MAGIC = "C111"; //ghidra
-        public const string DISPLAY_NAME = "???";
+        public const string MAGIC = "C111";
+        public const string DISPLAY_NAME = "----[TESTING] (CUTB)";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
-        public override int Size => 0x20; //TBD
+        public override int Size => 0x1C;
         public override int ExtraSize => 0;
 
-        // also TBD
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
+        private readonly ParsedInt Duration = new( "Duration" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt Unk3 = new( "Unknown 3" );
+        private readonly ParsedIntColor Unk3 = new( "Colour?" );
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
-        private readonly ParsedInt Unk5 = new( "Unknown 5" );
 
 
         public C111( TmbFile file ) : base( file ) { }
@@ -25,11 +23,10 @@ namespace VfxEditor.TmbFormat.Entries {
         public C111( TmbFile file, TmbReader reader ) : base( file, reader ) { }
 
         protected override List<ParsedBase> GetParsed() => [
-            Unk1,
+            Duration,
             Unk2,
             Unk3,
             Unk4,
-            Unk5,
         ];
     }
 }

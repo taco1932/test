@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using VfxEditor.Parsing;
 using VfxEditor.TmbFormat.Utils;
-using VfxEditor.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
     public class C085 : TmbEntry {
@@ -27,7 +26,9 @@ namespace VfxEditor.TmbFormat.Entries {
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
             Unk2,
-            Unk3
+            Unk3,
+            Unk4,
+            Unk5
         ];
     }
 }

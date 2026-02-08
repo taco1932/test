@@ -14,8 +14,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt Unk1 = new( "Unknown 1" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt Unk3 = new( "Unknown 3" ); //9
-        //cut\ex3\luckta\luckta04050\luckta04050.cutb
+        private readonly ParsedInt CreditsID = new( "Credits ID" );
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
 
@@ -27,7 +26,7 @@ namespace VfxEditor.TmbFormat.Entries {
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
             Unk2,
-            Unk3,
+            CreditsID,
             Unk4,
             Unk5,
         ];

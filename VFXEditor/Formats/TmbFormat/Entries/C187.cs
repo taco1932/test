@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
@@ -14,12 +15,9 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt Duration = new( "Duration" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt Part = new( "Part", value: 4 );
-        private readonly ParsedByte Unk4a = new( "Unknown 4a" );
-        private readonly ParsedByte Unk4b = new( "Unknown 4b" );
-        private readonly ParsedByte Unk4c = new( "Unknown 4c" );
-        private readonly ParsedByte Unk4d = new( "Unknown 4d" );
-        private readonly ParsedInt Unk5 = new( "Unknown 5", value: 1 );
+        private readonly ParsedInt Part = new( "Part" );
+        private readonly ParsedIntByte4 Unk4 = new( "Unknown 4" );
+        private readonly ParsedInt Unk5 = new( "Unknown 5" );
 
         public C187( TmbFile file ) : base( file ) { }
 
@@ -29,10 +27,7 @@ namespace VfxEditor.TmbFormat.Entries {
             Duration,
             Unk2,
             Part,
-            Unk4a,
-            Unk4b,
-            Unk4c,
-            Unk4d,
+            Unk4,
             Unk5
         ];
     }
