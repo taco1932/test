@@ -92,8 +92,6 @@ namespace VfxEditor.AvfxFormat {
 
                 ImPlot.PopStyleColor();
                 ImPlot.PopStyleVar();
-
-                ImPlot.EndPlot();
             }
         }
     }

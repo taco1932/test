@@ -92,6 +92,7 @@ namespace VfxEditor.AvfxFormat {
         }
 
         // ======= DRAWING =========
+
         public void Draw( LineEditorGroup editor ) {
             Type.OnChangeAction = editor.OnUpdate;
             Time.OnChangeAction = editor.OnUpdate;
@@ -104,23 +105,24 @@ namespace VfxEditor.AvfxFormat {
                 // Delete
                 if( UiUtils.RemoveButton( FontAwesomeIcon.Trash.ToIconString() ) ) {
                     CommandManager.Add( new ListRemoveCommand<AvfxCurveKey>( Curve.Keys, this, ( AvfxCurveKey _, bool _ ) => editor.OnUpdate() ) );
+                    return;
                 }
 
                 // Duplicate
                 ImGui.SameLine();
                 if( ImGui.Button( FontAwesomeIcon.Copy.ToIconString() ) ) {
                     var newKey = new AvfxCurveKey( Curve, Type.Value, Time.Value + 1, Data.Value.X, Data.Value.Y, Data.Value.Z );
-                    CommandManager.Add( new ListAddCommand<AvfxCurveKey>( Curve.Keys, newKey, Curve.Keys.IndexOf( this ) + 1, ( AvfxCurveKey _, bool _ ) => editor.OnUpdate() ) );
+                    CommandManager.Add( new ListAddCommand<AvfxCurveKey>( Curve.Keys, newKey, Curve.Keys.IndexOf( this ) + 1, ( _, _ ) => editor.OnUpdate() ) );
                 }
 
                 // Shift left/right
                 ImGui.SameLine();
                 if( UiUtils.DisabledButton( FontAwesomeIcon.ArrowLeft.ToIconString(), !( Curve.Keys.Count == 0 || Curve.Keys[0] == this ) ) ) {
-                    CommandManager.Add( new ListMoveCommand<AvfxCurveKey>( Curve.Keys, this, Curve.Keys[Curve.Keys.IndexOf( this ) - 1], ( AvfxCurveKey _ ) => editor.OnUpdate() ) );
+                    CommandManager.Add( new ListMoveCommand<AvfxCurveKey>( Curve.Keys, this, Curve.Keys[Curve.Keys.IndexOf( this ) - 1], _ => editor.OnUpdate() ) );
                 }
                 ImGui.SameLine();
                 if( UiUtils.DisabledButton( FontAwesomeIcon.ArrowRight.ToIconString(), !( Curve.Keys.Count == 0 || Curve.Keys[^1] == this ) ) ) {
-                    CommandManager.Add( new ListMoveCommand<AvfxCurveKey>( Curve.Keys, this, Curve.Keys[Curve.Keys.IndexOf( this ) + 1], ( AvfxCurveKey _ ) => editor.OnUpdate() ) );
+                    CommandManager.Add( new ListMoveCommand<AvfxCurveKey>( Curve.Keys, this, Curve.Keys[Curve.Keys.IndexOf( this ) + 1], _ => editor.OnUpdate() ) );
                 }
             }
 
@@ -239,18 +241,6 @@ namespace VfxEditor.AvfxFormat {
             }
 
             return ret;
-        }
-        public void Operation( List<ICommand> commands, float x, float y, Func<float, float, float> op )
-        {
-            var newTime = ( int )Math.Round( op(Time.Value, x) );
-            commands.Add( new ParsedSimpleCommand<int>( Time, Time.Value, newTime >= 0 ? newTime : 0 ) );
-            var scaledVector = new Vector3
-            {
-                X = Data.Value.X,
-                Y = Data.Value.Y,
-                Z = op(Data.Value.Z, y)
-            };
-            commands.Add( new ParsedSimpleCommand<Vector3>( Data, Data.Value, scaledVector ) );
         }
     }
 }

@@ -103,6 +103,7 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
             if( IsColor ) ImPlot.SetNextAxisLimits( ImAxis.Y1, -1, 1, ImPlotCond.Always );
             ImPlot.SetNextAxisLimits( ImAxis.X1, 0, Motion.TotalFrames, ImPlotCond.Once );
             ImPlot.PushStyleVar( ImPlotStyleVar.FitPadding, new Vector2( 0.5f, 0.5f ) );
+
             using var plot = ImRaii.Plot( "##CurveEditor", new Vector2( -1, -1 ), ImPlotFlags.NoMenus | ImPlotFlags.NoTitle | ( IsColor ? ImPlotFlags.NoLegend : ImPlotFlags.None ) );
             if( plot ) {
                 if( IsColor ) ImPlot.SetupAxisLimitsConstraints( ImAxis.X1, 0, double.MaxValue - 1 );
@@ -137,6 +138,7 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
                     ImPlot.PlotLine( "B", ref AllFrames[0], ref element.B[0], AllFrames.Length );
                 }
             }
+
             ImPlot.PopStyleVar( 1 );
         }
 

@@ -14,7 +14,7 @@ using VfxEditor.Utils;
 namespace VfxEditor.FileManager {
     public class FileManager
     {
-        public static List<string> flaggedpaths = new List<string>();
+        public static List<string> FlaggedPaths = [];
     }
     public abstract class FileManagerDocument<R, S> : IFileDocument where R : FileManagerFile {
         public R File { get; protected set; }
@@ -82,9 +82,9 @@ namespace VfxEditor.FileManager {
                 Dalamud.ErrorNotification( "Error reading file" );
             }
 
-            if( File.Verified == VerifiedStatus.ERROR && !FileManager.flaggedpaths.Any( f => f.Equals( Source.Path ) ) )
+            if( File.Verified == VerifiedStatus.ERROR && !FileManager.FlaggedPaths.Any( f => f.Equals( Source.Path ) ) )
             {
-                FileManager.flaggedpaths.Add( Source.Path );
+                FileManager.FlaggedPaths.Add( Source.Path );
                 Dalamud.Log( $"[ParseChecker] File {Source.Path} Has Parsing Issues" );
             }
         }
@@ -112,9 +112,9 @@ namespace VfxEditor.FileManager {
                 Dalamud.ErrorNotification( "Error reading file: " + path );
             }
 
-            if( File.Verified == VerifiedStatus.ERROR && !FileManager.flaggedpaths.Any( f => f.Equals( Source.Path ) ) )
+            if( File.Verified == VerifiedStatus.ERROR && !FileManager.FlaggedPaths.Any( f => f.Equals( Source.Path ) ) )
             {
-                FileManager.flaggedpaths.Add( Source.Path );
+                FileManager.FlaggedPaths.Add( Source.Path );
                 Dalamud.Log( $"[ParseChecker] File {Source.Path} Has Parsing Issues" );
             }
         }

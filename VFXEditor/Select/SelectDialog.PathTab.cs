@@ -75,12 +75,12 @@ namespace VfxEditor.Select {
                 LoggedFiles.Clear();
                 Plugin.Configuration.LogAllFiles = false;
                 Plugin.Configuration.Save();
-                foreach(string item in VfxEditor.Select.SelectTab.ScannedPaths )
+                foreach( var item in SelectTab.ScannedPaths )
                 {
                     LoggedFiles.Add( item );
                 }
-                SelectGamePaths( VfxEditor.Select.SelectTab.ScannedPaths );
-                VfxEditor.FileManager.FileManager.flaggedpaths.Clear();
+                SelectGamePaths( SelectTab.ScannedPaths );
+                FileManager.FileManager.FlaggedPaths.Clear();
             }
 
             using var disabled = ImRaii.Disabled( LoggedFiles.Count == 0 && !Plugin.Configuration.LogAllFiles );
