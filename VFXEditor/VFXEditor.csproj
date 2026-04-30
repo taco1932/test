@@ -1,11 +1,11 @@
-<Project Sdk="Dalamud.NET.Sdk/14.0.1">
+<Project Sdk="Dalamud.NET.Sdk/15.0.0">
   <PropertyGroup>
     <AssemblyTitle>VFXEditor</AssemblyTitle>
     <Company></Company>
     <Product>VFXEditor</Product>
     <Copyright>©2026</Copyright>
-    <FileVersion>1.9.3.6</FileVersion>
-    <AssemblyVersion>1.9.3.6</AssemblyVersion>
+    <FileVersion>1.9.3.7</FileVersion>
+    <AssemblyVersion>1.9.3.7</AssemblyVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -187,6 +187,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="DalamudPackager" Version="14.0.1" />
+    <PackageReference Update="DalamudPackager" Version="15.0.0" />
   </ItemGroup>
 </Project>

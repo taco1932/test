@@ -4,10 +4,10 @@
     "Punchline": "Hi.",
     "Description": "Everything-including-the-kitchen-sink plugin with extra scales.",
     "InternalName": "VFXEditor",
-    "AssemblyVersion": "1.9.3.6",
+    "AssemblyVersion": "1.9.3.7",
     "RepoUrl": "https://github.com/taco1932/test",
     "ApplicableVersion": "any",
     "Tags": [ "VFX", "AVFX" ],
-    "DalamudApiLevel": 14,
+    "DalamudApiLevel": 15,
     "LoadPriority": 69
 }

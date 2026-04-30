@@ -5,10 +5,8 @@ using Dalamud.Bindings.ImGui;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using VfxEditor.TmbFormat.Root;
-using VfxEditor.Ui.NodeGraphViewer.Utils;
 using static VfxEditor.Interop.ResourceLoader;
 
 namespace VfxEditor.Ui.Tools {
@@ -92,8 +90,8 @@ namespace VfxEditor.Ui.Tools {
             if( !combo ) return;
 
             foreach( var item in Dalamud.Objects ) {
-                if( item.ObjectKind != ObjectKind.Player &&
-                    item.ObjectKind != ObjectKind.MountType &&
+                if( item.ObjectKind != ObjectKind.Pc &&
+                    item.ObjectKind != ObjectKind.Mount &&
                     item.ObjectKind != ObjectKind.EventNpc &&
                     item.ObjectKind != ObjectKind.Companion &&
                     item.ObjectKind != ObjectKind.Retainer &&

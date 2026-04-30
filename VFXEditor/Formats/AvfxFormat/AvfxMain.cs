@@ -84,6 +84,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxFloat SBVa = new( "SBVa", "SBVa" );
         public readonly AvfxBool SSVEnabled = new( "SSV Enabled", "bSSV" );
         public readonly AvfxFloat SSVa = new( "SSVa", "SSVa" );
+        public readonly AvfxFloat SoftParticleHP = new( "Soft Particle (HP)", "SPHP" ); //
 
         public readonly AvfxNodeGroupSet NodeGroupSet;
 
@@ -129,6 +130,7 @@ namespace VfxEditor.AvfxFormat {
                 FarClipBegin,
                 FarClipEnd,
                 SoftParticleFadeRange,
+                SoftParticleHP,
                 SoftKeyOffset,
                 DrawLayerType,
                 DrawOrderType,
@@ -195,6 +197,7 @@ namespace VfxEditor.AvfxFormat {
                 FarClipBegin,
                 FarClipEnd,
                 SoftParticleFadeRange,
+                SoftParticleHP,
                 SoftKeyOffset,
                 DrawLayerType,
                 DrawOrderType,
