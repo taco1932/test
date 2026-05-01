@@ -72,7 +72,7 @@ namespace VfxEditor.Interop {
 
         // https://github.com/lmcintyre/Dalamud.FindAnything/blob/a093b2f9e0c20e7d0479c091125ccca5ea09d683/Dalamud.FindAnything/Game/GameWindow.cs#L250
 
-        public const string PlaySoundSig = "E8 ?? ?? ?? ?? 48 0F BE 46 ?? 41 B1";
+        public const string PlaySoundSig = "E8 ?? ?? ?? ?? E9 ?? ?? ?? ?? FE C2";
         //public const string PlaySoundSig = "E8 ?? ?? ?? ?? E9 ?? ?? ?? ?? FE C2";
 
         public const string InitSoundSig = "E8 ?? ?? ?? ?? 8B 5D 77";
