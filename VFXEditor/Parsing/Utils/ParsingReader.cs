@@ -5,9 +5,32 @@ using VfxEditor.Utils;
 namespace VfxEditor.Parsing.Utils {
     public class ParsingReader {
         public readonly BinaryReader Reader;
+        public long StartPosition;
 
         public ParsingReader( BinaryReader reader ) {
             Reader = reader;
+        }
+
+        public void UpdateStartPosition() {
+            StartPosition = Reader.BaseStream.Position;
+        }
+
+        public void UpdateReadPosition( long position ) {
+            Reader.BaseStream.Position = position;
+        }
+        public void OffsetReadPosition( long offset ) {
+            var CurPos = Reader.BaseStream.Position;
+            var OffsetPos = CurPos + offset;
+            if (OffsetPos > Reader.BaseStream.Length) {
+                return;
+            }
+            Reader.BaseStream.Position = OffsetPos;
+        }
+
+        public long GetReadPosition()
+        {
+            long ret = Reader.BaseStream.Position;
+            return ret;
         }
 
         public int ReadInt32() => Reader.ReadInt32();
