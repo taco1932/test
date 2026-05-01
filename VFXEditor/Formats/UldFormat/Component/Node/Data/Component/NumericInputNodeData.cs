@@ -8,7 +8,7 @@ namespace VfxEditor.UldFormat.Component.Node.Data.Component {
                 new ParsedInt( "Max" ),
                 new ParsedInt( "Min" ),
                 new ParsedInt( "Add" ),
-                new ParsedUInt( "Unknown 1" ),
+                new ParsedUInt( "End Letter ID" ), //from Lumina
                 new ParsedByteBool( "Comma" ),
                 new ParsedReserve( 3 ),
             ] );

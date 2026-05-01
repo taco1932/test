@@ -84,7 +84,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxFloat SBVa = new( "SBVa", "SBVa" );
         public readonly AvfxBool SSVEnabled = new( "SSV Enabled", "bSSV" );
         public readonly AvfxFloat SSVa = new( "SSVa", "SSVa" );
-        public readonly AvfxFloat SoftParticleHP = new( "Soft Particle (HP)", "SPHP" ); //
+        public readonly AvfxInt SoftParticleHP = new( "Soft Particle (HP)", "SPHP" ); //
 
         public readonly AvfxNodeGroupSet NodeGroupSet;
 
