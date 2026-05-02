@@ -129,14 +129,14 @@ namespace VfxEditor.Utils.Gltf {
 
                     if( !properties.ContainsKey( "TANGENT" ) ) Dalamud.Error( "Tangents are missing" );
 
-                    var positions = primitive.GetVertices( "POSITION" ).AsVector3Array();
-                    var normals = primitive.GetVertices( "NORMAL" ).AsVector3Array();
-                    var tangents = primitive.GetVertices( "TANGENT" ).AsVector4Array();
-                    var colors = hasColor ? primitive.GetVertices( "COLOR_0" ).AsVector4Array() : new Vector4Array();
-                    var uv1s = primitive.GetVertices( "TEXCOORD_0" ).AsVector2Array();
-                    var uv2s = hasUv2 ? primitive.GetVertices( "TEXCOORD_1" ).AsVector2Array() : new Vector2Array();
-                    var uv3s = hasUv3 ? primitive.GetVertices( "TEXCOORD_2" ).AsVector2Array() : new Vector2Array();
-                    var uv4s = hasUv4 ? primitive.GetVertices( "TEXCOORD_3" ).AsVector2Array() : new Vector2Array();
+                    var positions = primitive.GetVertexAccessor( "POSITION" ).AsVector3Array();
+                    var normals = primitive.GetVertexAccessor( "NORMAL" ).AsVector3Array();
+                    var tangents = primitive.GetVertexAccessor( "TANGENT" ).AsVector4Array();
+                    var colors = hasColor ? primitive.GetVertexAccessor( "COLOR_0" ).AsVector4Array() : new Vector4Array();
+                    var uv1s = primitive.GetVertexAccessor( "TEXCOORD_0" ).AsVector2Array();
+                    var uv2s = hasUv2 ? primitive.GetVertexAccessor( "TEXCOORD_1" ).AsVector2Array() : new Vector2Array();
+                    var uv3s = hasUv3 ? primitive.GetVertexAccessor( "TEXCOORD_2" ).AsVector2Array() : new Vector2Array();
+                    var uv4s = hasUv4 ? primitive.GetVertexAccessor( "TEXCOORD_3" ).AsVector2Array() : new Vector2Array();
 
                     var triangles = primitive.GetTriangleIndices();
 

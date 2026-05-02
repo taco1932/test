@@ -4,9 +4,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using VfxEditor.Interop;
-using VfxEditor.Structs;
 
 namespace VfxEditor.Tracker {
     public unsafe class TmbTracker : Tracker {
@@ -28,23 +25,21 @@ namespace VfxEditor.Tracker {
 
         public TmbTracker() { }
 
-        public void AddAction( IntPtr timeline ) {
+        public void AddAction( SchedulerTimeline* timeline ) {
             if( !Enabled ) return;
 
             try {
-                if( timeline == IntPtr.Zero ) return;
-
-                var scheduleTimeline = ( SchedulerTimeline* )timeline;
-                var idx = scheduleTimeline->GetOwningGameObjectIndex();
+                if( (nint)timeline == IntPtr.Zero ) return;
+                var idx = timeline->GetOwningGameObjectIndex();
                 if( idx < 0 || idx >= Dalamud.Objects.Length ) return;
 
                 var obj = ( GameObject* )Dalamud.Objects.GetObjectAddress( idx );
                 if( obj == null ) return;
 
-                Actions.TryAdd( timeline, new ActionData() {
+                Actions.TryAdd( (nint)timeline, new ActionData() {
                     ActorId = ( int )obj->EntityId,
                     Address = new IntPtr( obj ),
-                    Path = scheduleTimeline->ActionTimelineKey.ToString(),
+                    Path = timeline->ActionTimelineKey.ToString(),
                     StartTime = DateTime.Now
                 } );
 

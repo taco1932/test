@@ -1682,7 +1682,7 @@ Utils/
  System.Xml.XPath.XDocument.dll
  WindowsBase.dll
 <NUGET>/
- bcnencoder.net/2.2.0/lib/netstandard2.1/BCnEncoder.dll
+ bcnencoder.net/2.3.0/lib/netstandard2.1/BCnEncoder.dll
  communitytoolkit.common/8.3.2/lib/net8.0/CommunityToolkit.Common.dll
  communitytoolkit.diagnostics/8.3.2/lib/net8.0/CommunityToolkit.Diagnostics.dll
  communitytoolkit.highperformance/8.4.0/lib/net8.0/CommunityToolkit.HighPerformance.dll
@@ -1699,10 +1699,10 @@ Utils/
  microsoft.codeanalysis.csharp/4.11.0/lib/net8.0/Microsoft.CodeAnalysis.CSharp.dll
  microsoft.extensions.dependencyinjection.abstractions/8.0.2/lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
  microsoft.extensions.logging.abstractions/8.0.2/lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
- naudio.core/2.2.1/lib/netstandard2.0/NAudio.Core.dll
+ naudio.core/2.3.0/lib/netstandard2.0/NAudio.Core.dll
  naudio.vorbis/1.5.0/lib/netstandard2.0/NAudio.Vorbis.dll
- naudio.wasapi/2.2.1/lib/netstandard2.0/NAudio.Wasapi.dll
- naudio.winmm/2.2.1/lib/netstandard2.0/NAudio.WinMM.dll
+ naudio.wasapi/2.3.0/lib/netstandard2.0/NAudio.Wasapi.dll
+ naudio.winmm/2.3.0/lib/net6.0/NAudio.WinMM.dll
  nvorbis/0.10.4/lib/netstandard2.0/NVorbis.dll
  penumbra.api/5.13.1/lib/net10.0-windows7.0/Penumbra.Api.dll
  sharpdx.d3dcompiler/4.2.0/lib/netstandard1.1/SharpDX.D3DCompiler.dll
@@ -1710,9 +1710,9 @@ Utils/
  sharpdx.direct3d11/4.2.0/lib/netstandard1.1/SharpDX.Direct3D11.dll
  sharpdx.dxgi/4.2.0/lib/netstandard1.1/SharpDX.DXGI.dll
  sharpdx/4.2.0/lib/netstandard1.1/SharpDX.dll
- sharpgltf.core/1.0.3/lib/net8.0/SharpGLTF.Core.dll
- sharpgltf.runtime/1.0.3/lib/net8.0/SharpGLTF.Runtime.dll
- sharpgltf.toolkit/1.0.3/lib/net8.0/SharpGLTF.Toolkit.dll
+ sharpgltf.core/1.0.6/lib/net10.0/SharpGLTF.Core.dll
+ sharpgltf.runtime/1.0.6/lib/net10.0/SharpGLTF.Runtime.dll
+ sharpgltf.toolkit/1.0.6/lib/net10.0/SharpGLTF.Toolkit.dll
  teximpnet/1.4.3/lib/netstandard1.3/TeximpNet.dll
 lib/OtterTex.dll
 

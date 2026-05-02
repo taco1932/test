@@ -1,6 +1,6 @@
 using Dalamud.Game.ClientState.Objects.Types;
+using FFXIVClientStructs.FFXIV.Client.Graphics.Scene;
 using System.Numerics;
-using System.Runtime.InteropServices;
 
 namespace VfxEditor.Structs.Vfx {
 
@@ -22,9 +22,7 @@ namespace VfxEditor.Structs.Vfx {
         *(ulonglong *)(vfx + 0x38) = *(ulonglong *)(vfx + 0x38) | 2;
         * + 0x43 for the color (targeting vfx)
         * vfxColor = vfx + 0x45
-        * 
-     */
-
+        *
 
     [StructLayout( LayoutKind.Explicit )]
     public unsafe struct VfxStruct {
@@ -39,9 +37,10 @@ namespace VfxEditor.Structs.Vfx {
         [FieldOffset( 0x1B8 )] public int StaticCaster;
         [FieldOffset( 0x1C0 )] public int StaticTarget;
     }
+    */
 
     public abstract unsafe class BaseVfx {
-        public VfxStruct* Vfx;
+        public VfxObject* Vfx;
         public string Path;
 
         public BaseVfx( string path ) {
@@ -50,10 +49,10 @@ namespace VfxEditor.Structs.Vfx {
 
         public abstract void Remove();
 
-        public void Update() {
+        /*public void Update() {
             if( Vfx == null ) return;
             Vfx->Flags |= 0x2;
-        }
+        }*/
 
         public void UpdatePosition( Vector3 position ) {
             if( Vfx == null ) return;
@@ -78,16 +77,27 @@ namespace VfxEditor.Structs.Vfx {
             };
         }
 
-        public void UpdateRotation( Vector3 rotation ) {
+        public void UpdateRotation( float rotation ) {
             if( Vfx == null ) return;
 
-            var q = Quaternion.CreateFromYawPitchRoll( rotation.X, rotation.Y, rotation.Z );
+            /*var q = Quaternion.CreateFromYawPitchRoll( rotation.X, rotation.Y, rotation.Z );
             Vfx->Rotation = new Quat {
                 X = q.X,
                 Y = q.Y,
                 Z = q.Z,
                 W = q.W
-            };
+            };*/
+            
+            Vfx->Rotation = FFXIVClientStructs.FFXIV.Common.Math.Quaternion.CreateFromYawPitchRoll(
+                rotation,
+                0,
+                0
+            );
+        }
+
+        protected void Update() {
+            if( Vfx == null ) return;
+            Vfx->UpdateTransforms( true );
         }
     }
 }

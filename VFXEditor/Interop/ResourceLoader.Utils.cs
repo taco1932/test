@@ -1,4 +1,6 @@
+using Dalamud.Game.ClientState.Conditions;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
+using FFXIVClientStructs.FFXIV.Client.System.Resource;
 using Penumbra.String;
 using System;
 using System.Collections.Generic;
@@ -47,7 +49,7 @@ namespace VfxEditor.Interop {
         private readonly RequestFileDelegate RequestFile;
 
         public void ReRender() {
-            if( CurrentRedrawState != RedrawState.None || Plugin.PlayerObject == null ) return;
+            if( CurrentRedrawState != RedrawState.None || Plugin.PlayerObject == null || Dalamud.Condition[ConditionFlag.Fishing] ) return;
             CurrentRedrawState = RedrawState.Start;
             Dalamud.Framework.Update += OnUpdateEvent;
         }
@@ -58,13 +60,13 @@ namespace VfxEditor.Interop {
 
             switch( CurrentRedrawState ) {
                 case RedrawState.Start:
-                    gameObject->RenderFlags |= ( VisibilityFlags )INVIS_FLAG;
+                    gameObject->RenderFlags |= (VisibilityFlags) INVIS_FLAG;
                     CurrentRedrawState = RedrawState.Invisible;
                     WaitFrames = 15;
                     break;
                 case RedrawState.Invisible:
                     if( WaitFrames == 0 ) {
-                        gameObject->RenderFlags &= ~( VisibilityFlags )INVIS_FLAG; 
+                        gameObject->RenderFlags &= ~( VisibilityFlags )INVIS_FLAG;
                         CurrentRedrawState = RedrawState.Visible;
                     }
                     else WaitFrames--;
@@ -168,10 +170,29 @@ namespace VfxEditor.Interop {
             var hashBytes = BitConverter.GetBytes( hash );
             var bHash = stackalloc byte[hashBytes.Length + 1];
             Marshal.Copy( hashBytes, 0, new IntPtr( bHash ), hashBytes.Length );
-            var pResourceHash = ( int* )bHash;
+            var pResourceHash = ( uint* )bHash;
 
-            var resource = original ? new IntPtr( GetResourceSyncHook.Original( GetFileManager(), pCategoryId, pResourceType, pResourceHash, resolvedPath.Path, null ) ) :
-                new IntPtr( GetResourceSyncDetour( GetFileManager(), pCategoryId, pResourceType, pResourceHash, resolvedPath.Path, null ) );
+            var resource = original ?
+                new IntPtr( GetResourceSyncHook.Original(
+                    ( ResourceManager* )GetFileManager(),
+                    (ResourceCategory* )pCategoryId,
+                    ( uint* )pResourceType,
+                    pResourceHash,
+                    resolvedPath.Path,
+                    null,
+                    null,
+                    0
+                ) ) :
+                new IntPtr( GetResourceSyncDetour(
+                    ( ResourceManager* )GetFileManager(),
+                    (ResourceCategory* )pCategoryId,
+                    ( uint* )pResourceType,
+                    pResourceHash,
+                    resolvedPath.Path,
+                    null,
+                    null,
+                    0
+                ) );
             if( decRef ) DecRef( resource );
 
             return resource;
