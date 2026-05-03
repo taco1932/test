@@ -3,14 +3,14 @@ namespace VfxEditor.Interop {
         public const string ReadFileSig = "48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 41 54 41 55 41 56 41 57 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 48 63 42";
         public const string ReadSqpackSig = "40 56 41 56 48 83 EC ?? 0F BE 02";
         public const string GetResourceSyncSig = "E8 ?? ?? ?? ?? 48 8B C8 8B C3 F0 0F C0 81";
-        public const string GetResourceAsyncSig = "E8 ?? ?? ?? ?? 48 8B D8 EB ?? F0 FF 83";
+        public const string GetResourceAsyncSig = "E8 ?? ?? ?? 00 48 8B D8 EB ?? F0 FF 83 ?? ?? 00 00";
+        //old: E8 ?? ?? ?? ?? 48 8B D8 EB ?? F0 FF 83
 
         //public const string StaticVfxCreateSig = "E8 ?? ?? ?? ?? F3 0F 10 35 ?? ?? ?? ?? 48 89 43 08";
         public const string StaticVfxRunSig = "E8 ?? ?? ?? ?? B0 02 EB 02";
         public const string StaticVfxRemoveSig = "40 53 48 83 EC 20 48 8B D9 48 8B 89 ?? ?? ?? ?? 48 85 C9 74 28 33 D2 E8 ?? ?? ?? ?? 48 8B 8B ?? ?? ?? ?? 48 85 C9";
 
-        public const string ActorVfxCreateSig = "E8 ?? ?? ?? ?? F3 0F 10 35 ?? ?? ?? ?? 48 89 43";
-
+        public const string ActorVfxCreateSig = "40 53 55 56 57 48 81 EC ?? ?? ?? ?? 0F 29 B4 24 ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 0F B6 AC 24 ?? ?? ?? ?? 0F 28 F3 49 8B F8";
         public const string ActorVfxRemoveSig = "0F 11 48 10 48 8D 05"; // the weird one
 
         public const string CallTriggerSig = "E8 ?? ?? ?? ?? 0F B7 43 56";
@@ -21,11 +21,13 @@ namespace VfxEditor.Interop {
 
         public const string DecRefSig = "E8 ?? ?? ?? ?? 48 C7 03 ?? ?? ?? ?? C6 83";
         public const string RequestFileSig = "E8 ?? ?? ?? ?? F0 FF 4E 5C";
+
         public const string ResourceManagerSig = "48 8B 0D ?? ?? ?? ?? 0F 5B F6";
 
         // https://github.com/Ottermandias/Penumbra.GameData/blob/main/Signatures.cs
 
-        public const string CheckFileStateSig = "E8 ?? ?? ?? ?? 48 85 C0 74 ?? 4C 8B C8 44 0F B6 C5 ";
+        public const string CheckFileStateSig = "E8 ?? ?? ?? ?? 48 85 C0 74 ?? 4C 8B C8 ";
+        //old: E8 ?? ?? ?? ?? 48 85 C0 74 ?? 4C 8B C8 44 0F B6 C5
 
         public const string LoadTexFileLocalSig = "48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 48 89 7C 24 ?? 41 56 48 83 EC ?? 49 8B E8 44 88 4C 24";
         public const string LodConfigSig = "48 8B 05 ?? ?? ?? ?? B3";
@@ -35,11 +37,15 @@ namespace VfxEditor.Interop {
         public const string LoadMdlFileExternSig = "E8 ?? ?? ?? ?? EB 02 B0 F1";
 
         public const string LoadScdLocalSig = "48 89 5C 24 ?? 48 89 74 24 ?? 57 48 83 EC 30 8B 79 ?? 48 8B DA 8B D7";
-        public const string SoundOnLoadSig = "40 56 57 41 54 48 81 EC ?? ?? ?? ?? 80 3A ?? 45 0F B6 E0 48 8B F2 48 8B F9 75 ?? 83 BA ?? ?? ?? ?? ?? 72 ?? 48 8B 01 FF 90 ?? ?? ?? ?? 3C";
+        public const string SoundOnLoadSig = "40 56 57 41 54 48 81 EC 90 00 00 00 80 3A 0B 45 0F B6 E0 48 8B F2";
+
+        // https://github.com/Ottermandias/Penumbra.GameData/blob/main/Signatures.cs#L52
 
         public const string PlayActionSig = "E8 ?? ?? ?? ?? 83 7F ?? ?? 75 ?? 0F B6 87 ?? ?? ?? ?? A8";
 
         // https://github.com/aers/FFXIVClientStructs/blob/main/FFXIVClientStructs/FFXIV/Client/Game/Object/GameObject.cs
+
+        // TODO
 
         public const int GameResourceOffset = 0x38;
 
@@ -52,6 +58,7 @@ namespace VfxEditor.Interop {
         public const byte PrepPapValue = 0xEC;
 
         // https://github.com/Ottermandias/Penumbra.GameData/blob/main/Offsets.cs
+
         public const string LuaManagerSig = "48 8B 0D ?? ?? ?? ?? BA 0F 00 00 10";
 
         public const string LuaActorVariableSig = "4C 8D 0D ?? ?? ?? ?? B9 ?? ?? ?? ?? 66 90 48 8B D1 48 D1 EA 4C 8B C2";
@@ -79,8 +86,7 @@ namespace VfxEditor.Interop {
 
         public const string CharacterUtilitySig = "48 8B 05 ?? ?? ?? ?? 83 B9";
 
-        public const string HumanVTable = "48 8D 05 ?? ?? ?? ?? 48 89 03 33 C0 89 8B"; //7.5
-
+        public const string HumanVTable = "48 8D 05 ?? ?? ?? ?? 48 89 03 33 C0 89 8B";
         //public const string HumanVTable = "48 8D 05 ?? ?? ?? ?? 48 89 03 89 8B";
         //pre-7.5
     }
