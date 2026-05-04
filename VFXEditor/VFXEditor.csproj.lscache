@@ -69,6 +69,7 @@ Data/Command/
   ListSetCommand.cs
 Data/
  Configuration.cs
+ ConfigurationWindow.cs
  Copy/
   CopyManager.cs
   CopyRaii.cs
@@ -124,14 +125,18 @@ FileManager/
  FileManagerDocument.cs
  FileManagerDocumentWindow.cs
  FileManagerFile.cs
+ FileManagerGroup.cs
+ FileManagerGroupBase.cs
  Interfaces/
   IFileDocument.cs
   IFileManager.cs
+  IFileManagerGroup.cs
   IFileManagerSelect.cs
 Formats/AtchFormat/
  AtchDocument.cs
  AtchFile.cs
  AtchManager.cs
+ AtchManagerGroup.cs
  Entry/
   AtchEntry.cs
   AtchEntrySplitView.cs
@@ -150,6 +155,7 @@ Formats/AvfxFormat/
  AvfxFile.Import.cs
  AvfxMain.cs
  AvfxManager.cs
+ AvfxManagerGroup.cs
  AvfxWarning.cs
  Base/
   AvfxBase.cs
@@ -210,7 +216,6 @@ Formats/AvfxFormat/
  Dialogs/
   AvfxExport.cs
   AvfxExportCategory.cs
-  AvfxExportDialog.cs
  Effector/
   AvfxEffector.cs
   Data/
@@ -346,6 +351,7 @@ Formats/AwtFormat/
  AwtDocument.cs
  AwtFile.cs
  AwtManager.cs
+ AwtManagerGroup.cs
  Entry/
   AwtEntry.cs
   AwtEntrySplitView.cs
@@ -361,12 +367,14 @@ Formats/EidFormat/
  EidDocument.cs
  EidFile.cs
  EidManager.cs
+ EidManagerGroup.cs
  Skeleton/EidSkeletonView.cs
 Formats/KdbFormat/
  Components/ParsedFnvKdbNodes.cs
  KdbDocument.cs
  KdbFile.cs
  KdbManager.cs
+ KdbManagerGroup.cs
  Nodes/
   KdbConnection.cs
   KdbNode.cs
@@ -412,6 +420,7 @@ Formats/MdlFormat/
  MdlDocument.cs
  MdlFile.cs
  MdlManager.cs
+ MdlManagerGroup.cs
  Mesh/Base/
   MdlMeshData.cs
   MdlMeshDrawable.cs
@@ -452,6 +461,7 @@ Formats/MtrlFormat/
  MtrlDocument.cs
  MtrlFile.cs
  MtrlManager.cs
+ MtrlManagerGroup.cs
  Shader/
   MtrlKey.cs
   MtrlMaterialParameter.cs
@@ -471,6 +481,7 @@ Formats/ObsbFormat/
  ObsbDocument.cs
  ObsbFile.cs
  ObsbManager.cs
+ ObsbManagerGroup.cs
  Utils/
   ObsbReader.cs
   ObsbWriter.cs
@@ -495,6 +506,7 @@ Formats/PapFormat/
  PapDocument.cs
  PapFile.cs
  PapManager.cs
+ PapManagerGroup.cs
 Formats/PbdFormat/Extended/
  PbdEpbdData.cs
  PbdEpbdEntry.cs
@@ -507,6 +519,7 @@ Formats/PbdFormat/
  PbdDocument.cs
  PbdFile.cs
  PbdManager.cs
+ PbdManagerGroup.cs
  TransformMatrix.cs
 Formats/PhybFormat/Collision/
  Capsule/PhybCapsule.cs
@@ -529,6 +542,7 @@ Formats/PhybFormat/
  PhybDocument.cs
  PhybFile.cs
  PhybManager.cs
+ PhybManagerGroup.cs
  PhysicsObject.cs
  Simulator/
   Attract/PhybAttract.cs
@@ -582,6 +596,7 @@ Formats/ScdFormat/
  ScdDocument.cs
  ScdFile.cs
  ScdManager.cs
+ ScdManagerGroup.cs
  Sound/Data/
   SoundAcceleration.cs
   SoundAtomos.cs
@@ -684,11 +699,13 @@ Formats/SgbFormat/
  SgbDocument.cs
  SgbFile.cs
  SgbManager.cs
+ SgbManagerGroup.cs
  Writer/SgbWriter.cs
 Formats/ShcdFormat/
  ShcdDocument.cs
  ShcdFile.cs
  ShcdManager.cs
+ ShcdManagerGroup.cs
 Formats/ShpkFormat/
  Keys/ShpkKey.cs
  Materials/ShpkMaterialParmeter.cs
@@ -703,6 +720,7 @@ Formats/ShpkFormat/
  ShpkDocument.cs
  ShpkFile.cs
  ShpkManager.cs
+ ShpkManagerGroup.cs
  Utils/
   CrcMaps.cs
   ParsedCrc.cs
@@ -730,6 +748,7 @@ Formats/SklbFormat/
  SklbDocument.cs
  SklbFile.cs
  SklbManager.cs
+ SklbManagerGroup.cs
 Formats/SkpFormat/LookAt/
  SkpLookAt.cs
  SkpLookAtGroup.cs
@@ -739,6 +758,7 @@ Formats/SkpFormat/
  SkpDocument.cs
  SkpFile.cs
  SkpManager.cs
+ SkpManagerGroup.cs
  Slope/
   SkpSlope.cs
   SkpSlopePoint.cs
@@ -994,6 +1014,7 @@ Formats/TmbFormat/
  TmbFile.cs
  TmbItem.cs
  TmbManager.cs
+ TmbManagerGroup.cs
  Tmfcs/
   Tmfc.cs
   TmfcData.cs
@@ -1083,6 +1104,7 @@ Formats/UldFormat/
  UldFile.cs
  UldGenericData.cs
  UldManager.cs
+ UldManagerGroup.cs
  UldWorkspaceItem.cs
  Widget/UldWidget.cs
 Formats/WtdFormat/Entry/
@@ -1096,6 +1118,7 @@ Formats/WtdFormat/
  WtdDocument.cs
  WtdFile.cs
  WtdManager.cs
+ WtdManagerGroup.cs
 Interop/
  Constants.cs
  D3DCompiler.cs
@@ -1436,7 +1459,7 @@ Ui/
    PenumbraOptionSplitView.cs
   PenumbraDialog.cs
   TexToolsDialog.cs
- Import/ImportDialog.cs
+ Import/PenumbraImportDialog.cs
  Interfaces/
   IIndexedUiItem.cs
   INamedUiItem.cs

@@ -37,6 +37,7 @@ namespace VfxEditor.UldFormat.Component.Node {
     }
 
     public class UldNode : UldWorkspaceItem, IItemWithData<UldGenericData> {
+        private readonly UldFile File;
         private readonly List<UldComponent> Components;
         private readonly UldWorkspaceItem Parent;
 
@@ -70,20 +71,15 @@ namespace VfxEditor.UldFormat.Component.Node {
         public readonly ParsedShort3 AddColor = new( "Add Color" );
         public readonly ParsedInt Alpha = new( "Alpha", size: 1 );
         public readonly ParsedInt ClipCount = new( "Clip Count", size: 1 );
-
-        public readonly ParsedIntSelect<UldTimeline> TimelineId = new( "Timeline", 0,
-            () => Plugin.UldManager.File.TimelineDropdown,
-            ( UldTimeline item ) => ( int )item.Id.Value,
-            ( UldTimeline item, int _ ) => item.GetText(),
-            size: 2
-        );
+        public readonly ParsedIntSelect<UldTimeline> TimelineId;
 
         // need to wait until all components are initialized, so store this until then
         private readonly long _Position;
         private readonly int _Size;
         private readonly int _Type;
 
-        public UldNode( uint id, List<UldComponent> components, UldWorkspaceItem parent, SelectView<UldNode> nodeView ) : base( id ) {
+        public UldNode( UldFile file, uint id, List<UldComponent> components, UldWorkspaceItem parent, SelectView<UldNode> nodeView ) : base( id )  {
+            File = file;
             Parent = parent;
             Components = components;
             Type = new( this, "Type" );
@@ -111,27 +107,34 @@ namespace VfxEditor.UldFormat.Component.Node {
             NodeView = nodeView;
             ParentId = new( "Parent", 0,
                 () => NodeView,
-                ( UldNode item ) => ( int )item.Id.Value,
-                ( UldNode item, int _ ) => item.GetText()
+                item => ( int )item.Id.Value,
+                ( item, _ ) => item.GetText()
             );
             NextSiblingId = new( "Next Sibling", 0,
                 () => NodeView,
-                ( UldNode item ) => ( int )item.Id.Value,
-                ( UldNode item, int _ ) => item.GetText()
+                item => ( int )item.Id.Value,
+                ( item, _ ) => item.GetText()
             );
             PrevSiblingId = new( "Previous Sibling", 0,
                 () => NodeView,
-                ( UldNode item ) => ( int )item.Id.Value,
-                ( UldNode item, int _ ) => item.GetText()
+                item => ( int )item.Id.Value,
+                ( item, _ ) => item.GetText()
             );
             ChildNodeId = new( "Child", 0,
                 () => NodeView,
-                ( UldNode item ) => ( int )item.Id.Value,
-                ( UldNode item, int _ ) => item.GetText()
+                item => ( int )item.Id.Value,
+                ( item, _ ) => item.GetText()
+            );
+            
+            TimelineId = new( "Timeline" , 0,
+                () => File.TimelineDropdown,
+                item => ( int )item.Id.Value,
+                ( item, _ ) => item.GetText(),
+                size: 2
             );
         }
 
-        public UldNode( BinaryReader reader, List<UldComponent> components, UldWorkspaceItem parent, SelectView<UldNode> nodeView ) : this( 0, components, parent, nodeView ) {
+        public UldNode( UldFile file, BinaryReader reader, List<UldComponent> components, UldWorkspaceItem parent, SelectView<UldNode> nodeView ) : this( file, 0, components, parent, nodeView ) {
             var pos = reader.BaseStream.Position;
 
             Id.Read( reader );
@@ -227,12 +230,12 @@ namespace VfxEditor.UldFormat.Component.Node {
             }
             else {
                 Data = Type.Value switch {
-                    NodeType.Image => new ImageNodeData(),
+                    NodeType.Image => new ImageNodeData( File ),
                     NodeType.Text => new TextNodeData(),
-                    NodeType.NineGrid => new NineGridNodeData(),
+                    NodeType.NineGrid => new NineGridNodeData( File ),
                     NodeType.Counter => new CounterNodeData(),
                     NodeType.Collision => new CollisionNodeData(),
-                    NodeType.ClippingMask => new ClippingMaskNodeData(),
+                    NodeType.ClippingMask => new ClippingMaskNodeData( File ),
                     _ => null
                 };
             }

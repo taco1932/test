@@ -3,18 +3,15 @@ using Dalamud.Bindings.ImGui;
 using System.Collections.Generic;
 using System.Linq;
 using VfxEditor.FileManager;
-using VfxEditor.Formats.AvfxFormat.Dialogs;
 using VfxEditor.Select.Formats;
 using VfxEditor.Utils;
+using VfxEditor.Formats.AvfxFormat;
 
 namespace VfxEditor.AvfxFormat {
     public class AvfxManager : FileManager<AvfxDocument, AvfxFile, WorkspaceMetaRenamed> {
-        public readonly AvfxExportDialog ExportDialog;
-
-        public AvfxManager() : base( "VFXEditor", "Vfx", "avfx", "Docs", "VFX" ) {
+        public AvfxManager( AvfxManagerGroup group ) : base( group ) {
             SourceSelect = new VfxSelectDialog( "File Select [LOADED]", this, true );
             ReplaceSelect = new VfxSelectDialog( "File Select [REPLACED]", this, false );
-            ExportDialog = new( WindowSystem );
         }
 
         protected override AvfxDocument GetNewDocument() => new( this, NewWriteLocation );
@@ -23,6 +20,7 @@ namespace VfxEditor.AvfxFormat {
 
         protected override void DrawEditMenuItems() {
             if( ImGui.BeginMenu( "Templates" ) ) {
+                using var disabledTemplates = ImRaii.Disabled( ActiveDocument == null );
                 if( ImGui.MenuItem( "Blank" ) ) ActiveDocument?.OpenTemplate( "default_vfx.avfx" );
                 if( ImGui.MenuItem( "Weapon" ) ) ActiveDocument?.OpenTemplate( "default_weapon.avfx" );
                 ImGui.EndMenu();
@@ -45,12 +43,10 @@ namespace VfxEditor.AvfxFormat {
                 ImGui.EndMenu();
             }
 
-            using var disabled = ImRaii.Disabled( File == null );
-            if( ImGui.MenuItem( "Clean Up" ) ) File?.Cleanup();
+            using var disabled = ImRaii.Disabled( ActiveFile == null );
+            if( ImGui.MenuItem( "Clean Up" ) ) ActiveFile?.Cleanup();
         }
 
-        public void Import( string path ) => ActiveDocument.Import( path );
-
-        public void ShowExportDialog( AvfxNode node ) => ActiveDocument.ShowExportDialog( node );
+        public void Import( string path ) => ActiveDocument?.Import( path );
     }
 }

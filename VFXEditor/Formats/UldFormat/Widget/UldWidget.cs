@@ -30,6 +30,7 @@ namespace VfxEditor.UldFormat.Widget {
     }
 
     public class UldWidget : UldWorkspaceItem {
+        private readonly UldFile File;
         public readonly ParsedEnum<AlignmentType> AlignmentType = new( "Alignment Type" );
         public readonly ParsedShort X = new( "X" );
         public readonly ParsedShort Y = new( "Y" );
@@ -37,12 +38,13 @@ namespace VfxEditor.UldFormat.Widget {
         public readonly List<UldNode> Nodes = [];
         public readonly CommandSplitView<UldNode> NodeSplitView;
 
-        public UldWidget( uint id, List<UldComponent> components ) : base( id ) {
+        public UldWidget( UldFile file, uint id, List<UldComponent> components ) : base( id ) {
+            File = file;
             NodeSplitView = new( "Node", Nodes, true,
-                ( UldNode item, int idx ) => item.GetText(), () => new( GetNextId( Nodes ), components, this, NodeSplitView ) );
+                ( item, idx ) => item.GetText(), () => new( File, GetNextId( Nodes ), components, this, NodeSplitView ) );
         }
 
-        public UldWidget( BinaryReader reader, List<UldComponent> components ) : this( 0, components ) {
+        public UldWidget( UldFile file, BinaryReader reader, List<UldComponent> components ) : this( file, 0, components ) {
             var pos = reader.BaseStream.Position;
 
             Id.Read( reader );
@@ -52,7 +54,7 @@ namespace VfxEditor.UldFormat.Widget {
             var nodeCount = reader.ReadUInt16();
             var size = reader.ReadUInt16();
 
-            for( var i = 0; i < nodeCount; i++ ) Nodes.Add( new UldNode( reader, components, this, NodeSplitView ) );
+            for( var i = 0; i < nodeCount; i++ ) Nodes.Add( new UldNode( File, reader, components, this, NodeSplitView ) );
 
             reader.BaseStream.Position = pos + size;
         }

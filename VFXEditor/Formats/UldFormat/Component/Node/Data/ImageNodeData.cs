@@ -28,8 +28,8 @@ namespace VfxEditor.UldFormat.Component.Node.Data {
         private readonly ParsedInt Wrap = new( "Wrap", size: 1 );
         private readonly ParsedEnum<DrawMode> DrawMode = new( "Draw Mode", size: 1 );
 
-        public ImageNodeData() {
-            PartListId = new();
+        public ImageNodeData( UldFile file ) {
+            PartListId = new( file );
             PartId = new( PartListId );
         }
 

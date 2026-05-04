@@ -12,7 +12,6 @@ using static VfxEditor.AvfxFormat.Enums;
 namespace VfxEditor.AvfxFormat {
     public class AvfxEmitter : AvfxNodeWithData<EmitterType> {
         public const string NAME = "Emit";
-        public readonly AvfxFile File;
         public readonly AvfxString Sound = new( "Sound", "SdNm", true, false, null, true );
         public readonly AvfxInt SoundNumber = new( "Sound Index", "SdNo" );
         public readonly AvfxInt LoopStart = new( "Loop Start", "LpSt" );
@@ -73,9 +72,8 @@ namespace VfxEditor.AvfxFormat {
         public readonly UiEmitterSplitView ParticleSplit;
         private readonly List<IUiItem> Parameters;
 
-        public AvfxEmitter( AvfxFile file, AvfxNodeGroupSet groupSet ) : base( NAME, AvfxNodeGroupSet.EmitterColor, "EVT" ) {
+        public AvfxEmitter( AvfxFile file, AvfxNodeGroupSet groupSet ) : base( file, NAME, AvfxNodeGroupSet.EmitterColor, "EVT" ) {
             NodeGroups = groupSet;
-            File = file;
             Color = new( File, "Color", locked: true );
 
             Parsed = [
@@ -152,7 +150,7 @@ namespace VfxEditor.AvfxFormat {
             EmitterSplit = new( "Create Emitters", Emitters, this, false );
             ParticleSplit = new( "Create Particles", Particles, this, true );
 
-            NodeView = new UiNodeGraphView( this );
+            NodeView = new UiNodeGraphView( file, this );
 
             Parameters = [
                 LoopStart,

@@ -4,7 +4,7 @@ namespace VfxEditor.AvfxFormat {
     public abstract class AvfxOptional : AvfxItem {
         public readonly bool Locked;
         public AvfxOptional( string avfxName, bool locked = false ) : base( avfxName ) {
-            locked = locked;
+            Locked = locked;
         }
 
         public override void SetAssigned( bool assigned, bool recurse = false ) {

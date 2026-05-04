@@ -1,6 +1,7 @@
 using NAudio.Wave;
 using System.IO;
 using System.Numerics;
+using VfxEditor.Formats.ScdFormat;
 using VfxEditor.Formats.ScdFormat.Utils;
 
 namespace VfxEditor.ScdFormat.Music.Data {
@@ -49,21 +50,21 @@ namespace VfxEditor.ScdFormat.Music.Data {
         public static ScdAudioEntry ImportWav( string path, ScdAudioEntry oldEntry ) {
             var waveFileCheck = new WaveFileReader( path );
             if( waveFileCheck.WaveFormat.Encoding == WaveFormatEncoding.Adpcm ) {
-                Dalamud.Log( "Already Adpcm, skipping conversion" );
-                File.Copy( path, ScdManager.ConvertWav, true );
+                Dalamud.Log( "Already ADPCM, skipping conversion" );
+                File.Copy( path, ScdManagerGroup.ConvertWav, true );
             }
             else {
                 ScdUtils.ConvertToAdpcm( path );
             }
             waveFileCheck.Close();
 
-            if( !File.Exists( ScdManager.ConvertWav ) ) {
+            if( !File.Exists( ScdManagerGroup.ConvertWav ) ) {
                 Dalamud.Error( "Could not convert to ADPCM" );
                 return null;
             }
 
-            using var waveFile = new WaveFileReader( ScdManager.ConvertWav );
-            var rawData = File.ReadAllBytes( ScdManager.ConvertWav );
+            using var waveFile = new WaveFileReader( ScdManagerGroup.ConvertWav );
+            var rawData = File.ReadAllBytes( ScdManagerGroup.ConvertWav );
             var format = waveFile.WaveFormat;
 
             using var ms = new MemoryStream( rawData );

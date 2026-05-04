@@ -229,12 +229,12 @@ namespace VfxEditor.AvfxFormat {
             ReadNested( reader, ( BinaryReader _reader, string _name, int _size ) => {
                 switch( _name ) {
                     case AvfxScheduler.NAME:
-                        var Scheduler = new AvfxScheduler( NodeGroupSet );
+                        var Scheduler = new AvfxScheduler( File, NodeGroupSet );
                         Scheduler.Read( _reader, _size );
                         Schedulers.Add( Scheduler );
                         break;
                     case AvfxTimeline.NAME:
-                        var Timeline = new AvfxTimeline( NodeGroupSet );
+                        var Timeline = new AvfxTimeline( File, NodeGroupSet );
                         Timeline.Read( _reader, _size );
                         Timelines.Add( Timeline );
                         break;
@@ -254,12 +254,12 @@ namespace VfxEditor.AvfxFormat {
                         Effectors.Add( Effector );
                         break;
                     case AvfxBinder.NAME:
-                        var Binder = new AvfxBinder();
+                        var Binder = new AvfxBinder( File );
                         Binder.Read( _reader, _size );
                         Binders.Add( Binder );
                         break;
                     case AvfxTexture.NAME:
-                        var Texture = new AvfxTexture();
+                        var Texture = new AvfxTexture( File );
                         Texture.Read( _reader, _size );
                         Textures.Add( Texture );
                         break;

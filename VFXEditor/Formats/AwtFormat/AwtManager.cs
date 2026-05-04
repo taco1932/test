@@ -4,7 +4,7 @@ using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.AwtFormat {
     public class AwtManager : FileManager<AwtDocument, AwtFile, WorkspaceMetaBasic> {
-        public AwtManager() : base( "Awt Editor", "Awt" ) {
+        public AwtManager( AwtManagerGroup group ) : base( group ) {
             SourceSelect = new AwtSelectDialog( "Awt Select [LOADED]", this, true );
             ReplaceSelect = new AwtSelectDialog( "Awt Select [REPLACED]", this, false );
         }

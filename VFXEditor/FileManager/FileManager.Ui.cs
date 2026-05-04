@@ -1,20 +1,19 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
-using Dalamud.Bindings.ImGui;
 using System.Numerics;
 using VfxEditor.Data.Command;
 using VfxEditor.Data.Copy;
 using VfxEditor.Utils;
 
 namespace VfxEditor.FileManager {
-    public abstract partial class FileManager<T, R, S> : FileManagerBase where T : FileManagerDocument<R, S> where R : FileManagerFile {
-        private T DraggingItem;
-
+    public abstract partial class FileManager<D, F, S> : FileManagerBase where D : FileManagerDocument<F, S> where F : FileManagerFile {
         protected virtual void DrawEditMenuItems() { }
 
         public override void DrawBody() {
+            if( ImGui.IsWindowFocused() ) Group.SetLastFocusedManager( this );
             using var copy = new CopyRaii( Copy );
-            using var command = new CommandRaii( File?.Command );
+            using var command = new CommandRaii( ActiveFile?.Command );
 
             CheckKeybinds();
 
@@ -26,13 +25,20 @@ namespace VfxEditor.FileManager {
                 Title
 #endif
                 + ( string.IsNullOrEmpty( Plugin.CurrentWorkspaceName ) ? "" : $" [{Plugin.CurrentWorkspaceName}]" )
-                + $"###{Title}";
+                + $"###{Title}-{WindowId}";
 
-            using var _ = ImRaii.PushId( Id );
+            using var _ = ImRaii.PushId( $"{FormatName}-{WindowId}" );
             DrawMenu();
             if( Plugin.Configuration.ShowTabBar ) {
                 DrawTabs();
                 ImGui.SetCursorPosY( ImGui.GetCursorPosY() + 2 );
+            }
+
+            if( ActiveDocument == null ) { // No documents, make it clear how to add a new one
+                ImGui.SetCursorPos( ImGui.GetCursorPos() + new Vector2( (ImGui.GetContentRegionAvail().X - 150f) / 2f, 25f) );
+                if( ImGui.Button( "NEW", new( 150, 35 ) ) ) AddDocument();
+
+                return;
             }
 
             ActiveDocument?.Draw();
@@ -42,7 +48,7 @@ namespace VfxEditor.FileManager {
             var menu = ImGui.BeginMenuBar();
             if( !menu ) return;
 
-            Plugin.DrawFileMenu();
+            Plugin.DrawFileMenu( this, Group );
 
             if( ImGui.BeginMenu( "Edit" ) ) {
                 CommandManager.Draw();
@@ -92,16 +98,22 @@ namespace VfxEditor.FileManager {
 
                     if( ImGui.BeginTabItem( $"{document.DisplayName}###Tab{idx}", ref open, flags ) ) ImGui.EndTabItem();
 
-                    if( UiUtils.DrawDragDrop( Documents, document, document.DisplayName, ref DraggingItem, "DOCUMENT-TABS", false ) ) break;
+                    if( Group.DrawDragDrop( this, document, document.DisplayName ) ) break;
 
-                    if( !open && Documents.Count > 1 ) ImGui.OpenPopup( "DeletePopup" );
+                    if( !open ) ImGui.OpenPopup( "DeletePopup" );
 
                     if( ImGui.IsItemClicked( ImGuiMouseButton.Left ) && open ) SelectDocument( document );
-                    if( ImGui.IsItemClicked( ImGuiMouseButton.Right ) ) ImGui.OpenPopup( "RenamePopup" );
+                    if( ImGui.IsItemClicked( ImGuiMouseButton.Right ) ) ImGui.OpenPopup( "ContextPopup" );
 
                     using var itemSpacing = ImRaii.PushStyle( ImGuiStyleVar.ItemSpacing, new Vector2( 8, 4 ) );
-                    using( var popup = ImRaii.Popup( "RenamePopup" ) ) {
-                        if( popup ) document.DrawRename();
+                    using( var popup = ImRaii.Popup( "ContextPopup" ) ) {
+                        if( popup ) {
+                            if( ImGui.Selectable( "New Window" ) ) {
+                                Group.ToNewWindow( this, document );
+                                break;
+                            }
+                            document.DrawRename();
+                        }
                     }
                     using( var popup = ImRaii.Popup( "DeletePopup" ) ) {
                         if( popup ) {
@@ -114,6 +126,7 @@ namespace VfxEditor.FileManager {
                 }
 
                 if( ImGui.TabItemButton( "+", ImGuiTabItemFlags.Trailing | ImGuiTabItemFlags.NoReorder | ImGuiTabItemFlags.NoTooltip ) ) AddDocument();
+                if( Documents.Count == 0 ) Group.DrawDragDrop( this, null, null ); // in case the window has no documents
             }
 
             ImGui.SameLine();

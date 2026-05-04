@@ -4,7 +4,7 @@ using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.SgbFormat {
     public unsafe class SgbManager : FileManager<SgbDocument, SgbFile, WorkspaceMetaBasic> {
-        public SgbManager() : base( "Sgb Editor", "Sgb" ) {
+        public SgbManager( SgbManagerGroup group ) : base( group ) {
             SourceSelect = new SgbSelectDialog( "Sgb Select [LOADED]", this, true );
             //ReplaceSelect = new SgbSelectDialog( "Sgb Select [REPLACED]", this, false );
         }

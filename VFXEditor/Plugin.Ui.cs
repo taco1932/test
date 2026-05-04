@@ -11,6 +11,7 @@ using VfxEditor.FileManager.Interfaces;
 using VfxEditor.Ui.Components;
 using VfxEditor.Ui.Export;
 using VfxEditor.Utils;
+using VfxEditor.FileManager;
 
 namespace VfxEditor {
     public unsafe partial class Plugin {
@@ -29,6 +30,10 @@ namespace VfxEditor {
             CheckWorkspaceKeybinds();
 
             WindowSystem.Draw();
+            foreach( var group in Groups ){
+                if ( group is FileManagerGroupBase g ) g.Draw();
+            }
+
             TrackerManager.Draw();
 
             CheckAutoSave();
@@ -46,10 +51,14 @@ namespace VfxEditor {
             if( Configuration.SaveAsKeybind.KeyPressed() ) SaveAsWorkspace();
         }
 
-        public static void DrawFileMenu() {
+        public static void DrawFileMenu( FileManagerBase manager, FileManagerGroupBase group ) {
             using var _ = ImRaii.PushId( "Menu" );
 
             if( ImGui.BeginMenu( "File" ) ) {
+                if( ImGui.MenuItem( "New Window" ) ) group.NewWindow();
+                group.DrawCloseWindow( manager );
+                
+                ImGui.Separator();
                 if( ImGui.MenuItem( "New" ) ) NewWorkspace();
                 if( ImGui.MenuItem( "Open" ) ) OpenWorkspace( true );
                 if( ImGui.BeginMenu( "Open Recent" ) ) {
@@ -71,15 +80,14 @@ namespace VfxEditor {
                 if( ImGui.MenuItem( "Save As" ) ) SaveAsWorkspace();
 
                 ImGui.Separator();
-                if( ImGui.BeginMenu( "Penumbra" ) )
-                {
+                if( ImGui.MenuItem( "Settings" ) ) ConfigWindow.Show();
+                if( ImGui.BeginMenu( "Penumbra" ) ) {
                     if( ImGui.MenuItem( "Open Mod" ) ) OpenWorkspacePenumbra( true );
                     if( ImGui.MenuItem( "Append Mod" ) ) OpenWorkspacePenumbra( false );
                     ImGui.EndMenu();
                 }
 
                 ImGui.Separator();
-                if( ImGui.MenuItem( "Settings" ) ) Configuration.Show();
                 if( ImGui.MenuItem( "Tools" ) ) ToolsDialog.Show();
                 if( ImGui.BeginMenu( "Help" ) ) {
                     if( ImGui.MenuItem( "Github" ) ) UiUtils.OpenUrl( "https://github.com/0ceal0t/Dalamud-VFXEditor" );
@@ -92,8 +100,8 @@ namespace VfxEditor {
             }
 
             if( ImGui.BeginMenu( "Export" ) ) {
-                if( ImGui.MenuItem( "Penumbra" ) ) PenumbraDialog.Show();
-                if( ImGui.MenuItem( "TexTools" ) ) TexToolsDialog.Show();
+                if( ImGui.MenuItem( "Penumbra" ) ) PenumbraExportDialog.Show();
+                if( ImGui.MenuItem( "TexTools" ) ) TexToolsExportDialog.Show();
                 ImGui.EndMenu();
             }
         }
@@ -102,22 +110,22 @@ namespace VfxEditor {
             using var _ = ImRaii.PushId( "Menu" );
 
             // Manually specify the order since it's different than the load order
-            var categories = new List<IFileManager[]> {
-                new IFileManager[]{
+            var categories = new List<IFileManagerGroup[]> {
+                new IFileManagerGroup[]{
                     AvfxManager,
                     TextureManager
                 },
-                new IFileManager[]{
+                new IFileManagerGroup[]{
                     TmbManager,
                     PapManager,
                 },
-                new IFileManager[]{
+                new IFileManagerGroup[]{
                     ScdManager
                 },
-                new IFileManager[]{
+                new IFileManagerGroup[]{
                     UldManager
                 },
-                new IFileManager[]{
+                new IFileManagerGroup[]{
                     SklbManager,
                     SkpManager,
                     PhybManager,
@@ -129,7 +137,7 @@ namespace VfxEditor {
                     PbdManager,
                     SgbManager,
                 },
-                new IFileManager[]{
+                new IFileManagerGroup[]{
                     MdlManager,
                     MtrlManager,
                     ShpkManager,
@@ -168,6 +176,12 @@ namespace VfxEditor {
         public static void AddModal( Modal modal ) {
             Modals[modal.Title] = modal;
             ModalsToOpen.Add( modal.Title ); // To eliminate Imgui ID weirdness
+        }
+
+        public static void AddDefaultDocuments() {
+            foreach( var group in Groups ) {
+                if( group is FileManagerGroupBase g ) g.AddDefaultDocument();
+            }
         }
     }
 }

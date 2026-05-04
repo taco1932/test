@@ -4,7 +4,7 @@ using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.WtdFormat {
     public class WtdManager : FileManager<WtdDocument, WtdFile, WorkspaceMetaBasic> {
-        public WtdManager() : base( "Wtd Editor", "Wtd" ) {
+        public WtdManager( WtdManagerGroup group ) : base( group ) {
             SourceSelect = new WtdSelectDialog( "Wtd Select [LOADED]", this, true );
             ReplaceSelect = new WtdSelectDialog( "Wtd Select [REPLACED]", this, false );
         }
