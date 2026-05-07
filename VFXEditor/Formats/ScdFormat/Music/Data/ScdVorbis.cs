@@ -92,7 +92,7 @@ namespace VfxEditor.ScdFormat.Music.Data {
                 writer.Write( DecodedData );
                 Data = ms.ToArray();
             }
-            if( EncodeMode == 0x2003 ) ScdUtils.XorDecodeFromTable( Data, DecodedData.Length );
+            if( EncodeMode == 0x2003 ) ScdUtils.XorDecodeFromTableVorbis( Data, DecodedData.Length );
         }
 
         private void PopulateSeekTable() {
@@ -160,6 +160,15 @@ namespace VfxEditor.ScdFormat.Music.Data {
         }
 
         public override int GetSubInfoSize() => 0x20 + ( SeekTable.Count * 4 ) + VorbisHeaderSize;
+
+        public override Dictionary<string, GetAudioEntryDelegate> GetImportActions() => new() {
+            ["wav"] = ImportWav,
+            ["ogg"] = ImportOgg
+        };
+
+        public override string GetDefaultExtension() => "ogg";
+
+        public override byte[] GetDefaultExtensionData() => Data;
 
         // =======================
 

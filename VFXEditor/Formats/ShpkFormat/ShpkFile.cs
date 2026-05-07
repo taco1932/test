@@ -24,14 +24,19 @@ namespace VfxEditor.Formats.ShpkFormat {
     public class ShpkFile : FileManagerFile {
         public const uint MaterialParamsConstantId = 0x64D12851u;
         public const uint TableSamplerId = 0x2005679Fu;
+        public const uint HULL_DOMAIN_GEO_SHADERS_VERSION = 0x0D01;
+        public const uint NODE_ALIAS_CLUSTER_VERSION = 0x0E01;
 
         private readonly uint Version;
         private readonly uint DxMagic;
         public DX DxVersion => GetDxVersion( DxMagic );
-        public readonly bool IsV7;
+        public readonly bool IsLegacy;
 
         private readonly List<ShpkShader> VertexShaders = [];
         private readonly List<ShpkShader> PixelShaders = [];
+        private readonly List<ShpkShader> HullShaders = [];
+        private readonly List<ShpkShader> DomainShaders = [];
+        private readonly List<ShpkShader> GeometryShaders = [];
 
         public readonly ParsedBool HasDefaultMaterialValues = new( "Default Values" );
         public readonly List<ShpkMaterialParmeter> MaterialParameters = [];
@@ -48,12 +53,13 @@ namespace VfxEditor.Formats.ShpkFormat {
         private readonly List<ShpkNode> Nodes = [];
         private readonly List<ShpkAlias> Aliases = [];
 
-        private readonly ParsedUInt Unknown3 = new( "Unknown3" );
-        private readonly ParsedUInt Unknown4 = new( "Unknown4" );
-        private readonly ParsedUInt Unknown5 = new( "Unknown5" );
+        private readonly List<ShpkNodeAliasCluster> NodeAliasClusters = [];
 
         private readonly CommandDropdown<ShpkShader> VertexView;
         private readonly CommandDropdown<ShpkShader> PixelView;
+        private readonly CommandDropdown<ShpkShader> HullView;
+        private readonly CommandDropdown<ShpkShader> DomainView;
+        private readonly CommandDropdown<ShpkShader> GeometryView;
         private readonly CommandSplitView<ShpkMaterialParmeter> MaterialParameterView;
         private readonly CommandSplitView<ShpkParameterInfo> ConstantView;
         private readonly CommandSplitView<ShpkParameterInfo> SamplerView;
@@ -67,6 +73,7 @@ namespace VfxEditor.Formats.ShpkFormat {
 
         private readonly CommandDropdown<ShpkNode> NodeView;
         private readonly CommandSplitView<ShpkAlias> AliasView;
+        private readonly CommandDropdown<ShpkNodeAliasCluster> ClusterView;
 
         public ShpkFile( BinaryReader reader, bool verify ) : this( reader, null, verify ) { }
 
@@ -95,8 +102,7 @@ namespace VfxEditor.Formats.ShpkFormat {
             var numResources = reader.ReadUInt16();
             var unk2 = reader.ReadUInt16();
 
-            IsV7 = HasDefaultMaterialValues.Value || numTextures > 0;
-            if( unk1 != 0 || unk2 != 0 ) Dalamud.Error( $"Unknown parameters: 0x{unk1:X4} 0x{unk2:X4}" );
+            IsLegacy = Version < HULL_DOMAIN_GEO_SHADERS_VERSION && !HasDefaultMaterialValues.Value && numTextures == 0;
 
             var numSystemKey = reader.ReadUInt32();
             var numSceneKey = reader.ReadUInt32();
@@ -105,14 +111,23 @@ namespace VfxEditor.Formats.ShpkFormat {
             var numNode = reader.ReadUInt32();
             var numAlias = reader.ReadUInt32();
 
-            Unknown3.Read( reader );
-            Unknown4.Read( reader );
-            Unknown5.Read( reader );
+            var numHull = 0u;
+            var numDomain = 0u;
+            var numGeo = 0u;
 
-            if( Unknown3.Value != 0 || Unknown4.Value != 0 || Unknown5.Value != 0 ) Dalamud.Error( $"Unknown parameters: 0x{Unknown3.Value:X4} 0x{Unknown4.Value:X4} 0x{Unknown5.Value:X4}" );
+            if( Version >= HULL_DOMAIN_GEO_SHADERS_VERSION ) {
+                numHull = reader.ReadUInt32();
+                numDomain = reader.ReadUInt32();
+                numGeo = reader.ReadUInt32();
+            }
 
-            for( var i = 0; i < numVertex; i++ ) VertexShaders.Add( new( reader, ShaderStage.Vertex, DxVersion, true, ShaderFileType.Shpk, IsV7 ) );
-            for( var i = 0; i < numPixel; i++ ) PixelShaders.Add( new( reader, ShaderStage.Pixel, DxVersion, true, ShaderFileType.Shpk, IsV7 ) );
+            var nodeAliasClusterCount = Version >= NODE_ALIAS_CLUSTER_VERSION ? reader.ReadUInt32() : 0;
+
+            for( var i = 0; i < numVertex; i++ ) VertexShaders.Add( new( reader, ShaderStage.Vertex, Version, DxVersion, true, ShaderFileType.Shpk, IsLegacy ) );
+            for( var i = 0; i < numPixel; i++ ) PixelShaders.Add( new( reader, ShaderStage.Pixel, Version, DxVersion, true, ShaderFileType.Shpk, IsLegacy ) );
+            for( var i = 0; i < numHull; i++ ) HullShaders.Add( new( reader, ShaderStage.Hull, Version, DxVersion, true, ShaderFileType.Shpk, IsLegacy ) );
+            for( var i = 0; i < numDomain; i++ ) DomainShaders.Add( new( reader, ShaderStage.Domain, Version, DxVersion, true, ShaderFileType.Shpk, IsLegacy ) );
+            for( var i = 0; i < numGeo; i++ ) GeometryShaders.Add( new( reader, ShaderStage.Geometry, Version, DxVersion, true, ShaderFileType.Shpk, IsLegacy ) );
 
             for( var i = 0; i < numMaterialParams; i++ ) MaterialParameters.Add( new( this, reader ) );
 
@@ -139,11 +154,16 @@ namespace VfxEditor.Formats.ShpkFormat {
 
             for( var i = 0; i < numNode; i++ ) Nodes.Add( new( reader, SystemKeys.Count, SceneKeys.Count, MaterialKeys.Count, SubViewKeys.Count ) );
             for( var i = 0; i < numAlias; i++ ) Aliases.Add( new( reader ) );
+            for( var i = 0; i < nodeAliasClusterCount; i++ ) NodeAliasClusters.Add( new( reader ) );
 
             // ======= POPULATE ==========
 
             VertexShaders.ForEach( x => x.Read( reader, parameterOffset, shaderOffset ) );
             PixelShaders.ForEach( x => x.Read( reader, parameterOffset, shaderOffset ) );
+            HullShaders.ForEach( x => x.Read( reader, parameterOffset, shaderOffset ) );
+            DomainShaders.ForEach( x => x.Read( reader, parameterOffset, shaderOffset ) );
+            GeometryShaders.ForEach( x => x.Read( reader, parameterOffset, shaderOffset ) );
+
             Constants.ForEach( x => x.Read( reader, parameterOffset ) );
             Samplers.ForEach( x => x.Read( reader, parameterOffset ) );
             Textures.ForEach( x => x.Read( reader, parameterOffset ) );
@@ -151,8 +171,11 @@ namespace VfxEditor.Formats.ShpkFormat {
 
             // ====== CONSTRUCT VIEWS ==========
 
-            VertexView = new( "Vertex Shader", VertexShaders, null, () => new( ShaderStage.Vertex, DxVersion, true, ShaderFileType.Shpk, IsV7 ) );
-            PixelView = new( "Pixel Shader", PixelShaders, null, () => new( ShaderStage.Vertex, DxVersion, true, ShaderFileType.Shpk, IsV7 ) );
+            VertexView = new( "Vertex Shader", VertexShaders, null, () => new( ShaderStage.Vertex, Version, DxVersion, true, ShaderFileType.Shpk, IsLegacy ) );
+            PixelView = new( "Pixel Shader", PixelShaders, null, () => new( ShaderStage.Pixel, Version, DxVersion, true, ShaderFileType.Shpk, IsLegacy ) );
+            HullView = new( "Hull Shader", HullShaders, null, () => new( ShaderStage.Hull, Version, DxVersion, true, ShaderFileType.Shpk, IsLegacy ) );
+            DomainView = new( "Domain Shader", DomainShaders, null, () => new( ShaderStage.Domain, Version, DxVersion, true, ShaderFileType.Shpk, IsLegacy ) );
+            GeometryView = new( "Geometry Shader", GeometryShaders, null, () => new( ShaderStage.Geometry, Version, DxVersion, true, ShaderFileType.Shpk, IsLegacy ) );
 
             MaterialParameterView = new( "Parameter", MaterialParameters, false, null, () => new( this ) );
 
@@ -168,6 +191,7 @@ namespace VfxEditor.Formats.ShpkFormat {
 
             NodeView = new( "Node", Nodes, null, () => new() );
             AliasView = new( "Alias", Aliases, false, null, () => new() );
+            ClusterView = new( "Cluster", NodeAliasClusters, null, () => new() );
 
             // TODO: don't be dumb when adding keys, actually update selectors and stuff
             // TOOD: when adding keys, make sure to do it everywhere
@@ -211,15 +235,22 @@ namespace VfxEditor.Formats.ShpkFormat {
             writer.Write( Nodes.Count );
             writer.Write( Aliases.Count );
 
-            Unknown3.Write( writer );
-            Unknown4.Write( writer );
-            Unknown5.Write( writer );
+            if( Version >= HULL_DOMAIN_GEO_SHADERS_VERSION ) {
+                writer.Write( HullShaders.Count );
+                writer.Write( DomainShaders.Count );
+                writer.Write( GeometryShaders.Count );
+            }
+
+            if( Version >= NODE_ALIAS_CLUSTER_VERSION ) writer.Write( NodeAliasClusters.Count );
 
             var stringPositions = new List<(long, string)>();
             var shaderPositions = new List<(long, ShpkShader)>();
 
             VertexShaders.ForEach( x => x.Write( writer, stringPositions, shaderPositions ) );
             PixelShaders.ForEach( x => x.Write( writer, stringPositions, shaderPositions ) );
+            HullShaders.ForEach( x => x.Write( writer, stringPositions, shaderPositions ) );
+            DomainShaders.ForEach( x => x.Write( writer, stringPositions, shaderPositions ) );
+            GeometryShaders.ForEach( x => x.Write( writer, stringPositions, shaderPositions ) );
 
             MaterialParameters.ForEach( x => x.Write( writer ) );
 
@@ -246,6 +277,7 @@ namespace VfxEditor.Formats.ShpkFormat {
 
             Nodes.ForEach( x => x.Write( writer ) );
             Aliases.ForEach( x => x.Write( writer ) );
+            NodeAliasClusters.ForEach( x => x.Write( writer ) );
 
             WriteOffsetsSHPK( writer, placeholderPos, stringPositions, shaderPositions );
         }
@@ -265,9 +297,23 @@ namespace VfxEditor.Formats.ShpkFormat {
                 if( tab ) PixelView.Draw();
             }
 
+            if( Version >= HULL_DOMAIN_GEO_SHADERS_VERSION ) {
+                using( var tab = ImRaii.TabItem( "Hull Shaders" ) ) {
+                    if( tab ) HullView.Draw();
+                }
+
+                using( var tab = ImRaii.TabItem( "Domain Shaders" ) ) {
+                    if( tab ) DomainView.Draw();
+                }
+
+                using( var tab = ImRaii.TabItem( "Geometry Shaders" ) ) {
+                    if( tab ) GeometryView.Draw();
+                }
+            }
+
             using( var tab = ImRaii.TabItem( "Material Parameters" ) ) {
                 if( tab ) {
-                    if( IsV7 ) HasDefaultMaterialValues.Draw();
+                    if( !IsLegacy ) HasDefaultMaterialValues.Draw();
                     DrawMaterialTable();
                     ImGui.Separator();
                     MaterialParameterView.Draw();
@@ -282,7 +328,7 @@ namespace VfxEditor.Formats.ShpkFormat {
                 if( tab ) SamplerView.Draw();
             }
 
-            if( IsV7 ) {
+            if( !IsLegacy ) {
                 using var tab = ImRaii.TabItem( "Textures" );
                 if( tab ) TextureView.Draw();
             }
@@ -301,6 +347,11 @@ namespace VfxEditor.Formats.ShpkFormat {
 
             using( var tab = ImRaii.TabItem( "Aliases" ) ) {
                 if( tab ) AliasView.Draw();
+            }
+
+            if( Version >= NODE_ALIAS_CLUSTER_VERSION ) {
+                using var tab = ImRaii.TabItem( "Clusters" );
+                if( tab ) ClusterView.Draw();
             }
         }
 
@@ -346,7 +397,7 @@ namespace VfxEditor.Formats.ShpkFormat {
                 ImGui.TableHeadersRow();
             }
 
-            var rows = MaterialParameters.Count == 0 ? 0 : ( int )MaterialParameters.Select( x => Math.Ceiling( ( float )x.EndSlot / 4 ) ).Max();
+            var rows = MaterialParameters.Count == 0 ? 0 : ( int )MaterialParameters.Max( x => Math.Ceiling( ( float )x.EndSlot / 4 ) );
 
             for( var i = 0; i < rows; i++ ) {
                 ImGui.TableNextColumn();

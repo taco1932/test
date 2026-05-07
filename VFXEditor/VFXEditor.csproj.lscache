@@ -589,6 +589,7 @@ Formats/ScdFormat/
   Data/
    ScdAdpcm.cs
    ScdAudioData.cs
+   ScdHca.cs
    ScdVorbis.cs
   Marker/ScdAudioMarker.cs
   ScdAudioEntry.cs
@@ -712,6 +713,8 @@ Formats/ShpkFormat/
  Nodes/
   ShpkAlias.cs
   ShpkNode.cs
+  ShpkNodeAliasCluster.cs
+  ShpkNodeAliasSubCluster.cs
   ShpkNodeKey.cs
   SphkPass.cs
  Shaders/
@@ -1727,7 +1730,7 @@ Utils/
  naudio.wasapi/2.3.0/lib/netstandard2.0/NAudio.Wasapi.dll
  naudio.winmm/2.3.0/lib/net6.0/NAudio.WinMM.dll
  nvorbis/0.10.4/lib/netstandard2.0/NVorbis.dll
- penumbra.api/5.13.1/lib/net10.0-windows7.0/Penumbra.Api.dll
+ penumbra.api/5.15.1/lib/net10.0-windows7.0/Penumbra.Api.dll
  sharpdx.d3dcompiler/4.2.0/lib/netstandard1.1/SharpDX.D3DCompiler.dll
  sharpdx.direct2d1/4.2.0/lib/netstandard1.1/SharpDX.Direct2D1.dll
  sharpdx.direct3d11/4.2.0/lib/netstandard1.1/SharpDX.Direct3D11.dll
@@ -1737,7 +1740,11 @@ Utils/
  sharpgltf.runtime/1.0.6/lib/net10.0/SharpGLTF.Runtime.dll
  sharpgltf.toolkit/1.0.6/lib/net10.0/SharpGLTF.Toolkit.dll
  teximpnet/1.4.3/lib/netstandard1.3/TeximpNet.dll
-lib/OtterTex.dll
+lib/
+ DereTore.Common.dll
+ DereTore.Exchange.Audio.HCA.dll
+ DereTore.Interop.OS.dll
+ OtterTex.dll
 
 [analyzerReferences]
 <DOTNET>/packs/Microsoft.NETCore.App.Ref/10.0.1/analyzers/dotnet/cs/
