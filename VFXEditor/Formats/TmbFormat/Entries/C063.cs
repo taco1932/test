@@ -1,9 +1,21 @@
 using Dalamud.Interface;
+using System;
 using System.Collections.Generic;
 using VfxEditor.Parsing;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
+    [Flags]
+    public enum SoundPositionFilter {
+        Use_Min_Max_Range = 0x01,
+        Stop_On_Animation_End = 0x02,
+        Use_Bind_ID = 0x04,
+        Unknown_0 = 0x08,
+        Unknown_1 = 0x10,
+        Unknown_2 = 0x20,
+        Unknown_3 = 0x40,
+        Unknown_4 = 0x80,
+    }
     public class C063 : TmbEntry {
         public const string MAGIC = "C063";
         public const string DISPLAY_NAME = "Sound";
@@ -14,12 +26,12 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Loop = new( "Loop/Duration", value: 1 );
-        private readonly ParsedInt Interrupt = new( "Non-BGM Interrupt" );
+        private readonly ParsedInt Unk1 = new( "Unknown 1" );
         private readonly TmbOffsetString Path = new( "Path", null, true );
         private readonly ParsedInt SoundIndex = new( "Sound Index" );
-        private readonly ParsedByte SoundPosition = new( "Sound Position" );
+        private readonly ParsedFlag<SoundPositionFilter> SoundPosition = new( "Sound Position", size: 1 );
         private readonly ParsedByte BindID = new( "Bind ID" );
-        private readonly ParsedShort Unknown1 = new( "Unknown 1" );
+        private readonly ParsedShort Unk2 = new( "Unknown 2" );
 
         public C063( TmbFile file ) : base( file ) {
             SetupIcon();
@@ -33,18 +45,18 @@ namespace VfxEditor.TmbFormat.Entries {
             Path.Icons.Insert( 0, new() {
                 Icon = () => FontAwesomeIcon.VolumeUp,
                 Remove = false,
-                Action = ( string value ) => Plugin.ResourceLoader.PlaySound( value, SoundIndex.Value )
+                Action = value => Plugin.ResourceLoader.PlaySound( value, SoundIndex.Value )
             } );
         }
 
         protected override List<ParsedBase> GetParsed() => [
             Loop,
-            Interrupt,
+            Unk1,
             Path,
             SoundIndex,
             SoundPosition,
             BindID,
-            Unknown1
+            Unk2
         ];
     }
 }

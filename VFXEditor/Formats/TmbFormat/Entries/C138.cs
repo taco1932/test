@@ -26,9 +26,14 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedInt Unk9 = new( "Unknown 9" );
         private readonly ParsedInt Unk10 = new( "Unknown 10" );
         private readonly ParsedInt Unk11 = new( "Unknown 11" );
-        private readonly ParsedInt Unk12 = new( "Unknown 12" );
-        private readonly ParsedInt Unk13 = new( "Unknown 13" );
-        private readonly ParsedInt Unk14 = new( "Unknown 14" );
+        private readonly ParsedShort Unk12a = new( "Unknown 12a" );
+        private readonly ParsedShort Unk12b = new( "Unknown 12b" );
+        private readonly ParsedShort Unk13a = new( "Unknown 13a" );
+        private readonly ParsedShort Unk13b = new( "Unknown 13b" );
+        private readonly ParsedShort Unk14a = new( "Unknown 14a" );
+        private readonly ParsedShort Unk14b = new( "Unknown 14b" );
+
+        //bg/ex1/02_dra_d2/shared/for_bg/sgbg_d2a0_ab_coa00.sgb
 
         public C138( TmbFile file ) : base( file ) { }
 
@@ -49,9 +54,12 @@ namespace VfxEditor.TmbFormat.Entries {
             Unk9,
             Unk10,
             Unk11,
-            Unk12,
-            Unk13,
-            Unk14
+            Unk12a,
+            Unk12b,
+            Unk13a,
+            Unk13b,
+            Unk14a,
+            Unk14b
         ];
     }
 }

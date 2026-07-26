@@ -5,7 +5,8 @@ using Dalamud.Bindings.ImGui;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using VfxEditor.Structs;
+using FFXIVClientStructs.FFXIV.Client.System.Resource.Handle;
+using Dalamud.Utility;
 
 namespace VfxEditor.Ui.Tools {
     public unsafe class LoadedTab {
@@ -22,7 +23,7 @@ namespace VfxEditor.Ui.Tools {
 
                 var drawObject = gameObject->DrawObject;
                 if( drawObject == null ) continue;
-                if( drawObject->Object.GetObjectType() != ObjectType.CharacterBase ) return;
+                if( drawObject->Object.GetObjectType() != FFXIVClientStructs.FFXIV.Client.Graphics.Scene.ObjectType.CharacterBase ) return;
 
                 using var _ = ImRaii.PushId( $"{item.Address:X8}" );
                 if( !ImGui.CollapsingHeader( $"{item.Name}" ) ) continue;
@@ -36,7 +37,7 @@ namespace VfxEditor.Ui.Tools {
                 DrawCharacterBase( ( CharacterBase* )drawObject );
 
                 var childObject = drawObject->Object.ChildObject;
-                if( childObject != null && childObject->GetObjectType() == ObjectType.CharacterBase ) {
+                if( childObject != null && childObject->GetObjectType() == FFXIVClientStructs.FFXIV.Client.Graphics.Scene.ObjectType.CharacterBase ) {
                     using var __ = ImRaii.PushId( "Child Object" );
 
                     using var tree = ImRaii.TreeNode( "Child Object" );
@@ -135,9 +136,9 @@ namespace VfxEditor.Ui.Tools {
             if( resourcePtr <= 256 || resourcePtr == 0x3F800000 ) return false;
 
             var resource = ( ResourceHandle* )resourcePtr;
-            if( resource->FileName().IsEmpty ) return false;
+            if( resource->FileName.ToString().IsNullOrEmpty() ) return false;
 
-            fileName = resource->FileName().ToString();
+            fileName = resource->FileName.ToString();
             if( string.IsNullOrEmpty( fileName ) ) return false;
 
             return true;

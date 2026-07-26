@@ -29,7 +29,7 @@ namespace VfxEditor.ScdFormat.Music.Data {
         private readonly HcaInfo HcaInfo;
         private uint SamplesPerBlock => HcaInfo.ChannelCount * 0x80 * 8;
 
-        private readonly byte[] Unk1 = [ 0x20, 0x18 ];
+        private readonly byte[] Unk1 = [ 0x02, 0x18 ];
         private readonly byte[] Unk2 = [ 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00 ];
         private readonly byte[] Unk3 = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ];
 

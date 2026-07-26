@@ -3,10 +3,10 @@ using VfxEditor.Select.Formats;
 using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.SgbFormat {
-    public unsafe class SgbManager : FileManager<SgbDocument, SgbFile, WorkspaceMetaBasic> {
+    public class SgbManager : FileManager<SgbDocument, SgbFile, WorkspaceMetaBasic> {
         public SgbManager( SgbManagerGroup group ) : base( group ) {
             SourceSelect = new SgbSelectDialog( "Sgb Select [LOADED]", this, true );
-            //ReplaceSelect = new SgbSelectDialog( "Sgb Select [REPLACED]", this, false );
+            ReplaceSelect = new SgbSelectDialog( "Sgb Select [REPLACED]", this, false );
         }
 
         protected override SgbDocument GetNewDocument() => new( this, NewWriteLocation );

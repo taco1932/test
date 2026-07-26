@@ -1,8 +1,8 @@
 using Dalamud.Hooking;
 using Dalamud.Utility.Signatures;
 using FFXIVClientStructs.FFXIV.Client.Graphics.Scene;
+using FFXIVClientStructs.FFXIV.Client.System.Resource.Handle;
 using VfxEditor.Interop.Structs;
-using VfxEditor.Structs;
 
 namespace VfxEditor.Interop {
     public unsafe partial class ResourceLoader {

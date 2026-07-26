@@ -7,9 +7,9 @@ table EphbUnknown {
 }
 
 struct Vec3 {
-  x: float;
-  y: float;
-  z: float;
+    x: float;
+    y: float;
+    z: float;
 }
 
 table EphbDelta {
@@ -44,7 +44,7 @@ table EphbZeta {
 }
 
 table EphbAlpha {
-    beta:[EphbBeta];
+    beta: [EphbBeta];
     a: string;
     b: string;
     c: uint; // default

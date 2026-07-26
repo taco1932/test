@@ -6,7 +6,7 @@ using VfxEditor.TmbFormat.Utils;
 namespace VfxEditor.TmbFormat.Entries {
     public class C187 : TmbEntry {
         public const string MAGIC = "C187";
-        public const string DISPLAY_NAME = "Summoned Weapon Part Removal";
+        public const string DISPLAY_NAME = "Sub-Mesh Removal";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
@@ -14,10 +14,10 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Duration = new( "Duration" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt Part = new( "Part" );
-        private readonly ParsedIntByte4 Unk4 = new( "Unknown 4" );
-        private readonly ParsedInt Unk5 = new( "Unknown 5" );
+        private readonly ParsedInt Unk1 = new( "Unknown 1" );
+        private readonly ParsedInt Part = new( "Sub-Mesh ID" );
+        private readonly ParsedIntByte4 Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt Unk3 = new( "Unknown 3" );
 
         public C187( TmbFile file ) : base( file ) { }
 
@@ -25,10 +25,10 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Duration,
-            Unk2,
+            Unk1,
             Part,
-            Unk4,
-            Unk5
+            Unk2,
+            Unk3
         ];
     }
 }

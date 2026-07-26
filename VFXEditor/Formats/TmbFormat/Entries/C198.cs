@@ -3,6 +3,20 @@ using VfxEditor.Parsing;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
+    public enum SummonId
+    {
+        Summon_0 = 0,
+        Summon_1 = 1,
+    }
+    public enum C198AtchState {
+        Default = 0, //basically just state 1
+        State_0 = 1,
+        State_1 = 2,
+        State_2 = 3,
+        State_3 = 4,
+        State_4 = 5,
+        State_5 = 6,
+    }
     public class C198 : TmbEntry {
         public const string MAGIC = "C198";
         public const string DISPLAY_NAME = "Lemure";
@@ -16,9 +30,14 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedInt Unk1 = new( "Unknown 1" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
         private readonly ParsedInt Unk3 = new( "Unknown 3" );
-        private readonly ParsedInt Unk4 = new( "Unknown 4" );
-        private readonly ParsedShort ModelId = new( "Model Id" );
-        private readonly ParsedShort BodyId = new( "Body Id" );
+
+        private readonly ParsedEnum<SummonId> SummonId = new ( "Summon ID", size: 1 );
+        private readonly ParsedEnum<C198AtchState> AtchState = new ( "ATCH State", size: 1 );
+        //private readonly ParsedIntByte4 BindPoint = new( "Bind Point" );
+        //ID, ATCH state + 1, [unused], [unused]
+        private readonly ParsedShort Unk4 = new ( "Unknown 4" ); //unused
+        private readonly ParsedShort ModelId = new( "Model ID" );
+        private readonly ParsedShort BodyId = new( "Body ID" );
         private readonly ParsedInt Variant = new( "Variant" );
 
         public C198( TmbFile file ) : base( file ) { }
@@ -30,6 +49,8 @@ namespace VfxEditor.TmbFormat.Entries {
             Unk1,
             Unk2,
             Unk3,
+            SummonId,
+            AtchState,
             Unk4,
             ModelId,
             BodyId,

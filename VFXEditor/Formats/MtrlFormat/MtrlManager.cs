@@ -17,6 +17,7 @@ namespace VfxEditor.Formats.MtrlFormat {
         }
 
         protected override MtrlDocument GetNewDocument() => new( this, NewWriteLocation );
+
         protected override MtrlDocument GetWorkspaceDocument( WorkspaceMetaBasic data, string localPath ) => new( this, NewWriteLocation, localPath, data );
     }
 }

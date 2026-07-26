@@ -6,20 +6,6 @@ using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
 
-    public enum BindUser {
-        Disabled = -1,
-        Default = 0,
-        Caster = 1,
-        Target = 2,
-    }
-    public enum BindType {
-        Disabled = -1,
-        Character = 0,
-        Weapon = 1,
-        Offhand = 2,
-        Summon_or_Lemure = 3,
-    }
-
     public class C173 : TmbEntry {
         public const string MAGIC = "C173";
         public const string DISPLAY_NAME = "Async VFX";
@@ -35,7 +21,7 @@ namespace VfxEditor.TmbFormat.Entries {
             new() {
                 Icon = () => VfxSpawn.IsActive ? FontAwesomeIcon.Times : FontAwesomeIcon.Eye,
                 Remove = false,
-                Action = ( string path ) => {
+                Action = path => {
                     if( VfxSpawn.IsActive ) VfxSpawn.Clear();
                     else VfxSpawn.OnSelf( path, false );
                 }

@@ -1,5 +1,8 @@
 using Dalamud.Hooking;
+using Dalamud.Utility.Signatures;
+using FFXIVClientStructs.FFXIV.Client.System.File;
 using FFXIVClientStructs.FFXIV.Client.System.Resource;
+using FFXIVClientStructs.FFXIV.Client.System.Resource.Handle;
 using InteropGenerator.Runtime;
 using Penumbra.String;
 using Penumbra.String.Classes;
@@ -9,7 +12,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using VfxEditor.Select;
 using VfxEditor.Structs;
-using FileMode = VfxEditor.Structs.FileMode;
+using FileMode = FFXIVClientStructs.FFXIV.Client.System.File.FileMode;
 
 namespace VfxEditor.Interop {
     public unsafe partial class ResourceLoader {
@@ -19,75 +22,52 @@ namespace VfxEditor.Interop {
 
         // ===== FILES =========
 
-        public delegate byte ReadFilePrototype( IntPtr fileHandler, SeFileDescriptor* fileDesc, int priority, bool isSync );
+        public delegate byte ReadFilePrototype( IntPtr fileHandler, FileDescriptor* fileDesc, int priority, bool isSync );
 
-        public delegate byte ReadSqpackPrototype( IntPtr fileHandler, SeFileDescriptor* fileDesc, int priority, bool isSync );
+        public delegate byte ReadSqpackPrototype( IntPtr fileHandler, FileDescriptor* fileDesc, int priority, bool isSync );
 
-        public delegate void* GetResourceSyncPrototype( ResourceManager* resourceManager, ResourceCategory* category, uint* type, uint* hash, CStringPointer path,
+        public delegate ResourceHandle* GetResourceSyncPrototype( ResourceManager* resourceManager, ResourceCategory* category, uint* type, uint* hash, CStringPointer path,
             void* unknown, void* unkDebugPtr, uint unkDebugInt );
 
-        public delegate void* GetResourceAsyncPrototype( ResourceManager* resourceManager, ResourceCategory* category, uint* type, uint* hash, CStringPointer path,
+        public delegate ResourceHandle* GetResourceAsyncPrototype( ResourceManager* resourceManager, ResourceCategory* category, uint* type, uint* hash, CStringPointer path,
             void* unknown, bool isUnknown, void* unkDebugPtr, uint unkDebugInt );
 
         // ====== FILES HOOKS ========
 
-        public Hook<GetResourceSyncPrototype> GetResourceSyncHook { get; private set; }
+        [Signature( Constants.GetResourceSyncSig, DetourName = nameof( GetResourceSyncDetour ) )]
+        public readonly Hook<GetResourceSyncPrototype> GetResourceSyncHook = null;
 
-        public Hook<GetResourceAsyncPrototype> GetResourceAsyncHook { get; private set; }
+        [Signature( Constants.GetResourceAsyncSig, DetourName = nameof( GetResourceAsyncDetour ) )]
+        public readonly Hook<GetResourceAsyncPrototype> GetResourceAsyncHook = null;
 
-        public Hook<ReadSqpackPrototype> ReadSqpackHook { get; private set; }
+        [Signature( Constants.ReadSqpackSig, DetourName = nameof( ReadSqpackDetour ) )]
+        public readonly Hook<ReadSqpackPrototype> ReadSqpackHook = null;
 
-        public ReadFilePrototype ReadFile { get; private set; }
+        [Signature( Constants.ReadFileSig )]
+        public readonly ReadFilePrototype ReadFile = null;
 
-        private void* GetResourceSyncDetour(
-            ResourceManager* resourceManager,
-            ResourceCategory* category,
-            uint* type,
-            uint* hash,
-            CStringPointer path,
-            void* unknown,
-            void* unkDebugPtr,
-            uint unkDebugInt
+        private ResourceHandle* GetResourceSyncDetour(
+            ResourceManager* resourceManager, ResourceCategory* category, uint* type, uint* hash, CStringPointer path,
+            void* unknown, void* unkDebugPtr, uint unkDebugInt
         ) => GetResourceHandler( true, resourceManager, category, type, hash, path, unknown, false, unkDebugPtr, unkDebugInt );
 
-        private void* GetResourceAsyncDetour(
-            ResourceManager* resourceManager,
-            ResourceCategory* category,
-            uint* type,
-            uint* hash,
-            CStringPointer path,
-            void* unknown,
-            bool isUnknown,
-            void* unkDebugPtr,
-            uint unkDebugInt
+        private ResourceHandle* GetResourceAsyncDetour(
+            ResourceManager* resourceManager, ResourceCategory* category, uint* type, uint* hash, CStringPointer path,
+            void* unknown, bool isUnknown, void* unkDebugPtr, uint unkDebugInt
         ) => GetResourceHandler( false, resourceManager, category, type, hash, path, unknown, isUnknown, unkDebugPtr, unkDebugInt );
 
-        private void* CallOriginalHandler(
+        private ResourceHandle* CallOriginalHandler(
             bool isSync,
-            ResourceManager* resourceManager,
-            ResourceCategory* category,
-            uint* type,
-            uint* hash,
-            CStringPointer path,
-            void* unknown,
-            bool isUnknown,
-            void* unkDebugPtr,
-            uint unkDebugInt
+            ResourceManager* resourceManager, ResourceCategory* category, uint* type, uint* hash, CStringPointer path,
+            void* unknown, bool isUnknown, void* unkDebugPtr, uint unkDebugInt
         ) => isSync
             ? GetResourceSyncHook.Original( resourceManager, category, type, hash, path, unknown, unkDebugPtr, unkDebugInt )
             : GetResourceAsyncHook.Original( resourceManager, category, type, hash, path, unknown, isUnknown, unkDebugPtr, unkDebugInt );
 
-        private void* GetResourceHandler(
+        private ResourceHandle* GetResourceHandler(
             bool isSync,
-            ResourceManager* resourceManager,
-            ResourceCategory* category,
-            uint* type,
-            uint* hash,
-            CStringPointer path,
-            void* unknown,
-            bool isUnknown,
-            void* unkDebugPtr,
-            uint unkDebugInt
+            ResourceManager* resourceManager, ResourceCategory* category, uint* type, uint* hash, CStringPointer path,
+            void* unknown, bool isUnknown, void* unkDebugPtr, uint unkDebugInt
         ) {
             if( !Utf8GamePath.FromPointer( path, MetaDataComputation.None, out var gamePath ) ) {
                 return CallOriginalHandler( isSync, resourceManager, category, type, hash, path, unknown, isUnknown, unkDebugPtr, unkDebugInt );
@@ -120,48 +100,47 @@ namespace VfxEditor.Interop {
             return replaced;
         }
 
-        private byte ReadSqpackDetour( IntPtr fileHandler, SeFileDescriptor* fileDesc, int priority, bool isSync ) {
+        private byte ReadSqpackDetour( IntPtr fileHandler, FileDescriptor* fileDesc, int priority, bool isSync ) {
             if( fileDesc->ResourceHandle == null ) return ReadSqpackHook.Original( fileHandler, fileDesc, priority, isSync );
 
-            if( !fileDesc->ResourceHandle->GamePath( out var originalGamePath ) ) {
+            if( !Utf8GamePath.FromSpan( fileDesc->ResourceHandle->FileName.AsSpan(), MetaDataComputation.All, out var originalGamePath ) ) {
                 return ReadSqpackHook.Original( fileHandler, fileDesc, priority, isSync );
             }
 
             var originalPath = originalGamePath.ToString();
-            var isPenumbra = ProcessPenumbraPath( originalPath, out var gameFsPath );
+            var isPenumbra = ProcessPenumbraPath( originalPath, out var actualPath );
 
-            if( Plugin.Configuration?.LogDebug == true ) Dalamud.Log( $"[ReadSqpackHandler] {gameFsPath}" );
+            if( Plugin.Configuration?.LogDebug == true ) Dalamud.Log( $"[ReadSqpackHandler] {actualPath}" );
 
-            var isRooted = Path.IsPathRooted( gameFsPath );
+            var isRooted = Path.IsPathRooted( actualPath );
 
             // looking for refreshed paths, could also be like |default_1|path.avfx
-            if( gameFsPath != null && !isRooted ) {
-                var replacementPath = GetReplacePath( gameFsPath, out var localPath ) ? localPath : null;
+            if( actualPath != null && !isRooted ) {
+                var replacementPath = GetReplacePath( actualPath, out var localPath ) ? localPath : null;
                 if( replacementPath != null && Path.IsPathRooted( replacementPath ) && replacementPath.Length < 260 ) {
-                    gameFsPath = replacementPath;
+                    actualPath = replacementPath;
                     isRooted = true;
                     isPenumbra = false;
                 }
             }
 
             // call the original if it's a penumbra path that doesn't need replacement as well
-            if( gameFsPath == null || gameFsPath.Length >= 260 || !isRooted || isPenumbra ) {
+            if( actualPath == null || actualPath.Length >= 260 || !isRooted || isPenumbra ) {
                 if( Plugin.Configuration?.LogDebug == true ) Dalamud.Log( $"[ReadSqpackHandler] ORIGINAL: {originalPath}" );
                 return ReadSqpackHook.Original( fileHandler, fileDesc, priority, isSync );
             }
 
-            if( Plugin.Configuration?.LogDebug == true ) Dalamud.Log( $"[ReadSqpackHandler] REPLACED: {gameFsPath}" );
+            if( Plugin.Configuration?.LogDebug == true ) Dalamud.Log( $"[ReadSqpackHandler] REPLACED: {actualPath}" );
 
             fileDesc->FileMode = FileMode.LoadUnpackedResource;
-
-            ByteString.FromString( gameFsPath, out var gamePath );
+            ByteString.FromString( actualPath, out var gamePath );
 
             // note: must be utf16
-            var utfPath = Encoding.Unicode.GetBytes( gameFsPath );
-            Marshal.Copy( utfPath, 0, new IntPtr( &fileDesc->Utf16FileName ), utfPath.Length );
-            var fd = stackalloc byte[0x20 + utfPath.Length + 0x16];
-            Marshal.Copy( utfPath, 0, new IntPtr( fd + 0x21 ), utfPath.Length );
-            fileDesc->FileDescriptor = fd;
+            var utfPath = Encoding.Unicode.GetBytes( actualPath );
+            Marshal.Copy( utfPath, 0, (nint)fileDesc + 0x70, utfPath.Length );
+            var fi = stackalloc byte[0x20 + utfPath.Length + 0x16];
+            Marshal.Copy( utfPath, 0, (nint)fi + 0x21, utfPath.Length );
+            fileDesc->FileInterface = ( FileInterface* )fi ;
 
             return ReadFile( fileHandler, fileDesc, priority, isSync );
         }

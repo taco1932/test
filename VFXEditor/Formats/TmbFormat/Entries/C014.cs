@@ -15,7 +15,8 @@ namespace VfxEditor.TmbFormat.Entries {
     public enum ObjectControl {
         Weapon_or_Pet = 0,
         Offhand = 1,
-        Summon_or_Lemure = 2,
+        Summon_or_Lemure_0 = 2,
+        Summon_or_Lemure_1 = 3,
     }
     public class C014 : TmbEntry {
         public const string MAGIC = "C014";

@@ -16,6 +16,7 @@ using VfxEditor.Select.Tabs.Statuses;
 using VfxEditor.Select.Tabs.Zone;
 using VfxEditor.Spawn;
 using VfxEditor.Utils;
+using VfxEditor.Select.Tabs.NpcID;
 
 namespace VfxEditor.Select.Formats {
     public class VfxSelectDialog : SelectDialog {

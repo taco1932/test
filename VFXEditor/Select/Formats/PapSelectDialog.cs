@@ -9,6 +9,7 @@ using VfxEditor.Select.Tabs.Items;
 using VfxEditor.Select.Tabs.Job;
 using VfxEditor.Select.Tabs.Mounts;
 using VfxEditor.Select.Tabs.Npc;
+using VfxEditor.Select.Tabs.NpcID;
 
 namespace VfxEditor.Select.Formats {
     public class PapSelectDialog : SelectDialog {

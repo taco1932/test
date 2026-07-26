@@ -1,7 +1,5 @@
 using Dalamud.Bindings.ImGui;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using VfxEditor.Flatbuffer;
 using VfxEditor.Parsing;
 using VfxEditor.Ui.Interfaces;
