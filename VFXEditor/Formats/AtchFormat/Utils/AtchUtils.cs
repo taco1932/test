@@ -48,7 +48,7 @@ namespace VfxEditor.AtchFormat.Utils {
             { "clg", "Fist Weapon, Unique (PGL/MNK)" },
             { "cls", "Fist Weapon, Alternate (PGL/MNK)" },
             { "clw", "Fist Weapon (PGL/MNK)" },
-            // { "cmp", "" }, //1970
+            { "cmp", "Compass" }, //1970
             { "col", "Control Switch (Left)" },
             { "cor", "Control Switch (Right)" },
             { "cos", "Control Seat" },
@@ -100,7 +100,7 @@ namespace VfxEditor.AtchFormat.Utils {
             { "let", "Letter" },
             { "lfd", "Loporitt Paintbrush" },
             { "lpr", "Ear Wiggle (Emote)" },
-            // { "map", "" }, //1969
+            { "map", "Map" }, //1969
             { "mlt", "Mallet (GSM)" },
             { "mmc", "Quad-Cannons (MCH)" },
             // { "mot", "" }, //9992
@@ -112,7 +112,7 @@ namespace VfxEditor.AtchFormat.Utils {
             { "nf2", "Wasshoi Fan" },
             { "nik", "Metal Cup" }, //9055
             // { "njd", "" }, //1935
-            { "nmf", "Namazu Fan" },
+            { "nmf", "Wasshoi Fans / Cheer Orbs" },
             { "nph", "Sledgehammer (MIN)" },
             { "orb", "Focus (RDM)" },
             // { "oum", "" }, //9801
