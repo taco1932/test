@@ -5,7 +5,7 @@ using VfxEditor.Ui.Components.SplitViews;
 
 namespace VfxEditor.Formats.SgbFormat.Layers.Objects.Data {
     public class PathInstanceObject : SgbObject {
-        private readonly List<PathControlPoint> Points = new();
+        private readonly List<PathControlPoint> Points = [];
         private readonly CommandSplitView<PathControlPoint> PointView;
 
         public PathInstanceObject( LayerEntryType type ) : base( type ) {

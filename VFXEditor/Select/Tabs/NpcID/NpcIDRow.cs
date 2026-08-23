@@ -19,7 +19,7 @@ namespace VfxEditor.Select.Tabs.NpcID {
             Name = path;
             ModelId = Convert.ToInt32(path.Substring(1,4));
             Type = NpcType.Monster;
-            if( path.Substring( 0, 1 ) == "d") { Type = NpcType.Demihuman; }
+            if( path[..1] == "d") { Type = NpcType.Demihuman; }
         }
         public string GetName() => Name;
     }

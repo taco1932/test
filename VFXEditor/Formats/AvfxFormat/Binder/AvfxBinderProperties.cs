@@ -21,7 +21,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxFloat RingPositionY = new( "Ring Position Y", "RnPY" );
         public readonly AvfxFloat RingPositionZ = new( "Ring Position Z", "RnPZ" );
         public readonly AvfxFloat RingRadius = new( "Ring Radius", "RnRd" );
-        public readonly AvfxInt BCT = new( "BCT", "BCT" );
+        public readonly AvfxInt BCT = new( "BCT", "BCT" ); //binder ? type/time
         public readonly AvfxCurve3Axis Position = new( "Position", "Pos", locked: true );
 
         private readonly List<AvfxBase> Parsed;

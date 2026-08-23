@@ -13,7 +13,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedInt Unk3 = new( "Unknown 3" );
 
         public C073( TmbFile file ) : base( file ) { }
@@ -22,7 +22,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
-            Unk2,
+            CRC,
             Unk3
         ];
     }

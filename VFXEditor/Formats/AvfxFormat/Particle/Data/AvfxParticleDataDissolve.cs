@@ -9,10 +9,10 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxInt NPT = new( "NPT", "NPT" );
         public readonly AvfxFlag<AuraFilter> DissolveTarget = new( "Dissolve Target", "DTT" );
         public readonly AvfxCurve1Axis EroR = new( "EroR", "EroR" ); //random something
-        public readonly AvfxCurve1Axis EndColorWidth = new( "End Color Width", "EdW" );
+        public readonly AvfxCurve1Axis EndColorWidth = new( "End Color Width (EdW)", "EdW" );
         public readonly AvfxCurveDissolve Color;
-        public readonly AvfxCurve1Axis MidColorWidth = new( "Mid Color Width", "EdCW" );
-        public readonly AvfxCurve1Axis StartColorWidth = new( "Start Color Width", "ECMP" ); //is it?
+        public readonly AvfxCurve1Axis MidColorWidth = new( "Mid Color Width (EdCW)", "EdCW" );
+        public readonly AvfxCurve1Axis StartColorWidth = new( "Start Color Width (ECMP)", "ECMP" ); //is it?
         public readonly AvfxCurve1Axis Intensity = new( "Intensity", "Int" );
 
         public AvfxParticleDataDissolve( AvfxFile file ) : base() {

@@ -4,7 +4,7 @@ using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
     public class C229 : TmbEntry {
-        public const string MAGIC = "C229"; //in ghidra, but not in game
+        public const string MAGIC = "C229"; //in ghidra, but not in game 7.55
         public const string DISPLAY_NAME = "test4";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;

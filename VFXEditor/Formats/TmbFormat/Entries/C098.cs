@@ -10,7 +10,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override string Magic => MAGIC;
 
         public override int Size => 0x24;
-        public override int ExtraSize => 0;
+        public override int ExtraSize => 4 * 3;
 
         private readonly ParsedInt Unk1 = new( "Unknown 1" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
@@ -18,6 +18,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly TmbOffsetFloat3 Unk4 = new( "Unknown 4" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
         private readonly ParsedInt Unk6 = new( "Unknown 6" );
+        //SelectStringResult somewhere
 
         public C098( TmbFile file ) : base( file ) { }
 

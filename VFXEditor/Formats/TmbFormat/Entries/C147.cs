@@ -6,21 +6,21 @@ using VfxEditor.TmbFormat.Utils;
 namespace VfxEditor.TmbFormat.Entries {
     public class C147 : TmbEntry {
         public const string MAGIC = "C147";
-        public const string DISPLAY_NAME = "----[TESTING] (CUTB)";
+        public const string DISPLAY_NAME = "----[TESTING] (CUTB) [scheduler crash]";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
         public override int Size => 0x28;
         public override int ExtraSize => 0;
 
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" ); //enabled?
+        private readonly ParsedInt Unk1 = new( "Unknown 1", value: 1 );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedByte Unk3a = new( "Unknown 3a", value: 1 );
         private readonly ParsedByte Unk3b = new( "Unknown 3b", value: 1 );
         private readonly ParsedShort Unk3c = new( "Unknown 3c" ); //0
-        private readonly ParsedIntByte4 Unk4 = new( "Unknown 4" ); //[4, 7, 8, 9] 00 00 FF
-        private readonly ParsedInt WeaponID = new( "Weapon ID" );
-        private readonly ParsedInt Unk6 = new( "Unknown 6" ); //0
+        private readonly ParsedIntByte4 Unk4 = new( "Unknown 4" ); //[3, 4, 7, 8, 9] 00 00 FF
+        private readonly ParsedInt WeaponID = new( "Weapon ID" ); //9068
+        private readonly ParsedInt Unk6 = new( "Unknown 6" ); //0, 2
         private readonly ParsedInt Unk7 = new( "Unknown 7" ); //0
 
 
@@ -30,7 +30,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
-            Unk2,
+            CRC,
             Unk3a,
             Unk3b,
             Unk3c,

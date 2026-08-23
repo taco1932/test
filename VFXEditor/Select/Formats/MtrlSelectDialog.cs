@@ -1,6 +1,8 @@
 using VfxEditor.Formats.MtrlFormat;
 using VfxEditor.Select.Tabs.Character;
 using VfxEditor.Select.Tabs.Items;
+using VfxEditor.Select.Tabs.Mounts;
+using VfxEditor.Select.Tabs.Npc;
 
 namespace VfxEditor.Select.Formats {
     public class MtrlSelectDialog : SelectDialog {
@@ -8,6 +10,8 @@ namespace VfxEditor.Select.Formats {
             GameTabs.AddRange( [
                 new ItemTabMtrl( this, "Item" ),
                 new CharacterTabMtrl( this, "Character" ),
+                new NpcTabMtrl( this, "NPC" ),
+                new MountTabMtrl( this, "Mount", "", "" ),
             ] );
         }
     }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
@@ -14,13 +15,13 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedBool Unk1 = new( "Unknown 1" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt TmfcId = new( "F-Curve ID" );
+        private readonly ParsedInt TMFC = new( "F-Curve ID" );
         private readonly ParsedInt Unk4 = new( "Unknown 4", value: 1 );
-        private readonly ParsedInt Unk5 = new( "Unknown 5", value: 71 );
-        private readonly ParsedIntColor Unk6 = new( "Unknown 6" );
-        private readonly ParsedInt Unk7 = new( "Unknown 7", value: 71 );
-        private readonly ParsedIntColor Unk8 = new( "Unknown 8" );
-        private readonly ParsedInt Unk9 = new( "Unknown 9", value: 71 );
+        private readonly ParsedInt Unk5 = new( "Bind ID 1", value: 71 );
+        private readonly ParsedIntByte4 Unk6 = new( "Unknown 6" );
+        private readonly ParsedInt Unk7 = new( "Bind ID 2", value: 71 );
+        private readonly ParsedIntByte4 Unk8 = new( "Unknown 8" );
+        private readonly ParsedInt Unk9 = new( "Bind ID 3", value: 71 );
         private readonly ParsedInt Unk10 = new( "Unknown 10" );
         private readonly ParsedInt Unk11 = new( "Unknown 11" );
         private readonly ParsedFloat Unk12 = new( "Unknown 12" );
@@ -50,7 +51,7 @@ namespace VfxEditor.TmbFormat.Entries {
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
             Unk2,
-            TmfcId,
+            TMFC,
             Unk4,
             Unk5,
             Unk6,

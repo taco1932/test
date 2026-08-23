@@ -13,14 +13,14 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int Size => 0x30;
         public override int ExtraSize => 0;
 
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedIntByte4 Unk3 = new( "Unknown 3" );
-        private readonly ParsedIntByte4 Unk4 = new( "Unknown 4" );
-        private readonly ParsedInt Unk5 = new( "Unknown 5" );
-        private readonly ParsedInt Unk6 = new( "Unknown 6" );
+        private readonly ParsedInt Duration = new( "Duration" );
+        private readonly ParsedInt CRC = new( "CRC" );
+        private readonly ParsedIntByte4 Unk3 = new( "Unknown 3" ); //0x 01 0x
+        private readonly ParsedIntByte4 Unk4 = new( "Unknown 4" ); //1x 00 00 FF
+        private readonly ParsedInt Unk5 = new( "Unknown 5" ); //0, 1
+        private readonly ParsedFloat2 Unk6 = new( "Unknown 6" );
         private readonly ParsedInt Unk7 = new( "Unknown 7" );
-        private readonly ParsedInt Unk8 = new( "Unknown 8" );
+        private readonly ParsedInt Unk8 = new( "Unknown 8", value: 2 );
         private readonly ParsedInt Unk9 = new( "Unknown 9" );
 
         public C039( TmbFile file ) : base( file ) { }
@@ -28,8 +28,8 @@ namespace VfxEditor.TmbFormat.Entries {
         public C039( TmbFile file, TmbReader reader ) : base( file, reader ) { }
 
         protected override List<ParsedBase> GetParsed() => [
-            Unk1,
-            Unk2,
+            Duration,
+            CRC,
             Unk3,
             Unk4,
             Unk5,

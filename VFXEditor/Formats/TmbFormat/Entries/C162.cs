@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
@@ -12,39 +13,26 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int Size => 0x78;
         public override int ExtraSize => 0; //
 
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" ); //
+        private readonly ParsedInt Unk1 = new( "Unknown 1", value: 1 );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedInt Unk3 = new( "Unknown 3" );
-        private readonly ParsedByte Unk4 = new( "Unknown 4" );
-        private readonly ParsedByte Unk5 = new( "Unknown 5" );
-        private readonly ParsedShort Unk6 = new( "Unknown 6" );
-        private readonly ParsedShort Unk7 = new( "Unknown 7" );
-        private readonly ParsedByte Unk8 = new( "Unknown 8" );
-        private readonly ParsedByte Unk9 = new( "Unknown 9" );
-        private readonly ParsedByte Unk10 = new( "Unknown 10" );
-        private readonly ParsedByte Unk11 = new( "Unknown 11" );
-        private readonly ParsedShort Unk12 = new( "Unknown 12" );
-        private readonly ParsedInt Unk13 = new( "Unknown 13" );
-        private readonly ParsedFloat Unk14 = new( "Unknown 14" );
-        private readonly ParsedInt Unk15 = new( "Unknown 15" );
-        private readonly ParsedInt Unk16 = new( "Unknown 16" );
-        private readonly ParsedInt Unk17 = new( "Unknown 17" );
-        private readonly ParsedInt Unk18 = new( "Unknown 18" );
-        private readonly ParsedFloat Unk19 = new( "Unknown 19" );
-        private readonly ParsedFloat Unk20 = new( "Unknown 20" );
-        private readonly ParsedFloat Unk21 = new( "Unknown 21" );
-        private readonly ParsedFloat Unk22 = new( "Unknown 22" );
-        private readonly ParsedFloat Unk23 = new( "Unknown 23" );
-        private readonly ParsedFloat Unk24 = new( "Unknown 24" );
-        private readonly ParsedFloat Unk25 = new( "Unknown 25" );
-        private readonly ParsedFloat Unk26 = new( "Unknown 26" );
-        private readonly ParsedFloat Unk27 = new( "Unknown 27" );
-        private readonly ParsedInt Unk28 = new( "Unknown 28" );
-        private readonly ParsedInt Unk29 = new( "Unknown 29" );
-        private readonly TmbOffsetFloat4 Unk30 = new( "Unknown 30" ); //placeholder for footer floats
-        private readonly ParsedInt Unk31 = new( "Unknown 31" );
-        private readonly ParsedFloat Unk32 = new( "Unknown 32" );
-        private readonly ParsedFloat Unk33 = new( "Unknown 33" );
+        private readonly ParsedIntByte4 Unk4 = new( "Unknown 4" );
+        private readonly ParsedIntByte4 Unk5 = new( "Unknown 5" );
+        private readonly ParsedIntByte4 Unk6 = new( "Unknown 6" );
+        private readonly ParsedInt Unk7 = new( "Unknown 7" );
+        private readonly ParsedFloat Unk8 = new( "Unknown 8" );
+        private readonly ParsedInt Unk9 = new( "Unknown 9" );
+        private readonly ParsedInt Unk10 = new( "Unknown 10" );
+        private readonly ParsedInt Unk11 = new( "Unknown 11" );
+        private readonly ParsedInt Unk12 = new( "Unknown 12" );
+        private readonly ParsedFloat3 Unk13 = new( "Unknown 13" );
+        private readonly ParsedFloat3 Unk14 = new( "Unknown 14" );
+        private readonly ParsedFloat3 Unk15 = new( "Unknown 15" );
+        private readonly ParsedInt Unk16 = new( "Unknown 16", value: 1 );
+        private readonly ParsedInt Unk17 = new( "Unknown 17", value: 2 );
+        private readonly TmbOffsetFloat4 Unk18 = new( "Unknown 18" ); //placeholder for footer data
+        private readonly ParsedInt Unk19 = new( "Unknown 19", value: 2 );
+        private readonly ParsedFloat2 Unk20 = new( "Unknown 20" );
 
 
 
@@ -54,7 +42,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
-            Unk2,
+            CRC,
             Unk3,
             Unk4,
             Unk5,
@@ -73,19 +61,6 @@ namespace VfxEditor.TmbFormat.Entries {
             Unk18,
             Unk19,
             Unk20,
-            Unk21,
-            Unk22,
-            Unk23,
-            Unk24,
-            Unk25,
-            Unk26,
-            Unk27,
-            Unk28,
-            Unk29,
-            Unk30,
-            Unk31,
-            Unk32,
-            Unk33
         ];
     }
 }

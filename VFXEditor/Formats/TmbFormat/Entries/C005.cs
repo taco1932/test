@@ -4,7 +4,7 @@ using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
     public class C005 : TmbEntry {
-        public const string MAGIC = "C005"; //ghidra
+        public const string MAGIC = "C005"; //ghidra, vanilla DNE 7.55
         public const string DISPLAY_NAME = "???";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;

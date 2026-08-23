@@ -3,8 +3,8 @@ using Lumina.Excel.Sheets;
 using System.Linq;
 
 namespace VfxEditor.Select.Tabs.Housing {
-    public class HousingSGBTab : SelectTab<HousingRow, ParsedPaths> {
-        public HousingSGBTab( SelectDialog dialog, string name ) : base( dialog, name, "Housing" ) { }
+    public class HousingSgbTab : SelectTab<HousingRow, ParsedPaths> {
+        public HousingSgbTab( SelectDialog dialog, string name ) : base( dialog, name, "Housing" ) { }
 
         // ===== LOADING =====
 

@@ -7,10 +7,13 @@ namespace VfxEditor.Ui {
     public abstract class DalamudWindow : Window {
         private readonly bool IsMainWindow;
         private bool ExpandNextFrame = false;
+
         public bool Focused => IsOpen && LastFocused;
         private bool LastFocused = false;
+
         private Vector2? LastPosition;
         private Vector2? LastSize;
+        private int OverrideFrames = 0;
 
         public DalamudWindow( string name, bool menuBar, Vector2 size, WindowSystem windowSystem, bool isMainWindow = false ) :
             base( name, ( menuBar ? ImGuiWindowFlags.MenuBar : ImGuiWindowFlags.None ) | ImGuiWindowFlags.NoDocking ) {
@@ -31,9 +34,11 @@ namespace VfxEditor.Ui {
 
         public override void Draw() {
             Plugin.CheckClearKeyState();
+
             LastFocused = ImGui.IsWindowFocused();
             LastPosition = ImGui.GetWindowPos();
             LastSize = ImGui.GetWindowSize();
+
             DrawBody();
         }
 
@@ -41,7 +46,7 @@ namespace VfxEditor.Ui {
 
         public override void PreDraw() {
             LastFocused = false;
-            
+
             if( ExpandNextFrame ) {
                 ImGui.SetNextWindowCollapsed( false );
                 ExpandNextFrame = false;
@@ -53,21 +58,28 @@ namespace VfxEditor.Ui {
                 else
                     Flags &= ~( ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoMove );
             }
+
+            if( OverrideFrames > 0 && --OverrideFrames == 0 ) {
+                Size = null;
+                Position = null;
+            }
         }
 
-        public WorkspaceWindow ToMeta() => new() {
+        public virtual WorkspaceWindow ToMeta() => new() {
             Position = LastPosition,
             Size = LastSize,
         };
 
-        public void SetMeta( WorkspaceWindow? meta ) {
+        public virtual void SetMeta( WorkspaceWindow? meta ) {
             if( meta?.Size != null ) {
-                SizeCondition = ImGuiCond.Appearing;
                 Size = meta?.Size;
+                SizeCondition = ImGuiCond.Always;
+                OverrideFrames = 2;
             }
             if( meta?.Position != null ) {
-                PositionCondition = ImGuiCond.Appearing;
                 Position = meta?.Position;
+                PositionCondition = ImGuiCond.Always;
+                OverrideFrames = 2;
             }
         }
     }

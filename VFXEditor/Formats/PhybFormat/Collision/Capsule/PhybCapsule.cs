@@ -1,6 +1,5 @@
 using HelixToolkit.Maths;
 using HelixToolkit.SharpDX.Animations;
-using HelixToolkit.SharpDX.Core;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
@@ -39,7 +38,9 @@ namespace VfxEditor.PhybFormat.Collision.Capsule {
             var startPos = Vector3Helper.TransformCoordinate( startOffset, startBone.BindPose );
             var endPos = Vector3Helper.TransformCoordinate( endOffset, endBone.BindPose );
 
-            meshes.Collision.AddCylinder( startPos, endPos, Radius.Value * 2f, 10 );
+            if( ( startPos - endPos ).Length() > 0.0001f ) {
+                meshes.Collision.AddCylinder( startPos, endPos, Radius.Value * 2f, 10 );
+            }
             meshes.Collision.AddSphere( startPos, Radius.Value, 10, 10 );
             meshes.Collision.AddSphere( endPos, Radius.Value, 10, 10 );
         }

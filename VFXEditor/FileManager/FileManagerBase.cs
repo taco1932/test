@@ -24,7 +24,7 @@ namespace VfxEditor.FileManager {
         public SelectDialog ReplaceSelect { get; protected set; }
 
         protected FileManagerBase( FileManagerGroupBase group ) :
-            base( $"{group.Title}##{group.WindowId}", true, new( 800, 1000 ), group.WindowSystem, isMainWindow: true ) {
+            base( $"{group.Title}###{group.Title}-{group.WindowId}", true, new( 800, 1000 ), group.WindowSystem, isMainWindow: true ) {
 
             Group = group;
             WindowId = group.NewWindowId;

@@ -46,8 +46,8 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxInt UvInterval = new( "UV Interval", "UvIv" );
         public readonly AvfxInt UvNoRandom = new( "UV Random", "UvNR" );
         public readonly AvfxInt UvNoLoopCount = new( "UV Loop Count", "UvLC" );
-        public readonly AvfxInt InjectionModelIdx = new( "Injection Model Index", "IJMN", value: -1 );
-        public readonly AvfxInt InjectionVertexBindModelIdx = new( "Injection Model Bind Index", "VBMN", value: -1 );
+        public readonly AvfxInt InjectionModelIdx = new( "Injection Model Index", "IJMN", value: -1 ); //injection model number
+        public readonly AvfxInt InjectionVertexBindModelIdx = new( "Injection Model Bind Index", "VBMN", value: -1 ); //vertex bind model number
         public readonly AvfxFloat InjectionRadialDir0 = new( "Injection Radial Direction 0", "IRD0" );
         public readonly AvfxFloat InjectionRadialDir1 = new( "Injection Radial Direction 1", "IRD1" );
         public readonly AvfxFloat PivotX = new( "Pivot X", "PvtX" );
@@ -56,8 +56,8 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxFloat LineLengthMin = new( "Line Length Min", "LLin" );
         public readonly AvfxFloat LineLengthMax = new( "Line Length Max", "LLax" );
         public readonly AvfxInt CreateIntervalVal = new( "Create Interval", "CrI" );
-        public readonly AvfxInt CIM = new( "CIM", "CIM" ); //new, type is a guess right now
-        public readonly AvfxInt CIMR = new( "CIMR", "CIMR" ); //new, type is a guess right now
+        public readonly AvfxFloat CIM = new( "Create Interval On Movement", "CIM" );
+        public readonly AvfxFloat CIMR = new( "Create Interval On Movement Random", "CIMR" );
         public readonly AvfxInt CreateIntervalRandom = new( "Create Interval Random", "CrIR" );
         public readonly AvfxInt CreateIntervalCount = new( "Create Interval Count", "CrIC" );
         public readonly AvfxInt CreateIntervalLife = new( "Create Interval Life", "CrIL" );

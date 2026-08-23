@@ -16,6 +16,12 @@ namespace VfxEditor.PapFormat.Motion {
         public HavokData Bones;
         public hkaSkeleton* Skeleton => Bones.AnimationContainer->Skeletons[0].ptr;
 
+        /*public hkaSkeleton* Skeleton =>
+            Bones?.AnimationContainer != null && Bones.AnimationContainer->Skeletons.Length > 0
+                ? Bones.AnimationContainer->Skeletons[0].ptr
+                : null;
+        */
+        //giving a nullable error
         private readonly SkeletonSelector Selector;
 
         public PapMotions( PapFile file, string havokPath, bool init ) : base( havokPath, init ) {
@@ -26,7 +32,12 @@ namespace VfxEditor.PapFormat.Motion {
             Selector = new( GetSklbPath(), UpdateSkeleton );
         }
 
+        protected override void OnHavokLoad() => UpdateMotions();
+
         public void UpdateMotions() {
+            //if( AnimationContainer == null || Bones?.AnimationContainer == null ) return;
+            //giving an error
+
             Motions.ForEach( x => x.Dispose() );
             Motions.Clear();
 
@@ -76,13 +87,17 @@ namespace VfxEditor.PapFormat.Motion {
             else {
                 Selector.Draw();
             }
-            Motions[havokIndex].DrawPreview( havokIndex );
+            if( havokIndex < Motions.Count ) Motions[havokIndex].DrawPreview( havokIndex );
         }
 
         public void DrawExportAll() {
             Selector.Init();
+            if( Skeleton == null ) {
+                ImGui.TextDisabled( "Skeleton not loaded. Cannot export." );
+                return;
+            }
             if( ImGui.Button( "Export All Motions" ) ) {
-                FileBrowserManager.SaveFileDialog( "Select a Save Location", ".gltf", "motion", "gltf", ( bool ok, string res ) => {
+                FileBrowserManager.SaveFileDialog( "Select a save location", ".gltf", "motion", "gltf", ( ok, res ) => {
                     if( !ok ) return;
                     GltfAnimation.ExportAnimation(
                         Skeleton,
@@ -97,7 +112,7 @@ namespace VfxEditor.PapFormat.Motion {
 
         public void DrawHavok( int havokIndex ) {
             Selector.Init();
-            Motions[havokIndex].DrawHavok();
+            if( havokIndex < Motions.Count ) Motions[havokIndex].DrawHavok();
         }
 
         public void Write( HashSet<nint> handles ) {

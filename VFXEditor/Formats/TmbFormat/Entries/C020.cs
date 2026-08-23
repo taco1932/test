@@ -10,7 +10,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override string Magic => MAGIC;
 
         public override int Size => 0x6C;
-        public override int ExtraSize => 0;
+        public override int ExtraSize => 0; //
 
         private readonly ParsedInt Unk1 = new( "Enabled?" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );

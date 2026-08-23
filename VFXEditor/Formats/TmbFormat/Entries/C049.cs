@@ -13,12 +13,12 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" ); //
-        private readonly ParsedInt Unk3 = new( "Unknown 3" ); //~198-236, unique per C049
-        private readonly TmbOffsetString Unk4 = new ( "Path" ); //vfx
-        private readonly ParsedInt Unk5 = new( "Unknown 5", value: 0xFF ); //0xFFFFFFFF
+        private readonly ParsedInt CRC = new( "CRC" );
+        private readonly ParsedInt Unk3 = new( "Unknown 3" );
+        private readonly TmbOffsetString Unk4 = new ( "Path" ); //full path
+        private readonly ParsedUInt Unk5 = new( "Unknown 5", value: 0xFF ); //0xFFFFFFFF
         private readonly ParsedInt Unk6 = new( "Unknown 6" );
-        private readonly ParsedInt Unk7 = new( "Unknown 7", value: 0xFF ); //0xFFFFFFFF
+        private readonly ParsedUInt Unk7 = new( "Unknown 7", value: 0xFF ); //0xFFFFFFFF
         private readonly ParsedInt Unk8 = new( "Unknown 8" );
         private readonly ParsedInt Unk9 = new( "Unknown 9" );
         private readonly ParsedInt Unk10 = new( "Unknown 10" );
@@ -30,7 +30,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
-            Unk2,
+            CRC,
             Unk3,
             Unk4,
             Unk5,

@@ -114,7 +114,7 @@ namespace VfxEditor.FileManager {
 
         public virtual void Reset( bool pluginClosing ) {
             Dragging = null;
-            WindowId = 0;
+            //WindowId = 0;
             Managers.ForEach( x => x.Reset( pluginClosing ) );
             Managers.Clear();
             WindowSystem.RemoveAllWindows();

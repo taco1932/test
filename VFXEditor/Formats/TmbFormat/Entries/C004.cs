@@ -10,43 +10,32 @@ namespace VfxEditor.TmbFormat.Entries {
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
-        public override int Size => 0x90;
+        public override int Size => 0x68;
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt Unk3 = new( "Unknown 3" );
+        private readonly ParsedInt CRC = new( "CRC" );
+        private readonly ParsedInt TmfcId = new( "F-Curve ID" );
         private readonly TmbOffsetString CamName = new( "Camera Name" );
-        private readonly ParsedFloat Unk5 = new( "Unknown 5" );
-        private readonly ParsedFloat Unk6 = new( "Unknown 6" );
-        private readonly ParsedIntByte4 Unk7 = new( "Set 1" ); //sets always FF FF FF FF (XYZW?)
-        private readonly ParsedInt Unk8 = new( "Bind Point 1" ); //points always 71
+        private readonly ParsedFloat Unk5 = new( "Unknown 5" ); //0.1
+        private readonly ParsedFloat Unk6 = new( "Unknown 6" ); //1000
+        private readonly ParsedIntByte4 Unk7 = new( "Set 1" ); //each set is almost always FF FF FF FF (XYZW?). [09 00 00 FF]
+        private readonly ParsedInt Bind1 = new( "Bind Point 1", value: 71 ); //bind always 71
         private readonly ParsedIntByte4 Unk9 = new( "Set 2" );
-        private readonly ParsedInt Unk10 = new( "Bind Point 2" );
-        private readonly ParsedInt Unk11 = new( "Unknown 11" );
+        private readonly ParsedInt Bind2 = new( "Bind Point 2", value: 71 );
+        private readonly ParsedInt Unk11 = new( "Unknown 11", value: 1 );
         private readonly ParsedInt Unk12 = new( "Unknown 12" );
         private readonly ParsedIntByte4 Unk13 = new( "Set 3" );
-        private readonly ParsedInt Unk14 = new( "Bind Point 3" );
+        private readonly ParsedInt Bind3 = new( "Bind Point 3", value: 71 );
         private readonly ParsedIntByte4 Unk15 = new( "Set 4" );
-        private readonly ParsedInt Unk16 = new( "Bind Point 4" );
+        private readonly ParsedInt Bind4 = new( "Bind Point 4", value: 71 );
         private readonly ParsedInt Unk17 = new( "Unknown 17" );
         private readonly ParsedIntByte4 Unk18 = new( "Set 5" );
-        private readonly ParsedInt Unk19 = new( "Bind Point 5" );
+        private readonly ParsedInt Bind5 = new( "Bind Point 5", value: 71 );
         private readonly ParsedIntByte4 Unk20 = new( "Set 6" );
-        private readonly ParsedInt Unk21 = new( "Bind Point 6" );
+        private readonly ParsedInt Bind6 = new( "Bind Point 6", value: 71 );
         private readonly ParsedInt Unk22 = new( "Unknown 22" );
-        private readonly ParsedInt Unk23 = new( "Unknown 23" ); //1
-        private readonly ParsedIntByte4 Unk24 = new( "Set 7" );
-        private readonly ParsedInt Unk25 = new( "Bind Point 7" );
-        private readonly ParsedIntByte4 Unk26 = new( "Set 8" );
-        private readonly ParsedInt Unk27 = new( "Bind Point 8" );
-        private readonly ParsedInt Unk28 = new( "Unknown 28" );
-        private readonly ParsedInt Unk29 = new( "Unknown 29" );
-        private readonly ParsedInt Unk30 = new( "Unknown 30" );
-        private readonly ParsedInt Unk31 = new( "Unknown 31" );
-        private readonly ParsedInt Unk32 = new( "Unknown 32" );
-        private readonly ParsedInt Unk33 = new( "Unknown 33" );
-
+        private readonly ParsedInt Unk23 = new( "Unknown 23", value: 1 );
 
         public C004( TmbFile file ) : base( file ) { }
 
@@ -54,38 +43,28 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
-            Unk2,
-            Unk3,
+            CRC,
+            TmfcId,
             CamName,
             Unk5,
             Unk6,
             Unk7,
-            Unk8,
+            Bind1,
             Unk9,
-            Unk10,
+            Bind2,
             Unk11,
             Unk12,
             Unk13,
-            Unk14,
+            Bind3,
             Unk15,
-            Unk16,
+            Bind4,
             Unk17,
             Unk18,
-            Unk19,
+            Bind5,
             Unk20,
-            Unk21,
+            Bind6,
             Unk22,
             Unk23,
-            Unk24,
-            Unk25,
-            Unk26,
-            Unk27,
-            Unk28,
-            Unk29,
-            Unk30,
-            Unk31,
-            Unk32,
-            Unk33,
         ];
     }
 }

@@ -37,13 +37,14 @@ namespace VfxEditor.Formats.ObsbFormat.Entry {
         }
 
         public void Write( BinaryWriter writer, int stringStartPos, BinaryWriter stringWriter, Dictionary<string, int> stringPos ) {
-            if( !stringPos.ContainsKey( Bone.Value ) ) {
+            if( !stringPos.TryGetValue( Bone.Value, out var value ) ) {
+                value =  stringStartPos + ( int )stringWriter.BaseStream.Position;
                 // Name not written yet
-                stringPos[Bone.Value] = stringStartPos + ( int )stringWriter.BaseStream.Position;
+                stringPos[Bone.Value] = value;
                 Bone.Write( stringWriter );
             }
 
-            writer.Write( stringPos[Bone.Value] );
+            writer.Write( value );
             Scale.Write( writer );
             Offset.Write( writer );
             Rotation.Write( writer );

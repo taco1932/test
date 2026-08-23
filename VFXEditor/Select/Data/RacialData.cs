@@ -42,7 +42,7 @@ namespace VfxEditor.Select.Data {
 
             foreach( var line in File.ReadAllLines( SelectDataUtils.CommonRacialPath ) ) {
                 var split = line.Split( "/" );
-                if( !Id.Equals( split[2] ) ) continue; // c0804
+                //if( !Id.Equals( split[2] ) ) continue; // c0804
 
                 ( split[4] switch {
                     "face" => FaceOptions,

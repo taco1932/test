@@ -84,7 +84,7 @@ namespace VfxEditor.Ui.Tools {
 
             if( !ImGui.TreeNodeEx( label ) ) return;
 
-            if( itemList.Count == 0 || !ImGui.BeginTable( $"##{label}_table", 4, ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.RowBg ) ) {
+            if( itemList.Count == 0 || !ImGui.BeginTable( $"##{label}_table", 4, ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.RowBg | ImGuiTableFlags.NoSavedSettings ) ) {
                 ImGui.TreePop();
                 return;
             }

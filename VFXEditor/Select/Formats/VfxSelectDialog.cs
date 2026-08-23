@@ -32,6 +32,7 @@ namespace VfxEditor.Select.Formats {
                 new GimmickTab( this, "Gimmick" ),
                 new HousingTab( this, "Housing" ),
                 new NpcTabVfx( this, "Npc" ),
+                new NpcIDTabVfx( this, "NpcID" ),
                 new MountTabVfx( this, "Mount" ),
                 new CutsceneTab( this, "Cutscene" ),
                 new JournalCutsceneTab( this, "Journal Cutscene" ),

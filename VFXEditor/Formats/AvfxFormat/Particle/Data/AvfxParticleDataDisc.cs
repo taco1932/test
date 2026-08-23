@@ -4,7 +4,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxInt PartsCount = new( "Parts Count", "PrtC" );
         public readonly AvfxInt PartsCountU = new( "Parts Count U", "PCnU" );
         public readonly AvfxInt PartsCountV = new( "Parts Count V", "PCnV" );
-        public readonly AvfxFloat PointIntervalFactoryV = new( "Point Interval Factor V", "PIFU" );
+        public readonly AvfxFloat PointIntervalFactoryV = new( "Point Interval Factor V (PIFU)", "PIFU" );
         public readonly AvfxCurve1Axis Angle = new( "Angle", "Ang", CurveType.Angle );
         public readonly AvfxCurve1Axis AngleRandom = new( "Angle Random", "AngR", CurveType.Angle );
         public readonly AvfxCurve1Axis HeightBeginInner = new( "Height Begin Inner", "HBI" );

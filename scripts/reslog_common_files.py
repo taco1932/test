@@ -6,12 +6,15 @@ uld_pattern = re.compile("^ui/uld/(.*).uld$")
 shpk_pattern = re.compile("^shader/sm5/shpk/(.*).shpk$") # only sm5 exists in current builds. originally excluded
 shcd_pattern = re.compile("^shader/sm5/(posteffect|shcd)/(.*).shcd$")
 vfx_pattern = re.compile("^(vfx/channeling|vfx/lockon|vfx/monster/c0|vfx/monster/c1|vfx/omen|bgcommon|vfx/live)(.*).avfx$")
+sgb_pattern = re.compile("^(bg|bgcommon)/(.*).sgb$")
+obsb_pattern = re.compile("^bgcommon/env/obset/(.*).obsb$")
+
 pap_pattern = re.compile("^chara/human/c(.*)/animation/a(.*)/bt_common/(event|event_base|gs|human_sp|idle_sp|music|normal|pc_contentsaction)/(.*).pap$")
 pap_pattern_craftgather = re.compile("^chara/human/c(.*)/animation/a(.*)/bt_(alc|arm|blk|wod|cok|gld|lth|sew|fel|fsh|min)_emp/(craft|diving_gather|event|fishing|fishing_chair|gather|harpoon|resident)/(.*).pap$")
 
-tmb_pattern = re.compile("chara/action/(.*).tmb")
-tmb_exceptionpattern = re.compile("chara/action/(ability|magic|mon_sp|mount_sp|rol_common|weapon|ws)/(.*).tmb") # checking against paths existing in other tabs
-tmb_pattern_weapon = re.compile("chara/action/weapon/(craft|event_base|fishing|gun_action|music|pc_contentsaction|special)(.*).tmb$")
+tmb_pattern = re.compile("^chara/action/(.*).tmb$")
+tmb_exceptionpattern = re.compile("^chara/action/(ability|magic|mon_sp|mount_sp|rol_common|weapon|ws)/(.*).tmb$") # checking against paths existing in other tabs
+tmb_pattern_weapon = re.compile("^chara/action/weapon/(craft|event_base|fishing|gun_action|music|pc_contentsaction|special)(.*).tmb$")
 tmb_pattern_loop_benchmark = re.compile("^chara/action/(.*)(loop|_bm)(.*).tmb$") # loop TMBs are mostly unaccounted for, so including those. benchmark is just because
 
 racial = []
@@ -21,6 +24,8 @@ shcd = []
 vfx = []
 pap = []
 tmb = []
+sgb = []
+obsb = []
 
 # chara/human/c0801/obj/face/f0207/material/mt_c0801f0207_fac_a.mtrl
 # chara/human/c0701/obj/hair/h0109/material/v0001/mt_c0701h0109_acc_b.mtrl
@@ -49,6 +54,16 @@ with open("CurrentPathList") as f:
         if shcd_pattern.match(path):
             shcd.append(path)
             shcd.sort()
+            continue
+
+        if sgb_pattern.match(path):
+            sgb.append(path)
+            sgb.sort()
+            continue
+
+        if obsb_pattern.match(path):
+            obsb.append(path)
+            obsb.sort()
             continue
 
         if vfx_pattern.match(path):
@@ -88,3 +103,9 @@ with open('common_pap', 'w') as outFile:
 
 with open('common_tmb', 'w') as outFile:
     outFile.write('\n'.join(tmb))
+
+with open('common_sgb', 'w') as outFile:
+    outFile.write('\n'.join(sgb))
+
+with open('common_obsb', 'w') as outFile:
+    outFile.write('\n'.join(obsb))

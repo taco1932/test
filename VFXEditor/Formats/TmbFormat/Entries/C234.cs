@@ -12,7 +12,6 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int Size => 0x20;
         public override int ExtraSize => 0;
 
-        // also TBD
         private readonly ParsedInt Unk1 = new( "Unknown 1" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
         private readonly ParsedShort Unk3a = new( "Unknown 3a" );

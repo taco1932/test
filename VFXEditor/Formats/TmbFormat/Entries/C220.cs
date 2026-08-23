@@ -6,7 +6,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
     public class C220 : TmbEntry {
         public const string MAGIC = "C220";
-        public const string DISPLAY_NAME = "----[TESTING [WILL CRASH]] (CUTB)";
+        public const string DISPLAY_NAME = "----[TESTING] (CUTB) [scheduler crash]";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 

@@ -13,7 +13,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" ); //
+        private readonly ParsedInt Unk2 = new( "CRC" );
         private readonly ParsedInt Unk3 = new( "Unknown 3" );
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
         private readonly ParsedFloat Unk5 = new( "Unknown 5" );

@@ -12,10 +12,10 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int Size => 0x20;
         public override int ExtraSize => 0;
 
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt Unk1 = new( "Unknown 1", value: 1 );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly TmbOffsetString Path = new( "Path" );
-        private readonly ParsedInt Unk3 = new( "Unknown 3" );
+        private readonly ParsedInt Unk3 = new( "Unknown 3" ); //10
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
 
         public C090( TmbFile file ) : base( file ) { }
@@ -24,7 +24,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
-            Unk2,
+            CRC,
             Path,
             Unk3,
             Unk4

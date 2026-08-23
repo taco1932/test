@@ -10,7 +10,7 @@ using VfxEditor.Formats.ScdFormat.Utils;
 namespace VfxEditor.ScdFormat.Music.Data {
     public class ScdHca : ScdAudioData {
         // Decoding based on Wintermute's implementation
-        // TODO: how is looping handled?
+
 
         // TODO: CRC right before the end of the header + data
         /*
@@ -18,18 +18,20 @@ namespace VfxEditor.ScdFormat.Music.Data {
             it'll give you 0
             (because they just crc everything up until the last 2 bytes, then whatever it returns, they write the last 2 bytes as it)
             (that's what that f8 2c is for)
-        */
+         */
 
         private readonly byte[] StreamData; // Decoded
         private readonly byte[] RawData; // What will be written, can be the same if there's no encryption
+
         private readonly short HeaderSize = 0x60;
         private readonly int BlockSize;
         private readonly bool PlainText = true;
+
         private readonly DecodeParams DecodeParams = DecodeParams.Default;
         private readonly HcaInfo HcaInfo;
-        private uint SamplesPerBlock => HcaInfo.ChannelCount * 0x80 * 8;
+        private uint SamplesPerBlock => 0x80 * 8; // fixed 1024 samples/block, independent of channel count
 
-        private readonly byte[] Unk1 = [ 0x02, 0x18 ];
+        private readonly byte[] Unk1 = [ 0x20, 0x18 ];
         private readonly byte[] Unk2 = [ 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00 ];
         private readonly byte[] Unk3 = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ];
 
@@ -84,30 +86,27 @@ namespace VfxEditor.ScdFormat.Music.Data {
             writer.Write( Unk2 );
             writer.Write( PlainText );
             writer.Write( Unk3 );
+
             writer.Write( RawData );
         }
 
-        public override int SamplesToBytes( int samples ) {
-            var targetBlock = (int) Math.Round( (float) samples / SamplesPerBlock );
-            return ( int )( targetBlock * HcaInfo.BlockSize );
+        // NOTE: for HCA, the SCD entry's LoopStart/LoopEnd are HCA block indices, not byte offsets
+        // (matches the block indices found in the HCA file's own native "loop" chunk)
+        public override int RawToSamples( int blocks ) => ( int )( blocks * SamplesPerBlock );
+
+        public override int SamplesToRaw( int samples ) => ( int )Math.Round( ( float )samples / SamplesPerBlock, MidpointRounding.AwayFromZero );
+
+        public override int TimeToRaw( float time ) {
+            var samples = ( int )Math.Round( time * HcaInfo.SamplingRate, MidpointRounding.AwayFromZero );
+            return SamplesToRaw( samples );
         }
 
-        public override int TimeToBytes( float time ) {
-            var samples = time * HcaInfo.SamplingRate;
-            return SamplesToBytes( ( int )samples  );
-        }
+        public override float RawToTime( int raw ) => ( float )RawToSamples( raw ) / HcaInfo.SamplingRate;
 
-        public float BytesToTime( int bytes ) {
-            var blockCount = (float) bytes / HcaInfo.BlockSize;
-            var samples = blockCount * SamplesPerBlock;
-            return samples / HcaInfo.SamplingRate;
-        }
-
-        public override Vector2 GetLoopTime() => new( BytesToTime( Entry.LoopStart ), BytesToTime( Entry.LoopEnd ) );
+        public override Vector2 GetLoopTime() => new( RawToTime( Entry.LoopStart ), RawToTime( Entry.LoopEnd ) );
 
         public override int GetSubInfoSize() => HeaderSize + 0x18;
 
-        // TODO
         public override Dictionary<string, GetAudioEntryDelegate> GetImportActions() => new() {
             ["wav"] = ImportWav,
             ["hca"] = ImportHca
@@ -150,6 +149,13 @@ namespace VfxEditor.ScdFormat.Music.Data {
             );
 
             entry.Data = new ScdHca( data, decoder.HcaInfo, entry );
+
+            // HCA files can carry their own native loop chunk (block indices), mirroring how OGG loop tags work
+            if( decoder.HcaInfo.LoopFlag ) {
+                entry.LoopStart = ( int )decoder.HcaInfo.LoopStart;
+                entry.LoopEnd = ( int )decoder.HcaInfo.LoopEnd;
+            }
+
             return entry;
         }
     }

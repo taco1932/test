@@ -20,9 +20,9 @@ namespace VfxEditor.Select.Tabs.Npc {
         public bool IsMonster => Type == NpcType.Monster;
         public string ModelString => ( IsMonster ? "m" : "d" ) + $"{ModelId:D4}";
         public string BaseIdString => $"{BaseId:D4}";
+        public string VariantString => $"{Variant:D4}";
         public string PathPrefix => IsMonster ? "monster" : "demihuman";
         public string RootPath => "chara/" + PathPrefix + "/" + ModelString + ( IsMonster ? "/obj/body/b" : "/obj/equipment/e" ) + BaseIdString + "/";
-
         public string AtchPath => $"chara/xls/attachoffset/{ModelString}.atch";
 
         public string ImcPath => RootPath + ( IsMonster ? "b" : "e" ) + BaseIdString + ".imc";
@@ -45,6 +45,10 @@ namespace VfxEditor.Select.Tabs.Npc {
         // chara/demihuman/d0001/obj/equipment/e0002/model/d0001e0002_met.mdl
         // chara/monster/m0150/obj/body/b0001/model/m0150 b0001.mdl
         public string GetMdlPath( string suffix ) => RootPath + "model/" + ModelString + ( IsMonster ? "b" : "e" ) + BaseIdString + ( IsMonster ? "" : "_" + suffix ) + ".mdl";
+
+        //chara/monster/m6004/obj/body/b0001/material/v0001/mt_m6004b0001_a.mtrl
+        //chara/demihuman/d0001/obj/equipment/e0000/material/v0001/mt_d0001e0000_met_a.mtrl
+        public string GetMtrlPath( string monsuffix, string demisuffix ) => RootPath + "material/v" + VariantString + "/mt_" + ModelString + ( IsMonster ? "b" : "e" ) + BaseIdString + ( IsMonster ? monsuffix : demisuffix ) + ".mtrl";
 
         public string GetName() => Name;
     }

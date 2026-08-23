@@ -19,9 +19,9 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedInt SpeakID = new( "Speak TMB ID" );
         private readonly ParsedInt Unk6 = new( "Unknown 6" );
 
-        public C197( TmbFile file ) : base( file ) { }
+        public C197( TmbFile file ) : base( file ) {}
 
-        public C197( TmbFile file, TmbReader reader ) : base( file, reader ) { }
+        public C197( TmbFile file, TmbReader reader ) : base( file, reader ) {}
 
         protected override List<ParsedBase> GetParsed() => [
             FadeTime,

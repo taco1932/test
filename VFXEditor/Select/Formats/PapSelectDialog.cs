@@ -20,6 +20,7 @@ namespace VfxEditor.Select.Formats {
                 new ActionTabPapNonPlayer( this, "Non-Player Action" ),
                 new EmoteTabPap( this, "Emote" ),
                 new NpcTabPap( this, "Npc" ),
+                new NpcIDTabPap( this, "NpcID" ),
                 new MountTabPap( this, "Mount" ),
                 new CharacterTabPap( this, "Character" ),
                 new JobTab( this, "Job" ),

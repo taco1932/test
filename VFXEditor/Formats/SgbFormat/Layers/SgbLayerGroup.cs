@@ -2,16 +2,17 @@ using Dalamud.Bindings.ImGui;
 using System.Collections.Generic;
 using System.IO;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
 using VfxEditor.Ui.Components.SplitViews;
 using VfxEditor.Ui.Interfaces;
 using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.SgbFormat.Layers {
     public class SgbLayerGroup : IUiItem {
-        public readonly ParsedUInt Id = new( "Id" );
+        public readonly ParsedIntByte4 Id = new( "Id" );
         public readonly ParsedString Name = new( "Name" );
 
-        private readonly List<SgbLayer> Layers = new();
+        private readonly List<SgbLayer> Layers = [];
         private readonly UiSplitView<SgbLayer> LayerView;
 
         public SgbLayerGroup() {

@@ -19,7 +19,7 @@ namespace VfxEditor.ScdFormat {
         private WaveStream RightStream;
         private IWaveProvider Volume;
         private MultiplexingWaveProvider LeftRightCombined;
-        private WasapiOut CurrentOutput;
+        private IWavePlayer CurrentOutput;
 
         private double TotalTime => LeftStream?.TotalTime == null ? 0 : LeftStream.TotalTime.TotalSeconds - 0.01f;
         private double CurrentTime => LeftStream?.CurrentTime == null ? 0 : LeftStream.CurrentTime.TotalSeconds;
@@ -223,7 +223,12 @@ namespace VfxEditor.ScdFormat {
                     Volume = pcmVolume;
                 }
 
-                CurrentOutput = new WasapiOut();
+                // Build and configure the player
+                CurrentOutput = new WasapiPlayerBuilder()
+                    .WithSharedMode()
+                    .Build();
+
+                // Connect your audio source and start playback
                 CurrentOutput.Init( Volume );
                 CurrentOutput.Play();
             }
@@ -263,7 +268,7 @@ namespace VfxEditor.ScdFormat {
             var extensions = Entry.Data.GetImportActions().Keys.Select( x => "." + x ).ToList();
             var filter = "{" + string.Join( ",", extensions ) + "}";
 
-            FileBrowserManager.OpenFileDialog( "Import File", $"Audio files{filter},.*", ( ok, res ) => {
+            FileBrowserManager.OpenFileDialog( "Import file", $"Audio files{filter},.*", ( ok, res ) => {
                 if( ok ) {
                     Reset();
                     Entry.File.Import( res, Entry );
@@ -272,7 +277,7 @@ namespace VfxEditor.ScdFormat {
         }
 
         private void SaveWaveDialog() {
-            FileBrowserManager.SaveFileDialog( "Select a Save Location", ".wav", "ExportedSound", "wav", ( bool ok, string res ) => {
+            FileBrowserManager.SaveFileDialog( "Select a save location", ".wav", "ExportedSound", "wav", ( ok, res ) => {
                 if( ok ) {
                     using var stream = Entry.Data.GetStream();
                     WaveFileWriter.CreateWaveFile( res, stream );
@@ -281,7 +286,7 @@ namespace VfxEditor.ScdFormat {
         }
 
         private void SaveAsDefaultFormatDialog() {
-            FileBrowserManager.SaveFileDialog( "Select a Save Location", $".{Entry.Data.GetDefaultExtension()}", "ExportedSound", Entry.Data.GetDefaultExtension(), ( ok, res ) => {
+            FileBrowserManager.SaveFileDialog( "Select a save location", $".{Entry.Data.GetDefaultExtension()}", "ExportedSound", Entry.Data.GetDefaultExtension(), ( ok, res ) => {
                 if( ok ) {
                     File.WriteAllBytes( res, Entry.Data.GetDefaultExtensionData() );
                 }

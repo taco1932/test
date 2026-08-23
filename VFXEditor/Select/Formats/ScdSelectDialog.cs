@@ -3,6 +3,7 @@ using VfxEditor.Select.Tabs.Actions;
 using VfxEditor.Select.Tabs.Bgm;
 using VfxEditor.Select.Tabs.BgmQuest;
 using VfxEditor.Select.Tabs.Common;
+using VfxEditor.Select.Tabs.Emotes;
 using VfxEditor.Select.Tabs.Instance;
 using VfxEditor.Select.Tabs.Mounts;
 using VfxEditor.Select.Tabs.Orchestrions;
@@ -14,6 +15,7 @@ namespace VfxEditor.Select.Formats {
         public ScdSelectDialog( string id, ScdManager manager, bool isSourceDialog ) : base( id, "scd", manager, isSourceDialog ) {
             GameTabs.AddRange( [
                 new ActionTabScd( this, "Actions" ),
+                new EmoteTabScd ( this, "Emote" ),
                 new MountTabScd( this, "Mount" ),
                 new OrchestrionTab( this, "Orchestrion" ),
                 new ZoneTabScd( this, "Zone" ),

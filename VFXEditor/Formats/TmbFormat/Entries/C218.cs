@@ -12,17 +12,18 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int Size => 0x18;
         public override int ExtraSize => 0;
 
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" ); //
+        private readonly ParsedInt Duration = new( "Duration" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedInt Unk3 = new( "Unknown 3" );
+        //code can get applied retroactively
 
         public C218( TmbFile file ) : base( file ) { }
 
         public C218( TmbFile file, TmbReader reader ) : base( file, reader ) { }
 
         protected override List<ParsedBase> GetParsed() => [
-            Unk1,
-            Unk2,
+            Duration,
+            CRC,
             Unk3
         ];
     }

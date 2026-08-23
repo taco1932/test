@@ -12,6 +12,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxBool IsLighting = new( "Is Lighting", "bLgt" );
         public readonly AvfxBool IsMorph = new( "Is Morph", "bShp" );
         public AvfxIntList ModelIdx = new( "Model Index", "MdNo", value: -1 );
+        //model IDs with specific cases in shared func: 320, 352, 384, 416, 448, 480, 511
         public readonly AvfxCurve1Axis AnimationNumber = new( "Animation Number", "NoAn" );
         public readonly AvfxCurve1Axis Morph = new( "Morph", "Moph" );
         public readonly AvfxCurve1Axis FresnelCurve = new( "Fresnel Curve", "FrC" );
@@ -45,7 +46,7 @@ namespace VfxEditor.AvfxFormat {
                 ColorEnd
             ];
 
-            ParameterTab.Add( ModelSelect = new AvfxNodeSelectList<AvfxModel>( particle, "Model", particle.NodeGroups.Models, ModelIdx, 8 ) );
+            ParameterTab.Add( ModelSelect = new AvfxNodeSelectList<AvfxModel>( particle, "Model", particle.NodeGroups.Models, ModelIdx, 15 ) ); //originally 8, but decomp shows 15 cases
             ParameterTab.Add( ModelNumberRandomValue );
             ParameterTab.Add( ModelNumberRandomType );
             ParameterTab.Add( ModelNumberRandomInterval );

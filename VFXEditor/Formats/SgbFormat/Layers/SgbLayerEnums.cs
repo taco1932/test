@@ -7,10 +7,11 @@ using VfxEditor.Formats.SgbFormat.Layers.Objects;
 using VfxEditor.Parsing;
 using VfxEditor.Ui.Interfaces;
 using VfxEditor.Utils;
+using VfxEditor.Parsing.Int;
 
 namespace VfxEditor.Formats.SgbFormat.Layers {
     public class SgbLayer : IUiItem {
-        public readonly ParsedUInt Id = new( "Layer Id" );
+        public readonly ParsedIntByte4 Id = new( "Layer Id" );
         public readonly ParsedString Name = new( "Name" );
         private readonly ParsedByteBool ToolModeVisible = new( "Tool Mode Visible" );
         private readonly ParsedByteBool ToolModeReadOly = new( "Tool Mode Readonly" );

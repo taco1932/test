@@ -206,7 +206,7 @@ namespace VfxEditor.AvfxFormat {
             SphereModel = 3,
             CylinderModel = 4,
             Model = 5,
-            Unknown = 6
+            Unknown = 6 //DNE?
         }
         public enum GenerateMethod {
             RandomToVertex = 0,
@@ -220,7 +220,9 @@ namespace VfxEditor.AvfxFormat {
         }
         public enum WindmillUVType {
             Default = 0,
-            Mirror = 1
+            Mirror = 1,
+            Test1 = 2,
+            Test2 = 3,
         }
 
         public enum CreateTimeOptions {
@@ -260,7 +262,7 @@ namespace VfxEditor.AvfxFormat {
             Linear = 1,
             Spline = 2,
             Camera = 3,
-            Unknown_4 = 4,
+            LinearAdjust = 4,
         }
         public enum BindPoint {
             Caster = 0,
@@ -280,9 +282,9 @@ namespace VfxEditor.AvfxFormat {
             ChromaticAberration = 3,
             GaussianBlur = 4,
             DirectionalBlur = 5,
-            CameraQuake_Variable = 6, //case 6 in source code is blank
+            CameraQuake_Variable = 6, //case 6 in source code is blank, leads right into case 9
             RadialBlur = 7,
-            BlackHole = 8, //case 8 exists, but unsure what it's doing
+            BlackHole = 8, //case 8 exists and has a table, but unsure what it's doing
             CameraQuake = 9
         }
         public enum PointLightAttenuation {
@@ -323,9 +325,13 @@ namespace VfxEditor.AvfxFormat {
         }
 
         public enum DissolveShape {
+            Full = 0,
             RectangularPrism = 1,
             Sphere = 2,
-            Cylinder = 3
+            Cylinder = 3,
+            Test1 = 4,
+            Test2 = 5,
+            Test3 = 6,
         }
 
         [Flags]
@@ -334,7 +340,9 @@ namespace VfxEditor.AvfxFormat {
             Character = 0x01,
             Weapon = 0x02,
             Off_Hand = 0x04,
-            Summon = 0x08
+            Summon = 0x08,
+            Test1 = 0x10,
+            Test2 = 0x20,
         }
     }
 }

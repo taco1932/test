@@ -1,9 +1,6 @@
-using System;
 using System.IO;
-using System.Numerics;
 using VfxEditor.Formats.ObsbFormat.Entry;
 using VfxEditor.Parsing.Utils;
-using VfxEditor.Utils;
 
 namespace VfxEditor.ObsbFormat.Utils {
     public class ObsbWriter : ParsingWriter {

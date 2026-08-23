@@ -13,16 +13,8 @@ namespace VfxEditor.Select.Tabs.Character {
 
         public List<(string, uint, string)> FacePaths;
 
-        public string GroundStart;
-        public string Jmn;
-        public string ChairStart;
-        public string Sit;
-        public string Umbrella;
-        public string Pack;
-        public string Torch;
-        public Dictionary<string, Dictionary<string, string>> GroundSitPoses;
-        public Dictionary<string, Dictionary<string, string>> ChairSitPoses;
-        public Dictionary<string, Dictionary<string, string>> OrnamentPoses;
+        public string GroundStart, Jmn, ChairStart, Sit, Umbrella, Pack, Torch, GatlingGun, GatlingIdle, Shovel, Wings, Unknown; //wings are just the white ones?
+        public Dictionary<string, Dictionary<string, string>> GroundSitPoses, ChairSitPoses, OrnamentPoses;
     }
 
     public class CharacterTabPap : SelectTab<CharacterRow, SelectedPap> {
@@ -82,7 +74,7 @@ namespace VfxEditor.Select.Tabs.Character {
                 var start = item.GetOrnamentStartPap( i, "onm_" );
                 var loop = item.GetOrnamentLoopPap( i, "onm_" );
                 if( Dalamud.DataManager.FileExists( start ) && Dalamud.DataManager.FileExists( loop ) ) {
-                    ornamentPoses.Add( $"Ornament Pose {i}", new Dictionary<string, string>() {
+                    ornamentPoses.Add( $"Umbrella Pose {i}", new Dictionary<string, string>() {
                         { "Start", start },
                         { "Loop", loop }
                     } );
@@ -94,9 +86,14 @@ namespace VfxEditor.Select.Tabs.Character {
             var sit = item.GetPap( "emote/sit" );
             var chairStart = item.GetPap( "event_base/event_base_chair_start" );
             //ornaments
+            var unknown = item.GetOrnamentResidentPap( "ot_m6000/resident/ornament" );
             var umbrella = item.GetOrnamentResidentPap( "ot_m6001/resident/ornament" );
+            var wings = item.GetOrnamentResidentPap( "ot_m6002/resident/ornament" );
             var pack = item.GetOrnamentResidentPap( "ot_m6008/resident/ornament" );
             var torch = item.GetOrnamentResidentPap( "ot_m6011/resident/ornament" );
+            var gatling = item.GetOrnamentResidentPap( "ot_m6016/resident/ornament" );
+            var gatlingIdle = item.GetOrnamentResidentPap( "bt_common/ornament_sp/m6016/onm_pose01_loop.pap" );
+            var shovel = item.GetOrnamentResidentPap( "ot_m6017/resident/ornament" );
 
             var facePaths = item.Data.FaceOptions
                 .Select( id => (id, $"chara/human/{item.SkeletonId}/animation/f{id:D4}/resident/face.pap") )
@@ -116,9 +113,14 @@ namespace VfxEditor.Select.Tabs.Character {
                 Sit = Dalamud.DataManager.FileExists( sit ) ? sit : null,
                 ChairStart = Dalamud.DataManager.FileExists( chairStart ) ? chairStart : null,
                 //ornaments
+                Unknown = Dalamud.DataManager.FileExists( unknown ) ? unknown : null,
                 Umbrella = Dalamud.DataManager.FileExists( umbrella ) ? umbrella : null,
+                Wings = Dalamud.DataManager.FileExists( wings ) ? wings : null,
                 Pack = Dalamud.DataManager.FileExists( pack ) ? pack : null,
                 Torch = Dalamud.DataManager.FileExists( torch ) ? torch : null,
+                GatlingGun = Dalamud.DataManager.FileExists( gatling ) ? gatling : null,
+                GatlingIdle = Dalamud.DataManager.FileExists( gatlingIdle ) ? gatlingIdle : null,
+                Shovel = Dalamud.DataManager.FileExists( shovel ) ? shovel : null,
             };
         }
 
@@ -160,9 +162,14 @@ namespace VfxEditor.Select.Tabs.Character {
             }
             if( ImGui.BeginTabItem( "Fashion Accessory" ) ) {
                 Dialog.DrawPaths( new Dictionary<string, string>() {
+                    { "Move (Unused?)", Loaded.Unknown },
                     { "Move (Umbrella)", Loaded.Umbrella },
+                    { "Move (Wings (some random one))", Loaded.Wings },
                     { "Move (Backpack)", Loaded.Pack },
-                    { "Move (Torch)", Loaded.Torch },
+                    { "Move (Torch/Lantern)", Loaded.Torch },
+                    { "Move (Gatling Gun)", Loaded.GatlingGun },
+                    { "Idle (Gatling Gun)", Loaded.GatlingIdle },
+                    { "Move (Shovel)", Loaded.Shovel },
                 }, Selected.Name, SelectResultType.GameCharacter );
 
                 ImGui.Separator();

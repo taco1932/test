@@ -191,11 +191,11 @@ namespace VfxEditor.Interop {
                     null,
                     0
                 );
-            if( decRef && resource->RefCount > 0 ) resource->DecRef();
+            if( resource != null && decRef && resource->RefCount > 0 ) resource->DecRef();
 
             return resource;
         }
 
-        private static bool DoDebug( string path ) => Plugin.State == WorkspaceState.None && Plugin.Groups.Where( x => x != null && x.DoDebug( path ) ).Any();
+        private static bool DoDebug( string path ) => Plugin.State == WorkspaceState.None && Plugin.Groups.Any( x => x != null && x.DoDebug( path ) );
     }
 }

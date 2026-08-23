@@ -23,7 +23,7 @@ namespace VfxEditor.Select.Tabs.Zone {
                 };
             }
             else {
-                loaded = new(); //wip
+                loaded = new(); // TODO: BgmId > 50000 maps to quest-linked BGM switches, not yet resolved
             }
             //foreach( var bgmSwitch in Dalamud.DataManager.GetExcelSheet<BGMSwitch>().Where( x => x.RowId == item.BgmId ) ) {
             //    var questName = bgmSwitch.Quest.ValueNullable?.Name.ToString();

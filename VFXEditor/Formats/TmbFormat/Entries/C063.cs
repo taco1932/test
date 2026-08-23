@@ -26,7 +26,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Loop = new( "Loop/Duration", value: 1 );
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly TmbOffsetString Path = new( "Path", null, true );
         private readonly ParsedInt SoundIndex = new( "Sound Index" );
         private readonly ParsedFlag<SoundPositionFilter> SoundPosition = new( "Sound Position", size: 1 );
@@ -51,7 +51,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Loop,
-            Unk1,
+            CRC,
             Path,
             SoundIndex,
             SoundPosition,

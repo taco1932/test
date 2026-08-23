@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
@@ -12,16 +13,14 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int Size => 0x28;
         public override int ExtraSize => 0;
 
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt Unk3 = new( "Unknown 3" );
+        private readonly ParsedInt Unk1 = new( "Unknown 1", value: 1 );
+        private readonly ParsedInt Unk2 = new( "Unknown 2" ); //0x25 in fesxma05100
+        //3, 5 (one of the rare ones that doesn't seem to be CRC? or the calculation is based on something that results in a low value)
+        private readonly ParsedInt Unk3 = new( "Unknown 3" ); //points to a bunch of offset floats
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
-        private readonly ParsedIntColor Unk5 = new( "Unknown 5" );
-        //private readonly ParsedByte Unk5 = new( "Unknown 5" );
-        //private readonly ParsedByte Unk6 = new( "Unknown 6" );
-        //private readonly ParsedShort Unk7 = new( "Unknown 7" );
-        private readonly ParsedInt Unk8 = new( "Unknown 8" );
-        private readonly ParsedFloat Unk9 = new( "Unknown 9" );
+        private readonly ParsedIntByte4 Unk5 = new( "Unknown 5" );
+        private readonly ParsedInt Unk6 = new( "Unknown 6" );
+        private readonly ParsedFloat Unk7 = new( "Unknown 7" ); //390.0
 
         public C114( TmbFile file ) : base( file ) { }
 
@@ -33,10 +32,8 @@ namespace VfxEditor.TmbFormat.Entries {
             Unk3,
             Unk4,
             Unk5,
-           //Unk6,
-           //Unk7,
-            Unk8,
-            Unk9
+            Unk6,
+            Unk7,
         ];
     }
 }

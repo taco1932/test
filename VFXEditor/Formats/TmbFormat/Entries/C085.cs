@@ -13,8 +13,8 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Unk1 = new( "Unknown 1", value: 1 );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly TmbOffsetString Unk3 = new( "Path (VFX or camera?)" );
+        private readonly ParsedInt CRC = new( "CRC" );
+        private readonly TmbOffsetAngle3 Unk3 = new( "Unknown 3" ); //placeholder. points to eight bytes of non-floats
         private readonly ParsedInt Unk4 = new( "Unknown 4", value: 1 );
         private readonly ParsedInt Unk5 = new( "Unknown 5" ); // 1 or 4
 
@@ -25,7 +25,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
-            Unk2,
+            CRC,
             Unk3,
             Unk4,
             Unk5

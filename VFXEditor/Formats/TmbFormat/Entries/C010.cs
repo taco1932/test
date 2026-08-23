@@ -26,9 +26,14 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int Size => 0x28;
         public override int ExtraSize => 0;
 
-        private readonly ParsedInt Duration = new( "Duration", value: 50 );
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedFlag<AnimationFlags> Flags = new( "Flags" );
+        private readonly ParsedInt Duration = new( "Duration" );
+        private readonly ParsedInt Unk1 = new( "CRC" );
+        private readonly ParsedFlag<AnimationFlags> Flags = new( "Flags", size: 1 ); //never seen beyond 1
+        private readonly ParsedByte Unk3 = new ( "Unknown 3 [after flags]" ); //1-6. probably an enum
+        //seen in CUTB
+        //it's breaking blends and allowing weapon draw during standing looped emotes
+        private readonly ParsedByte Unk4 = new ( "Unknown 4 [after flags]" ); //0
+        private readonly ParsedByte Unk5 = new ( "Unknown 5 [after flags]" ); //8
         private readonly ParsedFloat AnimationStart = new( "Animation Start Frame" );
         private readonly ParsedFloat AnimationEnd = new( "Animation End Frame" );
         private readonly TmbOffsetString Path = new( "Path" );
@@ -42,6 +47,8 @@ namespace VfxEditor.TmbFormat.Entries {
             Duration,
             Unk1,
             Flags,
+            Unk3,
+            Unk4,
             AnimationStart,
             AnimationEnd,
             Path,
@@ -50,7 +57,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         public override void DrawBody() {
             DrawHeader();
-
+            Unk1.Draw();
             Flags.Draw();
 
             using( var disabled = ImRaii.Disabled( !Flags.HasFlag( AnimationFlags.Time_Control_Enabled ) ) ) {
@@ -59,9 +66,11 @@ namespace VfxEditor.TmbFormat.Entries {
                 AnimationEnd.Draw();
             }
 
-            Unk1.Draw();
             Path.Draw();
             Unk2.Draw();
+            Unk3.Draw();
+            Unk4.Draw();
+            Unk5.Draw();
         }
     }
 }

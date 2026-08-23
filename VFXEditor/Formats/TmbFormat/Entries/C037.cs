@@ -11,7 +11,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override string Magic => MAGIC;
 
         public override int Size => 0x78;
-        public override int ExtraSize => 0;
+        public override int ExtraSize => 4 * 19;
 
         private readonly ParsedInt Unk1 = new( "Unknown 1" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );

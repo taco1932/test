@@ -1,4 +1,3 @@
-using Dalamud.Interface.Utility.Raii;
 using System.IO;
 using VfxEditor.Parsing;
 using VfxEditor.Ui.Interfaces;

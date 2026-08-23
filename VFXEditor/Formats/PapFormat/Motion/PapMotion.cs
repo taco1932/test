@@ -87,6 +87,68 @@ namespace VfxEditor.PapFormat.Motion {
             return unanimatedBones;
         }
 
+        // sampleAndCombineAnimations uses the binding's track-to-bone indices to address the
+        // skeleton's own internal arrays (Bones, ReferencePose, ParentIndices, FloatSlots).
+        // Those arrays are only Skeleton->Bones.Length / FloatSlots.Length long, so any index
+        // past the end reads garbage from adjacent heap memory and may also write blended
+        // results into skeleton-internal pose buffers sized for the real bone count. The heap
+        // corruption then surfaces seconds later when the game's own Framework.Tick touches
+        // the damaged memory, producing a crash in the GAME's call stack (not the plugin's).
+        // We must refuse to sample when the skeleton doesn't fit the animation.
+
+        public bool HasMismatchedSkeleton() {
+            var numBones = Skeleton->Bones.Length;
+            for( var i = 0; i < Binding->TransformTrackToBoneIndices.Length; i++ ) {
+                var idx = Binding->TransformTrackToBoneIndices[i];
+                if( idx >= 0 && idx >= numBones ) return true;
+            }
+            var numFloats = Skeleton->FloatSlots.Length;
+            for( var i = 0; i < Binding->FloatTrackToFloatSlotIndices.Length; i++ ) {
+                var idx = Binding->FloatTrackToFloatSlotIndices[i];
+                if( idx >= 0 && idx >= numFloats ) return true;
+            }
+            return false;
+        }
+
+        private short[] ClampedBoneIndices;
+        private short[] ClampedFloatIndices;
+
+        // Animations made for skeletons with more bones than the one the game will use reference bone
+        // indices past the end of that skeleton. The game writes to these indices directly when sampling
+        // the animation, so out-of-range indices corrupt memory and crash the game. They are temporarily
+        // removed before the animation is serialized, and restored afterwards so the original data is kept
+
+        public void ClampTrackIndices() {
+            var numBones = Skeleton->Bones.Length;
+            var numFloats = Skeleton->FloatSlots.Length;
+
+            ClampedBoneIndices = new short[Binding->TransformTrackToBoneIndices.Length];
+            for( var i = 0; i < Binding->TransformTrackToBoneIndices.Length; i++ ) {
+                ClampedBoneIndices[i] = Binding->TransformTrackToBoneIndices[i];
+                var idx = ClampedBoneIndices[i];
+                if( idx < 0 || idx >= numBones ) Binding->TransformTrackToBoneIndices[i] = -1;
+            }
+
+            ClampedFloatIndices = new short[Binding->FloatTrackToFloatSlotIndices.Length];
+            for( var i = 0; i < Binding->FloatTrackToFloatSlotIndices.Length; i++ ) {
+                ClampedFloatIndices[i] = Binding->FloatTrackToFloatSlotIndices[i];
+                var idx = ClampedFloatIndices[i];
+                if( idx < 0 || idx >= numFloats ) Binding->FloatTrackToFloatSlotIndices[i] = -1;
+            }
+        }
+
+        public void UnclampTrackIndices() {
+            var numBones = Skeleton->Bones.Length;
+            var numFloats = Skeleton->FloatSlots.Length;
+
+            if( ClampedBoneIndices != null ) {
+                for( var i = 0; i < ClampedBoneIndices.Length; i++ ) Binding->TransformTrackToBoneIndices[i] = ClampedBoneIndices[i];
+            }
+            if( ClampedFloatIndices != null ) {
+                for( var i = 0; i < ClampedFloatIndices.Length; i++ ) Binding->FloatTrackToFloatSlotIndices[i] = ClampedFloatIndices[i];
+            }
+        }
+
         public void Dispose() {
             AnimatedSkeleton->removeAnimationControl( AnimationControl );
             Marshal.FreeHGlobal( ( nint )AnimatedSkeleton );

@@ -8,11 +8,13 @@ namespace VfxEditor.Select.Tabs.NpcID {
         public List<string> vfx;
         public List<string> tmb;
         public List<string> pap;
+        public List<string> atch;
 
         public NpcFilesStruct() {
             vfx = [];
             tmb = [];
             pap = [];
+            atch = [];
         }
     }
 
