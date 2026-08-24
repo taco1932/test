@@ -8,6 +8,7 @@ shcd_pattern = re.compile("^shader/sm5/(posteffect|shcd)/(.*).shcd$")
 vfx_pattern = re.compile("^(vfx/channeling|vfx/lockon|vfx/monster/c0|vfx/monster/c1|vfx/omen|bgcommon|vfx/live)(.*).avfx$")
 sgb_pattern = re.compile("^(bg|bgcommon)/(.*).sgb$")
 obsb_pattern = re.compile("^bgcommon/env/obset/(.*).obsb$")
+scd_pattern = re.compile("^sound/(cut|event|foot|instruments|nc)/(.*).scd$")
 
 pap_pattern = re.compile("^chara/human/c(.*)/animation/a(.*)/bt_common/(event|event_base|gs|human_sp|idle_sp|music|normal|pc_contentsaction)/(.*).pap$")
 pap_pattern_craftgather = re.compile("^chara/human/c(.*)/animation/a(.*)/bt_(alc|arm|blk|wod|cok|gld|lth|sew|fel|fsh|min)_emp/(craft|diving_gather|event|fishing|fishing_chair|gather|harpoon|resident)/(.*).pap$")
@@ -26,6 +27,7 @@ pap = []
 tmb = []
 sgb = []
 obsb = []
+scd = []
 
 # chara/human/c0801/obj/face/f0207/material/mt_c0801f0207_fac_a.mtrl
 # chara/human/c0701/obj/hair/h0109/material/v0001/mt_c0701h0109_acc_b.mtrl
@@ -59,6 +61,11 @@ with open("CurrentPathList") as f:
         if sgb_pattern.match(path):
             sgb.append(path)
             sgb.sort()
+            continue
+
+        if scd_pattern.match(path):
+            scd.append(path)
+            scd.sort()
             continue
 
         if obsb_pattern.match(path):
@@ -109,3 +116,6 @@ with open('common_sgb', 'w') as outFile:
 
 with open('common_obsb', 'w') as outFile:
     outFile.write('\n'.join(obsb))
+
+with open('common_scd', 'w') as outFile:
+    outFile.write('\n'.join(scd))

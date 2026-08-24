@@ -117,7 +117,7 @@ namespace VfxEditor {
                 },
                 new IFileManagerGroup[]{
                     TmbManager,
-                    PapManager,
+                    PapManager
                 },
                 new IFileManagerGroup[]{
                     ScdManager
@@ -126,22 +126,25 @@ namespace VfxEditor {
                     UldManager
                 },
                 new IFileManagerGroup[]{
-                    SklbManager,
-                    SkpManager,
-                    PhybManager,
-                    EidManager,
-                    WtdManager,
-                    AwtManager,
                     AtchManager,
-                    KdbManager,
-                    PbdManager,
-                    SgbManager,
+                    EidManager,
+                    MdlManager,
+                    PhybManager,
+                    SklbManager
                 },
                 new IFileManagerGroup[]{
-                    MdlManager,
+                    SgbManager
+                },
+                new IFileManagerGroup[]{
+                    AwtManager,
+                    KdbManager,
                     MtrlManager,
+                    ObsbManager,
+                    PbdManager,
                     ShpkManager,
-                    ShcdManager
+                    ShcdManager,
+                    SkpManager,
+                    WtdManager
                 }
             };
 

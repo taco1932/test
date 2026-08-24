@@ -351,6 +351,7 @@ ui/uld/EurekaLogosShardList.uld
 ui/uld/EurekaLogosShardSynthesis.uld
 ui/uld/EurekaWeaponUpgrade.uld
 ui/uld/EurekaWeaponUpgradeDialogue.uld
+ui/uld/eventimage.uld
 ui/uld/EventSkip.uld
 ui/uld/eventtutorial.uld
 ui/uld/ex_hotbar_editor.uld
@@ -618,6 +619,9 @@ ui/uld/JournalAccept.uld
 ui/uld/JournalDetail.uld
 ui/uld/JournalResult.uld
 ui/uld/journalrewarditem.uld
+ui/uld/keyboardinput.uld
+ui/uld/ktgimgaelocationtitle.uld
+ui/uld/ktgscreentextclear.uld
 ui/uld/LegacyItemStorage.uld
 ui/uld/LetterAddress.uld
 ui/uld/LetterEditor.uld
@@ -753,6 +757,8 @@ ui/uld/mkdlorebook.uld
 ui/uld/mkdlorebookdiscovery.uld
 ui/uld/mkdrelicgrowth.uld
 ui/uld/mkdrelicgrowth2.uld
+ui/uld/mkdrelicgrowth3.uld
+ui/uld/mkdrelicgrowth4.uld
 ui/uld/mkdsupportjob.uld
 ui/uld/mkdsupportjoblist.uld
 ui/uld/mkdtowerentry.uld
@@ -1178,5 +1184,20 @@ ui/uld/WorkshopSupplyResult.uld
 ui/uld/WorldTranslate.uld
 ui/uld/WorldTranslateConfirm.uld
 ui/uld/WorldTranslateStatus.uld
+ui/uld/xbmactivepet.uld
+ui/uld/xbmbonuslist.uld
+ui/uld/xbmbooty.uld
+ui/uld/xbmgearset.uld
+ui/uld/xbmhud.uld
 ui/uld/xbmitemdetail.uld
+ui/uld/xbmitemdispose.uld
+ui/uld/xbmmonsterbookdetail.uld
 ui/uld/xbmmonsterinfo.uld
+ui/uld/xbmpetparty.uld
+ui/uld/xbmranking.uld
+ui/uld/xbmshop.uld
+ui/uld/xbmstagedetail.uld
+ui/uld/xbmstagelist.uld
+ui/uld/xbmstagemap.uld
+ui/uld/xbmstagesummury.uld
+ui/uld/xbmtreasure.uld

@@ -3,8 +3,10 @@ using VfxEditor.Select.Base;
 
 namespace VfxEditor.Select.Tabs.NpcID {
     public enum NpcType {
+        Human = 1,
         Demihuman = 2,
-        Monster = 3
+        Monster = 3,
+        Weapon = 4
     }
 
     public class NpcRow : ISelectItem {

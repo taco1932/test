@@ -18,6 +18,7 @@ namespace VfxEditor.Select {
         public static string CommonPapPath => Path.Combine( Plugin.RootLocation, "Files", "common_pap" );
         public static string CommonSgbPath => Path.Combine( Plugin.RootLocation, "Files", "common_sgb" );
         public static string CommonObsbPath => Path.Combine( Plugin.RootLocation, "Files", "common_obsb" );
+        public static string CommonScdPath => Path.Combine( Plugin.RootLocation, "Files", "common_scd" );
 
         [GeneratedRegex( "\\u0000([a-zA-Z0-9\\/_]*?)\\.avfx", RegexOptions.Compiled )]
         private static partial Regex AvfxRegexPattern();

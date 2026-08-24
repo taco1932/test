@@ -10,7 +10,7 @@ using VfxEditor.Utils;
 
 namespace VfxEditor.Ui.Import {
     public class PenumbraImportDialog : DalamudWindow {
-        protected readonly List<string> AllowedTypes = ["avfx", "atex", "tmb", "pap", "scd", "uld", "sklb", "skp", "phyb", "eid", "atch", "wtd", "awt", "kdb", "pbd", "mdl", "mtrl", "shpk", "shcd"];
+        protected readonly List<string> AllowedTypes = ["avfx", "atex", "tmb", "pap", "scd", "uld", "sklb", "skp", "phyb", "eid", "atch", "wtd", "awt", "obsb", "sgb", "kdb", "pbd", "mdl", "mtrl", "shpk", "shcd"];
 
         protected readonly List<PenumbraImportItem> Items = [];
 

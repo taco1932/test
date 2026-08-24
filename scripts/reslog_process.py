@@ -32,6 +32,7 @@ with open("CurrentPathList") as f:
         elif 'chara/action/mon_sp' in path and '.tmb' in path:
             _id = path.split("/")[3]
             _type = "tmb"
+        # add in atch data
         else:
             continue
 

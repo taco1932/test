@@ -1,4 +1,4 @@
-using System.IO;
+/*using System.IO;
 using VfxEditor.Formats.ObsbFormat.Entry;
 using VfxEditor.Parsing.Utils;
 
@@ -45,3 +45,4 @@ namespace VfxEditor.ObsbFormat.Utils {
         }
     }
 }
+*/

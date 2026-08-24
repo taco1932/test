@@ -3,8 +3,12 @@ using VfxEditor.Select.Tabs.Actions;
 using VfxEditor.Select.Tabs.Bgm;
 using VfxEditor.Select.Tabs.BgmQuest;
 using VfxEditor.Select.Tabs.Common;
+using VfxEditor.Select.Tabs.CutSounds;
 using VfxEditor.Select.Tabs.Emotes;
+using VfxEditor.Select.Tabs.EventSounds;
+using VfxEditor.Select.Tabs.Foot;
 using VfxEditor.Select.Tabs.Instance;
+using VfxEditor.Select.Tabs.Instruments;
 using VfxEditor.Select.Tabs.Mounts;
 using VfxEditor.Select.Tabs.Orchestrions;
 using VfxEditor.Select.Tabs.Voice;
@@ -23,6 +27,10 @@ namespace VfxEditor.Select.Formats {
                 new BgmQuestTab( this, "Quest BGM" ),
                 new InstanceTab( this, "Instance" ),
                 new VoiceTab( this, "Voice" ),
+                new CutSoundsTab( this, "Cutscene (General)" ),
+                new EventSoundsTab( this, "Cutscene (Unvoiced)" ),
+                new FootTab( this, "Footsteps" ),
+                new InstrumentsTab( this, "Instruments" ),
                 new CommonTabScd( this, "Common" ),
             ] );
         }

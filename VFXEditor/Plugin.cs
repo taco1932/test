@@ -75,6 +75,7 @@ namespace VfxEditor {
             MdlManager,
             KdbManager,
             PbdManager,
+            ObsbManager,
         ];
 
         public static AtchManagerGroup AtchManager { get; private set; }
@@ -133,6 +134,7 @@ namespace VfxEditor {
             KdbManager = new();
             MtrlManager = new();
             MdlManager = new();
+            ObsbManager = new();
             PapManager = new();
             PbdManager = new();
             PhybManager = new();

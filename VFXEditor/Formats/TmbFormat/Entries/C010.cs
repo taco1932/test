@@ -49,6 +49,7 @@ namespace VfxEditor.TmbFormat.Entries {
             Flags,
             Unk3,
             Unk4,
+            Unk5,
             AnimationStart,
             AnimationEnd,
             Path,
