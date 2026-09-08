@@ -16,6 +16,7 @@ namespace VfxEditor.PapFormat {
         private readonly List<string> Prefixes = [
             "cbfp",
             "cbfa",
+            "cbea",
             "cbep",
             "cbba",
             "csnw",

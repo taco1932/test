@@ -5,7 +5,7 @@ using VfxEditor.TmbFormat.Utils;
 namespace VfxEditor.TmbFormat.Entries {
     public class C233 : TmbEntry {
         public const string MAGIC = "C233";
-        public const string DISPLAY_NAME = "Freeze Animation? ----[TESTING] (CUTB)";
+        public const string DISPLAY_NAME = "----[TESTING] (CUTB)";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 

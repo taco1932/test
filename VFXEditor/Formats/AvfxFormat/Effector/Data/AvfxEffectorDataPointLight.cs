@@ -1,4 +1,3 @@
-using System.IO;
 using VFXEditor.Formats.AvfxFormat.Curve;
 using static VfxEditor.AvfxFormat.Enums;
 

@@ -14,7 +14,8 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt Enabled = new( "Enabled" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedBool Blink = new( "Blink Status" );
+        private readonly ParsedShort Blink = new( "Blink Status" );
+        private readonly ParsedShort Unk3 = new( "Unknown 3.5" );
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
 
         public C161( TmbFile file ) : base( file ) { }
@@ -25,6 +26,7 @@ namespace VfxEditor.TmbFormat.Entries {
             Enabled,
             Unk2,
             Blink,
+            Unk3,
             Unk4
         ];
     }

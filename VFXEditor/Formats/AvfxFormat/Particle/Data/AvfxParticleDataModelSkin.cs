@@ -5,7 +5,7 @@ namespace VfxEditor.AvfxFormat {
     public class AvfxParticleDataModelSkin : AvfxDataWithParameters {
         // All-new to dawntrail
         public readonly AvfxEnum<FresnelType> FresnelType = new( "Fresnel Type", "FrsT" );
-        public readonly AvfxFlag<AuraFilter> AuraTarget = new( "Aura Target", "AuTT" );
+        public readonly AvfxFlag<AuraFilter> AuraTarget = new( "Target Type", "AuTT" );
         public readonly AvfxInt CM = new( "CM", "bCM" );
         public readonly AvfxCurve1Axis FresnelCurve = new( "Fresnel Curve", "FrC" );
         public readonly AvfxCurve1Axis FresnelCurveRandom = new( "Fresnel Curve Random", "FrCR" ); //

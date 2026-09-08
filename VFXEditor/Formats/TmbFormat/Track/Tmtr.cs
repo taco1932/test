@@ -22,7 +22,7 @@ namespace VfxEditor.TmbFormat {
 
         public readonly List<TmbEntry> Entries = [];
         private readonly List<int> TempIds;
-        public DangerLevel MaxDanger => Entries.Count == 0 ? DangerLevel.None : Entries.Select( x => x.Danger ).Max();
+        public DangerLevel MaxDanger => Entries.Count == 0 ? DangerLevel.None : Entries.Max( x => x.Danger );
 
         private TmtrLuaEntry DraggingItem;
         private readonly ParsedByteBool LuaAssigned = new( "Use Lua Condition", value: false );

@@ -9,7 +9,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxEnum<FresnelType> FresnelType = new( "Fresnel Type", "FrsT" );
         public readonly AvfxEnum<DirectionalLightType> DirectionalLightType = new( "Directional Light Type", "DLT" );
         public readonly AvfxEnum<PointLightType> PointLightType = new( "Point Light Type", "PLT" );
-        public readonly AvfxBool IsLighting = new( "Is Lighting", "bLgt" );
+        public readonly AvfxBool IsLighting = new( "Use Lighting", "bLgt" );
         public readonly AvfxBool IsMorph = new( "Is Morph", "bShp" );
         public AvfxIntList ModelIdx = new( "Model Index", "MdNo", value: -1 );
         //model IDs with specific cases in shared func: 320, 352, 384, 416, 448, 480, 511

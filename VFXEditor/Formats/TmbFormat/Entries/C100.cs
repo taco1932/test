@@ -13,9 +13,9 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedBool Enabled = new( "Enabled" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedShort Visiblity = new( "Visibility" ); //00 00
-        private readonly ParsedShort Unk3 = new( "Unknown 3" ); //01 00, 03 00
+        private readonly ParsedInt CRC = new( "CRC" );
+        private readonly ParsedShort Visiblity = new( "Visibility" );
+        private readonly ParsedEnum<ObjectControl> Type = new( "Target Type", size: 2 );
         private readonly ParsedInt Unk4 = new( "Unknown 4", value: 1 );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
 
@@ -25,9 +25,9 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Enabled,
-            Unk2,
+            CRC,
             Visiblity,
-            Unk3,
+            Type,
             Unk4,
             Unk5
         ];

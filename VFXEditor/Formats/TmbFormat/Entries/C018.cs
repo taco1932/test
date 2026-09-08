@@ -5,7 +5,7 @@ using VfxEditor.TmbFormat.Utils;
 namespace VfxEditor.TmbFormat.Entries {
     public class C018 : TmbEntry {
         public const string MAGIC = "C018";
-        public const string DISPLAY_NAME = "----MDL Placement [TESTING] (SGB/CUTB)";
+        public const string DISPLAY_NAME = "----[TESTING] (SGB/CUTB) [delayed crash]";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 

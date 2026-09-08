@@ -26,7 +26,35 @@ namespace VfxEditor.ScdFormat {
     public enum AudioFlag {
         Enabled_Marker = 0x01,
         Mono_Split = 0x02,
-        Version_Shift = 0x01000000
+        Test_1 = 0x04,
+        Test_2 = 0x08,
+        Test_3 = 0x10,
+        Test_4 = 0x20,
+        Test_5 = 0x40,
+        Test_6 = 0x80,
+        Test_13 = 0x0100,
+        Test_14 = 0x0200,
+        Test_15 = 0x0400,
+        Test_16 = 0x0800,
+        Test_17 = 0x1000,
+        Test_18 = 0x2000,
+        Test_19 = 0x4000,
+        Test_20 = 0x8000,
+        Test_21 = 0x010000,
+        Test_22 = 0x020000,
+        Test_23 = 0x040000,
+        Test_24 = 0x080000,
+        Test_25 = 0x100000,
+        Test_26 = 0x200000,
+        Test_27 = 0x400000,
+        Test_28 = 0x800000,
+        Version_Shift = 0x01000000,
+        Test_7 = 0x02000000,
+        Test_8 = 0x04000000,
+        Test_9 = 0x08000000,
+        Test_10 = 0x10000000,
+        Test_11 = 0x20000000,
+        Test_12 = 0x40000000
     }
 
     public class ScdAudioEntry : ScdEntry, IUiItem {

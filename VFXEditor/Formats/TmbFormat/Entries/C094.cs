@@ -30,7 +30,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private bool ExtraData = true;
 
         private readonly ParsedInt FadeTime = new( "Fade Time" );
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedFloat StartVisibility = new( "Start Visibility" );
         private readonly ParsedFloat EndVisibility = new( "End Visibility" );
 
@@ -57,7 +57,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             FadeTime,
-            Unk1,
+            CRC,
             StartVisibility,
             EndVisibility
         ];
@@ -84,6 +84,7 @@ namespace VfxEditor.TmbFormat.Entries {
                 using( var disabled = ImRaii.Disabled( !EnableFilter.Value ) )
                 using( var indent = ImRaii.PushIndent() ) {
                     Filter.Draw();
+                    ImGui.TextDisabled( $"Value: {Filter.Value}" );
                 }
 
                 Unk4.Draw();

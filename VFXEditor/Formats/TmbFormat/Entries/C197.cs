@@ -16,7 +16,8 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
         private readonly ParsedInt VoicelineNumber = new( "Voiceline Number" );
         private readonly ParsedInt BindPointID = new( "Bind Point ID" );
-        private readonly ParsedInt SpeakID = new( "Speak TMB ID" );
+        private readonly ParsedShort SpeakID = new( "Speak TMB ID" );
+        private readonly ParsedShort Unk5 = new( "Unknown 5.5" );
         private readonly ParsedInt Unk6 = new( "Unknown 6" );
 
         public C197( TmbFile file ) : base( file ) {}
@@ -29,6 +30,7 @@ namespace VfxEditor.TmbFormat.Entries {
             VoicelineNumber,
             BindPointID,
             SpeakID,
+            Unk5,
             Unk6
         ];
     }

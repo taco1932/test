@@ -15,7 +15,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt Duration = new( "Duration" );
         private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Part = new( "Sub-Mesh ID" );
+        private readonly ParsedInt Part = new( "Attribute ID" );
         private readonly ParsedIntByte4 Unk2 = new( "Unknown 2" );
         private readonly ParsedInt Unk3 = new( "Unknown 3" );
 

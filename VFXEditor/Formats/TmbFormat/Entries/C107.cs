@@ -13,7 +13,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Enabled = new( "Enabled" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedInt TriggerRow = new( "Trigger Row # (+1)" );
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
 
@@ -23,7 +23,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Enabled,
-            Unk2,
+            CRC,
             TriggerRow,
             Unk4
         ];

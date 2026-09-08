@@ -1,12 +1,17 @@
 using System.Collections.Generic;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Sheets;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
 
     public enum SubtitleType {
         BattleTalk_Window = 0,
-        Bordered_Plaintext = 1,
+        Bordered_Plaintext,
+        Test1,
+        Test2,
+        Test3,
+        Test4
     }
 
     public class C216 : TmbEntry {
@@ -21,8 +26,8 @@ namespace VfxEditor.TmbFormat.Entries {
         public readonly ParsedBool Enabled = new( "Enabled" );
         public readonly ParsedInt Unknown2 = new( "Unknown 2" );
         public readonly ParsedEnum<SubtitleType> Type = new( "Subtitle Type" );
-        public readonly ParsedInt TextID = new( "Subtitle Text ID" );
-        public readonly ParsedInt SpeakerID = new( "Speaker ID" );
+        public readonly ParsedSubtitle TextID = new( "Subtitle Text" );
+        public readonly ParsedNpcName SpeakerID = new( "Speaker" );
         public readonly ParsedFloat Duration = new( "Duration" );
         public readonly ParsedInt Unknown7 = new( "Unknown 7" );
         public readonly ParsedInt Unknown8 = new( "Unknown 8" );

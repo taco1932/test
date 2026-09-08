@@ -27,8 +27,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int Size => 0x1C;
         public override int ExtraSize => 0;
 
-        private readonly ParsedBool Enabled = new( "Enabled", size: 2);
-        private readonly ParsedShort Unk1 = new( "Unknown 1");
+        private readonly ParsedBool Enabled = new( "Enabled" );
         private readonly ParsedInt Unk2 = new( "Unknown 2" );
         private readonly ParsedEnum<AtchState> ObjectPosition = new( "Object ATCH Position" );
         private readonly ParsedEnum<ObjectControl> ObjectControl = new( "Object Control" );
@@ -39,7 +38,6 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Enabled,
-            Unk1,
             Unk2,
             ObjectPosition,
             ObjectControl

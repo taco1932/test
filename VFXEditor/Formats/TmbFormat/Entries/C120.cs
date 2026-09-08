@@ -13,7 +13,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Duration = new( "Duration", value: 1 );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedInt WaveType = new( "Wave Type" );
 
         public C120( TmbFile file ) : base( file ) { }
@@ -22,7 +22,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Duration,
-            Unk2,
+            CRC,
             WaveType
         ];
     }

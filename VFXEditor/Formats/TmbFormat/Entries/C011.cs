@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Dalamud.Bindings.ImGui;
 using VfxEditor.Parsing;
 using VfxEditor.TmbFormat.Utils;
 
@@ -12,16 +13,25 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int Size => 0x14;
         public override int ExtraSize => 0;
 
-        private readonly ParsedInt Unk1 = new( "Enabled" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt Enabled = new( "Enabled" );
+        private readonly ParsedInt CRC = new( "CRC" );
 
         public C011( TmbFile file ) : base( file ) { }
 
         public C011( TmbFile file, TmbReader reader ) : base( file, reader ) { }
 
         protected override List<ParsedBase> GetParsed() => [
-            Unk1,
-            Unk2
+            Enabled,
+            CRC
         ];
+
+        public override void DrawBody()
+        {
+            DrawHeader();
+            Enabled.Draw();
+            ImGui.SameLine();
+            ImGui.TextDisabled( $"Value: {Enabled.Value}" );
+            CRC.Draw();
+        }
     }
 }

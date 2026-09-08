@@ -51,8 +51,8 @@ namespace VfxEditor.Formats.SklbFormat {
             return false;
         }
 
-        // Any of the above sources can point at a stale/corrupt/incompatible file
-        // On failure, this logs and lets the caller fall through to the next source instead of crashing.
+        // Any of the above sources can point at a stale/corrupt/incompatible file; on failure
+        // this logs and lets the caller fall through to the next source instead of crashing.
         private static bool TryLoadSklb( Func<SimpleSklb> loader, string path, out SimpleSklb skeleton ) {
             try {
                 skeleton = loader();

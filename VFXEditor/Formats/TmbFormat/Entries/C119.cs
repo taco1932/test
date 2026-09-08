@@ -5,16 +5,18 @@ using VfxEditor.TmbFormat.Utils;
 namespace VfxEditor.TmbFormat.Entries {
     public class C119 : TmbEntry {
         public const string MAGIC = "C119";
-        public const string DISPLAY_NAME = "----[TESTING] (CUTB)";
+        public const string DISPLAY_NAME = "Apply PLD Set ----[TESTING] (CUTB)";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
         public override int Size => 0x18;
         public override int ExtraSize => 0;
 
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt Unk3 = new( "Unknown 3" );
+        private readonly ParsedBool Enabled = new( "Enabled" );
+        private readonly ParsedInt CRC = new( "CRC" );
+        private readonly ParsedBool ApplySet = new( "Apply Set" );
+        //e0042 set + Curtana + Holy Shield
+        //only seems to respond as a bool
 
 
         public C119( TmbFile file ) : base( file ) { }
@@ -22,9 +24,9 @@ namespace VfxEditor.TmbFormat.Entries {
         public C119( TmbFile file, TmbReader reader ) : base( file, reader ) { }
 
         protected override List<ParsedBase> GetParsed() => [
-            Unk1,
-            Unk2,
-            Unk3,
+            Enabled,
+            CRC,
+            ApplySet,
         ];
     }
 }

@@ -20,8 +20,8 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxBool FollowingTargetOrientation = new( "Following Target Orientation", "bFTO" );
         public readonly AvfxBool DocumentScaleEnabled = new( "Document Scale Enabled", "bDSE" );
         public readonly AvfxBool AdjustToScreenEnabled = new( "Adjust to Screen", "bATS" );
-        public readonly AvfxBool IFY_Unknown = new( "IFY (Unknown)", "bIFY" ); //new to Dawntrail
-        public readonly AvfxBool BET_Unknown = new( "BET (Unknown)", "bBET" );
+        public readonly AvfxBool IFY_Unknown = new( "IFY", "bIFY" ); //new to Dawntrail
+        public readonly AvfxBool BET_Unknown = new( "BET", "bBET" );
         public readonly AvfxInt Life = new( "Life", "Life" );
         public readonly AvfxEnum<BinderRotation> BinderRotationType = new( "Binder Rotation Type", "RoTp" );
         public readonly AvfxBinderProperties PropStart = new( "Properties Start", "PrpS" );

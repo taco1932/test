@@ -143,6 +143,13 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
         }
 
         private void Update() {
+            if( Motion.HasMismatchedSkeleton() ) {
+                Data = [];
+                AllFrames = [];
+                Plugin.DirectXManager.GradientRenderer.SetGradient( RenderId, File.GradientInstance, [] );
+                return;
+            }
+
             var allFrames = new List<double>();
             Data = [];
 

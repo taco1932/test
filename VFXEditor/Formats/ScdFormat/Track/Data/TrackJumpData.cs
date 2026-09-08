@@ -3,6 +3,7 @@ using VfxEditor.Parsing;
 
 namespace VfxEditor.ScdFormat {
     public enum TrackCmdJump {
+        Unknown = 0x0,
         LZE = 0x1,
         LNZ,
     }

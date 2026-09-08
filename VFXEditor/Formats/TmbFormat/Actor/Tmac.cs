@@ -20,7 +20,7 @@ namespace VfxEditor.TmbFormat.Actor {
         public readonly List<Tmtr> Tracks = [];
         private readonly TmbTrackSplitView TrackView;
 
-        public DangerLevel MaxDanger => Tracks.Count == 0 ? DangerLevel.None : Tracks.Select( x => x.MaxDanger ).Max();
+        public DangerLevel MaxDanger => Tracks.Count == 0 ? DangerLevel.None : Tracks.Max( x => x.MaxDanger );
         public int AllTracksIdx => Tracks.Count == 0 ? 0 : Tracks.Max( File.AllTracks.IndexOf ) + 1;
         private readonly List<int> TempIds;
 

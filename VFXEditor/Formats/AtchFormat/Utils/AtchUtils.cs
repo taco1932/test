@@ -8,6 +8,7 @@ namespace VfxEditor.AtchFormat.Utils {
             { "2bk", "Book (ACN/SMN/SCH)" },
             { "2bw", "Bow (ARC/BRD)" },
             // { "2bs", "" }, //1703
+            // { "2cb", "" }, //3301, 7.56
             { "2ff", "Nouliths (SGE)" },
             { "2gb", "Gunblade (GNB)" },
             { "2gl", "Globe (AST)" },
@@ -32,16 +33,16 @@ namespace VfxEditor.AtchFormat.Utils {
             { "atr", "n_throw Summons" },
             { "avt", "Avatar (RPR)" },
             { "awo", "Saw, Alternate (CRP)" },
-            { "axe", "Axe (BST)" },
+            { "axe", "Axe (BST)" }, //3401
             { "azm", "Azem?" },
             { "bag", "Aetherotransformer (MCH)" },
-            // { "bec", "" },
-            // { "bgo", "" },
+            // { "bec", "" }, //1974
+            // { "bgo", "" }, //9215
             { "bl2", "Double Blade, Off-Hand (VPR)" },
             { "bld", "Blade, Main Hand (VPR)"},
             { "bll", "Single Blade, Off-Hand (VPR)" },
             { "brs", "Brush (PCT)" },
-            // { "bsl", "" },
+            // { "bsl", "" }, //9203
             { "chk", "Chakram (DNC)" },
             { "ckt", "Stylus" }, //9208, Calyx
             // { "clb", "" },
@@ -65,12 +66,13 @@ namespace VfxEditor.AtchFormat.Utils {
             { "ebz", "Diadem Cannon" },
             // { "egp", "" }, //9802
             { "elg", "Electric Guitar (Performance)" },
+            // { "evc", "" }, //1979, 7.56
             { "fcb", "Fry Egg / Eat Chicken (Emote)" },
             { "fch", "Fishing Chair" },
             { "fdr", "Consumable" }, //food and drink, but also includes sundering sword
             { "fha", "Gig (FSH)" },
             { "fl2", "Flute (Performance)" },
-            // { "flc", "" }, //1956
+            { "flc", "Falcon (Phantom BRD)" }, //1956
             { "flt", "Flute (BRD Combat)" },
             { "frg", "Frog Summon (NIN)" },
             { "fry", "Knife (LTW) / Fry Pan (CUL)" },
@@ -89,8 +91,8 @@ namespace VfxEditor.AtchFormat.Utils {
             { "gsl", "Wrench" },
             { "gsr", "Opera Glasses" }, //also 1909, no model
             { "gun", "Gun" },
-            // { "hab", "" }, //1973
-            // { "hbg", "" }, //9209
+            { "hab", "Hardboiled's Bike" }, //1973
+            { "hbg", "Hardboiled's Gun" }, //9209
             // { "hel", "" },
             { "hmm", "Hammer (BSM/ARM)" },
             { "hrp", "Harp (BRD)" },
@@ -101,6 +103,8 @@ namespace VfxEditor.AtchFormat.Utils {
             { "lfd", "Loporitt Paintbrush" },
             { "lpr", "Ear Wiggle (Emote)" },
             { "map", "Map" }, //1969
+            // { "mkl", "" }, //3251, 7.56
+            // { "mkr", "" }, //3201, 7.56
             { "mlt", "Mallet (GSM)" },
             { "mmc", "Quad-Cannons (MCH)" },
             // { "mot", "" }, //9992
@@ -116,7 +120,7 @@ namespace VfxEditor.AtchFormat.Utils {
             { "nph", "Sledgehammer (MIN)" },
             { "orb", "Focus (RDM)" },
             // { "oum", "" }, //9801
-            { "pen", "Quill (ACN/SCH/SMN)" },
+            { "pen", "Quill (ACN/SCH/SMN)" }, //and 1984 + 1986, 7.55
             { "pic", "Pick (MIN)" },
             { "plt", "Palette (PCT)" },
             { "pra", "Parachute" },
@@ -129,9 +133,11 @@ namespace VfxEditor.AtchFormat.Utils {
             { "rec", "Cart" }, //9202
             { "rgk", "Katana (Gosetsu)" },
             { "rgs", "Katana Sheath (Gosetsu)" },
+            // { "rih", "" }, //1985, 7.56
             { "rod", "Rod (BLU)" },
             { "rop", "Rope" },
             { "rp1", "Hammer (PCT)" },
+            // { "rtr", "" }, //1981, 7.56
             { "saw", "Saw (CRP)" },
             { "sbt", "Blow Bubbles / Pen (Emote)" },
             { "sca", "Aetheric Analyzer" },
@@ -145,8 +151,8 @@ namespace VfxEditor.AtchFormat.Utils {
             { "swd", "Sword (GLD/PLD)" },
             { "sxs", "Greatsword (FFXVI)" },
             { "sxw", "Phoenix Wings (FFXVI)" },
-            { "syl", "Reference Book (Emote)" }, //and 1976, no model
-            { "syr", "Shovel / Scythe" },
+            { "syl", "Reference Book (Emote) / BST Horn" }, //and 1976, no model
+            { "syr", "Shovel / Scythe" }, //and 1978, 7.56
             { "syu", "Shuriken (NIN)" },
             { "syw", "Job Summons (Dawntrail)" },
             { "tan", "Tongue" },

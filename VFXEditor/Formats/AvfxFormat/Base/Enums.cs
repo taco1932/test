@@ -15,7 +15,11 @@ namespace VfxEditor.AvfxFormat {
             PostUI = 8,
             PrevUI = 9,
             FitWater = 10,
-            Max = 11
+            Max = 11,
+            Test1 = 12,
+            Test2 = 13,
+            Test3 = 14,
+            Test4 = 15,
         }
         public enum DirectionalLightSource {
             None = 0,
@@ -99,8 +103,8 @@ namespace VfxEditor.AvfxFormat {
             Opacity = 8,
             Unknown_Multiply_9 = 9,
             Unknown_Add_10 = 10,
-            Unknown_11 = 11,
-            Unknown_12 = 12,
+            Unknown_Subtract_11 = 11,
+            Unknown_Screen_12 = 12,
         }
         public enum CullingType {
             None = 0,
@@ -164,13 +168,19 @@ namespace VfxEditor.AvfxFormat {
             None = 0,
             Camera = 1,
             AnyAxis = 2,
-            AnyAxisWithWorldRotation = 3
+            AnyAxisWithWorldRotation = 3,
+            Test1 = 4,
+            Test2 = 5,
+            Test3 = 6,
+            Test4 = 7
         }
         public enum PointLightType {
             Lambert = 0,
             HalfLambert = 1,
             Area = 2,
-            Ex = 3
+            Ex = 3,
+            Test1 = 4,
+            Test2 = 5
         }
         public enum TextureFilterType {
             Disable = 0,
@@ -190,7 +200,9 @@ namespace VfxEditor.AvfxFormat {
             Subtract = 2,
             Max = 3,
             Min = 4,
-            Unknown = 5 //none
+            Unknown = 5, //none
+            Test1 = 6,
+            Test2 = 7
         }
         public enum TextureCalculateAlpha {
             Multiply = 0,
@@ -216,7 +228,9 @@ namespace VfxEditor.AvfxFormat {
             RandomToVertexWithoutSingularPoint = 4,
             OrderToVertexWithoutSingularPoint = 5,
             RandomOnVertexWithoutSingularPoint = 6,
-            OrderOnVertexWithoutSingularPoint = 7
+            OrderOnVertexWithoutSingularPoint = 7,
+            Test1 = 8,
+            Test2 = 9
         }
         public enum WindmillUVType {
             Default = 0,
@@ -228,7 +242,9 @@ namespace VfxEditor.AvfxFormat {
         public enum CreateTimeOptions {
             Emitter_Animation = 0,
             Create_Settings = 1,
-            Unknown = 2
+            Unknown1 = 2,
+            Test1 = 3,
+            Test2 = 4
         }
         public enum ParentInfluenceCoordOptions {
             InitialPosition = 0,
@@ -241,13 +257,21 @@ namespace VfxEditor.AvfxFormat {
             None = 6,
             WithOptions_NoPosition = 7,
             Unknown = 8,
-            Unknown_NoPosition = 9
+            Unknown_NoPosition = 9,
+            Test1 = 10,
+            Test2 = 11,
+            Test3 = 12,
+            Test4 = 13,
         }
 
         public enum ParentInfluenceColorOptions {
             None = 0,
             Initial = 1,
-            Always = 2
+            Always = 2,
+            Test1 = 3,
+            Test2 = 4,
+            Test3 = 5,
+            Test4 = 6
         }
         /* BINDERS */
         public enum BinderRotation {
@@ -255,7 +279,11 @@ namespace VfxEditor.AvfxFormat {
             Billboard = 1,
             BillboardAxisY = 2,
             LookAtCamera = 3,
-            CameraBillboardAxisY = 4
+            CameraBillboardAxisY = 4,
+            Test1 = 5,
+            Test2 = 6,
+            Test3 = 7,
+            Test4 = 8
         }
         public enum BinderType {
             Point = 0,
@@ -266,13 +294,19 @@ namespace VfxEditor.AvfxFormat {
         }
         public enum BindPoint {
             Caster = 0,
-            Target = 1
+            Target = 1,
+            Test1 = 2,
+            Test2 = 3,
+            Test3 = 4,
+            Test4 = 5
         }
         public enum BindTargetPoint {
             Origin = 0,
             FitGround = 1,
             DamageCircle = 2,
-            ByName = 3
+            ByName = 3,
+            Test1 = 4,
+            Test2 = 5,
         }
         /* EFFECTOR */
         public enum EffectorType {
@@ -325,8 +359,8 @@ namespace VfxEditor.AvfxFormat {
         }
 
         public enum DissolveShape {
-            Full = 0,
-            RectangularPrism = 1,
+            Auto = 0,
+            Rectangular_Prism = 1,
             Sphere = 2,
             Cylinder = 3,
             Test1 = 4,
@@ -341,8 +375,10 @@ namespace VfxEditor.AvfxFormat {
             Weapon = 0x02,
             Off_Hand = 0x04,
             Summon = 0x08,
-            Test1 = 0x10,
-            Test2 = 0x20,
+            BG_Object = 0x10,
+            Test1 = 0x20, //seems to disable character aura
+            Test2 = 0x40,
+            Test3 = 0x80
         }
     }
 }

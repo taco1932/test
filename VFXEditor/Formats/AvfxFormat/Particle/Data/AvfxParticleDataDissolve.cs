@@ -5,9 +5,9 @@ namespace VfxEditor.AvfxFormat {
     public class AvfxParticleDataDissolve : AvfxDataWithParameters {
         // All-new to dawntrail
         public readonly AvfxBool Reverse = new( "Reverse", "bRev" );
-        public readonly AvfxEnum<DissolveShape> BST = new( "BST", "BST" );
-        public readonly AvfxInt NPT = new( "NPT", "NPT" );
-        public readonly AvfxFlag<AuraFilter> DissolveTarget = new( "Dissolve Target", "DTT" );
+        public readonly AvfxEnum<DissolveShape> BST = new( "Base Shape Type", "BST" );
+        public readonly AvfxInt NPT = new( "NPT (unused)", "NPT" ); //removed
+        public readonly AvfxFlag<AuraFilter> DissolveTarget = new( "Target Type", "DTT" );
         public readonly AvfxCurve1Axis EroR = new( "EroR", "EroR" ); //random something
         public readonly AvfxCurve1Axis EndColorWidth = new( "End Color Width (EdW)", "EdW" );
         public readonly AvfxCurveDissolve Color;

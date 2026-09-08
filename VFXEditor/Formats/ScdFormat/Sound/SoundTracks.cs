@@ -37,7 +37,7 @@ namespace VfxEditor.ScdFormat {
 
     public class SoundTrackInfo : IUiItem {
         public readonly ParsedShort TrackIdx = new( "##Track" );
-        public readonly ParsedShort AudioIdx = new( "##Audio" );
+        public readonly ParsedShortByte2 AudioIdx = new( "##Audio" );
 
         public void Read( BinaryReader reader ) {
             TrackIdx.Read( reader );

@@ -38,7 +38,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxBool IsCameraSpace = new( "Camera Space", "bCmS" );
         public readonly AvfxBool IsFullEnvLight = new( "Full Env Light", "bFEL" );
         public readonly AvfxBool OSE = new ( "OSE", "bOSE" );
-        public readonly AvfxBool IsClipOwnSetting = new( "Clip Own Setting", "bOSt" );
+        public readonly AvfxBool IsClipOwnSetting = new( "Clip Own Setting (bOSt)", "bOSt" );
         public readonly AvfxFloat NearClipBegin = new( "Near Clip Begin", "NCB" );
         public readonly AvfxFloat NearClipEnd = new( "Near Clip End", "NCE" );
         public readonly AvfxFloat FarClipBegin = new( "Far Clip Begin", "FCB" );
@@ -74,7 +74,7 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxBool GlobalFogEnabled = new( "Global Fog", "bGFE" );
         public readonly AvfxFloat GlobalFogInfluence = new( "Global Fog Influence", "GFIM" );
         public readonly AvfxBool LTSEnabled = new( "LTS Enabled", "bLTS" );
-        public readonly AvfxBool AGSEnabled = new( "AGS Enabled", "bAGS" );
+        public readonly AvfxBool AGSEnabled = new( "Adjust Global Scale", "bAGS" );
 
         // New to dawntrail
         public readonly AvfxInt APRi = new( "APri", "APri" );
