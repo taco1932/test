@@ -13,14 +13,14 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 4 * ( 3 + 3 + 3 + 4 );
 
         private readonly ParsedBool Enabled = new( "Enabled" );
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedInt Shape = new( "Shape" );
         private readonly TmbOffsetFloat3 Scale = new( "Scale", defaultValue: new( 1 ) );
         private readonly TmbOffsetAngle3 Rotation = new( "Rotation" );
         private readonly TmbOffsetFloat3 Position = new( "Position" );
         private readonly TmbOffsetFloat4 RGBA = new( "RGBA", defaultValue: new( 1 ) );
-        private readonly ParsedInt Unk3 = new( "Unknown 3" );
-        private readonly ParsedInt Unk4 = new( "Unknown 4" );
+        private readonly ParsedInt Unk3 = new( "Unused 1" );
+        private readonly ParsedInt Unk4 = new( "Unused 2" );
 
         public C075( TmbFile file ) : base( file ) { }
 
@@ -28,7 +28,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Enabled,
-            Unk1,
+            CRC,
             Shape,
             Scale,
             Rotation,

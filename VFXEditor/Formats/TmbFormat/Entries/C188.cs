@@ -13,7 +13,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt InvisStatus = new( "Invisibility Status" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt CRC = new( "CRC" );
 
         public C188( TmbFile file ) : base( file ) { }
 
@@ -21,7 +21,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             InvisStatus,
-            Unk2
+            CRC
         ];
     }
 }

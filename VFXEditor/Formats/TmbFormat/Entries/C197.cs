@@ -13,7 +13,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt FadeTime = new( "Fade Time" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedInt VoicelineNumber = new( "Voiceline Number" );
         private readonly ParsedInt BindPointID = new( "Bind Point ID" );
         private readonly ParsedShort SpeakID = new( "Speak TMB ID" );
@@ -26,7 +26,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             FadeTime,
-            Unk2,
+            CRC,
             VoicelineNumber,
             BindPointID,
             SpeakID,

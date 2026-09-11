@@ -13,7 +13,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 4 * ( 4 + 4 );
 
         private readonly ParsedInt Duration = new( "Duration" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly TmbOffsetFloat4 Color1 = new( "Color 1", defaultValue: new( 1 ) );
         private readonly TmbOffsetFloat4 Color2 = new( "Color 2", defaultValue: new( 1 ) );
 
@@ -23,7 +23,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Duration,
-            Unk2,
+            CRC,
             Color1,
             Color2
         ];

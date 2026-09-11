@@ -15,7 +15,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Unk1 = new( "Enabled" );
-        private readonly ParsedInt Unk2 = new( "ID?" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedInt Unk3 = new( "Target Type?" );
 
         public C083( TmbFile file ) : base( file ) { }
@@ -24,7 +24,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
-            Unk2,
+            CRC,
             Unk3
         ];
     }

@@ -24,7 +24,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         public readonly ParsedBool Enabled = new( "Enabled" );
-        public readonly ParsedInt Unknown2 = new( "Unknown 2" );
+        public readonly ParsedInt CRC = new( "CRC" );
         public readonly ParsedEnum<SubtitleType> Type = new( "Subtitle Type" );
         public readonly ParsedSubtitle TextID = new( "Subtitle Text" );
         public readonly ParsedNpcName SpeakerID = new( "Speaker" );
@@ -39,7 +39,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Enabled,
-            Unknown2,
+            CRC,
             Type,
             TextID,
             SpeakerID,

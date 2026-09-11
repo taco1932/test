@@ -84,7 +84,7 @@ namespace VfxEditor.TmbFormat.Entries {
                 using( var disabled = ImRaii.Disabled( !EnableFilter.Value ) )
                 using( var indent = ImRaii.PushIndent() ) {
                     Filter.Draw();
-                    ImGui.TextDisabled( $"Value: {Filter.Value}" );
+                    ImGui.TextDisabled( $"Value: {Filter.IntValue}" );
                 }
 
                 Unk4.Draw();

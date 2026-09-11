@@ -27,15 +27,15 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Duration = new( "Duration" );
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
-        private readonly ParsedInt Unk3 = new( "Unknown 3" );
+        private readonly ParsedInt CRC = new( "CRC" );
+        private readonly ParsedInt Unk2 = new( "Unused 1" );
+        private readonly ParsedInt Unk3 = new( "Unused 2" );
 
         private readonly ParsedEnum<SummonId> SummonId = new ( "Summon ID", size: 1 );
         private readonly ParsedEnum<C198AtchState> AtchState = new ( "ATCH State", size: 1 );
         //private readonly ParsedIntByte4 BindPoint = new( "Bind Point" );
         //ID, ATCH state + 1, [unused], [unused]
-        private readonly ParsedShort Unk4 = new ( "Unknown 4" ); //unused
+        private readonly ParsedShort Unk4 = new ( "Unused 3" );
         private readonly ParsedShort ModelId = new( "Model ID" );
         private readonly ParsedShort BodyId = new( "Body ID" );
         private readonly ParsedInt Variant = new( "Variant" );
@@ -46,7 +46,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Duration,
-            Unk1,
+            CRC,
             Unk2,
             Unk3,
             SummonId,

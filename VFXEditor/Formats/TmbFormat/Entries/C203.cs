@@ -13,7 +13,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Duration = new( "Duration" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedInt BindPointID = new( "Bind Point ID" );
         private readonly ParsedInt Rotation = new( "Rotation" );
         private readonly ParsedEnum<ObjectControl> ObjectControl = new( "Object Control" );
@@ -28,7 +28,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Duration,
-            Unk2,
+            CRC,
             BindPointID,
             Rotation,
             ObjectControl,

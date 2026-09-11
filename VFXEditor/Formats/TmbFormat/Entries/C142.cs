@@ -19,7 +19,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Duration = new( "Duration" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedInt Position = new( "EID Attach Point" );
         private readonly ParsedEnum<FreezePositionType> FreezeLocation = new( "Freeze Location" );
 
@@ -29,7 +29,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Duration,
-            Unk2,
+            CRC,
             Position,
             FreezeLocation
         ];

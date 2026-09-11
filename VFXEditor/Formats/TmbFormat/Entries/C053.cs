@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Dalamud.Bindings.ImGui;
 using VfxEditor.Parsing;
-using VfxEditor.ScdFormat;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {

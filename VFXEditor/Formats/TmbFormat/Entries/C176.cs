@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
 using VfxEditor.TmbFormat.Utils;
 using VfxEditor.Utils;
 
@@ -15,11 +16,9 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 0;
 
         private readonly ParsedInt Duration = new( "Duration" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedInt TmfcId = new( "F-Curve ID" );
-        private readonly ParsedByte Unk4 = new( "Unknown 4" );
-        private readonly ParsedByte Unk425 = new( "Unknown 4.25" );
-        private readonly ParsedShort Unk45 = new( "Unknown 4.5");
+        private readonly ParsedIntByte4 Unk4 = new( "Unknown 4" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
         private readonly ParsedInt Unk6 = new( "Unknown 6" );
         private readonly ParsedInt Unk7 = new( "Unknown 7" );
@@ -30,11 +29,9 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Duration,
-            Unk2,
+            CRC,
             TmfcId,
             Unk4,
-            Unk425,
-            Unk45,
             Unk5,
             Unk6,
             Unk7,

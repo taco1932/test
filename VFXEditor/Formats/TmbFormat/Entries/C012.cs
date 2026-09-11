@@ -1,4 +1,5 @@
 using Dalamud.Interface;
+using System;
 using System.Collections.Generic;
 using VfxEditor.Parsing;
 using VfxEditor.Spawn;
@@ -20,11 +21,14 @@ namespace VfxEditor.TmbFormat.Entries {
         //Summon_or_Lemure_1 = 4,
         
     }
-    public enum VfxVisibility {
-        Default_no_Triggers = 0,
-        Default_with_Triggers = 1,
-        Always_no_Triggers = 2,
-        Always_with_Triggers = 3,
+    [Flags]
+    public enum C012Extra {
+        Allow_Triggers = 0x01,
+        Override_Battle_FX_Setting = 0x02,
+        Unknown = 0x04,
+        Test1 = 0x08,
+        Test2 = 0x10,
+        Test3 = 0x20
     }
 
     public class C012 : TmbEntry {
@@ -37,7 +41,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public override int ExtraSize => 4 * ( 3 + 3 + 3 + 4 );
 
         private readonly ParsedInt Duration = new( "Duration", value: 30 );
-        private readonly ParsedInt Unk1 = new( "Unknown 1" );
+        private readonly ParsedInt CRC = new( "CRC" );
         private readonly TmbOffsetString Path = new( "Path", [
             new() {
                 Icon = () => VfxSpawn.IsActive ? FontAwesomeIcon.Times : FontAwesomeIcon.Eye,
@@ -58,8 +62,8 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly TmbOffsetAngle3 Rotation = new( "Rotation" );
         private readonly TmbOffsetFloat3 Position = new( "Position" );
         private readonly TmbOffsetFloat4 RGBA = new( "RGBA", defaultValue: new( 1 ) );
-        private readonly ParsedEnum<VfxVisibility> Visibility = new( "Visibility + Triggers/Clips" );
-        private readonly ParsedInt Unk3 = new( "Unknown 3" );
+        private readonly ParsedFlag<C012Extra> ExtraData = new( "Extra Data" );
+        private readonly ParsedInt Unk3 = new( "Unused" );
 
         public C012( TmbFile file ) : base( file ) { }
 
@@ -67,7 +71,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         protected override List<ParsedBase> GetParsed() => [
             Duration,
-            Unk1,
+            CRC,
             Path,
             BindOrigin1,
             BindType1,
@@ -79,7 +83,7 @@ namespace VfxEditor.TmbFormat.Entries {
             Rotation,
             Position,
             RGBA,
-            Visibility,
+            ExtraData,
             Unk3
         ];
     }
