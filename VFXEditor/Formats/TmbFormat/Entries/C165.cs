@@ -1,20 +1,9 @@
-using System;
 using System.Collections.Generic;
 using VfxEditor.Parsing;
+using VfxEditor.TmbFormat.Base;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
-    [Flags]
-    public enum PoseFlags {
-        Freeze_and_State = 0x01,
-        Freeze_and_Delay_State = 0x02,
-        Unknown_3 = 0x04,
-        Unknown_4 = 0x08,
-        Unknown_5 = 0x10,
-        Unknown_6 = 0x20,
-        Unknown_7 = 0x40,
-        Unknown_8 = 0x80,
-    }
     public class C165 : TmbEntry {
         public const string MAGIC = "C165";
         public const string DISPLAY_NAME = "Freeze Pose [CUTB]";
@@ -26,7 +15,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedBool Enabled = new( "Enabled" );
         private readonly ParsedBool Unk2 = new( "Unknown 2" );
-        private readonly ParsedEnum<PoseFlags> Unk3 = new( "Unknown 3" ); //does stuff at low values, but vanilla has it as an enum, I think?
+        private readonly ParsedEnum<C165PoseFlags> Unk3 = new( "Unknown 3" ); //does stuff at low values, but vanilla has it as an enum, I think?
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
         private readonly ParsedFloat Unk5 = new( "Unknown 5" );
         private readonly ParsedInt Unk6 = new( "Unknown 6", value: 0xFF );

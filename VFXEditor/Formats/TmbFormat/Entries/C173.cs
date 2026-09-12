@@ -2,6 +2,7 @@ using Dalamud.Interface;
 using System.Collections.Generic;
 using VfxEditor.Parsing;
 using VfxEditor.Spawn;
+using VfxEditor.TmbFormat.Base;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
@@ -32,7 +33,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedEnum<BindType> BindPoint1Type = new( "Bind Point 1 Type", size: 1 );
         //private readonly ParsedInt Unk2 = new( "Unknown 2", size: 2 );
         private readonly ParsedShort BindPoint2 = new( "Bind Point 2" );
-        private readonly ParsedInt Visibility = new( "Visibility + Triggers/Clips" ); 
+        private readonly ParsedBool BattleFXSetting = new( "Override FX Setting" );
         private readonly ParsedInt Unk4 = new( "Simultaneous VFX Count" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
         private readonly ParsedInt Unk6 = new( "Unknown 6" );
@@ -55,7 +56,7 @@ namespace VfxEditor.TmbFormat.Entries {
             BindPoint1Type,
             //Unk2,
             BindPoint2,
-            Visibility,
+            BattleFXSetting,
             Unk4,
             Unk5,
             Unk6,

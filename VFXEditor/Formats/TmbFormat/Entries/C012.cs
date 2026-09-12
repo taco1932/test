@@ -1,36 +1,11 @@
 using Dalamud.Interface;
-using System;
 using System.Collections.Generic;
 using VfxEditor.Parsing;
 using VfxEditor.Spawn;
+using VfxEditor.TmbFormat.Base;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
-    public enum BindUser {
-        Disabled = -1,
-        Default = 0,
-        Caster = 1,
-        Target = 2,
-    }
-    public enum BindType {
-        Disabled = -1,
-        Character = 0,
-        Weapon = 1,
-        Offhand = 2,
-        Summon_or_Lemure = 3,
-        //Summon_or_Lemure_1 = 4,
-        
-    }
-    [Flags]
-    public enum C012Extra {
-        Allow_Triggers = 0x01,
-        Override_Battle_FX_Setting = 0x02,
-        Unknown = 0x04,
-        Test1 = 0x08,
-        Test2 = 0x10,
-        Test3 = 0x20
-    }
-
     public class C012 : TmbEntry {
         public const string MAGIC = "C012";
         public const string DISPLAY_NAME = "VFX";

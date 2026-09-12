@@ -5,7 +5,7 @@ using VfxEditor.TmbFormat.Utils;
 namespace VfxEditor.TmbFormat.Entries {
     public class C197 : TmbEntry {
         public const string MAGIC = "C197";
-        public const string DISPLAY_NAME = "Voiceline";
+        public const string DISPLAY_NAME = "Voice Line";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
@@ -14,7 +14,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt FadeTime = new( "Fade Time" );
         private readonly ParsedInt CRC = new( "CRC" );
-        private readonly ParsedInt VoicelineNumber = new( "Voiceline Number" );
+        private readonly ParsedInt VoicelineNumber = new( "Vo_Line ID" );
         private readonly ParsedInt BindPointID = new( "Bind Point ID" );
         private readonly ParsedShort SpeakID = new( "Speak TMB ID" );
         private readonly ParsedShort Unk5 = new( "Unknown 5.5" );

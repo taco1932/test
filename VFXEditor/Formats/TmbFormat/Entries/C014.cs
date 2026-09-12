@@ -1,23 +1,9 @@
 using System.Collections.Generic;
 using VfxEditor.Parsing;
+using VfxEditor.TmbFormat.Base;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
-    public enum AtchState {
-        State_1 = 0,
-        State_0 = 1,
-        State_2 = 2,
-        State_3 = 3,
-        State_4 = 4,
-        State_5 = 5,
-    }
-
-    public enum ObjectControl {
-        Weapon_or_Pet = 0,
-        Offhand = 1,
-        Summon_or_Lemure_0 = 2,
-        Summon_or_Lemure_1 = 3,
-    }
     public class C014 : TmbEntry {
         public const string MAGIC = "C014";
         public const string DISPLAY_NAME = "Weapon Position";

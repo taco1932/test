@@ -1,35 +1,11 @@
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
-using System;
 using System.Collections.Generic;
 using VfxEditor.Parsing;
+using VfxEditor.TmbFormat.Base;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
-    [Flags]
-    public enum C010Unk2Flags {
-        Unknown_1A = 0x01, //cfxf_battle_camera1
-        Unknown_1B = 0x02,
-        Unknown_1C = 0x04,
-        Unknown_1D = 0x08,
-        Unknown_1E = 0x10,
-        Unknown_1F = 0x20,
-        Unknown_1G = 0x40,
-        Unknown_1H_Unused = 0x80
-    }
-    [Flags]
-    public enum C010Unk3Flags {
-        Unknown_2A = 0x01,
-        Unknown_2B_Unused = 0x02,
-        Unknown_2C_Unused = 0x04,
-        Unknown_2D = 0x08,
-        Unknown_2E = 0x10,
-        Unknown_2F = 0x20,
-        Unknown_2G_Unused = 0x40,
-        Unknown_2H_Unused = 0x80
-    }
-
-
     public class C010 : TmbEntry {
         public const string MAGIC = "C010";
         public const string DISPLAY_NAME = "Animation";

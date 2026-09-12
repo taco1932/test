@@ -14,8 +14,8 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt Duration = new( "Duration" );
         private readonly ParsedInt CRC = new( "CRC" );
-        private readonly ParsedInt Unk3 = new( "Unknown 3" );
-        private readonly ParsedInt Unk4 = new( "Unknown 4" );
+        private readonly ParsedBool Hide = new( "Hide Transform" );
+        private readonly ParsedInt Unk4 = new( "Unused" );
 
         public C204( TmbFile file ) : base( file ) { }
 
@@ -24,7 +24,7 @@ namespace VfxEditor.TmbFormat.Entries {
         protected override List<ParsedBase> GetParsed() => [
             Duration,
             CRC,
-            Unk3,
+            Hide,
             Unk4
         ];
     }

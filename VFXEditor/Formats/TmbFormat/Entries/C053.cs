@@ -1,25 +1,13 @@
-using System;
 using System.Collections.Generic;
 using Dalamud.Bindings.ImGui;
 using VfxEditor.Parsing;
+using VfxEditor.TmbFormat.Base;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
-    [Flags]
-    public enum SoundFlags {
-        Stop_on_Movement = 0x01,
-        Use_Bind_Position = 0x02, //originally overlap sounds
-        Unused_1 = 0x04,
-        Unused_2 = 0x08,
-        Unused_3 = 0x10,
-        Unused_4 = 0x20,
-        Unused_5 = 0x40,
-        Unused_6 = 0x80,
-    }
-
     public class C053 : TmbEntry {
         public const string MAGIC = "C053";
-        public const string DISPLAY_NAME = "Voiceline";
+        public const string DISPLAY_NAME = "SoundSE";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
@@ -31,7 +19,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedShort BindId = new( "Bind Id" );
         private readonly ParsedShort SoundId = new( "Sound Id" );
         private readonly ParsedShort Unk3 = new( "Type 2" );
-        private readonly ParsedFlag<SoundFlags> Flags = new( "Flags", size: 2 );
+        private readonly ParsedFlag<C053Flags> Flags = new( "Flags", size: 2 );
 
         public C053( TmbFile file ) : base( file ) { }
 

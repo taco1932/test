@@ -1,17 +1,9 @@
 using System.Collections.Generic;
 using VfxEditor.Parsing;
+using VfxEditor.TmbFormat.Base;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
-    public enum PhysicsType {
-        All = 0,
-        Equipment = 1,
-        j_ex_wing, //Meteion
-        Weapons,
-        Hair,
-        j_mune,
-        Unused
-    }
     public class C118 : TmbEntry {
         public const string MAGIC = "C118";
         public const string DISPLAY_NAME = "Disable Physics"; //PhysicsOff

@@ -1,23 +1,11 @@
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
-using System;
 using System.Collections.Generic;
 using VfxEditor.Parsing;
+using VfxEditor.TmbFormat.Base;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
-    [Flags]
-    public enum InvisibilityFilter {
-        Character = 0x01,
-        Weapon = 0x02,
-        OffHand = 0x04,
-        Summon = 0x08,
-        Unknown_1 = 0x10,
-        Unknown_2 = 0x20,
-        Unknown_3 = 0x40,
-        Unknown_4 = 0x80,
-    }
-
     public class C094 : TmbEntry {
         public const string MAGIC = "C094";
         public const string DISPLAY_NAME = "Invisibility";
@@ -29,17 +17,17 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private bool ExtraData = true;
 
-        private readonly ParsedInt FadeTime = new( "Fade Time" );
+        private readonly ParsedInt FadeTime = new( "Duration" );
         private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedFloat StartVisibility = new( "Start Visibility" );
         private readonly ParsedFloat EndVisibility = new( "End Visibility" );
 
         // these are parsed separately
         private readonly ParsedBool EnableFilter = new( "Enable Filter" );
-        private readonly ParsedFlag<InvisibilityFilter> Filter = new( "Filter" );
-        private readonly ParsedInt Unk4 = new( "Unknown 4" );
-        private readonly ParsedInt Unk5 = new( "Unknown 5" );
-        private readonly ParsedInt Unk6 = new( "Unknown 6" );
+        private readonly ParsedFlag<ObjectFlags> ObjectFlags = new( "Filter" );
+        private readonly ParsedInt Unk4 = new( "Unknown 5" );
+        private readonly ParsedInt Unk5 = new( "Unknown 6" );
+        private readonly ParsedInt Unk6 = new( "Unknown 7" );
 
         // Unk2 = 1, Unk3 = 8 -> ExtraSize = 0x14
 
@@ -48,7 +36,7 @@ namespace VfxEditor.TmbFormat.Entries {
         public C094( TmbFile file, TmbReader reader ) : base( file, reader ) {
             ExtraData = reader.ReadAtOffset( ( binaryReader ) => {
                 EnableFilter.Read( binaryReader );
-                Filter.Read( binaryReader );
+                ObjectFlags.Read( binaryReader );
                 Unk4.Read( binaryReader );
                 Unk5.Read( binaryReader );
                 Unk6.Read( binaryReader );
@@ -67,7 +55,7 @@ namespace VfxEditor.TmbFormat.Entries {
 
             writer.WriteExtra( ( binaryWriter ) => {
                 EnableFilter.Write( binaryWriter );
-                Filter.Write( binaryWriter );
+                ObjectFlags.Write( binaryWriter );
                 Unk4.Write( binaryWriter );
                 Unk5.Write( binaryWriter );
                 Unk6.Write( binaryWriter );
@@ -83,8 +71,8 @@ namespace VfxEditor.TmbFormat.Entries {
 
                 using( var disabled = ImRaii.Disabled( !EnableFilter.Value ) )
                 using( var indent = ImRaii.PushIndent() ) {
-                    Filter.Draw();
-                    ImGui.TextDisabled( $"Value: {Filter.IntValue}" );
+                    ObjectFlags.Draw();
+                    ImGui.TextDisabled( $"Value: {ObjectFlags.IntValue}" );
                 }
 
                 Unk4.Draw();

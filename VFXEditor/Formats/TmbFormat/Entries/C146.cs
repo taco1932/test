@@ -1,17 +1,9 @@
 using System.Collections.Generic;
 using VfxEditor.Parsing;
+using VfxEditor.TmbFormat.Base;
 using VfxEditor.TmbFormat.Utils;
 
 namespace VfxEditor.TmbFormat.Entries {
-    public enum AccessoryType {
-        Earrings = 0,
-        Neck = 1,
-        Wrist,
-        Right_Ring,
-        Left_Ring
-        //Earrrings = 5 (again)
-        
-    }
     public class C146 : TmbEntry {
         public const string MAGIC = "C146";
         public const string DISPLAY_NAME = "Apply Accessory ----[TESTING] (CUTB)";

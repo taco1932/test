@@ -54,7 +54,7 @@ namespace VfxEditor.Parsing {
             using var _ = ImRaii.PushId( Name );
 
             if( HasIcons || offset > 0 ) {
-                var iconsSize = HasIcons ? Icons.Select( x => UiUtils.GetPaddedIconSize( x.Icon.Invoke() ) ).Sum() : 0;
+                var iconsSize = HasIcons ? Icons.Sum( x => UiUtils.GetPaddedIconSize( x.Icon.Invoke() ) ) : 0;
                 var inputSize = UiUtils.GetOffsetInputSize( offset + iconsSize );
                 ImGui.SetNextItemWidth( inputSize );
             }
