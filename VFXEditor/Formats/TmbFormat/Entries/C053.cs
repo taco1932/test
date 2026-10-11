@@ -16,8 +16,8 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt Unk1 = new( "Type 1" );
         private readonly ParsedInt CRC = new( "CRC" );
-        private readonly ParsedShort BindId = new( "Bind Id" );
-        private readonly ParsedShort SoundId = new( "Sound Id" );
+        private readonly ParsedShort BindId = new( "Bind ID" );
+        private readonly ParsedShort SoundId = new( "Sound ID" );
         private readonly ParsedShort Unk3 = new( "Type 2" );
         private readonly ParsedFlag<C053Flags> Flags = new( "Flags", size: 2 );
 
@@ -34,8 +34,7 @@ namespace VfxEditor.TmbFormat.Entries {
             Flags,
         ];
 
-        public override void DrawBody()
-        {
+        public override void DrawBody() {
             DrawHeader();
             Unk1.Draw();
             CRC.Draw();

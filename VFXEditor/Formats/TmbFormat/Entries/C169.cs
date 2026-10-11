@@ -5,7 +5,7 @@ using VfxEditor.TmbFormat.Utils;
 namespace VfxEditor.TmbFormat.Entries {
     public class C169 : TmbEntry {
         public const string MAGIC = "C169"; //ghidra
-        public const string DISPLAY_NAME = "??? [wrong size]";
+        public const string DISPLAY_NAME = "??? [unk, wrong data]"; //something needs offset data
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 

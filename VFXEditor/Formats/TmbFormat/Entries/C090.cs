@@ -15,7 +15,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedInt Unk1 = new( "Unknown 1", value: 1 );
         private readonly ParsedInt CRC = new( "CRC" );
         private readonly TmbOffsetString Path = new( "Path" );
-        private readonly ParsedInt Unk3 = new( "Unknown 3" ); //10
+        private readonly ParsedInt Unk3 = new( "Unknown 3", value: 10 );
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
 
         public C090( TmbFile file ) : base( file ) { }

@@ -15,8 +15,8 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt Duration = new( "Duration" );
         private readonly ParsedInt CRC = new( "CRC" );
-        private readonly ParsedIntByte4 Unk3 = new( "Unknown 3" ); //0x 01 0x
-        private readonly ParsedIntByte4 Unk4 = new( "Unknown 4" ); //1x 00 00 FF
+        private readonly ParsedIntByte4 Unk3 = new( "Unknown 3" ); //0x 00/01 0x 00/01
+        private readonly ParsedIntByte4 Unk4 = new( "Unknown 4" ); //xx 00 00 FF
         private readonly ParsedInt Unk5 = new( "Unknown 5" ); //0, 1
         private readonly ParsedFloat2 Unk6 = new( "Unknown 6" );
         private readonly ParsedInt Unk7 = new( "Unknown 7" );

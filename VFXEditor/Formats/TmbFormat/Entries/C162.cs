@@ -6,7 +6,7 @@ using VfxEditor.TmbFormat.Utils;
 namespace VfxEditor.TmbFormat.Entries {
     public class C162 : TmbEntry {
         public const string MAGIC = "C162";
-        public const string DISPLAY_NAME = "----[TESTING] (CUTB)";
+        public const string DISPLAY_NAME = "----[TESTING, WIP] (CUTB)";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
@@ -30,7 +30,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedFloat3 Unk15 = new( "Unknown 15" );
         private readonly ParsedInt Unk16 = new( "Unknown 16", value: 1 );
         private readonly ParsedInt Unk17 = new( "Unknown 17", value: 2 );
-        private readonly TmbOffsetFloat4 Unk18 = new( "Unknown 18" ); //placeholder for footer data
+        private readonly TmbOffsetFloat4 Unk18 = new( "Unknown 18 [to fix]" ); //placeholder for footer data
         private readonly ParsedInt Unk19 = new( "Unknown 19", value: 2 );
         private readonly ParsedFloat2 Unk20 = new( "Unknown 20" );
 

@@ -369,8 +369,7 @@ namespace VfxEditor.AvfxFormat {
         }
 
         [Flags]
-        public enum AuraFilter
-        {
+        public enum AuraFilter {
             Character = 0x01,
             Weapon = 0x02,
             Off_Hand = 0x04,
@@ -379,6 +378,26 @@ namespace VfxEditor.AvfxFormat {
             Test1 = 0x20, //seems to disable character aura
             Test2 = 0x40,
             Test3 = 0x80
+        }
+
+        public enum ShUT {
+            Type_0,
+            Type_1,
+            Type_2,
+            Type_3,
+            Type_Test_4,
+            Type_Test_5,
+            Type_Test_6
+        }
+
+        public enum ShT {
+            Type_0,
+            Type_1,
+            Type_2,
+            Type_3,
+            Type_Test_4,
+            Type_Test_5,
+            Type_Test_6
         }
     }
 }

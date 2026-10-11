@@ -27,11 +27,11 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxBool S11Enabled = new( "S11 Enabled", "bS11" );
 
         // New to dawntrail
-        public readonly AvfxInt ShUT = new( "ShUT", "ShUT" ); //shading
-        public readonly AvfxInt ShR = new( "ShR", "ShR" ); //shading
-        public readonly AvfxInt ShT = new( "ShT", "ShT" ); //shading
-        public readonly AvfxInt UniV = new( "UniV", "UniV" ); //s_Shading_Uniform
-        public readonly AvfxInt HybV = new( "HybV", "HybV" ); //s_Shading_Hybrid
+        public readonly AvfxEnum<ShUT> ShUT = new( "Uniform Shader Type?", "ShUT" ); //shading
+        public readonly AvfxInt ShR = new( "Shader Rate?", "ShR" ); //shading
+        public readonly AvfxEnum<ShT> ShT = new( "Shader Type?", "ShT" ); //shading
+        public readonly AvfxInt UniV = new( "Uniform Shading Rate", "UniV" ); //s_Shading_Uniform
+        public readonly AvfxInt HybV = new( "Hybrid Shading Rate", "HybV" ); //s_Shading_Hybrid
         public readonly AvfxBool E24Enabled = new( "E24 Enabled", "bE24" );
 
         public readonly AvfxBool IsApplyToneMap = new( "Apply Tone Map", "bATM" );
@@ -44,9 +44,9 @@ namespace VfxEditor.AvfxFormat {
         public readonly AvfxFloat ClipFarEnd = new( "Clip Far End", "FaEd" );
         public readonly AvfxEnum<ClipBasePoint> ClipBasePointType = new( "Clip Base Point", "FaBP" );
         public readonly AvfxInt UvSetCount = new( "UV Set Count", "UvSN" );
-        public readonly AvfxInt ApplyRateEnvironment = new( "Apply Environmental Light Rate", "EvAR" );
-        public readonly AvfxInt ApplyRateDirectional = new( "Apply Directional Light Rate", "DlAR" );
-        public readonly AvfxInt ApplyRateLightBuffer = new( "Apply Light Buffer Rate", "LBAR" );
+        public readonly AvfxInt ApplyRateEnvironment = new( "Environmental Light Rate", "EvAR" );
+        public readonly AvfxInt ApplyRateDirectional = new( "Directional Light Rate", "DlAR" );
+        public readonly AvfxInt ApplyRateLightBuffer = new( "Light Buffer Rate", "LBAR" );
         public readonly AvfxEnum<DepthOffsetType> DOTy = new( "Depth Offset Type", "DOTy" );
         public readonly AvfxFloat DepthOffset = new( "Depth Offset", "DpOf" );
         public readonly AvfxBool SimpleAnimEnable = new( "Use Simple Animation", "bSCt" );

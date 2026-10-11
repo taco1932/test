@@ -9,13 +9,12 @@ namespace VfxEditor.TmbFormat.Tmfcs {
     public class TmfcData : IUiItem {
         public readonly TmbFile File;
 
-        public readonly ParsedUInt Unk1 = new( "Unknown 1" );
+        public readonly ParsedUInt Unk1 = new( "Unknown 1" ); //0
         public readonly ParsedUInt Unk2 = new( "Type?", size: 1 );
         public readonly ParsedUInt Unk3 = new( "Unknown 3", size: 1 );
         public readonly ParsedUInt Unk4 = new( "Unknown 4", size: 1 );
-        public readonly ParsedUInt Unk5 = new( "Unknown 5", size: 1 );
-        public readonly ParsedUInt Unk6 = new( "Unknown 6", size: 1 );
-        public readonly ParsedUInt Unk7 = new( "Unknown 7", size: 1 );
+        public readonly ParsedSByte Unk5 = new( "Unknown 5" );
+        public readonly ParsedShort Unk6 = new( "Unknown 6" );
         public readonly ParsedUInt Unk8 = new( "Unknown 8", size: 1 );
         public readonly ParsedUInt Unk9 = new( "Unknown 9", size: 1 );
         private readonly uint TempRowCount = 0;
@@ -39,7 +38,6 @@ namespace VfxEditor.TmbFormat.Tmfcs {
                 Unk4,
                 Unk5,
                 Unk6,
-                Unk7,
                 Unk8,
                 Unk9
             ] );

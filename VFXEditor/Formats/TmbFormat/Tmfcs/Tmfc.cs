@@ -16,7 +16,7 @@ namespace VfxEditor.TmbFormat.Tmfcs {
         public override string Magic => MAGIC;
 
         public override int Size => 0x20;
-        public override int ExtraSize => Data.Count == 0 ? 0 : Data.Select( x => x.Size ).Sum();
+        public override int ExtraSize => Data.Count == 0 ? 0 : Data.Sum( x => x.Size );
 
         private readonly ParsedInt Unk1 = new( "Unknown 2" );
         private readonly ParsedInt Unk2 = new( "Unknown 3" );

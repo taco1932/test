@@ -20,7 +20,7 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedInt SoundIndex = new( "Sound Index" );
         private readonly ParsedFlag<C063Flags> Flags = new( "Extra Data", size: 1 );
         private readonly ParsedByte BindID = new( "Bind ID" );
-        private readonly ParsedShort Unk2 = new( "Unknown 2" );
+        private readonly ParsedShort Unk2 = new( "Unused" );
 
         public C063( TmbFile file ) : base( file ) {
             SetupIcon();
