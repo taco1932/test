@@ -188,6 +188,12 @@ namespace VfxEditor.TmbFormat.Base {
         State_5,
     }
 
+    public enum ObjectRotation { //C203
+        Use_Bind_ID_Rotation,
+        Use_Origin_Rotation,
+        Caster_Align
+    }
+
     public enum SubtitleType {
         BattleTalk_Window,
         Bordered_Plaintext,

@@ -6,7 +6,7 @@ using VfxEditor.TmbFormat.Utils;
 namespace VfxEditor.TmbFormat.Entries {
     public class C203 : TmbEntry {
         public const string MAGIC = "C203";
-        public const string DISPLAY_NAME = "Summon Weapon Visibility / Nouliths";
+        public const string DISPLAY_NAME = "Object Duplication";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
@@ -17,10 +17,11 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedInt BindPointID = new( "Bind Point ID" );
         private readonly ParsedInt Rotation = new( "Rotation" );
+        //ParsedEnum<ObjectRotation>
         private readonly ParsedEnum<ObjectControl> ObjectControl = new( "Object Control" );
         private readonly ParsedBool NoFollow = new( "Disable Follow" );
         private readonly ParsedBool ScaleEnabled = new( "Scale Enabled", size: 2 );
-        private readonly ParsedShort Unk3 = new( "Unknown 3" );
+        private readonly ParsedShort Unk3 = new( "Unknown 3" ); //0, 1, 4
         private readonly ParsedFloat Scale = new( "Scale" );
 
         public C203( TmbFile file ) : base( file ) { }
