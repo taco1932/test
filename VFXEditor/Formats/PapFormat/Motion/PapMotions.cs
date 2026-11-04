@@ -15,7 +15,7 @@ namespace VfxEditor.PapFormat.Motion {
 
         public HavokData Bones;
         public hkaSkeleton* Skeleton =>
-            Bones.AnimationContainer != null && Bones.AnimationContainer->Skeletons.Length > 0
+            Bones != null && Bones.AnimationContainer != null && Bones.AnimationContainer->Skeletons.Length > 0
                 ? Bones.AnimationContainer->Skeletons[0].ptr
                 : null;
 
@@ -29,18 +29,10 @@ namespace VfxEditor.PapFormat.Motion {
             Selector = new( GetSklbPath(), UpdateSkeleton );
         }
 
-        // Workspace loads defer this file's own Havok data to load asynchronously (see PapDocument.FileFromReader),
-        // so AnimationContainer may not be ready yet the first time a skeleton resolves and calls this. Re-run once
-        // it is, so the Motion tab self-heals instead of staying permanently out of sync with the Animations list.
-        //
-        // Note: when init is synchronous (not a workspace load), this override can fire from inside the base
-        // HavokData constructor, before this class's own field initializers (including Motions) have run. Bones
-        // is only ever assigned later via UpdateSkeleton(), so it is guaranteed null at that point - the guard
-        // below returns before Motions is touched, so that ordering hazard never bites.
         protected override void OnHavokLoad() => UpdateMotions();
 
         public void UpdateMotions() {
-            if( AnimationContainer == null || Bones.AnimationContainer == null ) return;
+            if( AnimationContainer == null || Bones == null || Bones.AnimationContainer == null ) return;
 
             Motions.ForEach( x => x.Dispose() );
             Motions.Clear();
@@ -123,8 +115,6 @@ namespace VfxEditor.PapFormat.Motion {
             Selector.Init();
             Motions.ForEach( x => x.UpdateHavok( handles ) );
 
-            // temporarily remove out-of-range track indices so the serialized animation cannot
-            // write past the end of the skeleton's bone/float arrays when the game samples it
             Motions.ForEach( x => x.ClampTrackIndices() );
             WriteHavok();
             Motions.ForEach( x => x.UnclampTrackIndices() );

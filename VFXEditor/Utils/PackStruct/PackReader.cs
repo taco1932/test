@@ -34,16 +34,28 @@ namespace VfxEditor.Utils.PackStruct {
                 return false;
             }
 
-            var start = ( int )( _baseData.Length + _packFooter.Header.PriorOffset );
-            var reader = new SpanBinaryReader( _baseData );
-            var newFooter = reader.Read<PackHeader>();
-            if( newFooter.Type != type ) {
+            if( TryReadHeader( _baseData, type, out prior ) ) return true;
+
+            var pad = ( int )FileUtils.NumberToPad( StartPos, 16 );
+            if( pad > 0 && pad < _baseData.Length && TryReadHeader( _baseData[pad..], type, out prior ) ) {
+                StartPos += pad;
+                return true;
+            }
+
+            prior = default;
+            return false;
+        }
+
+        private static bool TryReadHeader( ReadOnlySpan<byte> data, uint type, out Pack prior ) {
+            var reader = new SpanBinaryReader( data );
+            var header = reader.Read<PackHeader>();
+            if( header.Type != type ) {
                 prior = default;
                 return false;
             }
 
-            prior.Header = newFooter;
-            prior.Data = _baseData[sizeof( PackHeader )..];
+            prior.Header = header;
+            prior.Data = data[sizeof( PackHeader )..];
             return true;
         }
     }

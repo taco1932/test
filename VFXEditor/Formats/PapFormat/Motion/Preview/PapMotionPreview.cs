@@ -15,25 +15,24 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
         // ======== IMPORT EXPORT =========
 
         protected void ExportDialog( string animationName ) {
-            FileBrowserManager.SaveFileDialog( "Select a Save Location", ".gltf", "motion", "gltf", ( bool ok, string res ) => {
+            FileBrowserManager.SaveFileDialog( "Select a Save Location", ".gltf", "motion", "gltf", ( ok, res ) => {
                 if( !ok ) return;
                 Plugin.AddModal( new PapGltfExportModal( Motion, animationName, res ) );
             } );
         }
 
         protected void ImportDialog( int idx ) {
-            FileBrowserManager.OpenFileDialog( "Select a File", "Motion{.hkx,.gltf,.glb},.*", ( bool ok, string res ) => {
+            FileBrowserManager.OpenFileDialog( "Select a File", "Motion{.hkx,.gltf,.glb},.*", ( ok, res ) => {
                 if( !ok ) return;
                 if( res.Contains( ".hkx" ) ) {
                     Plugin.AddModal( new PapReplaceModal( Motion, idx, res ) );
                 }
                 else {
                     var modal = new PapGltfImportModal( Motion, idx, res );
-                    if( modal.AnimationCount <= 0 )
-                    {
+                    if( modal.AnimationCount <= 0 ) {
                         Dalamud.ErrorNotification( "No animations found in this file." );
-                    } else
-                    {
+                    }
+                    else {
                         Plugin.AddModal( modal );
                     }
                 }

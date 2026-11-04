@@ -8,7 +8,7 @@ namespace VfxEditor.AtchFormat.Utils {
             { "2bk", "Book (ACN/SMN/SCH)" },
             { "2bw", "Bow (ARC/BRD)" },
             // { "2bs", "" }, //1703
-            // { "2cb", "" }, //3301, 7.56
+            { "2cb", "Crossbow" }, //3301, 3332
             { "2ff", "Nouliths (SGE)" },
             { "2gb", "Gunblade (GNB)" },
             { "2gl", "Globe (AST)" },
@@ -91,8 +91,8 @@ namespace VfxEditor.AtchFormat.Utils {
             { "gsl", "Wrench" },
             { "gsr", "Opera Glasses" }, //also 1909, no model
             { "gun", "Gun" },
-            { "hab", "Hardboiled's Bike" }, //1973
-            { "hbg", "Hardboiled's Gun" }, //9209
+            { "hab", "Hardiboiled's Bike" }, //1973
+            { "hbg", "Hardiboiled's Gun" }, //9209
             // { "hel", "" },
             { "hmm", "Hammer (BSM/ARM)" },
             { "hrp", "Harp (BRD)" },
