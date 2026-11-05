@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using Dalamud.Interface;
+using VfxEditor.Formats.TmbFormat.Components;
+using VfxEditor.Formats.TmbFormat.Utils;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Bool;
 using VfxEditor.Parsing.Int;
 using VfxEditor.Spawn;
-using VfxEditor.TmbFormat.Utils;
 
-namespace VfxEditor.TmbFormat.Entries {
+namespace VfxEditor.Formats.TmbFormat.Entries {
     public class C049 : TmbEntry {
         public const string MAGIC = "C049";
         public const string DISPLAY_NAME = "----Ground VFX [TESTING] (CUTB)";

@@ -1,15 +1,21 @@
 using Dalamud.Bindings.ImGui;
-using Dalamud.Interface.Utility.Raii;
-using System.Collections.Generic;
-using VfxEditor.Ui.Components.SplitViews;
 using Dalamud.Interface;
-using VfxEditor.FileBrowser;
+using Dalamud.Interface.Utility.Raii;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using VfxEditor.AtchFormat.Utils;
+using VfxEditor.FileBrowser;
+using VfxEditor.Interop.Penumbra.Meta;
+using VfxEditor.Ui.Components.SplitViews;
 
 namespace VfxEditor.Formats.AtchFormat.Entry {
     public class AtchEntrySplitView : CommandSplitView<AtchEntry> {
-        public AtchEntrySplitView( List<AtchEntry> items ) : base( "Entry", items, false, null, () => new() ) { }
+        private readonly AtchFile File;
+
+        public AtchEntrySplitView( AtchFile file, List<AtchEntry> items ) : base( "Entry", items, false, null, () => new() ) {
+            File = file;
+        }
 
         protected override bool DrawLeftItem( AtchEntry item, int idx ) {
             using var _ = ImRaii.PushId( idx );
@@ -24,6 +30,15 @@ namespace VfxEditor.Formats.AtchFormat.Entry {
             }
 
             return false;
+        }
+
+        protected override void DrawSelected() {
+            using var _ = ImRaii.PushId( Items.IndexOf( Selected ) );
+            var states = PenumbraMetaWriter
+                .GetUpdatedStates( File.Vanilla?.Entries, Selected, File.SeenNames, 0 )
+                .Select( x => x.State )
+                .ToList();
+            Selected.Draw( states );
         }
 
         protected override void DrawControls()
@@ -62,7 +77,7 @@ namespace VfxEditor.Formats.AtchFormat.Entry {
             using( var font = ImRaii.PushFont( UiBuilder.IconFont ) )
             if( ImGui.Button( FontAwesomeIcon.Save.ToIconString() ) )
             {
-                FileBrowserManager.SaveFileDialog( "Select a Save Location", ".atchentry,.*", "ExportedAtchEntry", "atchentry", ( bool ok, string res ) => {
+                FileBrowserManager.SaveFileDialog( "Select a Save Location", ".atchentry,.*", "ExportedAtchEntry", "atchentry", ( ok, res ) => {
                     if( ok ) System.IO.File.WriteAllBytes( res, Selected.ToBytes() );
                 } );
             }

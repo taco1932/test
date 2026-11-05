@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
-using VfxEditor.Parsing;
+using VfxEditor.Parsing.Float;
 using VfxEditor.Ui.Components;
+
 namespace VfxEditor.Formats.SgbFormat.Layers.Objects.Data.Utils {
     public class RelativePositions {
-        private readonly List<ParsedFloat3> Positions = new();
+        private readonly List<ParsedFloat3> Positions = [];
         private readonly CommandListView<ParsedFloat3> PositionView; //originally ListView
         public RelativePositions() {
             PositionView = new( Positions, () => new( "##Value" ), true );

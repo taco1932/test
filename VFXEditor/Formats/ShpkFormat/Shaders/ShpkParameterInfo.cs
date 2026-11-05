@@ -2,6 +2,8 @@ using Lumina.Misc;
 using System.Collections.Generic;
 using System.IO;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
+using VfxEditor.Parsing.String;
 using VfxEditor.Ui.Interfaces;
 using static VfxEditor.Utils.ShaderUtils;
 

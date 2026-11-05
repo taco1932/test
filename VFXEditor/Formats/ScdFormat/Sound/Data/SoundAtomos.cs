@@ -1,8 +1,9 @@
 using Dalamud.Interface.Utility.Raii;
 using System.IO;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
 
-namespace VfxEditor.ScdFormat.Sound.Data {
+namespace VfxEditor.Formats.ScdFormat.Sound.Data {
     public class SoundAtomos {
         public readonly ParsedByte Version = new( "Version" );
         private readonly ParsedByte Reserve1 = new( "Reserve 1" );

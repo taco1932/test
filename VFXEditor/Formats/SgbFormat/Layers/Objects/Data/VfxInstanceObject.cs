@@ -1,7 +1,8 @@
-using Dalamud.Interface;
 using System.IO;
-using VfxEditor.Parsing;
-using VfxEditor.Spawn;
+using VfxEditor.Parsing.Bool;
+using VfxEditor.Parsing.Color;
+using VfxEditor.Parsing.Float;
+using VfxEditor.Parsing.String;
 using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.SgbFormat.Layers.Objects.Data {

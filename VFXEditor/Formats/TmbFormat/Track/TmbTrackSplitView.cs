@@ -1,11 +1,10 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
-using Dalamud.Bindings.ImGui;
 using System;
 using VfxEditor.FileBrowser;
-using VfxEditor.TmbFormat;
-using VfxEditor.TmbFormat.Actor;
-using VfxEditor.TmbFormat.Entries;
+using VfxEditor.Formats.TmbFormat.Actor;
+using VfxEditor.Formats.TmbFormat.Entries;
 using VfxEditor.Ui.Components.SplitViews;
 using VfxEditor.Utils;
 
@@ -34,15 +33,17 @@ namespace VfxEditor.Formats.TmbFormat.Track {
                     }
                 } );
             }
+            UiUtils.Tooltip( "Import track" );
 
             using var disabled = ImRaii.Disabled( Selected == null );
 
             ImGui.SameLine();
             if( ImGui.Button( FontAwesomeIcon.Save.ToIconString() ) ) {
-                FileBrowserManager.SaveFileDialog( "Select a Save Location", ".tmbtrack,.*", "ExportedTmbTrack", "tmbtrack", ( bool ok, string res ) => {
+                FileBrowserManager.SaveFileDialog( "Select a Save Location", ".tmbtrack,.*", "ExportedTmbTrack", "tmbtrack", ( ok, res ) => {
                     if( ok ) System.IO.File.WriteAllBytes( res, Selected.ToBytes() );
                 } );
             }
+            UiUtils.Tooltip( "Export track" );
 
             ImGui.SameLine();
             if( UiUtils.RemoveButton( FontAwesomeIcon.Trash.ToIconString() ) ) {

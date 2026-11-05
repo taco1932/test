@@ -1,8 +1,9 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Configuration;
 using Dalamud.Interface;
+using Dalamud.Interface.Style;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
-using Dalamud.Bindings.ImGui;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,18 +11,19 @@ using System.Linq;
 using System.Numerics;
 using VfxEditor.DirectX.Lights;
 using VfxEditor.FileBrowser.SideBar;
+using VfxEditor.Formats.SklbFormat.Bones;
 using VfxEditor.Formats.TextureFormat;
 using VfxEditor.Library;
 using VfxEditor.Select;
-using VfxEditor.SklbFormat.Bones;
-using VfxEditor.Ui;
+using VfxEditor.Select.Favorite;
 using VfxEditor.Utils.Gltf;
 
-namespace VfxEditor {
+namespace VfxEditor.Data {
     [Serializable]
     public unsafe class ManagerConfiguration {
         public List<SelectResult> RecentItems = [];
         public List<SelectResult> Favorites = [];
+        public List<SelectFavoriteItem> FavoritedItems = [];
         public bool UseCustomWindowColor = false;
         public Vector4 TitleBg = *ImGui.GetStyleColorVec4( ImGuiCol.TitleBg );
         public Vector4 TitleBgActive = *ImGui.GetStyleColorVec4( ImGuiCol.TitleBgActive );
@@ -122,7 +124,7 @@ namespace VfxEditor {
         public List<FileBrowserSidebarItem> FileBrowserFavorites = [];
 
         public Vector4 RendererBackground = new( 0.272f, 0.273f, 0.320f, 1.0f );
-        public Vector3 MaterialAmbientColor = new( 0.0392f, 0.0156f, 0.04313f );
+        public Vector3 MaterialAmbientColor = new( 0.1f, 0.095f, 0.11f );
         public LightConfiguration Light1 = new( new( 2, 2, 2 ), new( 0.9153226f, 0.8648891f, 0.76768994f ), 10f, 0.1f );
         public LightConfiguration Light2 = new( new( -2, -2, -2 ), new( 0.39516127f, 0.28755587f, 0.2692833f ), 10f, 0.1f );
 
@@ -163,6 +165,8 @@ namespace VfxEditor {
 
         public string CustomPathPrefix = "vfx/custom/";
 
+        public Vector4 AccentColor = StyleModel.GetFromCurrent().BuiltInColors.DPSRed.Value;
+
         [NonSerialized]
         public bool WriteLocationError = false;
 
@@ -179,6 +183,7 @@ namespace VfxEditor {
             if( CurveEditorPalette.Count == 0 ) {
                 CurveEditorPalette.AddRange( ImGuiHelpers.DefaultColorPalette( 56 ) );
             }
+            MigrateFavorites();
         }
 
         public ManagerConfiguration GetManagerConfig( string id ) {
@@ -186,6 +191,27 @@ namespace VfxEditor {
             var newConfig = new ManagerConfiguration();
             ManagerConfigs.Add( id, newConfig );
             return newConfig;
+        }
+
+        private void MigrateFavorites() {
+            var migrated = false;
+            foreach( var (id, config) in ManagerConfigs ) {
+                config.FavoritedItems ??= [];
+
+                if( config.Favorites?.Count > 0 ) {
+                    var count = config.Favorites.Count;
+                    config.FavoritedItems.AddRange( config.Favorites
+                        .Where( x => x != null )
+                        .Select( x => new SelectFavoriteItem() {
+                            IsFolder = false,
+                            Result = x
+                        } ) );
+                    config.Favorites.Clear();
+                    Dalamud.Log( $"Migrated {count} favorited items from {id}" );
+                    migrated = true;
+                }
+            }
+            if( migrated ) Save();
         }
 
         public void AddRecent( List<SelectResult> recentList, SelectResult result ) {
@@ -322,6 +348,7 @@ namespace VfxEditor {
 
             if( ImGui.CollapsingHeader( "UI", ImGuiTreeNodeFlags.DefaultOpen ) ) {
                 using var _ = ImRaii.PushIndent( 10f );
+                if( ImGui.ColorEdit4( "Accent Color", ref AccentColor ) ) Save();
                 if( ImGui.Checkbox( "Hide with Game UI", ref HideWithUI ) ) Save();
                 if( ImGui.Checkbox( "Show Tab Bar", ref ShowTabBar ) ) Save();
                 if( ImGui.Checkbox( "Lock Main Windows", ref LockMainWindows ) ) Save();

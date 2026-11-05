@@ -2,6 +2,7 @@ using Dalamud.Bindings.ImGui;
 using System.Collections.Generic;
 using System.IO;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
 using VfxEditor.Ui.Components.SplitViews;
 using VfxEditor.Ui.Interfaces;
 
@@ -33,7 +34,7 @@ namespace VfxEditor.Formats.ShpkFormat.Nodes {
 
         public void Write( BinaryWriter writer ) {
             OwnIndex.Write( writer );
-            writer.Write( (ushort) Aliases.Count );
+            writer.Write( ( ushort )Aliases.Count );
 
             Aliases.ForEach( x => x.Write( writer ) );
             var padding = DATA_CAPACITY - ( Aliases.Count * 2 );

@@ -27,7 +27,7 @@ namespace VfxEditor.Formats.MtrlFormat.Stm.Entry {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public T this[int index] => index >= 0 && index < Count ? Value : throw new IndexOutOfRangeException();
+        public T this[int index] => index >= 0 && index < Count ? Value : throw new ArgumentOutOfRangeException( nameof( index ) );
     }
 
     public class IndexedList<T> : IReadOnlyList<T> {
@@ -36,7 +36,7 @@ namespace VfxEditor.Formats.MtrlFormat.Stm.Entry {
 
         public IndexedList( BinaryReader br, int count, Func<BinaryReader, T> read ) {
             Values = new T[count + 1];
-            Indexes = new byte[StmEntry.MAX];
+            Indexes = new byte[StmEntryBase.MAX];
             Indexes[0] = default!;
 
             for( var i = 1; i < count + 1; ++i ) Values[i] = read( br );
@@ -44,14 +44,14 @@ namespace VfxEditor.Formats.MtrlFormat.Stm.Entry {
             // Seems to be an unused 0xFF byte marker.
             // Necessary for correct offsets.
             br.ReadByte();
-            for( var i = 0; i < StmEntry.MAX; ++i ) {
+            for( var i = 0; i < StmEntryBase.MAX - 1; ++i ) {
                 Indexes[i] = br.ReadByte();
                 if( Indexes[i] > count ) Indexes[i] = 0;
             }
         }
 
         public IEnumerator<T> GetEnumerator() {
-            for( var i = 0; i < StmEntry.MAX; ++i ) yield return Values[Indexes[i]];
+            for( var i = 0; i < StmEntryBase.MAX; ++i ) yield return Values[Indexes[i]];
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

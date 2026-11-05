@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using VfxEditor.Data.Command.ListCommands;
 using VfxEditor.Ui.Components.SplitViews;
 using VfxEditor.Utils;
+using VfxEditor.Data.Command;
 
 namespace VfxEditor.Formats.SgbFormat.Layers.Objects {
     public class SgbObjectSplitView : CommandSplitView<SgbObject> {
@@ -41,8 +42,8 @@ namespace VfxEditor.Formats.SgbFormat.Layers.Objects {
             foreach( var option in SgbObjectUtils.ObjectTypes ) {
                 if( DangerousObjectTypes.Contains( option.Value ) ) continue;
                 if( ImGui.Selectable( $"{option.Key}" ) ) {
-                    var constructor = option.Value.GetConstructor( new Type[] { typeof( LayerEntryType ) } );
-                    var newEntry = ( SgbObject )constructor.Invoke( new object[] { option.Key } );
+                    var constructor = option.Value.GetConstructor( [typeof( LayerEntryType )] );
+                    var newEntry = ( SgbObject )constructor.Invoke( [option.Key] );
                     CommandManager.Add( new ListAddCommand<SgbObject>( Items, newEntry ) );
                 }
             }

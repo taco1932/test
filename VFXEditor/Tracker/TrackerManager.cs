@@ -1,12 +1,14 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Game.ClientState.Conditions;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
 using FFXIVClientStructs.FFXIV.Client.Game.Control;
-using Dalamud.Bindings.ImGui;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using VfxEditor.Data;
+using VfxEditor.Utils;
 
 namespace VfxEditor.Tracker {
     public struct TrackerItem {
@@ -62,7 +64,7 @@ namespace VfxEditor.Tracker {
             }
 
             var floatingItems = new List<TrackerItemWithPosition>();
-            var actorIdToItems = new Dictionary<int, HashSet<TrackerItem>>();
+            var actorIdToItems = new Dictionary<ulong, HashSet<TrackerItem>>();
             var addressToItems = new Dictionary<IntPtr, HashSet<TrackerItem>>();
 
             foreach( var tracker in EnabledTrackers ) {
@@ -99,7 +101,7 @@ namespace VfxEditor.Tracker {
 
                 var paths = new HashSet<TrackerItem>();
 
-                if( actorIdToItems.TryGetValue( ( int )actor.GameObjectId, out var _p1 ) ) {
+                if( actorIdToItems.TryGetValue( actor.GameObjectId, out var _p1 ) ) {
                     foreach( var p in _p1 ) paths.Add( p );
                 }
 
@@ -148,7 +150,7 @@ namespace VfxEditor.Tracker {
             ImGui.SetNextWindowBgAlpha( 0.5f );
             ImGuiHelpers.ForceNextWindowMainViewport();
 
-            if( ImGui.Begin( $"TrackerWindow{idx}",
+            if( ImGui.Begin( UiUtils.WindowId( $"TrackerWindow{idx}" ),
                 ImGuiWindowFlags.NoDecoration |
                 ImGuiWindowFlags.AlwaysAutoResize |
                 ImGuiWindowFlags.NoSavedSettings |

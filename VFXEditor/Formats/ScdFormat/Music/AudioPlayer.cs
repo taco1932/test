@@ -1,15 +1,17 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
-using Dalamud.Bindings.ImGui;
 using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 using System;
 using System.IO;
+using System.Linq;
 using System.Numerics;
+using VfxEditor.Data;
 using VfxEditor.FileBrowser;
 using VfxEditor.Utils;
-using System.Linq;
 
-namespace VfxEditor.ScdFormat {
+namespace VfxEditor.Formats.ScdFormat.Music {
     public class AudioPlayer {
         private readonly ScdAudioEntry Entry;
         private PlaybackState State => CurrentOutput == null ? PlaybackState.Stopped : CurrentOutput.PlaybackState;
@@ -106,6 +108,7 @@ namespace VfxEditor.ScdFormat {
                     if( IsWav ) SaveWaveDialog(); // can only save as .wav
                     else ImGui.OpenPopup( "SavePopup" );
                 }
+                UiUtils.Tooltip( "Export audio" );
             }
 
             using( var popup = ImRaii.Popup( "SavePopup" ) ) {
@@ -211,7 +214,7 @@ namespace VfxEditor.ScdFormat {
                 LeftRightCombined.ConnectInputToOutput( 1, 1 );
 
                 if( format.Encoding == WaveFormatEncoding.IeeeFloat ) {
-                    var floatVolume = new WaveFloatTo16Provider( LeftRightCombined ) {
+                    var floatVolume = new SampleToWaveProvider16( LeftRightCombined.ToSampleProvider() ) {
                         Volume = Plugin.Configuration.ScdVolume
                     };
                     Volume = floatVolume;
@@ -239,7 +242,7 @@ namespace VfxEditor.ScdFormat {
 
         public void UpdateVolume() {
             if( Volume == null ) return;
-            if( Volume is WaveFloatTo16Provider floatVolume ) {
+            if( Volume is SampleToWaveProvider16 floatVolume ) {
                 floatVolume.Volume = Plugin.Configuration.ScdVolume;
             }
             else if( Volume is VolumeWaveProvider16 pcmVolume ) {

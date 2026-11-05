@@ -1,7 +1,8 @@
-using Dalamud.Interface.Utility.Raii;
 using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Utility.Raii;
 using System.IO;
 using System.Numerics;
+using VfxEditor.Data;
 using VfxEditor.Utils;
 
 namespace VfxEditor.FileBrowser {
@@ -15,7 +16,7 @@ namespace VfxEditor.FileBrowser {
             if( !Visible ) return false;
 
             var done = false;
-            var name = $"{Title}##{Id}";
+            var name = UiUtils.WindowId( $"{Title}##{Id}" );
 
             IsOk = false;
             WantsToQuit = false;

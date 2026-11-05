@@ -1,5 +1,6 @@
-using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using Dalamud.Bindings.ImGui;
+using FFXIVClientStructs.FFXIV.Client.Game.Character;
+using FFXIVClientStructs.FFXIV.Common.Lua;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using VfxEditor.FileManager;
 using VfxEditor.Formats.AtchFormat.Entry;
+using VfxEditor.Interop.Penumbra.Meta;
 using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.AtchFormat {
@@ -20,6 +22,9 @@ namespace VfxEditor.Formats.AtchFormat {
         public readonly ushort NumStates;
         public readonly List<AtchEntry> Entries = [];
         private readonly AtchEntrySplitView EntryView;
+
+        public (string GamePath, List<AtchEntry> Entries)? Vanilla { get; private set; } = null; // Penumbra only uses ATCH diffs, so need to highlight which ones are actually changed
+        public readonly HashSet<string> SeenNames = [];
 
         public unsafe AtchFile( BinaryReader reader ) : base() {
             Verified = VerifiedStatus.UNSUPPORTED; // verifying these is fucked. The format is pretty simple though, so it's not a big deal
@@ -42,7 +47,7 @@ namespace VfxEditor.Formats.AtchFormat {
             }
 
             Entries.ForEach( x => x.ReadBody( reader, NumStates ) );
-            EntryView = new( Entries );
+            EntryView = new( this, Entries );
         }
 
         public override void Write( BinaryWriter writer ) {
@@ -76,7 +81,45 @@ namespace VfxEditor.Formats.AtchFormat {
 
             ImGui.Separator();
 
+            SeenNames.Clear();
             EntryView.Draw();
+        }
+
+        public void ResetVanilla() {
+            Vanilla = null;
+        }
+
+        public List<AtchEntry> UpdateVanilla( string gamePath ) {
+            if( string.IsNullOrEmpty( gamePath ) ) {
+                ResetVanilla();
+                return null;
+            }
+            if( Vanilla?.GamePath == gamePath ) { // already have them
+                return Vanilla.Value.Entries;
+            }
+
+            try {
+                var data = Dalamud.DataManager.GetFile( gamePath )?.Data;
+                if( data != null ) {
+                    using var reader = new BinaryReader( new MemoryStream( data ) );
+                    var file = new AtchFile( reader );
+                    Vanilla = (gamePath, [.. file.Entries]);
+                    // Make sure this is clear to be cleaned up
+                    file.Entries.Clear();
+                    file.Dispose();
+                    return Vanilla?.Entries;
+                }
+                else {
+                    Dalamud.Error( $"Path {gamePath} not found" );
+                }
+            }
+            catch( Exception ex ) {
+                Dalamud.Error( ex, $"Failed to get vanilla ATCH changes for {gamePath}" );
+                return null;
+            }
+
+            ResetVanilla();
+            return null;
         }
 
         private unsafe void DrawCurrentWeapons() {

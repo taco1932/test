@@ -6,14 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using VfxEditor.AvfxFormat;
+using VfxEditor.Data;
+using VfxEditor.Data.Command;
 using VfxEditor.Data.Command.ListCommands;
 using VfxEditor.DirectX;
 using VfxEditor.Formats.AvfxFormat.Assign;
+using VfxEditor.Formats.AvfxFormat.Base;
 using VfxEditor.Parsing;
 using VfxEditor.Utils;
-using VFXEditor.Formats.AvfxFormat.Curve;
-using static VfxEditor.AvfxFormat.Enums;
+using static VfxEditor.Formats.AvfxFormat.Base.Enums;
 
 namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
     public enum LinesAssigned {
@@ -155,18 +156,23 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
             using( var style = ImRaii.PushStyle( ImGuiStyleVar.ItemSpacing, ImGui.GetStyle().ItemInnerSpacing ) )
             using( var font = ImRaii.PushFont( UiBuilder.IconFont ) ) {
                 fit = ImGui.Button( $"{FontAwesomeIcon.ExpandArrowsAlt.ToIconString()}" );
+                UiUtils.Tooltip( "Fit view to curves" );
 
                 ImGui.SameLine();
                 if( ImGui.Button( $"{FontAwesomeIcon.Copy.ToIconString()}" ) ) Copy();
+                UiUtils.Tooltip( "Copy keys" );
 
                 ImGui.SameLine();
                 if( UiUtils.DisabledButton( $"{FontAwesomeIcon.Paste.ToIconString()}", CopiedKeys.Count > 0 ) ) Paste();
+                UiUtils.Tooltip( "Paste keys (adds to existing keys)" );
 
                 ImGui.SameLine();
                 if( UiUtils.DisabledButton( $"{FontAwesomeIcon.ArrowRightToBracket.ToIconString()}", CopiedKeys.Count > 0 ) ) Replace();
+                UiUtils.Tooltip( "Replace keys with copied keys" );
 
                 ImGui.SameLine();
                 if( UiUtils.RemoveButton( $"{FontAwesomeIcon.Times.ToIconString()}" ) ) Clear();
+                UiUtils.Tooltip( "Clear all keys" );
             }
 
             if( Curves.Any( x => x.Type == CurveType.Angle ) ) {
@@ -235,7 +241,7 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
                 DrawOnce = true;
             }
 
-            var height = ImGui.GetContentRegionAvail().Y - ( 4 * ImGui.GetFrameHeightWithSpacing() + 5 );
+            var height = ImGui.GetContentRegionAvail().Y - ( 3 * ImGui.GetFrameHeightWithSpacing() + 5 );
             if( fit ) ImPlot.SetNextAxesToFit();
             ImPlot.PushStyleVar( ImPlotStyleVar.FitPadding, new Vector2( 0.5f, 0.5f ) );
             using( var plot = ImRaii.Plot( $"##CurveEditor{RenderId}", new Vector2( -1, height ), ImPlotFlags.NoMenus | ImPlotFlags.NoTitle ) ) {
@@ -252,19 +258,19 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
 
                     var draggingAnyPoint = false;
                     var dragPointId = 0;
+                    var limits = ImPlot.GetPlotLimits();
                     foreach( var (curve, curveIdx) in Curves.WithIndex() ) {
                         if( !curve.IsAssigned() || curve.Keys.Count == 0 ) continue;
 
-                        ImPlot.HideNextItem( false, ImPlotCond.Once );
-                        curve.GetDrawLine( out var _xs, out var _ys );
-                        var xs = _xs.ToArray();
-                        var ys = _ys.ToArray();
-
+                        curve.GetDrawLine( limits.X.Min, limits.X.Max, out var _xs, out var _ys, out var preXs, out var preYs, out var postXs, out var postYs );
                         var lineColor = GetLineColor( curve, curveIdx );
 
-                        ImPlot.SetNextLineStyle( lineColor, Plugin.Configuration.CurveEditorLineWidth );
+                        var behaviorColor = lineColor with { W = lineColor.W * 0.35f };
+                        PlotLine( $"##Pre{curveIdx}", preXs, preYs, behaviorColor );
+                        PlotLine( $"##Post{curveIdx}", postXs, postYs, behaviorColor );
 
-                        ImPlot.PlotLine( curve.Name, ref xs[0], ref ys[0], xs.Length );
+                        ImPlot.HideNextItem( false, ImPlotCond.Once );
+                        PlotLine( curve.Name, _xs, _ys, lineColor );
 
                         DrawGradient();
 
@@ -303,23 +309,19 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
                                 draggingAnyPoint = true;
                             }
                         }
-
-                        // ======================
-
-                        if( Editing && !draggingAnyPoint && ( DateTime.Now - LastEditTime ).TotalMilliseconds > 200 ) {
-                            Editing = false;
-                            var commands = new List<ICommand>();
-                            Selected.ForEach( x => x.Item2.StopDragging( commands ) );
-                            CommandManager.Add( new CompoundCommand( commands, OnUpdate ) );
-                        }
-
-                        // Selecting point [Left Click]
-                        // want to ignore if going to drag points around, so only process if click+release is less than 200 ms
-                        var processClick = !clickState && PrevClickState && ( DateTime.Now - PrevClickTime ).TotalMilliseconds < 200;
-                        if( !draggingAnyPoint && processClick && !ImGui.GetIO().KeyCtrl && IsHovering() && !ImGui.IsAnyItemActive() && ImGui.IsWindowFocused() ) SingleSelect();
-
-                        // TODO: box select and right click
                     }
+
+                    if( Editing && !draggingAnyPoint && ( DateTime.Now - LastEditTime ).TotalMilliseconds > 200 ) {
+                        Editing = false;
+                        var commands = new List<ICommand>();
+                        Selected.ForEach( x => x.Item2.StopDragging( commands ) );
+                        CommandManager.Add( new CompoundCommand( commands, OnUpdate ) );
+                    }
+
+                    // Selecting point [Left Click]
+                    // want to ignore if going to drag points around, so only process if click+release is less than 200 ms
+                    var processClick = !clickState && PrevClickState && ( DateTime.Now - PrevClickTime ).TotalMilliseconds < 200;
+                    if( !draggingAnyPoint && processClick && !ImGui.GetIO().KeyCtrl && IsHovering() && !ImGui.IsAnyItemActive() && ImGui.IsWindowFocused() ) SingleSelect();
 
                     // Inserting point [Ctrl + Left Click]
                     if( ImGui.IsMouseClicked( ImGuiMouseButton.Left ) && ImGui.GetIO().KeyCtrl && IsHovering() && ImGui.IsWindowFocused() ) NewPoint();
@@ -415,6 +417,12 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
             "A" or "SclA" or "RanA" => new( 1, 1, 1, 1 ),
             _ => LineColors[curveIdx % LineColors.Length],
         };
+
+        private static void PlotLine( string label, double[] xs, double[] ys, Vector4 color ) {
+            if( xs.Length == 0 ) return;
+            ImPlot.SetNextLineStyle( color, Plugin.Configuration.CurveEditorLineWidth );
+            ImPlot.PlotLine( label, ref xs[0], ref ys[0], xs.Length );
+        }
 
         private static uint Invert( Vector3 color ) =>
             color.X * 0.299 + color.Y * 0.587 + color.Z * 0.114 > 0.73 ? ImGui.GetColorU32( new Vector4( 0, 0, 0, 1 ) ) : ImGui.GetColorU32( new Vector4( 1, 1, 1, 1 ) );

@@ -76,6 +76,11 @@ namespace VfxEditor.Utils {
             => Read<byte>();
 
         [MethodImpl( MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization )]
+        public byte[] ReadBytes( int count ) {
+            return Read<byte>( count ).ToArray();
+        }
+
+        [MethodImpl( MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization )]
         public short ReadInt16()
             => Read<short>();
 

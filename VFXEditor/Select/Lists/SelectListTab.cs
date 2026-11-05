@@ -1,45 +1,24 @@
-using Dalamud.Interface.Utility.Raii;
 using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Utility.Raii;
 using System.Collections.Generic;
-using System.Numerics;
+using VfxEditor.Select.Base;
 
 namespace VfxEditor.Select.Lists {
-    public class SelectListTab {
-        protected readonly SelectDialog Dialog;
+    public class SelectListTab : SelectTabBase {
         protected readonly List<SelectResult> Items;
-        protected readonly string Name;
 
-        protected Vector2 DefaultWindowPadding = new();
-        protected string SearchInput = "";
-
-        public SelectListTab( SelectDialog dialog, string name, List<SelectResult> items ) {
-            Dialog = dialog;
-            Name = name;
+        public SelectListTab( SelectDialog dialog, string name, List<SelectResult> items ) : base( dialog, name ) {
             Items = items;
         }
 
-        public void Draw() {
+        protected override int NumColumns() => 3;
+
+        protected override void DrawTable() {
+            ImGui.TableSetupColumn( "##Favorite", ImGuiTableColumnFlags.WidthFixed, 25 );
+            ImGui.TableSetupColumn( "##Type" );
+            ImGui.TableSetupColumn( "##Name", ImGuiTableColumnFlags.WidthStretch );
+
             if( Items == null ) return;
-
-            using var _ = ImRaii.PushId( Name );
-
-            using var tabItem = ImRaii.TabItem( Name );
-            if( !tabItem ) return;
-
-            DefaultWindowPadding = ImGui.GetStyle().WindowPadding;
-
-            ImGui.InputTextWithHint( "##Search", "Search", ref SearchInput, 255 );
-
-            using var style = ImRaii.PushStyle( ImGuiStyleVar.CellPadding, new Vector2( 4, 3 ) );
-            using var padding = ImRaii.PushStyle( ImGuiStyleVar.WindowPadding, new Vector2( 0, 0 ) );
-            using var child = ImRaii.Child( "Child", new Vector2( -1, -1 ), true );
-            using var table = ImRaii.Table( "Table", 3, ImGuiTableFlags.RowBg | ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.NoSavedSettings );
-            if( !table ) return;
-            padding.Dispose();
-
-            ImGui.TableSetupColumn( "##Column1", ImGuiTableColumnFlags.WidthFixed, 25 );
-            ImGui.TableSetupColumn( "##Column2" );
-            ImGui.TableSetupColumn( "##Column3", ImGuiTableColumnFlags.WidthStretch );
 
             var idx = 0;
             foreach( var item in Items ) {
@@ -64,7 +43,7 @@ namespace VfxEditor.Select.Lists {
             if( Dialog.DrawFavorite( item ) ) return true;
 
             ImGui.TableNextColumn();
-            ImGui.TextDisabled( "[" + item.Type.ToString().ToUpper().Replace( "GAME", "" ) + "]" );
+            ImGui.TextDisabled( "[" + item.Type.ToString().ToUpperInvariant().Replace( "GAME", "" ) + "]" );
 
             ImGui.TableNextColumn();
             ImGui.Selectable( string.IsNullOrEmpty( item.Name ) ? item.DisplayString.Split( "]" )[^1] : item.Name, false, ImGuiSelectableFlags.SpanAllColumns );

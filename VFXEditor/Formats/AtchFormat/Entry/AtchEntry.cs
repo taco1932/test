@@ -3,6 +3,8 @@ using Dalamud.Interface.Utility.Raii;
 using System.Collections.Generic;
 using System.IO;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Bool;
+using VfxEditor.Parsing.String;
 using VfxEditor.Ui.Interfaces;
 using VfxEditor.Utils;
 using VfxEditor.AtchFormat.Utils;
@@ -45,13 +47,22 @@ namespace VfxEditor.Formats.AtchFormat.Entry {
             States.ForEach( x => x.Write( writer, stringStartPos, stringWriter, stringPos ) );
         }
 
-        public void Draw() {
+        public void Draw() => Draw( null );
+
+        public void Draw( List<AtchEntryState> validStates ) {
+            using( ImRaii.Disabled() ) {
+                ImGui.TextWrapped( "Penumbra only recognizes metadata changes, so only the state edits in green will be recognized by Penumbra" );
+            }
+
             Name.Draw( 3, Name.Name, 0, ImGuiInputTextFlags.None );
             Accessory.Draw();
 
             for( var idx = 0; idx < States.Count; idx++ ) {
                 var state = States[idx];
+                using var color = ImRaii.PushColor( ImGuiCol.Text, UiUtils.PARSED_GREEN, validStates != null && validStates.Contains( state ) );
                 if( ImGui.CollapsingHeader( $"State {idx} ({state.Bone.Value})###{idx}" ) ) {
+                    color.Pop();
+
                     using var _ = ImRaii.PushId( idx );
                     using var indent = ImRaii.PushIndent();
 
@@ -62,7 +73,7 @@ namespace VfxEditor.Formats.AtchFormat.Entry {
 
         public byte[] ToBytes()
         {
-            var atchWriter = new AtchWriter(0, 0);
+            var atchWriter = new AtchWriter( 0, 0 );
             atchWriter.WriteEntry( this );
 
             using var ms = new MemoryStream();

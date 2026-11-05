@@ -7,10 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
-using VfxEditor.PapFormat;
-using VfxEditor.PapFormat.Motion;
-using VfxEditor.Utils;
+using VfxEditor.Data;
 using VfxEditor.DirectX;
+using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.PapFormat.Motion.Preview {
     public class PapMotionMaterialData {
@@ -96,6 +95,7 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
                 ImGui.SameLine();
                 using var font = ImRaii.PushFont( UiBuilder.IconFont );
                 if( ImGui.Button( FontAwesomeIcon.ArrowsLeftRightToLine.ToIconString() ) ) ImPlot.SetNextAxesToFit();
+                UiUtils.Tooltip( "Fit view to data" );
             }
 
             // ====================
@@ -109,8 +109,6 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
                 if( IsColor ) ImPlot.SetupAxisLimitsConstraints( ImAxis.X1, 0, double.MaxValue - 1 );
                 ImPlot.SetupAxes( "Frame", "", ImPlotAxisFlags.None,
                     IsColor ? ( ImPlotAxisFlags.Lock | ImPlotAxisFlags.NoGridLines | ImPlotAxisFlags.NoDecorations | ImPlotAxisFlags.NoLabel ) : ImPlotAxisFlags.NoLabel );
-
-                var element = Data[BoneSelected];
 
                 if( IsColor ) {
                     var topLeft = new ImPlotPoint { X = 0, Y = 1 };
@@ -127,7 +125,7 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
                         ImPlot.PlotLine( $"Line {i}", ref xs[0], ref ys[0], xs.Length );
                     }
                 }
-                else {
+                else if( Data.TryGetValue( BoneSelected, out var element ) ) { // Nothing may be selected yet (no material curves)
                     ImPlot.SetNextLineStyle( new( 1, 0, 0, 1 ), 3 );
                     ImPlot.PlotLine( "R", ref AllFrames[0], ref element.R[0], AllFrames.Length );
 

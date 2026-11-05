@@ -1,9 +1,11 @@
 using System.IO;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Enums;
+using VfxEditor.Parsing.Int;
 
-namespace VfxEditor.ScdFormat {
+namespace VfxEditor.Formats.ScdFormat.Track.Data {
     public enum TrackCmdJump {
-        Unknown = 0x0,
+        Unknown_Test = 0x0,
         LZE = 0x1,
         LNZ,
     }

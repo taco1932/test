@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using VfxEditor.Formats.TmbFormat.Utils;
 using VfxEditor.Parsing;
 using VfxEditor.Parsing.Int;
-using VfxEditor.TmbFormat.Utils;
 using VfxEditor.Utils;
 
-namespace VfxEditor.TmbFormat.Entries {
+namespace VfxEditor.Formats.TmbFormat.Entries {
     public class C036 : TmbEntry {
         public const string MAGIC = "C036";
         public const string DISPLAY_NAME = "noclip ----[TESTING] (CUTB)"; //does a very bad thing by locking axis position and allowing no clip

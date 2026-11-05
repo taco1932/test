@@ -1,7 +1,7 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
-using Dalamud.Bindings.ImGui;
-using VfxEditor.AvfxFormat;
+using VfxEditor.Formats.AvfxFormat;
 using VfxEditor.Select.Tabs.Actions;
 using VfxEditor.Select.Tabs.Common;
 using VfxEditor.Select.Tabs.Cutscenes;
@@ -12,11 +12,11 @@ using VfxEditor.Select.Tabs.Items;
 using VfxEditor.Select.Tabs.JournalCutscene;
 using VfxEditor.Select.Tabs.Mounts;
 using VfxEditor.Select.Tabs.Npc;
+using VfxEditor.Select.Tabs.NpcID;
 using VfxEditor.Select.Tabs.Statuses;
 using VfxEditor.Select.Tabs.Zone;
 using VfxEditor.Spawn;
 using VfxEditor.Utils;
-using VfxEditor.Select.Tabs.NpcID;
 
 namespace VfxEditor.Select.Formats {
     public class VfxSelectDialog : SelectDialog {
@@ -106,7 +106,14 @@ namespace VfxEditor.Select.Formats {
 
         public override void PlayPopupItems( string path ) {
             ImGui.Separator();
-            if( ImGui.Selectable( "Spawn" ) ) VfxSpawn.OnSelf( path, false );
+            using( ImRaii.Disabled( !VfxSpawn.IsActive ) ) {
+                if( ImGui.Selectable( "De-Spawn" ) ) VfxSpawn.Clear();
+            }
+            using( ImRaii.Disabled( VfxSpawn.IsActive ) ) {
+                if( ImGui.Selectable( "Self" ) ) VfxSpawn.OnSelf( path, false );
+                if( ImGui.Selectable( "Ground" ) ) VfxSpawn.OnGround( path, false );
+                if( ImGui.Selectable( "Target" ) ) VfxSpawn.OnTarget( path, false );
+            }
         }
     }
 }

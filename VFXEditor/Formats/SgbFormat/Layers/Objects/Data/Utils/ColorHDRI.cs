@@ -1,6 +1,8 @@
 using System.IO;
-using VfxEditor.Parsing;
+using VfxEditor.Parsing.Color;
+using VfxEditor.Parsing.Float;
 using VfxEditor.Ui.Interfaces;
+
 namespace VfxEditor.Formats.SgbFormat.Layers.Objects.Data.Utils {
     public class ColorHDRI : IUiItem {
         private readonly ParsedIntColor Color = new( "Color" );

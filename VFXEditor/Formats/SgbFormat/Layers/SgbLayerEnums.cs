@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using VfxEditor.Formats.SgbFormat.Layers.Objects;
-using VfxEditor.Parsing;
 using VfxEditor.Ui.Interfaces;
 using VfxEditor.Utils;
 using VfxEditor.Parsing.Int;
+using VfxEditor.Parsing.String;
+using VfxEditor.Parsing.Bool;
 
 namespace VfxEditor.Formats.SgbFormat.Layers {
     public class SgbLayer : IUiItem {

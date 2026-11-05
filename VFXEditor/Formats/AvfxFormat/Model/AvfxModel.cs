@@ -5,15 +5,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
-using VfxEditor.AvfxFormat.Model;
+using VfxEditor.Data;
+using VfxEditor.Data.Command;
+using VfxEditor.DirectX;
+using VfxEditor.DirectX.Model;
 using VfxEditor.FileBrowser;
+using VfxEditor.Formats.AvfxFormat.Base;
+using VfxEditor.Formats.AvfxFormat.Model.Emit;
+using VfxEditor.Formats.AvfxFormat.Nodes;
 using VfxEditor.Ui.Components.Tables;
 using VfxEditor.Utils;
 using VfxEditor.Utils.Gltf;
-using VfxEditor.DirectX;
-using static VfxEditor.DirectX.ModelPreview;
+using static VfxEditor.DirectX.Model.ModelPreview;
 
-namespace VfxEditor.AvfxFormat {
+namespace VfxEditor.Formats.AvfxFormat.Model {
     public class AvfxModel : AvfxNode {
         public const string NAME = "Modl";
         public readonly AvfxVertexes Vertexes = new();
@@ -72,8 +77,7 @@ namespace VfxEditor.AvfxFormat {
             for( var i = 0; i < EmitVertexes.EmitVertexes.Count; i++ ) {
                 AllEmitVertexes.Add( new UiEmitVertex( this, EmitVertexes.EmitVertexes[i]));
             }
-            for( var i = 0; i < EmitVertexNumbers.VertexNumbers.Count; i++ )
-            {
+            for( var i = 0; i < EmitVertexNumbers.VertexNumbers.Count; i++ ) {
                 AllVertexNumbers.Add( new UiVertexNumber( EmitVertexNumbers.VertexNumbers[i] ) );
             }
         }

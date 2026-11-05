@@ -24,6 +24,7 @@ cbuffer PSMaterialConstants : register(b1)
     float3 AmbientColor;
     
     float3 EyePosition;
+    float Roughness;
     LightData Light1;
     LightData Light2;
     
@@ -76,4 +77,44 @@ float3 computeSpecular(LightData light, float3 worldPos, float3 N)
         return light.Color * pow(max(0.0f, RdotV), SpecularPower * 10) * SpecularIntensity;
     }
     return 0;
+}
+
+float3 computeHemisphereAmbient(float3 N)
+{
+    return AmbientColor * lerp(0.25f, 1.75f, N.y * 0.5f + 0.5f);
+}
+
+float softbox(float3 dir, float3 boxDir, float size, float blur)
+{
+    float edge = 0.01f + blur * 0.3f;
+    return smoothstep(size - edge, size + edge, dot(dir, boxDir)) * lerp(1.0f, 0.35f, blur);
+}
+
+float3 sampleStudio(float3 dir, float blur)
+{
+    // Wide and low contrast, a sharp horizon shows up as rings on a sphere
+    float spread = blur * 0.5f;
+    float3 color = lerp(float3(0.1f, 0.1f, 0.11f), float3(0.4f, 0.42f, 0.45f), smoothstep(-0.7f - spread, 0.9f + spread, dir.y));
+
+    color += 2.0f * softbox(dir, normalize(Light1.Position), 0.94f, blur) * Light1.Color;
+    color += 1.2f * softbox(dir, normalize(float3(-0.7f, 0.4f, 0.6f)), 0.95f, blur);
+    color += 1.5f * softbox(dir, normalize(float3(0.3f, 0.4f, -0.9f)), 0.96f, blur);
+    return color;
+}
+
+float3 computeReflectionF0(float3 worldPos, float3 N, float3 geometryN, float3 F0, float roughness)
+{
+    float3 V = normalize(EyePosition - worldPos);
+    float3 R = reflect(-V, N);
+
+    // Schlick, damped for rough surfaces so they don't get a bright rim
+    float NdotV = saturate(dot(geometryN, V));
+    float3 F = F0 + (max(1.0f - roughness, F0) - F0) * pow(1.0f - NdotV, 5.0f);
+
+    return sampleStudio(R, roughness) * F;
+}
+
+float3 computeReflection(float3 worldPos, float3 N, float3 geometryN)
+{
+    return computeReflectionF0(worldPos, N, geometryN, saturate(SpecularColor * SpecularIntensity) * 0.5f, Roughness);
 }

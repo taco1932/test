@@ -2,7 +2,7 @@ using System.IO;
 using VfxEditor.Parsing.Utils;
 using VfxEditor.Utils;
 
-namespace VfxEditor.ObsbFormat.Utils {
+namespace VfxEditor.Formats.ObsbFormat.Utils {
     public class ObsbReader : ParsingReader {
         public long StartPosition;
 

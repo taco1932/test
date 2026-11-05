@@ -1,9 +1,10 @@
-using System.Collections.Generic;
+using System;
 using System.IO;
+using VfxEditor.Data.Command;
 using VfxEditor.Utils;
 
 namespace VfxEditor.FileManager {
-    public abstract class FileManagerFile {
+    public abstract class FileManagerFile : IDisposable {
         public readonly CommandManager Command;
         public VerifiedStatus Verified = VerifiedStatus.WORKSPACE;
         public bool Unsaved { get; protected set; } = false;
@@ -21,10 +22,6 @@ namespace VfxEditor.FileManager {
         public virtual void Update() {
             Unsaved = false;
         }
-
-        public virtual List<string>? GetPapIds() => null;
-
-        public virtual List<short>? GetPapTypes() => null;
 
         public abstract void Write( BinaryWriter writer );
 

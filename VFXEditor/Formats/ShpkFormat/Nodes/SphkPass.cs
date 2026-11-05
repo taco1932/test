@@ -1,6 +1,7 @@
 using System.IO;
 using VfxEditor.Formats.ShpkFormat.Utils;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
 using VfxEditor.Ui.Interfaces;
 
 namespace VfxEditor.Formats.ShpkFormat.Nodes {

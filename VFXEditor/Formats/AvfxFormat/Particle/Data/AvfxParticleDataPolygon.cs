@@ -1,5 +1,7 @@
-using VFXEditor.Formats.AvfxFormat.Curve;
-namespace VfxEditor.AvfxFormat {
+using VfxEditor.Formats.AvfxFormat.Base;
+using VfxEditor.Formats.AvfxFormat.Curve;
+
+namespace VfxEditor.Formats.AvfxFormat.Particle.Data {
     public class AvfxParticleDataPolygon : AvfxData {
         public readonly AvfxCurve1Axis Count = new( "Count", "Cnt" );
         public readonly AvfxCurve1Axis CountRandom = new( "Count Random", "CntR" ); //

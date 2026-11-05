@@ -36,6 +36,8 @@ namespace VfxEditor.Utils {
     public struct WorkspaceWindow {
         public Vector2? Position;
         public Vector2? Size;
+        public bool? UseWindowColor;
+        public Vector4? WindowColor;
     }
 
     public struct WorkspaceWindowMeta {
@@ -52,7 +54,7 @@ namespace VfxEditor.Utils {
 
         public static WorkspaceWindow[]? GetWindowData( JObject meta, string key ) {
             if( !meta.ContainsKey( "windows" ) ) return null;
-            return JsonConvert.DeserializeObject<WorkspaceWindowMeta>( meta["windows"].ToString() ).Windows.GetValueOrDefault( key );
+            return JsonConvert.DeserializeObject<WorkspaceWindowMeta>( meta["windows"].ToString() ).Windows?.GetValueOrDefault( key );
         }
 
         public static void WriteToMeta<T>( Dictionary<string, string> meta, T[] items, string key ) {

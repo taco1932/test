@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using VfxEditor.Formats.TmbFormat.Base;
+using VfxEditor.Formats.TmbFormat.Utils;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Enums;
 using VfxEditor.Parsing.Int;
-using VfxEditor.TmbFormat.Utils;
 using VfxEditor.Utils;
 
-namespace VfxEditor.TmbFormat.Entries {
+namespace VfxEditor.Formats.TmbFormat.Entries {
     public class C176 : TmbEntry {
         public const string MAGIC = "C176";
         public const string DISPLAY_NAME = "Camera-Based Position Change";
@@ -18,7 +20,9 @@ namespace VfxEditor.TmbFormat.Entries {
         private readonly ParsedInt Duration = new( "Duration" );
         private readonly ParsedInt CRC = new( "CRC" );
         private readonly ParsedInt TmfcId = new( "F-Curve ID" );
-        private readonly ParsedIntByte4 Unk4 = new( "Unknown 4" );
+        private readonly ParsedByte CameraMode = new( "Camera Mode" );
+        private readonly ParsedEnum<C176Activation> Activation = new( "Activation", size: 1 );
+        private readonly ParsedShort Unk4 = new( "Unknown 4" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
         private readonly ParsedInt Unk6 = new( "Unknown 6" );
         private readonly ParsedInt Unk7 = new( "Unknown 7" );
@@ -31,6 +35,8 @@ namespace VfxEditor.TmbFormat.Entries {
             Duration,
             CRC,
             TmfcId,
+            CameraMode,
+            Activation,
             Unk4,
             Unk5,
             Unk6,

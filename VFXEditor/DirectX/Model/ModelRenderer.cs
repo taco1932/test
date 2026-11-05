@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using VfxEditor.Data;
 using VfxEditor.DirectX.Drawable;
 using Buffer = SharpDX.Direct3D11.Buffer;
 using Device = SharpDX.Direct3D11.Device;
@@ -87,7 +88,7 @@ namespace VfxEditor.DirectX.Model {
             } );
 
             Sampler = new( Device, new() {
-                Filter = Filter.MinMagMipLinear,
+                Filter = Filter.Anisotropic,
                 AddressU = TextureAddressMode.Wrap,
                 AddressV = TextureAddressMode.Wrap,
                 AddressW = TextureAddressMode.Wrap,
@@ -154,7 +155,7 @@ namespace VfxEditor.DirectX.Model {
             Ctx.ClearDepthStencilView( instance.StencilView, DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1.0f, 0 );
             Ctx.ClearRenderTargetView( instance.RenderTarget, new RawColor4(
                 Plugin.Configuration.RendererBackground.X,
-                Plugin.Configuration.RendererBackground.Y, 
+                Plugin.Configuration.RendererBackground.Y,
                 Plugin.Configuration.RendererBackground.Z,
                 Plugin.Configuration.RendererBackground.W
             ) );
@@ -172,7 +173,7 @@ namespace VfxEditor.DirectX.Model {
 
             // ======= CUBE ===========
 
-            Ctx.Rasterizer.SetViewport(  0, 0, 80, 80, 0.0f, 1.0f );
+            Ctx.Rasterizer.SetViewport( 0, 0, 80, 80, 0.0f, 1.0f );
 
             Ctx.OutputMerger.SetDepthStencilState( StencilState );
             Ctx.OutputMerger.SetTargets( instance.StencilView, instance.RenderTarget );

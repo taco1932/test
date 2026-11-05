@@ -1,6 +1,6 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
-using Dalamud.Bindings.ImGui;
 using System.IO;
 using System.Numerics;
 using VfxEditor.Utils;
@@ -90,11 +90,10 @@ namespace VfxEditor.FileBrowser {
 
                 ImGui.SameLine();
                 var isFavorite = Plugin.Configuration.IsFileBrowserFavorite( CurrentPath );
-                using( var star = ImRaii.PushColor( ImGuiCol.Text, UiUtils.DALAMUD_YELLOW, isFavorite ) ) {
-                    if( ImGui.Button( FontAwesomeIcon.Star.ToIconString() ) ) {
-                        if( isFavorite ) Plugin.Configuration.RemoveFileBrowserFavorite( CurrentPath );
-                        else Plugin.Configuration.AddFileBrowserFavorite( CurrentPath );
-                    }
+                using var star = ImRaii.PushColor( ImGuiCol.Text, UiUtils.DALAMUD_ORANGE, isFavorite );
+                if( ImGui.Button( FontAwesomeIcon.Star.ToIconString() ) ) {
+                    if( isFavorite ) Plugin.Configuration.RemoveFileBrowserFavorite( CurrentPath );
+                    else Plugin.Configuration.AddFileBrowserFavorite( CurrentPath );
                 }
             }
 
@@ -131,6 +130,7 @@ namespace VfxEditor.FileBrowser {
                 }
                 CreatingFolder = false;
             }
+            UiUtils.Tooltip( "Create folder" );
 
             ImGui.SameLine();
             if( UiUtils.RemoveButton( FontAwesomeIcon.Times.ToIconString() ) ) {

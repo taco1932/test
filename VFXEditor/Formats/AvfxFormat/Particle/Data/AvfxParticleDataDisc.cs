@@ -1,5 +1,9 @@
-using VFXEditor.Formats.AvfxFormat.Curve;
-namespace VfxEditor.AvfxFormat {
+using VfxEditor.Formats.AvfxFormat.Base;
+using VfxEditor.Formats.AvfxFormat.Components.Float;
+using VfxEditor.Formats.AvfxFormat.Components.Int;
+using VfxEditor.Formats.AvfxFormat.Curve;
+
+namespace VfxEditor.Formats.AvfxFormat.Particle.Data {
     public class AvfxParticleDataDisc : AvfxDataWithParameters {
         public readonly AvfxInt PartsCount = new( "Parts Count", "PrtC" );
         public readonly AvfxInt PartsCountU = new( "Parts Count U", "PCnU" );

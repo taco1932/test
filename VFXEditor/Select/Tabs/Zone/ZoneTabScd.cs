@@ -1,7 +1,5 @@
-using Dalamud.Game;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Bindings.ImGui;
-using Lumina.Excel.Sheets;
 using System.Collections.Generic;
 using VfxEditor.Select.Tabs.BgmQuest;
 
@@ -17,19 +15,16 @@ namespace VfxEditor.Select.Tabs.Zone {
         // ===== LOADING =====
 
         public override void LoadSelection( ZoneRow item, out SelectedScd loaded ) {
-            if( item.BgmId <= 50000 ) {
+            if( BgmQuestTab.IsBgmSwitch( item.BgmId ) ) {
+                loaded = new() {
+                    Quests = BgmQuestTab.GetBgmSwitch( item.BgmId )
+                };
+            }
+            else {
                 loaded = new() {
                     Situation = BgmQuestTab.GetBgmSituation( item.BgmId )
                 };
             }
-            else {
-                loaded = new(); // TODO: BgmId > 50000 maps to quest-linked BGM switches, not yet resolved
-            }
-            //foreach( var bgmSwitch in Dalamud.DataManager.GetExcelSheet<BGMSwitch>().Where( x => x.RowId == item.BgmId ) ) {
-            //    var questName = bgmSwitch.Quest.ValueNullable?.Name.ToString();
-            //    var situation = BgmQuestTab.GetBgmSituation( bgmSwitch.BGM.RowId );
-            //    loaded.Quests[string.IsNullOrEmpty( questName ) ? item.Name : questName] = situation;
-            //}
         }
 
         // ===== DRAWING ======

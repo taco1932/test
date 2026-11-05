@@ -1,9 +1,11 @@
 using System.IO;
 using VfxEditor.Formats.UldFormat.PartList;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Bool;
+using VfxEditor.Parsing.Enums;
+using VfxEditor.Parsing.Int;
 
-namespace VfxEditor.UldFormat.Component.Node.Data {
-
+namespace VfxEditor.Formats.UldFormat.Component.Node.Data {
     public enum DrawMode { //these might be off
 
         Unknown = 0,

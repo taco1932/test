@@ -2,7 +2,7 @@ using System.IO;
 using VfxEditor.Formats.AwtFormat.Entry;
 using VfxEditor.Parsing.Utils;
 
-namespace VfxEditor.AwtFormat.Utils {
+namespace VfxEditor.Formats.AwtFormat.Utils {
     public class AwtWriter : ParsingWriter {
         public int BodySize;
         public int StateSize;

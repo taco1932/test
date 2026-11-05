@@ -1,5 +1,5 @@
-using FFXIVClientStructs.Havok.Animation.Rig;
 using Dalamud.Bindings.ImGui;
+using FFXIVClientStructs.Havok.Animation.Rig;
 using System.Collections.Generic;
 using System.Linq;
 using VfxEditor.FileBrowser;
@@ -7,7 +7,7 @@ using VfxEditor.Interop.Havok;
 using VfxEditor.Interop.Havok.Ui;
 using VfxEditor.Utils.Gltf;
 
-namespace VfxEditor.PapFormat.Motion {
+namespace VfxEditor.Formats.PapFormat.Motion {
     public unsafe class PapMotions : HavokData {
         public readonly PapFile File;
         public readonly string SklbTempPath;
@@ -115,7 +115,7 @@ namespace VfxEditor.PapFormat.Motion {
             Selector.Init();
             Motions.ForEach( x => x.UpdateHavok( handles ) );
 
-            Motions.ForEach( x => x.ClampTrackIndices() );
+            Motions.ForEach( x => x.ClampTrackIndices( handles ) );
             WriteHavok();
             Motions.ForEach( x => x.UnclampTrackIndices() );
         }

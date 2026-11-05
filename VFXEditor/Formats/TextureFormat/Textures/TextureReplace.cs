@@ -1,5 +1,5 @@
-using Dalamud.Interface.Utility.Raii;
 using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Utility.Raii;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,8 +8,10 @@ using System.Runtime.InteropServices;
 using TeximpNet;
 using TeximpNet.Compression;
 using TeximpNet.DDS;
+using VfxEditor.Data;
 using VfxEditor.FileManager.Interfaces;
 using VfxEditor.Formats.TextureFormat.CustomTeximpNet;
+using VfxEditor.Interop.Penumbra;
 using VfxEditor.Ui.Export;
 using VfxEditor.Utils;
 
@@ -32,14 +34,19 @@ namespace VfxEditor.Formats.TextureFormat.Textures {
 
         public TextureReplace( string gamePath, string writeLocation ) : base( gamePath ) {
             WriteLocation = writeLocation;
-            Plugin.AddCustomBackupLocation( GamePath, WriteLocation );
+        }
+
+        public bool GetActiveReplacement( out string gamePath, out string localPath ) {
+            gamePath = GamePath;
+            localPath = WriteLocation;
+            return !string.IsNullOrEmpty( gamePath ) && !string.IsNullOrEmpty( localPath );
         }
 
         public void ImportFile( string importPath ) {
             Preview = null;
 
             try {
-                var importFileExtension = Path.GetExtension( importPath ).ToLower();
+                var importFileExtension = Path.GetExtension( importPath ).ToLowerInvariant();
 
                 if( importFileExtension == ".dds" ) {
                     using var container = DDSFile.Read( importPath );
@@ -64,7 +71,7 @@ namespace VfxEditor.Formats.TextureFormat.Textures {
                     if( compFormat == CompressionFormat.ETC1 ) return;
 
                     // Ui elements are required to only have 1 mip level
-                    var maxMips = ( ushort )( GamePath.StartsWith( "ui/" ) ? 1 : Plugin.Configuration.PngMips );
+                    var maxMips = ( ushort )( GamePath.StartsWith( "ui/", StringComparison.Ordinal ) ? 1 : Plugin.Configuration.PngMips );
                     compressor.Input.SetMipmapGeneration( true, maxMips );
                     compressor.Input.SetData( surface );
                     compressor.Compression.Format = compFormat;
@@ -96,7 +103,7 @@ namespace VfxEditor.Formats.TextureFormat.Textures {
                     container.Dispose();
                 }
                 else {
-                    throw new Exception( $"Invalid extension {importFileExtension}" );
+                    throw new NotSupportedException( $"Invalid extension {importFileExtension}" );
                 }
 
                 Preview = new TexturePreview( TextureDataFile.LoadFromLocal( WriteLocation ), false, GamePath );
@@ -206,7 +213,7 @@ namespace VfxEditor.Formats.TextureFormat.Textures {
         }
 
         public bool GetReplacePath( string path, out string replacePath ) {
-            replacePath = GamePath.ToLower().Equals( path.ToLower() ) ? WriteLocation : null;
+            replacePath = string.Equals( GamePath, path, StringComparison.OrdinalIgnoreCase ) ? WriteLocation : null;
             return !string.IsNullOrEmpty( replacePath );
         }
 
@@ -215,11 +222,13 @@ namespace VfxEditor.Formats.TextureFormat.Textures {
             PenumbraUtils.CopyFile( WriteLocation, modFolder, groupOption, GamePath, filesOut );
         }
 
+        public void PenumbraExportManipulations( List<object> manipulationsOut ) { }
+
         public void TextoolsExport( BinaryWriter writer, List<TTMPL_Simple> simplePartsOut, ref int modOffset ) {
             if( string.IsNullOrEmpty( WriteLocation ) || string.IsNullOrEmpty( GamePath ) ) return;
 
             byte[] modData;
-            if( GamePath.EndsWith( ".atex" ) ) {
+            if( GamePath.EndsWith( ".atex", StringComparison.Ordinal ) ) {
                 // Makes Type 2 Data from .atex header + DDS data
                 modData = TexToolsUtils.CreateType2Data( File.ReadAllBytes( WriteLocation ) );
             }
@@ -260,8 +269,8 @@ namespace VfxEditor.Formats.TextureFormat.Textures {
 
         protected override void OnReplace( string importPath ) { // since already replaced, need to refresh it
             WriteLocation = Plugin.TextureManager.GetNewWriteLocation( GamePath );
-            Plugin.AddCustomBackupLocation( GamePath, WriteLocation );
             ImportFile( importPath );
+            PenumbraTempMod.MarkDirty();
         }
 
         // ===========================

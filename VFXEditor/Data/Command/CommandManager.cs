@@ -1,12 +1,14 @@
-using Dalamud.Interface.Utility.Raii;
 using Dalamud.Bindings.ImGui;
+using Dalamud.Interface;
+using Dalamud.Interface.Utility.Raii;
 using System.Collections.Generic;
-using VfxEditor.Data.Command;
+using System.Numerics;
 using VfxEditor.Data.Copy;
 using VfxEditor.FileManager;
+using VfxEditor.Utils;
 using VfxEditor.Utils.Stacks;
 
-namespace VfxEditor {
+namespace VfxEditor.Data.Command {
     public class CommandManager {
         public static CommandManager? Current => Stack.Count == 0 ? null : Stack.Peek();
         private static readonly Stack<CommandManager> Stack = new();
@@ -24,17 +26,6 @@ namespace VfxEditor {
         }
 
         public static void Add( ICommand command ) => Current?.AddAndExecute( command );
-
-        public static void Draw() {
-            if( Current == null ) {
-                using var disabled = ImRaii.Disabled();
-                ImGui.MenuItem( "Undo" );
-                ImGui.MenuItem( "Redo" );
-                return;
-            }
-
-            Current.DrawMenu();
-        }
 
         public static void Undo() => Current?.UndoInternal();
 
@@ -80,13 +71,24 @@ namespace VfxEditor {
             File.OnChange();
         }
 
-        protected unsafe void DrawMenu() {
-            using( var dimUndo = ImRaii.PushColor( ImGuiCol.Text, *ImGui.GetStyleColorVec4( ImGuiCol.TextDisabled ), !CanUndo ) ) {
-                if( ImGui.MenuItem( "Undo" ) ) UndoInternal();
-            }
+        public void DrawButtons() {
+            using var font = ImRaii.PushFont( UiBuilder.IconFont );
 
-            using var dimRedo = ImRaii.PushColor( ImGuiCol.Text, *ImGui.GetStyleColorVec4( ImGuiCol.TextDisabled ), !CanRedo );
-            if( ImGui.MenuItem( "Redo" ) ) RedoInternal();
+            using( var spacing = ImRaii.PushStyle( ImGuiStyleVar.ItemSpacing, ImGui.GetStyle().ItemInnerSpacing ) ) {
+                ImGui.SameLine();
+            }
+            using( ImRaii.Disabled( !CanUndo ) ) {
+                if( ImGui.Button( FontAwesomeIcon.Undo.ToIconString(), new Vector2( 30, ImGui.GetFrameHeight() ) ) ) UndoInternal();
+            }
+            UiUtils.Tooltip( "Undo" );
+
+            using( var spacing = ImRaii.PushStyle( ImGuiStyleVar.ItemSpacing, ImGui.GetStyle().ItemInnerSpacing ) ) {
+                ImGui.SameLine();
+            }
+            using( ImRaii.Disabled( !CanRedo ) ) {
+                if( ImGui.Button( FontAwesomeIcon.Redo.ToIconString(), new Vector2( 30, ImGui.GetFrameHeight() ) ) ) RedoInternal();
+            }
+            UiUtils.Tooltip( "Redo" );
         }
 
         public void Dispose() => Commands.Clear();

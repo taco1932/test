@@ -1,17 +1,18 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
 using FFXIVClientStructs.FFXIV.Client.Game.Control;
-using Dalamud.Bindings.ImGui;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using VfxEditor.FileManager.Interfaces;
-using VfxEditor.Ui.Components;
-using VfxEditor.Ui.Export;
-using VfxEditor.Utils;
+using VfxEditor.Data;
 using VfxEditor.FileManager;
+using VfxEditor.FileManager.Interfaces;
+using VfxEditor.Interop.Penumbra;
+using VfxEditor.Ui.Components;
+using VfxEditor.Utils;
 
 namespace VfxEditor {
     public unsafe partial class Plugin {
@@ -25,9 +26,13 @@ namespace VfxEditor {
 
         public static void Draw() {
             IsImguiSafe = true;
-            if( CheckLoadState() ) return;
+            if( CheckWorkspaceLoadState() ) return;
 
             CheckWorkspaceKeybinds();
+
+            PenumbraRequiredWindow.Tick();
+
+            PenumbraTempMod.Tick();
 
             WindowSystem.Draw();
             foreach( var group in Groups ){
@@ -39,7 +44,7 @@ namespace VfxEditor {
             CheckAutoSave();
 
             if( ModalsToOpen.Count > 0 ) {
-                foreach( var title in ModalsToOpen ) ImGui.OpenPopup( title );
+                foreach( var title in ModalsToOpen ) ImGui.OpenPopup( UiUtils.WindowId( title ) );
                 ModalsToOpen.Clear();
             }
             foreach( var modal in Modals ) modal.Value.Draw();
@@ -98,15 +103,9 @@ namespace VfxEditor {
 
                 ImGui.EndMenu();
             }
-
-            if( ImGui.BeginMenu( "Export" ) ) {
-                if( ImGui.MenuItem( "Penumbra" ) ) PenumbraExportDialog.Show();
-                if( ImGui.MenuItem( "TexTools" ) ) TexToolsExportDialog.Show();
-                ImGui.EndMenu();
-            }
         }
 
-        public static void DrawManagersMenu( IFileManager currentManager ) {
+        public static void DrawManagersMenu( FileManagerGroupBase currentGroup ) {
             using var _ = ImRaii.PushId( "Menu" );
 
             // Manually specify the order since it's different than the load order
@@ -164,7 +163,7 @@ namespace VfxEditor {
                         }
                     }
 
-                    using var disabled = ImRaii.Disabled( manager == currentManager );
+                    using var disabled = ImRaii.Disabled( manager == currentGroup );
                     if( ImGui.MenuItem( manager.GetName() ) ) manager.Show();
 
                     managerIdx++;

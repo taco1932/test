@@ -1,5 +1,6 @@
 using System.IO;
-using VfxEditor.Parsing;
+using VfxEditor.Parsing.Enums;
+using VfxEditor.Parsing.Float;
 
 namespace VfxEditor.Formats.SgbFormat.Layers.Objects.Data {
     public class TargetMarkerInstanceObject : SgbObject {

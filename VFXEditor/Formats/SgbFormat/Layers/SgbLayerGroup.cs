@@ -1,8 +1,8 @@
 using Dalamud.Bindings.ImGui;
 using System.Collections.Generic;
 using System.IO;
-using VfxEditor.Parsing;
 using VfxEditor.Parsing.Int;
+using VfxEditor.Parsing.String;
 using VfxEditor.Ui.Components.SplitViews;
 using VfxEditor.Ui.Interfaces;
 using VfxEditor.Utils;

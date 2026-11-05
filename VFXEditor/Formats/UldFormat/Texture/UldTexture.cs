@@ -1,13 +1,19 @@
 using Dalamud.Bindings.ImGui;
 using System.IO;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Flag;
+using VfxEditor.Parsing.Int;
 using VfxEditor.Parsing.String;
 
-namespace VfxEditor.UldFormat.Texture {
+namespace VfxEditor.Formats.UldFormat.Texture {
     internal enum ThemeFlags {
         Light = 1,
-        Classic_FF = 2,
-        Clear_Blue = 4,
+        Classic_FF,
+        Test_1,
+        Clear_Blue,
+        Test_2,
+        Test_3,
+        Test_4,
     }
 
     public class UldTexture : UldWorkspaceItem {

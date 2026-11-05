@@ -1,13 +1,14 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
-using Dalamud.Bindings.ImGui;
+using VfxEditor.Formats.TmbFormat;
 using VfxEditor.Select.Tabs.Actions;
 using VfxEditor.Select.Tabs.Common;
 using VfxEditor.Select.Tabs.Emotes;
 using VfxEditor.Select.Tabs.Npc;
-using VfxEditor.Spawn;
-using VfxEditor.TmbFormat;
 using VfxEditor.Select.Tabs.NpcID;
+using VfxEditor.Spawn;
+using VfxEditor.Utils;
 
 namespace VfxEditor.Select.Formats {
     public class TmbSelectDialog : SelectDialog {
@@ -34,6 +35,7 @@ namespace VfxEditor.Select.Formats {
             else {
                 if( ImGui.Button( FontAwesomeIcon.Play.ToIconString() ) ) TmbSpawn.Apply( path );
             }
+            UiUtils.Tooltip( "Play action" );
         }
     }
 }

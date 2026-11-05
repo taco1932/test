@@ -3,6 +3,7 @@ using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Bindings.ImGui;
+using System;
 using System.Collections.Generic;
 using VfxEditor.Data;
 using VfxEditor.DirectX;
@@ -37,9 +38,10 @@ using VfxEditor.Tracker;
 using VfxEditor.Ui.Export;
 using VfxEditor.Ui.Import;
 using VfxEditor.Ui.Tools;
+using VfxEditor.Utils;
 
 namespace VfxEditor {
-    public unsafe partial class Plugin : IDalamudPlugin {
+    public partial class Plugin : IDalamudPlugin {
         public static ResourceLoader ResourceLoader { get; private set; }
         public static DirectXManager DirectXManager { get; private set; }
         public static Configuration Configuration { get; private set; }
@@ -49,6 +51,7 @@ namespace VfxEditor {
         public static LibraryManager LibraryManager { get; private set; }
 
         public static PenumbraIpc PenumbraIpc { get; private set; }
+        public static PenumbraRequiredWindow PenumbraRequiredWindow { get; private set; }
         public static PenumbraDialog PenumbraExportDialog { get; private set; }
         public static PenumbraImportDialog PenumbraImportDialog { get; private set; }
 
@@ -159,6 +162,7 @@ namespace VfxEditor {
             TrackerManager = new();
             LibraryManager = new();
             PenumbraImportDialog = new();
+            PenumbraRequiredWindow = new();
 
             Dalamud.Framework.Update += FrameworkOnUpdate;
             Dalamud.PluginInterface.UiBuilder.Draw += Draw;
@@ -185,7 +189,7 @@ namespace VfxEditor {
                 AvfxManager?.Show();
                 return;
             }
-            if( Groups.FindFirst( x => rawArgs.ToLower().Equals( x.GetId().ToLower() ), out var manager ) ) manager.Show();
+            if( Groups.FindFirst( x => string.Equals( rawArgs.Trim(), x.GetId(), StringComparison.OrdinalIgnoreCase ), out var manager ) ) manager.Show();
         }
 
         public void Dispose() {
@@ -198,6 +202,8 @@ namespace VfxEditor {
             Dalamud.CommandManager.RemoveHandler( CommandName );
             PenumbraIpc?.Dispose();
 
+            VfxSpawn.Dispose();
+
             ResourceLoader?.Dispose();
             ResourceLoader = null;
 
@@ -208,10 +214,10 @@ namespace VfxEditor {
             WindowSystem.RemoveAllWindows();
             Modals.Clear();
 
-            VfxSpawn.Dispose();
             TmbSpawn.Dispose();
             FileBrowserManager.Dispose();
             ExportDialog.Reset();
+            PenumbraTempMod.Dispose();
         }
     }
 }

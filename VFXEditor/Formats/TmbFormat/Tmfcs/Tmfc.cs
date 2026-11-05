@@ -1,14 +1,15 @@
-using Dalamud.Interface.Utility.Raii;
 using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Utility.Raii;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using VfxEditor.Formats.TmbFormat.Entries;
+using VfxEditor.Formats.TmbFormat.Utils;
 using VfxEditor.Parsing;
-using VfxEditor.TmbFormat.Entries;
-using VfxEditor.TmbFormat.Utils;
+using VfxEditor.Parsing.Int;
 using VfxEditor.Ui.Components.SplitViews;
 
-namespace VfxEditor.TmbFormat.Tmfcs {
+namespace VfxEditor.Formats.TmbFormat.Tmfcs {
     public class Tmfc : TmbEntry {
         public const string MAGIC = "TMFC";
         public const string DISPLAY_NAME = "TMFC";
@@ -24,7 +25,9 @@ namespace VfxEditor.TmbFormat.Tmfcs {
         public readonly List<TmfcData> Data = [];
         private readonly UiSplitView<TmfcData> DataSplitView;
 
-        public Tmfc( TmbFile file ) : base( file ) { }
+        public Tmfc( TmbFile file ) : base( file ) {
+            DataSplitView = new( "Entry", Data, false );
+        }
 
         public Tmfc( TmbFile file, TmbReader reader ) : base( file, reader ) {
             var startOffset = reader.ReadInt32();
@@ -51,8 +54,13 @@ namespace VfxEditor.TmbFormat.Tmfcs {
         public override void Write( TmbWriter writer ) {
             base.Write( writer );
 
-            var offset = writer.WriteExtra( ( BinaryWriter bw ) => {
-                foreach( var data in Data ) data.Write( bw );
+            var offset = writer.WriteExtra( bw => {
+                var rowPosition = TmfcData.HeaderSize * Data.Count;
+                for( var idx = 0; idx < Data.Count; idx++ ) {
+                    Data[idx].Write( bw, rowPosition - ( TmfcData.HeaderSize * idx ) );
+                    rowPosition += TmfcRow.Size * Data[idx].Rows.Count;
+                }
+
 
                 foreach( var data in Data ) data.WriteRows( bw );
             }, modifyOffset: 4 );

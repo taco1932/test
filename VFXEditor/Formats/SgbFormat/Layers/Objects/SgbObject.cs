@@ -1,5 +1,7 @@
 using System.IO;
-using VfxEditor.Parsing;
+using VfxEditor.Parsing.Float;
+using VfxEditor.Parsing.Int;
+using VfxEditor.Parsing.String;
 using VfxEditor.Ui.Interfaces;
 using VfxEditor.Utils;
 

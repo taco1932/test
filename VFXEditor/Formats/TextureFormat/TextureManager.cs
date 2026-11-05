@@ -4,10 +4,12 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using VfxEditor.Data;
 using VfxEditor.FileBrowser;
 using VfxEditor.FileManager.Interfaces;
 using VfxEditor.Formats.TextureFormat.Textures;
 using VfxEditor.Formats.TextureFormat.Ui;
+using VfxEditor.Interop.Penumbra;
 using VfxEditor.Select;
 using VfxEditor.Ui;
 using VfxEditor.Ui.Export;
@@ -15,7 +17,7 @@ using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.TextureFormat {
     public class TextureManager : DalamudWindow, IFileManagerGroup, IFileManagerSelect {
-        private static string WORKSPACE_KEY = "Tex";
+        private static readonly string WORKSPACE_KEY = "Tex";
         private int TEX_ID = 0;
         public static string TempAtex => Path.Combine( Plugin.Configuration.WriteLocation, "temp_convert.atex" ).Replace( '\\', '/' );
         public static string TempPng => Path.Combine( Plugin.Configuration.WriteLocation, "temp_png.png" ).Replace( '\\', '/' );
@@ -27,6 +29,7 @@ namespace VfxEditor.Formats.TextureFormat {
 
         private readonly List<TextureReplace> Textures = [];
         private readonly Dictionary<string, TexturePreview> Previews = [];
+        private readonly HashSet<string> FailedPreviews = []; //don't re-read and re-log broken textures every frame
         private readonly TextureView View;
         private readonly ManagerConfiguration Configuration;
 
@@ -51,12 +54,14 @@ namespace VfxEditor.Formats.TextureFormat {
             var replace = new TextureReplace( gamePath, GetNewWriteLocation( gamePath ) );
             replace.ImportFile( importPath );
             Textures.Add( replace );
+            PenumbraTempMod.MarkDirty();
         }
 
         public void RemoveReplace( TextureReplace replace ) {
             Textures.Remove( replace );
             View.ClearSelected();
             ExportDialog.RemoveDocument( replace );
+            PenumbraTempMod.MarkDirty();
         }
 
         public void Import( SelectResult result ) {
@@ -92,6 +97,7 @@ namespace VfxEditor.Formats.TextureFormat {
             }
 
             if( Previews.TryGetValue( gamePath, out var preview ) ) return preview;
+            if( FailedPreviews.Contains( gamePath ) ) return null;
 
             var gameFileExists = Dalamud.GameFileExists( gamePath );
             var penumbraFileExits = Plugin.PenumbraIpc.PenumbraFileExists( gamePath, out var penumbraPath );
@@ -108,6 +114,7 @@ namespace VfxEditor.Formats.TextureFormat {
 
                 if( !data.ValidFormat ) {
                     Dalamud.Error( $"Invalid format: {data.Header.Format} {gamePath}" );
+                    FailedPreviews.Add( gamePath );
                     return null;
                 }
                 var newPreview = new TexturePreview( data, penumbraFileExits, gamePath );
@@ -116,6 +123,7 @@ namespace VfxEditor.Formats.TextureFormat {
             }
             catch( Exception e ) {
                 Dalamud.Error( e, $"Could not find tex: {gamePath}" );
+                FailedPreviews.Add( gamePath );
                 return null;
             }
         }
@@ -183,6 +191,7 @@ namespace VfxEditor.Formats.TextureFormat {
         public void Reset( bool pluginClosing ) {
             Textures.Clear();
             Previews.Clear();
+            FailedPreviews.Clear();
 
             // Weird async stuff, otherwise cleanup happens to the textures after they've been loaded
             WrapsToCleanup.Clear();
@@ -241,7 +250,7 @@ namespace VfxEditor.Formats.TextureFormat {
         public WindowSystem GetWindowSystem() => WindowSystem;
 
         public bool CanImport( string path ) {
-            return path.EndsWith( "atex" );
+            return path.EndsWith( "atex", StringComparison.Ordinal );
         }
 
         public void PenumbraImport( SelectResult selectedFile, SelectResult replacedFile ) {

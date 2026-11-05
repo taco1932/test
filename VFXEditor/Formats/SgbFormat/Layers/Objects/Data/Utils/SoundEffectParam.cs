@@ -1,8 +1,11 @@
 using Dalamud.Bindings.ImGui;
 using System;
 using System.IO;
-using VfxEditor.Parsing;
+using VfxEditor.Parsing.Bool;
+using VfxEditor.Parsing.Enums;
+using VfxEditor.Parsing.Int;
 using VfxEditor.Ui.Interfaces;
+
 namespace VfxEditor.Formats.SgbFormat.Layers.Objects.Data.Utils {
     public class SoundEffectParam : IUiItem {
         private readonly ParsedEnum<SoundEffectType> Type = new( "Sound Effect Type" );

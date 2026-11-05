@@ -1,5 +1,6 @@
 using Dalamud.Bindings.ImGui;
 using System.Linq;
+using VfxEditor.Select.Base;
 using VfxEditor.Utils;
 
 namespace VfxEditor.Select.Penumbra {

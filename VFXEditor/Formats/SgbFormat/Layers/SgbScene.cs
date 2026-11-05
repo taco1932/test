@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
 using VfxEditor.Formats.SgbFormat.Layers;
-using VfxEditor.Parsing;
-using VfxEditor.TmbFormat;
+using VfxEditor.Formats.TmbFormat;
+using VfxEditor.Parsing.String;
 using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.SgbFormat.Scenes {
@@ -12,7 +12,7 @@ namespace VfxEditor.Formats.SgbFormat.Scenes {
         private bool UseTmb = false;
         private TmbFile EmbeddedTmb; // TODO: make a default file
         // TODO: missing entries
-        private readonly List<SgbLayerGroup> LayerGroups = new();
+        private readonly List<SgbLayerGroup> LayerGroups = [];
 
         public SgbScene( SgbFile file ) {
             File = file;

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using VfxEditor.Formats.TmbFormat.Utils;
 using VfxEditor.Parsing;
-using VfxEditor.TmbFormat.Utils;
+using VfxEditor.Parsing.Bool;
+using VfxEditor.Parsing.Int;
 
-namespace VfxEditor.TmbFormat.Entries {
+namespace VfxEditor.Formats.TmbFormat.Entries {
     public class C070 : TmbEntry {
         public const string MAGIC = "C070";
         public const string DISPLAY_NAME = "----[TESTING] (CUTB) [scheduler crash]";

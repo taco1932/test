@@ -1,10 +1,12 @@
 using System;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Flag;
+using VfxEditor.Parsing.Int;
 
-namespace VfxEditor.UldFormat.Component.Node.Data.Component {
+namespace VfxEditor.Formats.UldFormat.Component.Node.Data.Component {
     [Flags]
     public enum TextInputFlags {
-        Capitalize = 0x01,
+        Capitalise = 0x01,
         Mask = 0x02,
         AutoTranslate = 0x04,
         History = 0x08,

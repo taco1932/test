@@ -1,5 +1,8 @@
-using VFXEditor.Formats.AvfxFormat.Curve;
-namespace VfxEditor.AvfxFormat {
+using VfxEditor.Formats.AvfxFormat.Base;
+using VfxEditor.Formats.AvfxFormat.Components.Int;
+using VfxEditor.Formats.AvfxFormat.Curve;
+
+namespace VfxEditor.Formats.AvfxFormat.Particle.Data {
     public class AvfxParticleDataLine : AvfxDataWithParameters {
         public readonly AvfxInt LineCount = new( "Line Count", "LnCT" );
         public readonly AvfxCurve1Axis Length = new( "Length", "Len" );

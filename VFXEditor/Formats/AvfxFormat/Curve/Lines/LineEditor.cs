@@ -1,10 +1,10 @@
-using Dalamud.Interface.Utility.Raii;
 using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Utility.Raii;
 using System.Collections.Generic;
 using System.IO;
-using VfxEditor.AvfxFormat;
+using VfxEditor.Formats.AvfxFormat.Base;
+using VfxEditor.Formats.AvfxFormat.Items;
 using VfxEditor.Utils;
-using VFXEditor.Formats.AvfxFormat.Curve;
 
 namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
     public unsafe class LineEditor : AvfxItem {
@@ -37,7 +37,7 @@ namespace VfxEditor.Formats.AvfxFormat.Curve.Lines {
             foreach( var group in Groups ) {
                 using var style = ImRaii.PushColor( ImGuiCol.Text, group.Assigned switch {
                     LinesAssigned.All => UiUtils.PARSED_GREEN,
-                    LinesAssigned.Some => UiUtils.DALAMUD_YELLOW,
+                    LinesAssigned.Some => UiUtils.DALAMUD_ORANGE,
                     LinesAssigned.None => UiUtils.DALAMUD_RED,
                     _ => *ImGui.GetStyleColorVec4( ImGuiCol.Text )
                 } );

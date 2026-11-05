@@ -1,7 +1,7 @@
 using System.IO;
-using VfxEditor.Parsing;
 using VfxEditor.Ui.Interfaces;
-using VfxEditor.AwtFormat.Utils;
+using VfxEditor.Formats.AwtFormat.Utils;
+using VfxEditor.Parsing.Int;
 
 namespace VfxEditor.Formats.AwtFormat.Entry {
     public class AwtEntry : IUiItem {

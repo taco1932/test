@@ -1,7 +1,9 @@
-using Dalamud.Interface.Windowing;
 using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Windowing;
 using System.Numerics;
+using VfxEditor.Data;
 using VfxEditor.Utils;
+using static VfxEditor.Interop.Penumbra.PenumbraRequiredWindow;
 
 namespace VfxEditor.Ui {
     public abstract class DalamudWindow : Window {
@@ -16,7 +18,7 @@ namespace VfxEditor.Ui {
         private int OverrideFrames = 0;
 
         public DalamudWindow( string name, bool menuBar, Vector2 size, WindowSystem windowSystem, bool isMainWindow = false ) :
-            base( name, ( menuBar ? ImGuiWindowFlags.MenuBar : ImGuiWindowFlags.None ) | ImGuiWindowFlags.NoDocking ) {
+            base( UiUtils.WindowId( name ), ( menuBar ? ImGuiWindowFlags.MenuBar : ImGuiWindowFlags.None ) | ImGuiWindowFlags.NoDocking ) {
 
             Size = size;
             SizeCondition = ImGuiCond.FirstUseEver;
@@ -81,6 +83,9 @@ namespace VfxEditor.Ui {
                 PositionCondition = ImGuiCond.Always;
                 OverrideFrames = 2;
             }
+        }
+        public override bool DrawConditions() { // Generally, nothing should be drawn if Penumbra isn't loaded
+            return Plugin.PenumbraRequiredWindow?.Status == PenumbraStatus.OK;
         }
     }
 }

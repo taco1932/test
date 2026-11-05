@@ -14,8 +14,10 @@ namespace VfxEditor.Formats.MtrlFormat.Data.Color {
         public readonly MtrlTableBase Table;
         public readonly MtrlFile File;
 
-        public MtrlStain Stain { get; protected set; }
-        public StmDyeData StainTemplate { get; protected set; }
+        public MtrlStain Stain => Table.GetPreviewStain( DyeChannel );
+        public StmDyeDataBase StainTemplate { get; protected set; }
+
+        protected abstract int DyeChannel { get; }
 
         public MtrlColorRowBase( MtrlFile file, MtrlTableBase table ) {
             Table = table;
@@ -71,24 +73,29 @@ namespace VfxEditor.Formats.MtrlFormat.Data.Color {
 
         protected void DrawPreview( bool edited ) {
             if( Stain != null ) {
-                using var child = ImRaii.Child( "Child", new( -1, ImGui.GetFrameHeight() + ImGui.GetStyle().WindowPadding.Y * 2 ), true );
+                var height = ImGui.GetFrameHeight() * 2 + ImGui.GetStyle().ItemSpacing.Y + ImGui.GetStyle().WindowPadding.Y * 2;
+                using var child = ImRaii.Child( "Child", new( -1, height ), true );
                 using var style = ImRaii.PushStyle( ImGuiStyleVar.ItemSpacing, ImGui.GetStyle().ItemInnerSpacing );
                 if( StainTemplate == null ) ImGui.TextDisabled( "[NO DYE VALUE]" );
                 else StainTemplate.Draw();
+
+                Resolve( true ).Draw();
             }
 
             if( edited ) UpdateRender();
 
-            // TODO
-            //Plugin.DirectXManager.MaterialRenderer.DrawTexture( RenderId, File.Instance, UpdateRender, Plugin.Configuration.DrawDirectXMaterial );
+            DrawRender();
         }
 
-        public void SetPreviewStain( MtrlStain stain ) {
-            Stain = stain;
+        protected virtual void DrawRender() { }
+
+        public void RefreshStainTemplate() {
             StainTemplate = GetStainTemplate();
         }
 
-        public abstract StmDyeData GetStainTemplate();
+        public abstract StmDyeDataBase GetStainTemplate();
+
+        public abstract MtrlResolvedRow Resolve( bool applyDye );
 
         public abstract void UpdateRender();
     }

@@ -1,11 +1,13 @@
-using Dalamud.Interface.Utility.Raii;
 using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Utility.Raii;
 using System.Collections.Generic;
 using System.IO;
+using VfxEditor.Formats.ScdFormat.Entries;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
 using VfxEditor.Ui.Interfaces;
 
-namespace VfxEditor.ScdFormat {
+namespace VfxEditor.Formats.ScdFormat.Attribute {
     public class ScdAttributeEntry : ScdEntry, IUiItem {
         public readonly ParsedByte Version = new( "Version" );
         public readonly ParsedByte Reserved = new( "Reserved 1" ); //test

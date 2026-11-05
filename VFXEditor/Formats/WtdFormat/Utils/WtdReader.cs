@@ -2,7 +2,7 @@ using System.IO;
 using VfxEditor.Parsing.Utils;
 using VfxEditor.Utils;
 
-namespace VfxEditor.WtdFormat.Utils {
+namespace VfxEditor.Formats.WtdFormat.Utils {
     public class WtdReader : ParsingReader {
         public long StartPosition;
 

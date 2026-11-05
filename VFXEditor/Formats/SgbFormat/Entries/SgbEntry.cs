@@ -3,11 +3,11 @@ using Dalamud.Bindings.ImGui;
 using System.Collections.Generic;
 using System.IO;
 using VfxEditor.Formats.SgbFormat.Layers;
-using VfxEditor.Parsing;
-using VfxEditor.TmbFormat;
-using VfxEditor.Ui.Components;
 using VfxEditor.Ui.Interfaces;
 using VfxEditor.Utils;
+using VfxEditor.Parsing.String;
+using VfxEditor.Formats.TmbFormat;
+using VfxEditor.Ui.Components.Dropdowns;
 
 namespace VfxEditor.Formats.SgbFormat.Scenes {
     public class SgbEntry : IUiItem {

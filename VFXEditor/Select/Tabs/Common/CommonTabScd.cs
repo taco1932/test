@@ -1,7 +1,6 @@
-using Dalamud.Bindings.ImGui;
 using Lumina.Excel.Sheets;
-using System.IO;
 using System.Linq;
+using VfxEditor.Select.Base;
 
 namespace VfxEditor.Select.Tabs.Common {
     public class CommonTabScd : SelectTab<CommonRow> {

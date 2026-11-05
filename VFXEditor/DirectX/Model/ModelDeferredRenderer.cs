@@ -1,8 +1,9 @@
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using System.Linq;
-using VfxEditor;
+using VfxEditor.Data;
 using VfxEditor.DirectX.Drawable;
+using VfxEditor.Utils;
 using Device = SharpDX.Direct3D11.Device;
 
 namespace VfxEditor.DirectX.Model {
@@ -46,6 +47,7 @@ namespace VfxEditor.DirectX.Model {
             instance.Normal.Clear( Ctx, new( 0 ) );
             instance.Color.Clear( Ctx, Plugin.Configuration.RendererBackground );
             instance.UV.Clear( Ctx, new( 0 ) );
+            instance.Ambient.Clear( Ctx, new( 0 ) );
 
             OnRenderUpdate( instance );
 

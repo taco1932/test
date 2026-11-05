@@ -1,4 +1,3 @@
-using Dalamud.Bindings.ImGui;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using SharpDX.Mathematics.Interop;
@@ -8,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using VfxEditor.DirectX.Drawable;
+using VfxEditor.Utils;
 using Device = SharpDX.Direct3D11.Device;
 
 namespace VfxEditor.DirectX.Gradient {

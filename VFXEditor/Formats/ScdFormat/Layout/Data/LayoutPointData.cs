@@ -1,15 +1,31 @@
 using System;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Flag;
+using VfxEditor.Parsing.Float;
+using VfxEditor.Parsing.Int;
+using VfxEditor.Parsing.Reserve;
 
-namespace VfxEditor.ScdFormat {
+namespace VfxEditor.Formats.ScdFormat.Layout.Data {
     [Flags]
     public enum PointEnvironmentFlags {
+        PointEnvFlag_Test_x01 = 0x01,
+        PointEnvFlag_Test_x02 = 0x02,
+        PointEnvFlag_Test_x04 = 0x04,
+        PointEnvFlag_Test_x08 = 0x08,
+        PointEnvFlag_Test_x10 = 0x10,
+        PointEnvFlag_Test_x20 = 0x20,
         Use_Env_Filter_Depth = 0x40,
         Is_FireWorks = 0x80
     }
 
     [Flags]
     public enum PointFlags {
+        PointFlag_Test_x01 = 0x01,
+        PointFlag_Test_x02 = 0x02,
+        PointFlag_Test_x04 = 0x04,
+        PointFlag_Test_x08 = 0x08,
+        PointFlag_Test_x10 = 0x10,
+        PointFlag_Test_x20 = 0x20,
         Is_Reverb_Object = 0x40,
         Is_Whiz_Generate = 0x80
     }

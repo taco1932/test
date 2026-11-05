@@ -1,7 +1,6 @@
-using VfxEditor.Parsing;
-//vs code keeps automatically adding dumb declarations that aren't relevant
+using VfxEditor.Parsing.Int;
 
-namespace VfxEditor.UldFormat.Component.Node.Data {
+namespace VfxEditor.Formats.UldFormat.Component.Node.Data.Component {
     public class HoldButtonNodeData : UldGenericData {
         public HoldButtonNodeData() {
             Parsed.AddRange( [

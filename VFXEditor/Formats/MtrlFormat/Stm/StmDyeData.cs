@@ -1,31 +1,38 @@
 using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
-using System.Numerics;
 
 namespace VfxEditor.Formats.MtrlFormat.Stm {
-    public class StmDyeData {
-        public Vector3 Diffuse = new();
-        public Vector3 Specular = new();
-        public Vector3 Emissive = new();
-        public float Gloss = 0;
-        public float Power = 0;
+    // https://github.com/Ottermandias/Penumbra.GameData/blob/e93093f/Files/StainMapStructs/DyePack.cs
 
-        public void Draw() {
-            ImGui.ColorEdit3( "##Diffuse", ref Diffuse, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.DisplayRgb | ImGuiColorEditFlags.InputRgb | ImGuiColorEditFlags.NoTooltip );
+    public class StmDyeData : StmDyeDataBase {
+        public float Exposure = 0;
+        public float Metalness = 0;
+        public float Roughness = 0;
+        public float SheenRate = 0;
+        public float SheenTintRate = 0;
+        public float SheenAperture = 0;
+        public float Anisotropy = 0;
+        public int SphereMapIndex = 0;
+        public float SphereMapMask = 0;
 
-            ImGui.SameLine();
-            ImGui.ColorEdit3( "##Specular", ref Specular, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.DisplayRgb | ImGuiColorEditFlags.InputRgb | ImGuiColorEditFlags.NoTooltip );
-
-            ImGui.SameLine();
-            ImGui.ColorEdit3( "##Emissive", ref Emissive, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.DisplayRgb | ImGuiColorEditFlags.InputRgb | ImGuiColorEditFlags.NoTooltip );
-
+        protected override void DrawScalars() {
             using var disabled = ImRaii.Disabled();
+            var hovered = false;
+
             ImGui.SameLine();
-            ImGui.SetNextItemWidth( 75 );
-            ImGui.InputFloat( "##Gloss", ref Gloss, 0, 0, $"Gloss: %.1f", ImGuiInputTextFlags.ReadOnly );
+            ImGui.SetNextItemWidth( 125 );
+            ImGui.InputFloat( "##Exposure", ref Exposure, 0, 0, $"Exposure: %.1f", ImGuiInputTextFlags.ReadOnly );
+            hovered |= ImGui.IsItemHovered();
+
             ImGui.SameLine();
-            ImGui.SetNextItemWidth( 75 );
-            ImGui.InputFloat( "##Power", ref Gloss, 0, 0, $"Power: %.1f", ImGuiInputTextFlags.ReadOnly );
+            ImGui.SetNextItemWidth( 125 );
+            ImGui.InputFloat( "##Metalness", ref Metalness, 0, 0, $"Metalness: %.1f", ImGuiInputTextFlags.ReadOnly );
+            hovered |= ImGui.IsItemHovered();
+
+            ImGui.SameLine();
+            ImGui.SetNextItemWidth( 125 );
+            ImGui.InputFloat( "##Roughness", ref Roughness, 0, 0, $"Roughness: %.1f", ImGuiInputTextFlags.ReadOnly );
+            hovered |= ImGui.IsItemHovered();
         }
     }
 }

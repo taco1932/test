@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using VfxEditor.Formats.TmbFormat.Utils;
 using VfxEditor.Parsing;
-using VfxEditor.TmbFormat.Utils;
+using VfxEditor.Parsing.Int;
 
-namespace VfxEditor.TmbFormat.Entries {
+namespace VfxEditor.Formats.TmbFormat.Entries {
     public class C192 : TmbEntry {
         public const string MAGIC = "C192";
-        public const string DISPLAY_NAME = "NPC Call?";
+        public const string DISPLAY_NAME = "Play Shared Group Timeline";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
@@ -14,10 +15,10 @@ namespace VfxEditor.TmbFormat.Entries {
 
         private readonly ParsedInt Unk1 = new( "Unknown 1" );
         private readonly ParsedInt CRC = new( "CRC" );
-        private readonly ParsedInt NPCID = new( "NPC ID?" );
+        private readonly ParsedInt SharedGroupId = new( "Shared Group Instance Id" );
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
-        private readonly ParsedInt Unk6 = new( "Unknown 6" );
+        private readonly ParsedInt TimelineIndex = new( "Timeline Index" );
         private readonly ParsedInt Unk7 = new( "Unknown 7" );
         private readonly ParsedInt Unk8 = new( "Unknown 8" );
         private readonly ParsedInt Unk9 = new( "Unknown 9" );
@@ -31,10 +32,10 @@ namespace VfxEditor.TmbFormat.Entries {
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
             CRC,
-            NPCID,
+            SharedGroupId,
             Unk4,
             Unk5,
-            Unk6,
+            TimelineIndex,
             Unk7,
             Unk8,
             Unk9,

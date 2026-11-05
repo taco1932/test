@@ -5,10 +5,9 @@ using System.Collections.Generic;
 using System.Numerics;
 using VfxEditor.FileBrowser;
 using VfxEditor.Library.Components;
-using VfxEditor.Library.Texture;
 using VfxEditor.Utils;
 
-namespace VfxEditor.Library.Node {
+namespace VfxEditor.Library.Texture {
     public class TextureRoot : LibraryRoot {
         private string AddPath = "";
 
@@ -32,6 +31,7 @@ namespace VfxEditor.Library.Node {
                         library.ExportTextures( res );
                     } );
                 }
+                UiUtils.Tooltip( "Export texture list" );
 
                 ImGui.SameLine();
                 if( ImGui.Button( FontAwesomeIcon.Upload.ToIconString() ) ) {
@@ -41,6 +41,7 @@ namespace VfxEditor.Library.Node {
                     } );
                 }
             }
+            UiUtils.Tooltip( "Import texture list" );
 
             ImGui.Separator();
 

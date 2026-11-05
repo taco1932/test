@@ -123,7 +123,7 @@ namespace VfxEditor.Interop.Havok {
 
             nint arr = 0;
 
-            if( data != null ) {
+            if( count > 0 ) {
                 arr = Marshal.AllocHGlobal( size * data.Count + 1 );
                 handles.Add( arr );
                 var _arr = ( T* )arr;

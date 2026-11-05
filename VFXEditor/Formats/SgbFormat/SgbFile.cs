@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using VfxEditor.FileManager;
 using VfxEditor.Formats.SgbFormat.Scenes;
-using VfxEditor.Ui.Components;
+using VfxEditor.Ui.Components.Dropdowns;
 
 namespace VfxEditor.Formats.SgbFormat {
     // https://github.com/NotAdam/Lumina/blob/40dab50183eb7ddc28344378baccc2d63ae71d35/src/Lumina/Data/Files/SgbFile.cs#L14

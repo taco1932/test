@@ -8,7 +8,7 @@ using System.Linq;
 using System.Numerics;
 using VfxEditor.Utils;
 
-namespace VfxEditor.Parsing {
+namespace VfxEditor.Parsing.String {
     public class ParsedStringIcon {
         public Func<FontAwesomeIcon> Icon;
         public bool Remove;

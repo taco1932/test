@@ -2,6 +2,7 @@ using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using System.IO;
 using System.Numerics;
+using VfxEditor.Data;
 using VfxEditor.Formats.MtrlFormat.Data.Dye;
 using VfxEditor.Formats.MtrlFormat.Data.Table;
 using VfxEditor.Formats.MtrlFormat.Stm;
@@ -19,11 +20,11 @@ namespace VfxEditor.Formats.MtrlFormat.Data.Color {
         public readonly ParsedHalf Unknown2 = new( "Unknown 2", 1f );
 
         public readonly ParsedHalf3Color Emissive = new( "Emissive" );
-        public readonly ParsedHalf Unknown3 = new( "Unknown 3", 1f );
+        public readonly ParsedHalf Exposure = new( "Exposure", 1f );
 
         public readonly ParsedHalf SheenRate = new( "Sheen Rate", 0.1f );
         public readonly ParsedHalf SheenTint = new( "Sheen Tint", 0.2f );
-        public readonly ParsedHalf SheenAperature = new( "Sheen Aperature", 5f );
+        public readonly ParsedHalf SheenAperture = new( "Sheen Aperture", 5f );
         public readonly ParsedHalf Unknown4 = new( "Unknown 4" );
 
         public readonly ParsedHalf Roughness = new( "Roughness", 0.5f );
@@ -53,10 +54,10 @@ namespace VfxEditor.Formats.MtrlFormat.Data.Color {
             Specular.Read( reader );
             Unknown2.Read( reader );
             Emissive.Read( reader );
-            Unknown3.Read( reader );
+            Exposure.Read( reader );
             SheenRate.Read( reader );
             SheenTint.Read( reader );
-            SheenAperature.Read( reader );
+            SheenAperture.Read( reader );
             Unknown4.Read( reader );
             Roughness.Read( reader );
             Unknown5.Read( reader );
@@ -81,10 +82,10 @@ namespace VfxEditor.Formats.MtrlFormat.Data.Color {
             Specular.Write( writer );
             Unknown2.Write( writer );
             Emissive.Write( writer );
-            Unknown3.Write( writer );
+            Exposure.Write( writer );
             SheenRate.Write( writer );
             SheenTint.Write( writer );
-            SheenAperature.Write( writer );
+            SheenAperture.Write( writer );
             Unknown4.Write( writer );
             Roughness.Write( writer );
             Unknown5.Write( writer );
@@ -121,6 +122,7 @@ namespace VfxEditor.Formats.MtrlFormat.Data.Color {
                     Diffuse.Draw();
                     Specular.Draw();
                     Emissive.Draw();
+                    Exposure.Draw();
                 }
             }
 
@@ -128,7 +130,7 @@ namespace VfxEditor.Formats.MtrlFormat.Data.Color {
                 if( tab ) {
                     SheenRate.Draw();
                     SheenTint.Draw();
-                    SheenAperature.Draw();
+                    SheenAperture.Draw();
                     Metalness.Draw();
                     Roughness.Draw();
                     Anisotropy.Draw();
@@ -149,7 +151,6 @@ namespace VfxEditor.Formats.MtrlFormat.Data.Color {
                 if( tab ) {
                     Unknown1.Draw();
                     Unknown2.Draw();
-                    Unknown3.Draw();
                     Unknown4.Draw();
                     Unknown5.Draw();
                     Unknown6.Draw();
@@ -161,10 +162,70 @@ namespace VfxEditor.Formats.MtrlFormat.Data.Color {
 
         // ===== PREVIEW =========
 
-        public override StmDyeData GetStainTemplate() => Stain == null ? null : Plugin.MtrlManager.StmFile.GetDye( DyeRow.Template.Value, ( int )Stain.Id );
+        protected override int DyeChannel => DyeRow.Channel.Value;
+
+        // Templates missing from the Dawntrail file fall back to the legacy one, same as Penumbra
+        public override StmDyeDataBase GetStainTemplate() {
+            if( Stain == null ) return null;
+            var template = DyeRow.Template.Value;
+            var stainId = ( int )Stain.Id;
+            return ( StmDyeDataBase )Plugin.MtrlManager.StmFile.GetDye( template, stainId ) ?? Plugin.MtrlManager.StmFileLegacy.GetDye( template, stainId );
+        }
+
+        public override MtrlResolvedRow Resolve( bool applyDye ) {
+            var dye = applyDye ? StainTemplate as StmDyeData : null;
+            var flags = DyeRow.Flags.Value;
+            bool Dyed( DyeRowFlags flag ) => dye != null && flags.HasFlag( flag );
+
+            return new() {
+                Diffuse = Dyed( DyeRowFlags.Diffuse ) ? dye.Diffuse : Diffuse.Value,
+                // Same as Penumbra, a black specular in the template means it isn't dyed
+                Specular = Dyed( DyeRowFlags.Specular ) && dye.Specular != Vector3.Zero ? dye.Specular : Specular.Value,
+                Emissive = Dyed( DyeRowFlags.Emissive ) ? dye.Emissive : Emissive.Value,
+                Exposure = Dyed( DyeRowFlags.Exposure ) ? dye.Exposure : Exposure.Value,
+                Roughness = Dyed( DyeRowFlags.Roughness ) ? dye.Roughness : Roughness.Value,
+                Metalness = Dyed( DyeRowFlags.Metalness ) ? dye.Metalness : Metalness.Value,
+                Anisotropy = Dyed( DyeRowFlags.Anisotropy ) ? dye.Anisotropy : Anisotropy.Value,
+                SheenRate = Dyed( DyeRowFlags.Sheen_Rate ) ? dye.SheenRate : SheenRate.Value,
+                SheenTint = Dyed( DyeRowFlags.Sheen_Tint_Rate ) ? dye.SheenTintRate : SheenTint.Value,
+                SheenAperture = Dyed( DyeRowFlags.Sheen_Aperture ) ? dye.SheenAperture : SheenAperture.Value,
+                SphereIndex = Dyed( DyeRowFlags.Sphere_Map_Index ) ? dye.SphereMapIndex : Sphere.Value,
+                SphereMask = Dyed( DyeRowFlags.Sphere_Map_Mask ) ? dye.SphereMapMask : SphereMask.Value,
+                ShaderId = Shader.Value,
+                TileIndex = TileMaterial.Value,
+                TileAlpha = TileAlpha.Value,
+                TileTransform = TileMatrix.Value,
+                Dyed = dye != null && flags != 0,
+            };
+        }
+
+        private MtrlResolvedRow ResolvePreview() {
+            var resolved = Resolve( true );
+            if( Table is not MtrlTable table || table.PairBlend <= 0f ) return resolved;
+
+            var idx = table.Rows.IndexOf( this );
+            var pairIdx = idx ^ 1;
+            if( idx < 0 || pairIdx >= table.Rows.Count ) return resolved;
+
+            var pair = table.Rows[pairIdx];
+            pair.RefreshStainTemplate();
+            return MtrlResolvedRow.Lerp( resolved, pair.Resolve( true ), table.PairBlend );
+        }
 
         public override void UpdateRender() {
             StainTemplate = GetStainTemplate();
+            Plugin.DirectXManager.MaterialRenderer.SetColorRow( RenderId, File.Instance, ResolvePreview(), false );
+        }
+
+        protected override void DrawRender() => Plugin.DirectXManager.MaterialRenderer.DrawTexture( RenderId, File.Instance, UpdateRender, DrawRenderPopup );
+
+        private void DrawRenderPopup() {
+            Plugin.Configuration.DrawDirectXMaterial();
+            if( Table is not MtrlTable table ) return;
+
+            ImGui.Separator();
+            var idx = table.Rows.IndexOf( this );
+            if( ImGui.SliderFloat( $"Blend with #{idx ^ 1}", ref table.PairBlend, 0f, 1f ) ) UpdateRender();
         }
     }
 }

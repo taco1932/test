@@ -10,10 +10,8 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using VfxEditor.Interop.Havok;
 using VfxEditor.Interop.Havok.SkeletonBuilder;
-using VfxEditor.PapFormat;
-using VfxEditor.PapFormat.Motion;
-using VfxEditor.Utils;
 using VfxEditor.DirectX;
+using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.PapFormat.Motion.Preview {
     public unsafe class PapMotionSkeleton : PapMotionPreview {
@@ -25,6 +23,7 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
         private bool Looping = true;
         private bool Playing = false;
         private DateTime LastTime = DateTime.Now;
+        private double PlayTime = 0;
         private bool MismatchWarning = false;
         private List<string> UnanimatedBoneNames = null;
 
@@ -46,11 +45,16 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
             // ==== Frame controls ====
 
             using( var font = ImRaii.PushFont( UiBuilder.IconFont ) ) {
-                if( ImGui.Button( Playing ? FontAwesomeIcon.Stop.ToIconString() : FontAwesomeIcon.Play.ToIconString() ) ) Playing = !Playing;
+                if( ImGui.Button( Playing ? FontAwesomeIcon.Stop.ToIconString() : FontAwesomeIcon.Play.ToIconString() ) ) {
+                    Playing = !Playing;
+                    LastTime = DateTime.Now;
+                    PlayTime = 0;
+                }
 
                 ImGui.SameLine();
                 using var dimmed = ImRaii.PushStyle( ImGuiStyleVar.Alpha, 0.5f, !Looping );
                 if( ImGui.Button( FontAwesomeIcon.Sync.ToIconString() ) ) Looping = !Looping;
+                UiUtils.Tooltip( Looping ? "Looping (click to disable)" : "Not looping (click to enable)" );
             }
 
             var lastFrame = Frame;
@@ -67,25 +71,29 @@ namespace VfxEditor.Formats.PapFormat.Motion.Preview {
             if( Data == null ) return;
 
             if( MismatchWarning ) {
-                using var _ = ImRaii.PushColor( ImGuiCol.Text, UiUtils.RED_COLOR);
+                using var _ = ImRaii.PushColor( ImGuiCol.Text, UiUtils.RED_COLOR );
                 ImGui.TextWrapped( "This animation references more bones than the loaded skeleton has. Sampling it would corrupt memory and crash the game. Load the matching skeleton (.sklb) via the selector above." );
                 return;
             }
 
             if( Playing ) {
                 var time = DateTime.Now;
-                var diff = ( time - LastTime ).TotalMilliseconds;
-                if( diff > 33.3f ) {
-                    LastTime = time;
+                PlayTime += ( time - LastTime ).TotalSeconds;
+                LastTime = time;
 
-                    Frame++;
-                    if( Frame >= Motion.TotalFrames ) {
+                var advance = ( int )( PlayTime * 30.0 );
+                if( advance > 0 ) {
+                    PlayTime -= advance / 30.0;
+                    Frame += advance;
+
+                    var total = Motion.TotalFrames;
+                    if( Frame >= total ) {
                         if( !Looping ) { // Stop
-                            Frame = Motion.TotalFrames - 1;
+                            Frame = total - 1;
                             Playing = false;
                         }
                         else { // Loop back around
-                            Frame = 0;
+                            Frame %= total;
                         }
                     }
                 }

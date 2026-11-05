@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using VfxEditor.Formats.TmbFormat.Utils;
 using VfxEditor.Parsing;
-using VfxEditor.TmbFormat.Utils;
+using VfxEditor.Parsing.Float;
+using VfxEditor.Parsing.Int;
 
-namespace VfxEditor.TmbFormat.Entries {
+namespace VfxEditor.Formats.TmbFormat.Entries {
     public class C056 : TmbEntry {
         public const string MAGIC = "C056";
         public const string DISPLAY_NAME = "----SCD Toggle [TESTING] (SGB)";

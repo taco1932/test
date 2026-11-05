@@ -1,13 +1,13 @@
 using HelixToolkit.Maths;
-using HelixToolkit.SharpDX;
 using HelixToolkit.SharpDX.Animations;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 using VfxEditor.Parsing;
+using VfxEditor.Parsing.Float;
 using VfxEditor.Parsing.String;
 
-namespace VfxEditor.PhybFormat.Collision.Sphere {
+namespace VfxEditor.Formats.PhybFormat.Collision.Sphere {
     public class PhybSphere : PhybData, IPhysicsObject {
         public readonly ParsedPaddedString Name = new( "Name", "replace_me", 32, 0xFE );
         public readonly ParsedPaddedString Bone = new( "Bone", 32, 0xFE );

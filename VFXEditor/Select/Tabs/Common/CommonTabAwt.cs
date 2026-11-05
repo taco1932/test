@@ -1,3 +1,5 @@
+using VfxEditor.Select.Base;
+
 namespace VfxEditor.Select.Tabs.Common {
     public class CommonTabAwt : SelectTab<CommonRow> {
         public CommonTabAwt( SelectDialog dialog, string name ) : base( dialog, name, "Common-Awt" ) { }

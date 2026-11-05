@@ -3,7 +3,7 @@ using VfxEditor.Select.Formats;
 using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.ObsbFormat {
-    public unsafe class ObsbManager : FileManager<ObsbDocument, ObsbFile, WorkspaceMetaBasic> {
+    public class ObsbManager : FileManager<ObsbDocument, ObsbFile, WorkspaceMetaBasic> {
         public ObsbManager( ObsbManagerGroup group ) : base( group ) {
             SourceSelect = new ObsbSelectDialog( "Obsb Select [LOADED]", this, true );
             ReplaceSelect = new ObsbSelectDialog( "Obsb Select [REPLACED]", this, false );

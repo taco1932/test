@@ -1,5 +1,5 @@
 using System.IO;
-using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
 
 namespace VfxEditor.Formats.SgbFormat.Layers.Objects.Data {
     public class GameInstanceObject : SgbObject {

@@ -1,7 +1,7 @@
 using System.IO;
-using VfxEditor.Parsing;
 using VfxEditor.Parsing.Int;
 using VfxEditor.Ui.Interfaces;
+
 namespace VfxEditor.Formats.SgbFormat.Layers.Objects.Data.Utils {
     public class OverriddenMember : IUiItem {
         private readonly ParsedInt AssetType = new( "Asset Type" );

@@ -1,3 +1,5 @@
+using VfxEditor.Select.Base;
+
 namespace VfxEditor.Select.Tabs.Common {
     public class CommonTabAtch : SelectTab<CommonRow> {
         public CommonTabAtch( SelectDialog dialog, string name ) : base( dialog, name, "Common-Atch" ) { }

@@ -1,10 +1,11 @@
 using Dalamud.Bindings.ImGui;
 using System.IO;
-using VfxEditor.Parsing;
 using VfxEditor.Ui.Interfaces;
 using VfxEditor.Utils;
-using VfxEditor.WtdFormat.Utils;
+using VfxEditor.Formats.WtdFormat.Utils;
 using VfxEditor.AtchFormat.Utils;
+using VfxEditor.Parsing.Int;
+using VfxEditor.Parsing.String;
 
 namespace VfxEditor.Formats.WtdFormat.Entry {
     public class WtdEntry : IUiItem {

@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using VfxEditor.Formats.TmbFormat.Utils;
 using VfxEditor.Parsing;
-using VfxEditor.TmbFormat.Utils;
+using VfxEditor.Parsing.Int;
 
-namespace VfxEditor.TmbFormat.Entries {
+namespace VfxEditor.Formats.TmbFormat.Entries {
     public class C229 : TmbEntry {
         public const string MAGIC = "C229"; //in ghidra, but not in game 7.55
         public const string DISPLAY_NAME = "test4";

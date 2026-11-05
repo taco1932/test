@@ -1,6 +1,7 @@
 using System.IO;
-using VfxEditor.Parsing;
+using VfxEditor.Parsing.Int;
 using VfxEditor.Ui.Interfaces;
+
 namespace VfxEditor.Formats.SgbFormat.Layers.Objects.Data.Utils {
     public class WeaponModel : IUiItem {
         private readonly ParsedShort SkeletonId = new( "Skeleton Id" );

@@ -1,10 +1,13 @@
 using Dalamud.Bindings.ImGui;
 using System.Collections.Generic;
 using System.IO;
+using System.Numerics;
+using VfxEditor.Data.Command;
 using VfxEditor.Data.Copy;
 using VfxEditor.FileManager.Interfaces;
 using VfxEditor.Select;
 using VfxEditor.Ui.Export;
+using VfxEditor.Utils;
 
 namespace VfxEditor.FileManager {
     public abstract partial class FileManager<D, F, S> : FileManagerBase, IFileManager where D : FileManagerDocument<F, S> where F : FileManagerFile {
@@ -17,6 +20,9 @@ namespace VfxEditor.FileManager {
         private readonly FileManagerDocumentWindow<D, F, S> DocumentWindow;
         public readonly List<D> Documents = [];
 
+        private bool UseWindowColor = false;
+        private Vector4 WindowColor = new( 1, 0, 0, 1 ); // TODO: pick a random one
+
         public FileManager( FileManagerGroupBase group ) : base( group ) {
             DocumentWindow = new( Title, this );
         }
@@ -24,8 +30,7 @@ namespace VfxEditor.FileManager {
         // ===================
 
         public override void SetSource( SelectResult result ) {
-            ActiveDocument?.SetSource( result );
-            Plugin.Configuration.AddRecent( Configuration.RecentItems, result );
+            if( ActiveDocument?.SetSource( result ) == true ) Plugin.Configuration.AddRecent( Configuration.RecentItems, result );
         }
 
         public override void SetReplace( SelectResult result ) {
@@ -56,13 +61,11 @@ namespace VfxEditor.FileManager {
         }
 
         public void RemoveDocument( D document, bool dispose = true ) {
-
             if( !Documents.Contains( document ) ) return;
             DocumentWindow.Reset();
 
             Documents.Remove( document );
             if( dispose ) document.Dispose();
-
             ExportDialog.RemoveDocument( document );
 
             if( ActiveDocument == document ) ActiveDocument = Documents.Count > 0 ? Documents[0] : null;
@@ -73,10 +76,20 @@ namespace VfxEditor.FileManager {
             }
         }
 
-        public void MoveDocumentAfter( D document, D targetDocument ) {
-            if( !Documents.Contains( targetDocument ) ) return;
-            Documents.Remove( document );
-            Documents.Insert( Documents.IndexOf( targetDocument ), document );
+        public void MoveDocumentTo( D document, D targetDocument ) {
+            if( document == targetDocument ) return;
+            var targetIdx = Documents.IndexOf( targetDocument );
+            if( targetIdx == -1 ) return;
+
+            var sourceIdx = Documents.IndexOf( document );
+            if( sourceIdx == -1 ) {
+                Documents.Insert( targetIdx + 1, document );
+                ActiveDocument = document;
+                return;
+            }
+
+            Documents.RemoveAt( sourceIdx );
+            Documents.Insert( targetIdx, document );
         }
 
         public void InsertDocument( D document, int idx ) {
@@ -84,7 +97,7 @@ namespace VfxEditor.FileManager {
             Documents.Insert( idx, document );
             ActiveDocument = document;
         }
-        
+
         public void InsertDocument( D document ) {
             if( Documents.Contains( document ) ) return;
             Documents.Add( document );
@@ -111,13 +124,23 @@ namespace VfxEditor.FileManager {
             DocumentWindow.Reset();
         }
 
-        public bool CanImport( string path ) => path.EndsWith( Extension );
+        public bool CanImport( string path ) => path.EndsWith( $".{Extension}", System.StringComparison.OrdinalIgnoreCase );
 
-        public void PenumbraImport( SelectResult selectedFile, SelectResult replacedFile )
-        {
+        public void PenumbraImport( SelectResult selectedFile, SelectResult replacedFile ) {
             SetSource( selectedFile );
             SetReplace( replacedFile );
             AddDocument();
+        }
+
+        public override WorkspaceWindow ToMeta() => base.ToMeta() with {
+            UseWindowColor = UseWindowColor,
+            WindowColor = WindowColor
+        };
+
+        public override void SetMeta( WorkspaceWindow? meta ) {
+            base.SetMeta( meta );
+            UseWindowColor = meta?.UseWindowColor ?? UseWindowColor;
+            WindowColor = meta?.WindowColor ?? WindowColor;
         }
     }
 }

@@ -1,6 +1,10 @@
 using System.IO;
 using VfxEditor.Formats.SgbFormat.Layers.Objects.Data.Utils;
-using VfxEditor.Parsing;
+using VfxEditor.Parsing.Bool;
+using VfxEditor.Parsing.Enums;
+using VfxEditor.Parsing.Float;
+using VfxEditor.Parsing.Int;
+using VfxEditor.Parsing.String;
 using VfxEditor.Utils;
 
 namespace VfxEditor.Formats.SgbFormat.Layers.Objects.Data {

@@ -7,7 +7,7 @@ using VfxEditor.Ui.Components;
 using VfxEditor.Ui.Interfaces;
 using VfxEditor.Utils;
 
-namespace VfxEditor.SklbFormat.Data {
+namespace VfxEditor.Formats.SklbFormat.Data {
     public class SklbNewData : SklbData {
         private readonly int DataSize;
         private readonly List<ParsedBase> Parsed;
@@ -20,7 +20,9 @@ namespace VfxEditor.SklbFormat.Data {
 
             Parsed = [
                 new ParsedShort( "Bone Connect Index" ),
-                new ParsedReserve( 2 ), // Padding
+                new ParsedSByte( "Reserve 1" ),
+                new ParsedSByte( "Reserve 2" ),
+                //new ParsedReserve( 2 ), // Padding
                 Id
             ];
             Parsed.ForEach( x => x.Read( reader ) );

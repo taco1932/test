@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using VfxEditor.Formats.TmbFormat.Utils;
 using VfxEditor.Parsing;
-using VfxEditor.TmbFormat.Utils;
+using VfxEditor.Parsing.Int;
 
-namespace VfxEditor.TmbFormat.Entries {
+namespace VfxEditor.Formats.TmbFormat.Entries {
     public class C007 : TmbEntry {
         public const string MAGIC = "C007"; //ghidra, vanilla DNE 7.55
         public const string DISPLAY_NAME = "???";

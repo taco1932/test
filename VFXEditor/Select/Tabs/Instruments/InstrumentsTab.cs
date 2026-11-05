@@ -1,5 +1,6 @@
 using System.IO;
 using System.Linq;
+using VfxEditor.Select.Base;
 
 namespace VfxEditor.Select.Tabs.Instruments {
     public class InstrumentsTab : SelectTab<InstrumentsRow> {

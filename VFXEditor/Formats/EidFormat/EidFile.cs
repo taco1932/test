@@ -4,14 +4,15 @@ using HelixToolkit.SharpDX.Animations;
 using Dalamud.Bindings.ImGui;
 using System.Collections.Generic;
 using System.IO;
-using VfxEditor.EidFormat.BindPoint;
+using VfxEditor.DirectX.Bone;
 using VfxEditor.FileManager;
+using VfxEditor.Formats.EidFormat.BindPoint;
 using VfxEditor.Formats.EidFormat.Skeleton;
 using VfxEditor.Ui.Components;
+using VfxEditor.Ui.Components.Dropdowns;
 using VfxEditor.Utils;
-using VfxEditor.DirectX.Bone;
 
-namespace VfxEditor.EidFormat {
+namespace VfxEditor.Formats.EidFormat {
     public class EidFile : FileManagerFile {
         public readonly List<EidBindPoint> BindPoints = [];
         public readonly CommandDropdown<EidBindPoint> Dropdown;

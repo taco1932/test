@@ -10,6 +10,7 @@ using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
+using VfxEditor.Data.Command;
 using VfxEditor.Data.Command.ListCommands;
 using VfxEditor.FileBrowser;
 
@@ -30,6 +31,13 @@ namespace VfxEditor.Utils {
     };
 
     public static class UiUtils {
+        public static string WindowId( string name ) =>
+#if BETA
+            name + ( name.Contains( "##" ) ? "-ALPHA" : "##ALPHA" );
+#else
+            name;
+#endif
+
         public static readonly Vector4 RED_COLOR = new( 0.89098039216f, 0.30549019608f, 0.28980392157f, 1.0f );
 
         public static readonly Vector4 GREEN_COLOR = new( 0.36078431373f, 0.72156862745f, 0.36078431373f, 1.0f );
@@ -38,11 +46,11 @@ namespace VfxEditor.Utils {
 
         public static Vector4 DALAMUD_RED => StyleModel.GetFromCurrent().BuiltInColors.DalamudRed.Value;
 
-        public static Vector4 DALAMUD_YELLOW => StyleModel.GetFromCurrent().BuiltInColors.DalamudYellow.Value;
-
         public static Vector4 DALAMUD_ORANGE => StyleModel.GetFromCurrent().BuiltInColors.DalamudOrange.Value;
 
         public static Vector4 PARSED_GREEN => StyleModel.GetFromCurrent().BuiltInColors.ParsedGreen.Value;
+
+        public static Vector4 ACCENT_COLOR => Plugin.Configuration?.AccentColor ?? StyleModel.GetFromCurrent().BuiltInColors.DPSRed.Value;
 
         public static readonly string HIGH_PRECISION_FORMAT = "%.7f";
 
@@ -129,7 +137,8 @@ namespace VfxEditor.Utils {
         }
 
         public static void Tooltip( string text, bool hovered = false ) {
-            if( hovered || ImGui.IsItemHovered() ) {
+            if( hovered || ImGui.IsItemHovered( ImGuiHoveredFlags.AllowWhenDisabled ) ) {
+                using var font = ImRaii.PushFont( UiBuilder.DefaultFont, IsIconFontPushed() );
                 ImGui.BeginTooltip();
                 ImGui.PushTextWrapPos( ImGui.GetFontSize() * 35.0f );
                 ImGui.TextUnformatted( text );
@@ -137,6 +146,8 @@ namespace VfxEditor.Utils {
                 ImGui.EndTooltip();
             }
         }
+
+        public static unsafe bool IsIconFontPushed() => ImGui.GetFont().Handle == UiBuilder.IconFont.Handle;
 
         public static void WikiButton( string url ) {
             using( var font = ImRaii.PushFont( UiBuilder.IconFont ) ) {
@@ -164,10 +175,10 @@ namespace VfxEditor.Utils {
             };
 
             var text = verified switch {
-                VerifiedStatus.VERIFIED => "Verified",
-                VerifiedStatus.PARTIAL => "Partially Verified",
-                VerifiedStatus.ERROR => "Parsing Issues",
-                VerifiedStatus.WORKSPACE => "Workspace",
+                VerifiedStatus.VERIFIED => "File verified",
+                VerifiedStatus.PARTIAL => "File partially verified",
+                VerifiedStatus.ERROR => "Parsing issues",
+                VerifiedStatus.WORKSPACE => "Workspace loaded",
                 VerifiedStatus.UNKNOWN => "Unknown",
                 VerifiedStatus.UNSUPPORTED => "Unsupported",
                 _ => "[OTHER]"
@@ -177,8 +188,10 @@ namespace VfxEditor.Utils {
                 ImGui.TextColored( color, icon );
             }
 
-            ImGui.SameLine();
-            ImGui.TextColored( color, text );
+            using( ImRaii.PushStyle( ImGuiStyleVar.ItemSpacing, new Vector2( 2, 0 ) ) ) {
+                ImGui.SameLine();
+                ImGui.TextColored( color, text );
+            }
 
             if( verified == VerifiedStatus.UNSUPPORTED ) Tooltip( "Verification is not supported for this file or file type" );
 

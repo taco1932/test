@@ -1,12 +1,13 @@
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
-using Dalamud.Bindings.ImGui;
 using System.IO;
 using System.Linq;
 using System.Numerics;
 using VfxEditor.FileBrowser;
 using VfxEditor.Utils;
 using System.Collections.Generic;
+using VfxEditor.Select.Base;
 
 namespace VfxEditor.Select {
     public partial class SelectDialog {
@@ -70,17 +71,15 @@ namespace VfxEditor.Select {
 
             ImGui.SameLine();
             ImGui.PushItemWidth( 300 );
-            if( ImGui.Button( "Load Scanned Paths" ) )
-            {
+            if( ImGui.Button( "Load Scanned Paths" ) ) {
                 LoggedFiles.Clear();
                 Plugin.Configuration.LogAllFiles = false;
                 Plugin.Configuration.Save();
-                foreach( var item in SelectTab.ScannedPaths )
-                {
+                foreach( var item in SelectTab.ScannedPaths ) {
                     LoggedFiles.Add( item );
                 }
                 SelectGamePaths( SelectTab.ScannedPaths );
-                FileManager.FileManager.FlaggedPaths.Clear();
+                FileManager.FileManagerExtra.FlaggedPaths.Clear();
             }
 
             using var disabled = ImRaii.Disabled( LoggedFiles.Count == 0 && !Plugin.Configuration.LogAllFiles );

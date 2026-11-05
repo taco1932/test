@@ -1,5 +1,7 @@
 using System.IO;
-using VfxEditor.Parsing;
+using VfxEditor.Parsing.Bool;
+using VfxEditor.Parsing.Enums;
+using VfxEditor.Parsing.Int;
 
 namespace VfxEditor.Formats.SgbFormat.Layers.Objects.Data {
     public class TriggerBoxInstanceObject : SgbObject {

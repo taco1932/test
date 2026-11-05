@@ -9,19 +9,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using VfxEditor.Data;
+using VfxEditor.Data.Command;
 using VfxEditor.Data.Command.ListCommands;
 using VfxEditor.DirectX;
+using VfxEditor.DirectX.Bone;
 using VfxEditor.FileBrowser;
 using VfxEditor.Formats.SklbFormat.Bones;
+using VfxEditor.Formats.SklbFormat.Mapping;
 using VfxEditor.Interop.Havok;
 using VfxEditor.Interop.Havok.SkeletonBuilder;
 using VfxEditor.Interop.Structs.Animation;
-using VfxEditor.SklbFormat.Mapping;
 using VfxEditor.Utils;
 using VfxEditor.Utils.Gltf;
 using static FFXIVClientStructs.Havok.Common.Serialize.Util.hkRootLevelContainer;
 
-namespace VfxEditor.SklbFormat.Bones {
+namespace VfxEditor.Formats.SklbFormat.Bones {
     public enum BoneDisplay {
         Connected,
         Blender_Style_Inline,
@@ -172,25 +175,23 @@ namespace VfxEditor.SklbFormat.Bones {
                 ImGui.Columns( 2, "Columns", true );
 
                 using( var spacing = ImRaii.PushStyle( ImGuiStyleVar.ItemSpacing, ImGui.GetStyle().ItemInnerSpacing ) ) {
-                    // New bone
                     using( var font = ImRaii.PushFont( UiBuilder.IconFont ) ) {
+                        // New bone
                         if( ImGui.Button( FontAwesomeIcon.Plus.ToIconString() ) ) {
                             var newId = NEW_BONE_ID;
                             var newBone = new SklbBone( newId );
                             newBone.Name.Value = $"bone_{newId}";
                             CommandManager.Add( new ListAddCommand<SklbBone>( Bones, newBone ) );
                         }
-                    }
-                    UiUtils.Tooltip( "Create new bone at root" );
+                        UiUtils.Tooltip( "Create new bone at root" );
 
-                    // Expand
-                    ImGui.SameLine();
-                    using( var font = ImRaii.PushFont( UiBuilder.IconFont ) ) {
+                        // Expand
+                        ImGui.SameLine();
                         if( ImGui.Button( FontAwesomeIcon.Expand.ToIconString() ) ) {
                             expandAll = true;
                         }
+                        UiUtils.Tooltip( "Expand all tree nodes" );
                     }
-                    UiUtils.Tooltip( "Expand all tree nodes" );
 
                     // Search
                     ImGui.SameLine();
