@@ -6,7 +6,8 @@ using VfxEditor.Parsing.Int;
 namespace VfxEditor.Formats.TmbFormat.Entries {
     public class C233 : TmbEntry {
         public const string MAGIC = "C233";
-        public const string DISPLAY_NAME = "----[TESTING] (CUTB)";
+        public const string DISPLAY_NAME = "WKS Data ----[TESTING] (CUTB)";
+        //all I know is that exd/wksdevgradebgset_0.exd shows up in reslog iff Unk4 > 0
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 

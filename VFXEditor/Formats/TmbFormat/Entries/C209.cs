@@ -7,7 +7,10 @@ using VfxEditor.Parsing.Int;
 namespace VfxEditor.Formats.TmbFormat.Entries {
     public class C209 : TmbEntry {
         public const string MAGIC = "C209";
-        public const string DISPLAY_NAME = "----[TESTING] (CUTB)";
+        public const string DISPLAY_NAME = "Diplay Results UI----[TESTING] (CUTB)";
+        //disables mouse click/drag beyond the UI overlay
+        //to counter this, C210 is required
+        //C208 can intercept once
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
@@ -16,7 +19,8 @@ namespace VfxEditor.Formats.TmbFormat.Entries {
 
         private readonly ParsedBool Enabled = new( "Enabled" );
         private readonly ParsedInt Unk1 = new( "CRC" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2" );
+        private readonly ParsedInt Unk2 = new( "Screen ID" ); //calls specific ULD sets and any associated assets (e.g. sound)
+        //note that it relies on stored data, so calling it outside the relevant instance will display dummy info
         private readonly ParsedInt Unk3 = new( "Unknown 3" );
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
@@ -25,6 +29,7 @@ namespace VfxEditor.Formats.TmbFormat.Entries {
         private readonly ParsedInt Unk8 = new( "Unknown 8" );
         private readonly ParsedInt Unk9 = new( "Unknown 9" );
         private readonly ParsedInt Unk10 = new( "Unknown 10" );
+        //unk3-10 are null in all files
 
         public C209( TmbFile file ) : base( file ) { }
 

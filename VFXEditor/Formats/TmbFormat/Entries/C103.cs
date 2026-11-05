@@ -15,11 +15,11 @@ namespace VfxEditor.Formats.TmbFormat.Entries {
 
         private readonly ParsedInt Unk1 = new( "Unknown 1", value: 1 );
         private readonly ParsedInt CRC = new( "CRC" );
-        private readonly ParsedIntByte4 Unk3 = new( "Unknown 3" ); //00 06 6A 34
+        private readonly ParsedIntByte4 Unk3 = new( "Unknown 3" ); //00 06 6A 34 (float?)
         private readonly ParsedIntByte4 Unk4 = new( "Unknown 4" ); //B0 9D 11 00
         private readonly ParsedInt Unk5 = new( "Unknown 5" ); //0, 4
         private readonly ParsedInt Unk6 = new( "Unknown 6" ); //2, 3
-        private readonly ParsedInt Unk7 = new( "Unknown 7" ); //0, 2
+        private readonly ParsedInt Unk7 = new( "Unknown 7" ); //0, 2, 3, 5
         private readonly ParsedInt Unk8 = new( "Unknown 8" );
         private readonly ParsedInt Unk9 = new( "Unknown 9" );
 

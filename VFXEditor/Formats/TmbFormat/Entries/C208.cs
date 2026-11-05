@@ -7,7 +7,9 @@ using VfxEditor.Parsing.Int;
 namespace VfxEditor.Formats.TmbFormat.Entries {
     public class C208 : TmbEntry {
         public const string MAGIC = "C208";
-        public const string DISPLAY_NAME = "----[TESTING] (CUTB)";
+        public const string DISPLAY_NAME = "Retain Results UI----[TESTING] (CUTB)";
+        //read: take precendence over C210's removal once
+        //when (C209) + C210 called again, C208 is ignored
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
@@ -16,7 +18,7 @@ namespace VfxEditor.Formats.TmbFormat.Entries {
 
         private readonly ParsedBool Enabled = new( "Enabled" );
         private readonly ParsedInt CRC = new( "CRC" );
-        private readonly ParsedInt Unk2 = new( "Unknown 2", value: 2 );
+        private readonly ParsedInt RefId = new( "Reference ID" ); //checks for first instance of C209 with the relevant ID
         private readonly ParsedInt Unk3 = new( "Unknown 3" );
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
 
@@ -27,7 +29,7 @@ namespace VfxEditor.Formats.TmbFormat.Entries {
         protected override List<ParsedBase> GetParsed() => [
             Enabled,
             CRC,
-            Unk2,
+            RefId,
             Unk3,
             Unk4
         ];

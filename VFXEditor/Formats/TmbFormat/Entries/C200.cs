@@ -6,7 +6,7 @@ using VfxEditor.Parsing.Int;
 namespace VfxEditor.Formats.TmbFormat.Entries {
     public class C200 : TmbEntry {
         public const string MAGIC = "C200";
-        public const string DISPLAY_NAME = "Credits Screen";
+        public const string DISPLAY_NAME = "Apply Credits Screen";
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 

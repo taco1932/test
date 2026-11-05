@@ -6,7 +6,10 @@ using VfxEditor.Parsing.Int;
 namespace VfxEditor.Formats.TmbFormat.Entries {
     public class C210 : TmbEntry {
         public const string MAGIC = "C210";
-        public const string DISPLAY_NAME = "----[TESTING] (CUTB)";
+        public const string DISPLAY_NAME = "Remove Results UI----[TESTING] (CUTB)";
+        //basically removes C209 early
+        //can be intercepted by C209 once
+        //reenables mouse click/drag, but not always?
         public override string DisplayName => DISPLAY_NAME;
         public override string Magic => MAGIC;
 
@@ -15,7 +18,7 @@ namespace VfxEditor.Formats.TmbFormat.Entries {
 
         private readonly ParsedInt Unk1 = new( "Unknown 1", value: 1 );
         private readonly ParsedInt CRC = new( "CRC" );
-        private readonly ParsedInt Unk3 = new( "Unknown 3", value: 2 );
+        private readonly ParsedInt RefId = new( "Reference ID" ); //checks running C209 and disables the matching ID
         private readonly ParsedInt Unk4 = new( "Unknown 4" );
         private readonly ParsedInt Unk5 = new( "Unknown 5" );
 
@@ -32,7 +35,7 @@ namespace VfxEditor.Formats.TmbFormat.Entries {
         protected override List<ParsedBase> GetParsed() => [
             Unk1,
             CRC,
-            Unk3,
+            RefId,
             Unk4,
             Unk5,
         ];

@@ -220,19 +220,40 @@ namespace VfxEditor.Formats.TmbFormat.Base {
         Test4
     }
 
+    public enum C200Credits {
+        Stormblood, //0-5 are all stormblood, but why
+        Shadowbringers = 6,
+        NieR = 7, //Anogg + Konogg points
+        Post_Shadowbringers = 8,
+        NieR_2 = 9, //same as 7?
+        NiER_3 = 10, //same as 7? again?
+        Endwalker = 11,
+        Endwalker_Extra = 12, //forget where this was from
+        Post_Endwalker = 13, //same as 11?
+        Dawntrail = 14,
+        Post_Dawntrail = 15,
+    }
+
     public enum C202WeaponPart {
         None = 0,
-        Parts_A = 1,
-        Parts_B = 2,
-        Parts_C = 3,
-        Parts_D = 4,
-        Parts_Rod = 5,
+        Parts_A,
+        Parts_B,
+        Parts_C,
+        Parts_D,
+        Parts_Rod,
+    }
+
+    public enum C209Screen { //.uld
+        PvPMKSIntroduction = 1,
+        EMJIntroduction,
+        FGSResultWinner = 5,
+        FGSResult,
     }
 
     public enum C212WeaponSlot {
-        Main_Hand = 0,
-        Off_Hand = 1,
-        None = 2,
+        Main_Hand,
+        Off_Hand,
+        None,
     }
 
     public enum C053Bank {
