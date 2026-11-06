@@ -1,15 +1,13 @@
 using System;
-using VfxEditor.Parsing;
 using VfxEditor.Parsing.Flag;
 using VfxEditor.Parsing.Float;
 using VfxEditor.Parsing.Int;
-using VfxEditor.Parsing.Reserve;
 
 namespace VfxEditor.Formats.ScdFormat.Layout.Data {
     [Flags]
     public enum PointEnvironmentFlags {
         PointEnvFlag_Test_x01 = 0x01,
-        PointEnvFlag_Test_x02 = 0x02,
+        Use_Env_Filter_Unknown = 0x02, //most zone ambient loops. notably changes with _nofilter counterparts
         PointEnvFlag_Test_x04 = 0x04,
         PointEnvFlag_Test_x08 = 0x08,
         PointEnvFlag_Test_x10 = 0x10,
@@ -21,7 +19,7 @@ namespace VfxEditor.Formats.ScdFormat.Layout.Data {
     [Flags]
     public enum PointFlags {
         PointFlag_Test_x01 = 0x01,
-        PointFlag_Test_x02 = 0x02,
+        PointFlag_Test_x02 = 0x02, //seems to do something
         PointFlag_Test_x04 = 0x04,
         PointFlag_Test_x08 = 0x08,
         PointFlag_Test_x10 = 0x10,
