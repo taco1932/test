@@ -4,7 +4,6 @@ using Dalamud.Interface.Utility.Raii;
 using System.IO;
 using System.Linq;
 using System.Numerics;
-using VfxEditor.Data;
 using VfxEditor.FileManager;
 using VfxEditor.Formats.AvfxFormat.Texture;
 using VfxEditor.Select;
@@ -43,7 +42,7 @@ namespace VfxEditor.Formats.AvfxFormat {
             }
         }
 
-        protected override AvfxFile FileFromReader( BinaryReader reader, bool verify ) => new( reader, verify );
+        protected override AvfxFile FileFromReader( BinaryReader reader, string sourcePath, bool verify ) => new( reader, verify );
 
         public void Import( string path ) {
             if( File != null && System.IO.File.Exists( path ) ) File.Import( path );

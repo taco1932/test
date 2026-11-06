@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using VfxEditor.Data;
 using VfxEditor.FileManager;
 using VfxEditor.Formats.ScdFormat.Attribute;
 using VfxEditor.Formats.ScdFormat.Entries;

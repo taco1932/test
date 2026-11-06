@@ -19,7 +19,7 @@ namespace VfxEditor.Formats.TmbFormat {
 
         public TmbDocument( TmbManager manager, string writeLocation, string localPath, WorkspaceMetaBasic data ) : base( manager, writeLocation, localPath, data ) {}
 
-        protected override TmbFile FileFromReader( BinaryReader reader, bool verify ) => new( reader, verify );
+        protected override TmbFile FileFromReader( BinaryReader reader, string sourcePath, bool verify ) => new( reader, verify );
 
         protected override void DrawExtraColumn() {
             using var framePadding = ImRaii.PushStyle( ImGuiStyleVar.FramePadding, new Vector2( 4, 3 ) );

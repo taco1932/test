@@ -11,7 +11,6 @@ using VfxEditor.Formats.UldFormat.PartList;
 using VfxEditor.Formats.UldFormat.Texture;
 using VfxEditor.Formats.UldFormat.Timeline;
 using VfxEditor.Formats.UldFormat.Widget;
-using VfxEditor.Ui.Components;
 using VfxEditor.Ui.Components.Dropdowns;
 using VfxEditor.Ui.Components.SplitViews;
 using VfxEditor.Ui.Interfaces;

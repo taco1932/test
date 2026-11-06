@@ -9,7 +9,6 @@ using VfxEditor.DirectX.Model;
 using VfxEditor.FileBrowser;
 using VfxEditor.FileManager;
 using VfxEditor.Formats.PapFormat.Motion;
-using VfxEditor.Parsing;
 using VfxEditor.Parsing.Enums;
 using VfxEditor.Parsing.Int;
 using VfxEditor.Utils;

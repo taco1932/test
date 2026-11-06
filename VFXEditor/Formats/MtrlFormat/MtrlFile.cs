@@ -13,7 +13,6 @@ using VfxEditor.Formats.MtrlFormat.Data.Table;
 using VfxEditor.Formats.MtrlFormat.Shader;
 using VfxEditor.Formats.MtrlFormat.Texture;
 using VfxEditor.Formats.ShpkFormat;
-using VfxEditor.Parsing;
 using VfxEditor.Parsing.Flag;
 using VfxEditor.Parsing.Int;
 using VfxEditor.Parsing.String;

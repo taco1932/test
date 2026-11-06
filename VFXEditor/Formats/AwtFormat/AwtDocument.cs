@@ -11,6 +11,6 @@ namespace VfxEditor.Formats.AwtFormat {
 
         public AwtDocument( AwtManager manager, string writeLocation, string localPath, WorkspaceMetaBasic data ) : base( manager, writeLocation, localPath, data ) { }
 
-        protected override AwtFile FileFromReader( BinaryReader reader, bool verify ) => new( reader );
+        protected override AwtFile FileFromReader( BinaryReader reader, string sourcePath, bool verify ) => new( reader );
     }
 }

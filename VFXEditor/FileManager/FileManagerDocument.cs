@@ -64,9 +64,9 @@ namespace VfxEditor.FileManager {
             return !string.IsNullOrEmpty( replacePath );
         }
 
-        protected abstract R FileFromReader( BinaryReader reader, bool verify );
+        protected abstract R FileFromReader( BinaryReader reader, string sourcePath, bool verify );
 
-        protected void LoadLocal( string path, bool verify ) {
+        /*protected void LoadLocal( string path, bool verify ) {
             if( !System.IO.File.Exists( path ) ) {
                 Dalamud.Error( $"Local file: [{path}] does not exist" );
                 return;
@@ -91,9 +91,37 @@ namespace VfxEditor.FileManager {
                 FileManagerExtra.FlaggedPaths.Add( Source.Path );
                 Dalamud.Log( $"[ParseChecker] File {Source.Path} has parsing issues" );
             }
+        }*/
+
+        private static void LoadError( string message ) {
+            Dalamud.Error( message );
+            Dalamud.ErrorNotification( message );
         }
 
-        protected void LoadGame( string path, bool verify ) {
+        protected bool LoadLocal( string path, string sourcePath, bool verify ) {
+            if( !System.IO.File.Exists( path ) ) {
+                LoadError( $"Local file does not exist: {path}" );
+                return false;
+            }
+
+            if( !path.EndsWith( $".{Extension}", StringComparison.OrdinalIgnoreCase ) ) {
+                LoadError( $"Wrong file type, expected .{Extension}: {path}" );
+                return false;
+            }
+
+            try {
+                using var reader = new BinaryReader( System.IO.File.OpenRead( path ) );
+                SwapFile( FileFromReader( reader, sourcePath, verify ) );
+                return true;
+            }
+            catch( Exception e ) {
+                Dalamud.Error( e, $"Error reading file: {path}" );
+                Dalamud.ErrorNotification( $"Error reading file: {path}" );
+                return false;
+            }
+        }
+
+        /*protected void LoadGame( string path, bool verify ) {
             if( !Dalamud.DataManager.FileExists( path ) ) {
                 Dalamud.Error( $"Game file: [{path}] does not exist" );
                 return;
@@ -121,6 +149,32 @@ namespace VfxEditor.FileManager {
                 Dalamud.Log( $"[ParseChecker] File {Source.Path} has parsing issues" );
             }
         }
+        */
+
+        protected bool LoadGame( string path, string sourcePath, bool verify ) {
+            if( !Dalamud.DataManager.FileExists( path ) ) {
+                LoadError( $"Game file does not exist: {path}" );
+                return false;
+            }
+
+            if( !path.EndsWith( $".{Extension}", StringComparison.OrdinalIgnoreCase ) ) {
+                LoadError( $"Wrong file type, expected .{Extension}: {path}" );
+                return false;
+            }
+
+            try {
+                var file = Dalamud.DataManager.GetFile( path );
+                using var ms = new MemoryStream( file.Data );
+                using var reader = new BinaryReader( ms );
+                SwapFile( FileFromReader( reader, sourcePath, verify ) );
+                return true;
+            }
+            catch( Exception e ) {
+                Dalamud.Error( e, $"Error reading file: {path}" );
+                Dalamud.ErrorNotification( $"Error reading file: {path}" );
+                return false;
+            }
+        }
 
         private void SwapFile( R newFile ) {
             var oldFile = File;
@@ -130,7 +184,7 @@ namespace VfxEditor.FileManager {
 
         // =================
 
-        public void SetSource( SelectResult result ) {
+        /*public void SetSource( SelectResult result ) {
             if( result == null ) return;
             Source = result;
             SourceTextInput = "";
@@ -143,6 +197,19 @@ namespace VfxEditor.FileManager {
             }
 
             PenumbraTempMod.MarkDirty();
+        }
+        */
+
+        public bool SetSource( SelectResult result ) {
+            if( result == null ) return false;
+            var loaded = result.Type == SelectResultType.Local ? LoadLocal( result.Path, result.Path, true ) : LoadGame( result.Path, result.Path, true );
+            if( !loaded ) return false;
+
+            Source = result;
+            SourceTextInput = "";
+            WriteFile( WriteLocation );
+            PenumbraTempMod.MarkDirty();
+            return true;
         }
 
         protected void RemoveSource() {
@@ -202,7 +269,7 @@ namespace VfxEditor.FileManager {
             SourceTextInput = "";
             ReplaceTextInput = "";
 
-            LoadLocal( WorkspaceUtils.ResolveWorkspacePath( relativeLocation, localPath ), false );
+            LoadLocal( WorkspaceUtils.ResolveWorkspacePath( relativeLocation, localPath ), source?.Path, false );
             File?.Verified = VerifiedStatus.WORKSPACE;
             WriteFile( WriteLocation );
         }
@@ -371,15 +438,20 @@ namespace VfxEditor.FileManager {
                 if( ImGui.Button( FontAwesomeIcon.Search.ToIconString() ) ) Manager.ShowSource();
             }
 
-            if( DrawBar( inputSize, Source == null ? "SELECT A FILE TO USE" : SourceDisplay, ref SourceTextInput, Source, Manager.SourceSelect.Focused, out var result ) ) SetSource( result );
+            //if( DrawBar( inputSize, Source == null ? "SELECT A FILE TO USE" : SourceDisplay, ref SourceTextInput, Source, Manager.SourceSelect.Focused, out var result ) ) SetSource( result );
+
+            if( DrawBar( inputSize, Source == null ? "SELECT A FILE TO USE" : SourceDisplay, ref SourceTextInput, Source, GamePathStatus.Valid, null, Manager.SourceSelect.Focused, out var result ) ) {
+                if( SetSource( result ) ) Plugin.Configuration.AddRecent( Manager.Configuration.RecentItems, result );
+            }
 
             // Local files
             if( LocalSource ) {
                 using var font = ImRaii.PushFont( UiBuilder.IconFont );
                 ImGui.SameLine();
                 if( ImGui.Button( FontAwesomeIcon.Sync.ToIconString() ) ) {
-                    Manager.SetSource( Source );
-                    Dalamud.OkNotification( "Reloaded " + Source.Path );
+                    if( SetSource( Source ) ) Dalamud.OkNotification( "Reloaded " + Source.Path );
+                    //Manager.SetSource( Source );
+                    //Dalamud.OkNotification( "Reloaded " + Source.Path );
                 }
                 UiUtils.Tooltip( "Reload the source file from disk" );
                 ImGui.SameLine();
@@ -407,7 +479,13 @@ namespace VfxEditor.FileManager {
                 if( ImGui.Button( FontAwesomeIcon.Search.ToIconString() ) ) Manager.ShowReplace();
             }
 
-            if( DrawBar( inputSize, Replace == null ? "SELECT A FILE TO REPLACE" : ReplaceDisplay, ref ReplaceTextInput, Replace, Manager.ReplaceSelect.Focused, out var result ) ) SetReplace( result );
+            //if( DrawBar( inputSize, Replace == null ? "SELECT A FILE TO REPLACE" : ReplaceDisplay, ref ReplaceTextInput, Replace, Manager.ReplaceSelect.Focused, out var result ) ) SetReplace( result );
+
+            var status = GamePathUtils.GetReplaceStatus( Replace, Extension, out var statusMessage );
+            if( DrawBar( inputSize, Replace == null ? "SELECT A FILE TO REPLACE" : ReplaceDisplay, ref ReplaceTextInput, Replace, status, statusMessage, Manager.ReplaceSelect.Focused, out var result ) ) {
+                SetReplace( result );
+                Plugin.Configuration.AddRecent( Manager.Configuration.RecentItems, result );
+            }
 
             ImGui.SameLine();
             using( ImRaii.Disabled( Replace == null ) ) {
@@ -418,7 +496,8 @@ namespace VfxEditor.FileManager {
             }
         }
 
-        private bool DrawBar( float inputSize, string display, ref string inputText, SelectResult selectResult, bool highlight, out SelectResult result ) {
+        //private bool DrawBar( float inputSize, string display, ref string inputText, SelectResult selectResult, bool highlight, out SelectResult result ) {
+        private bool DrawBar( float inputSize, string display, ref string inputText, SelectResult selectResult, GamePathStatus status, string statusMessage, bool highlight, out SelectResult result ) {
             using var border = ImRaii.PushStyle( ImGuiStyleVar.FrameBorderSize, 2f, highlight );
             using var borderColor = ImRaii.PushColor( ImGuiCol.Border, UiUtils.DALAMUD_ORANGE, highlight );
 
@@ -427,7 +506,8 @@ namespace VfxEditor.FileManager {
 
             ImGui.SameLine();
             ImGui.SetNextItemWidth( inputSize );
-            using( var color = ImRaii.PushColor( ImGuiCol.TextDisabled, StyleModel.GetFromCurrent().BuiltInColors.DalamudGrey.Value, selectResult != null ) ) {
+            //using( var color = ImRaii.PushColor( ImGuiCol.TextDisabled, StyleModel.GetFromCurrent().BuiltInColors.DalamudGrey.Value, selectResult != null ) ) {
+            using( var color = ImRaii.PushColor( ImGuiCol.TextDisabled, GamePathUtils.GetStatusColor( status ), selectResult != null ) ) {
                 if( ImGui.InputTextWithHint( "", display, ref inputText, 255, ImGuiInputTextFlags.EnterReturnsTrue ) ) {
                     var cleanedPath = inputText.Trim().Replace( "\\", "/" );
                     result = new SelectResult( SelectResultType.GamePath, cleanedPath, $"[GAME] {cleanedPath}", cleanedPath );
@@ -435,6 +515,8 @@ namespace VfxEditor.FileManager {
                     Plugin.Configuration.AddRecent( Manager.Configuration.RecentItems, result );
                 }
             }
+
+            if( selectResult != null && !string.IsNullOrEmpty( statusMessage ) && string.IsNullOrEmpty( inputText ) ) UiUtils.Tooltip( statusMessage );
             DrawCopy( selectResult );
             return edited;
         }

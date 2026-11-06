@@ -30,8 +30,9 @@ namespace VfxEditor.FileManager {
         // ===================
 
         public override void SetSource( SelectResult result ) {
-            ActiveDocument?.SetSource( result );
-            Plugin.Configuration.AddRecent( Configuration.RecentItems, result );
+            if( ActiveDocument?.SetSource( result ) == true ) Plugin.Configuration.AddRecent( Configuration.RecentItems, result );
+            //ActiveDocument?.SetSource( result );
+            //Plugin.Configuration.AddRecent( Configuration.RecentItems, result );
         }
 
         public override void SetReplace( SelectResult result ) {

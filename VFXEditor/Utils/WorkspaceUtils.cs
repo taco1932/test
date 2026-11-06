@@ -45,7 +45,7 @@ namespace VfxEditor.Utils {
     }
 
     public static class WorkspaceUtils {
-        public static string ResolveWorkspacePath( string relativeLocation, string loadLocation ) => ( relativeLocation == "" ) ? "" : Path.Combine( loadLocation, relativeLocation );
+         public static string ResolveWorkspacePath( string relativeLocation, string loadLocation ) => ( relativeLocation == "" ) ? "" : Path.Combine( loadLocation, relativeLocation );
 
         public static T[] ReadFromMeta<T>( JObject meta, string key ) {
             if( !meta.ContainsKey( key ) ) return null;

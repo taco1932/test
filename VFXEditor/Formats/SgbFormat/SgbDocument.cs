@@ -12,7 +12,7 @@ namespace VfxEditor.Formats.SgbFormat {
 
         public SgbDocument( SgbManager manager, string writeLocation, string localPath, WorkspaceMetaBasic data ) : base( manager, writeLocation, localPath, data ) { }
 
-        protected override SgbFile FileFromReader( BinaryReader reader, bool verify ) => new( reader, verify );
+        protected override SgbFile FileFromReader( BinaryReader reader, string sourcePath, bool verify ) => new( reader, verify );
 
         protected override void DrawBody() {
             ImGui.SetCursorPosY( ImGui.GetCursorPosY() + 5 );

@@ -11,6 +11,6 @@ namespace VfxEditor.Formats.WtdFormat {
 
         public WtdDocument( WtdManager manager, string writeLocation, string localPath, WorkspaceMetaBasic data ) : base( manager, writeLocation, localPath, data ) { }
 
-        protected override WtdFile FileFromReader( BinaryReader reader, bool verify ) => new( reader );
+        protected override WtdFile FileFromReader( BinaryReader reader, string sourcePath, bool verify ) => new( reader );
     }
 }

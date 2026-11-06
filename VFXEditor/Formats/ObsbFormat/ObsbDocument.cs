@@ -11,6 +11,6 @@ namespace VfxEditor.Formats.ObsbFormat {
 
         public ObsbDocument( ObsbManager manager, string writeLocation, string localPath, WorkspaceMetaBasic data ) : base( manager, writeLocation, localPath, data ) { }
 
-        protected override ObsbFile FileFromReader( BinaryReader reader, bool verify ) => new( reader );
+        protected override ObsbFile FileFromReader( BinaryReader reader, string sourcePath, bool verify ) => new( reader );
     }
 }

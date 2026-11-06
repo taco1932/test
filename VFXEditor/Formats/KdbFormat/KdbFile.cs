@@ -15,7 +15,6 @@ using VfxEditor.Formats.KdbFormat.UnknownE;
 using VfxEditor.Formats.KdbFormat.UnknownF;
 using VfxEditor.Interop.Havok;
 using VfxEditor.Interop.Havok.Ui;
-using VfxEditor.Parsing;
 using VfxEditor.Parsing.Double;
 using VfxEditor.Parsing.Int;
 using VfxEditor.Ui.Components.SplitViews;

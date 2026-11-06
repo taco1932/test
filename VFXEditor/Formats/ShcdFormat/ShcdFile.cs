@@ -4,7 +4,6 @@ using System.IO;
 using VfxEditor.FileManager;
 using VfxEditor.Formats.ShpkFormat;
 using VfxEditor.Formats.ShpkFormat.Shaders;
-using VfxEditor.Parsing;
 using VfxEditor.Parsing.Enums;
 using VfxEditor.Utils;
 using static VfxEditor.Utils.ShaderUtils;
