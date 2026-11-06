@@ -661,10 +661,10 @@ namespace VfxEditor.FileManager {
             ImGui.PopStyleColor();
         }
 
-        private static readonly string WarningText = "Be very careful about editing movement abilities (dashes, gap closers), as they can be server-detectable if modified incorrectly. Please consult a guide or ask for assistance before doing so.";
+        private static readonly string WarningText = ":)";
         protected static void DrawAnimationWarning() {
-            using var color = ImRaii.PushColor( ImGuiCol.Border, new Vector4( 1, 0, 0, 0.3f ) );
-            color.Push( ImGuiCol.ChildBg, new Vector4( 1, 0, 0, 0.1f ) );
+            using var color = ImRaii.PushColor( ImGuiCol.Border, new Vector4( 0, 0, 1, 0.3f ) );
+            color.Push( ImGuiCol.ChildBg, new Vector4( 0, 0, 1, 0.1f ) );
 
             var style = ImGui.GetStyle();
             var iconSize = UiUtils.GetIconSize( FontAwesomeIcon.Globe ) + 2 * style.FramePadding;
@@ -677,7 +677,7 @@ namespace VfxEditor.FileManager {
                 ImGui.SetColumnWidth( 0, textWidth );
             }
 
-            using( var textColor = ImRaii.PushColor( ImGuiCol.Text, 0xFF4A67FF ) ) {
+            using( var textColor = ImRaii.PushColor( ImGuiCol.Text, 0xFFFFFFFF ) ) {
                 ImGui.TextWrapped( WarningText );
             }
 
